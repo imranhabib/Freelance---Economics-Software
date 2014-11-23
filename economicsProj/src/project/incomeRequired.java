@@ -15,11 +15,20 @@ package project;
 
 public class incomeRequired {
 
+    int x;
 
+   public incomeRequired(int input) {
+        x = input;
+    }
 
+    public int getInput(){
+        return x;
+    }
 
+    public int getMbar (int pBar, int n){
+        return ((n*pBar)*x);
 
-
+    }
 
 
 
