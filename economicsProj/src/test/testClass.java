@@ -14,9 +14,8 @@ public class testClass {
 
    public static void main (String[] args) throws Exception{
        params = new parameters();
-       List<Integer> prices = new ArrayList<Integer>();
-       prices = params.getSecurityPriceList();
-       System.out.println(prices);
+       int price = params.getMeanPriceAmount();
+       System.out.println(price);
 
 
 

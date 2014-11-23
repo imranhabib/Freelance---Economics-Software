@@ -9,22 +9,14 @@ import java.util.List;
  */
 public class allocation {
 
+    parameters params;
 
-    private static int security1 = 1;
+    public allocation() {
+        params = new parameters();
 
-    private static int security2 = 1;
-    private static int security3 = 1;
-    private static int security4 = 1;
-    private static int security5 = 1;
+    }
 
-    private static int securityPrice1 = 1;
-    private static int securityPrice2 = 2;
-    private static int securityPrice3 = 3;
-    private static int securityPrice4 = 4;
-    private static int securityPrice5 = 5;
-
-
-    public static int portfolioAllocation (int m, int choice) {
+    public static int getPortfolioAllocation (int m, int choice) {
         int allocation = m;
         int numberOfSecuritiesEach = choice;
         int totalAssets = 0;
@@ -34,18 +26,9 @@ public class allocation {
         }
         List<Integer> numberOfSecurities = new ArrayList<Integer>();
         List<Integer> assets = new ArrayList<Integer>();
-        numberOfSecurities.add(security1);
-        numberOfSecurities.add(security2);
-        numberOfSecurities.add(security3);
-        numberOfSecurities.add(security4);
-        numberOfSecurities.add(security5);
 
         List<Integer> prices = new ArrayList<Integer>();
-        prices.add(securityPrice1);
-        prices.add(securityPrice2);
-        prices.add(securityPrice3);
-        prices.add(securityPrice4);
-        prices.add(securityPrice5);
+
 
 
 
@@ -68,11 +51,7 @@ public class allocation {
         int allocation = m;
         int sum = 0;
         List<Integer> priceOfSecurities = new ArrayList<Integer>();
-        priceOfSecurities.add(securityPrice1);
-        priceOfSecurities.add(securityPrice2);
-        priceOfSecurities.add(securityPrice3);
-        priceOfSecurities.add(securityPrice4);
-        priceOfSecurities.add(securityPrice5);
+
 
         for(int i = 0; i < priceOfSecurities.size(); i++){
             sum = sum + (priceOfSecurities.get(i) * choice);
@@ -87,9 +66,5 @@ public class allocation {
     }
 
 
-    public static void main(String[] args) throws Exception{
-        System.out.println(portfolioAllocation(100, 1));
-
-    }
 
 }
