@@ -56,19 +56,20 @@ public class parameters {
         return shares;
 
     }
-    public List<Security> getSecurityList(){
-        ArrayList<Security> securities = new ArrayList<Security>();
+    public List<Share> getSecurityList(){
+        ArrayList<Share> shares = new ArrayList<Share>();
         String security = bundle.getString("securityList");
         String[] securityNumber = security.split(",");
         ArrayList<Integer> securityPrices = getSecurityPriceList();
         //get income share
         ArrayList<Integer> incomeShareList = getIncomeShareList();
-        for (int i=0; i < securityNumber.length; i++) {
+        for (int i=1; i <= securityNumber.length; i++) {
             int is = incomeShareList.get(i);
             int sp = securityPrices.get(i);
-            securities.add(new Security(sp, is, i));
+            Share share = new Share(sp, is, i);
+            shares.add(share);
         }
-        return securities;
+        return shares;
 
     }
 

@@ -3,13 +3,13 @@ package project;
 /**
  * Created by Imran on 2014-11-25.
  */
-public class Security {
+public class Share {
 
     public int price;
     public float incomeShare;
     public int securityNumber;
 
-     public Security(int price, float incomeShare, int securityNumber){
+     public Share(int price, float incomeShare, int securityNumber){
         this.price = price;
         this.incomeShare = incomeShare;
         this.securityNumber = securityNumber;
