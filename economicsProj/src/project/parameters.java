@@ -57,6 +57,7 @@ public class parameters {
 
     }
 
+    // p(bar)
     public int getMeanPriceAmount(){
         String price = bundle.getString("securityPriceList");
         String[] priceList = price.split(",");
@@ -74,16 +75,14 @@ public class parameters {
 
     }
 
+    // r that the user inputs
     public int getReservationRatio(){
         int r = Integer.parseInt(bundle.getString("reservationRatio"));
         return r;
-
-
     }
 
 
     //n(r) arg max pi/p1 <= r
-
     public int getArgMaxFormula(int r, int n, List<Integer> prices, List<Integer> securities){
         int argMax = 0;
         int p1 = 0;
