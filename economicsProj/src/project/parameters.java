@@ -96,7 +96,7 @@ public class parameters {
             ratio = pi/p1;
             if(ratio > r){
                 argMax = p1;
-                count = i; 
+                count = i;
                 break;
             }
             if(ratio == r){
