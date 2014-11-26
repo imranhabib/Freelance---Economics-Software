@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7cfa02d1-5f62-46e6-98f4-7d20c5bc6eca" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/project/Security.java" afterPath="$PROJECT_DIR$/src/project/Share.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project/parameters.java" afterPath="$PROJECT_DIR$/src/project/parameters.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="economicsProj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,7 +55,7 @@
       <file leaf-file-name="parameters.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/project/parameters.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.04137931" vertical-offset="900" max-vertical-offset="2160">
+            <state vertical-scroll-proportion="-0.5586207" vertical-offset="1275" max-vertical-offset="2160">
               <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -765,7 +764,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/project/parameters.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.04137931" vertical-offset="900" max-vertical-offset="2160">
+        <state vertical-scroll-proportion="-0.5586207" vertical-offset="1275" max-vertical-offset="2160">
           <caret line="58" column="21" selection-start-line="58" selection-start-column="21" selection-end-line="58" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
