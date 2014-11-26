@@ -73,6 +73,7 @@ public class parameters {
 
     }
 
+    // this calculates p(bar)
     public int getMeanPriceAmount(){
         String price = bundle.getString("securityPriceList");
         String[] priceList = price.split(",");
@@ -90,42 +91,31 @@ public class parameters {
 
     }
 
+    // this gets r
     public int getReservationRatio(){
         int r = Integer.parseInt(bundle.getString("reservationRatio"));
         return r;
-
-
     }
 
 
     //n(r) arg max pi/p1 <= r
-
-    public int getArgMaxFormula(int r, int n, List<Integer> prices, List<Integer> securities){
+    public int getArgMaxFormula(int r, List<Share> securities){
         int argMax = 0;
-        int p1 = 0;
+        int p1 = securities.get(0).getPrice();
         int pi = 0;
         int ratio = 0;
         int count = 0;
-        for(int i = 0; i < (prices.size())-1; i++){
-            p1 = prices.get(i);
-            pi = prices.get(i + 1);
+        for(int i = 0; i < securities.size()-1; i++){
+            pi = securities.get(i).getPrice();
             ratio = pi/p1;
-            if(ratio > r){
-                argMax = p1;
-                count = i;
+            if(ratio <= r){
+                argMax = securities.get(i).getSecurityNumber();
+            }
+            if(ratio>r) {
                 break;
             }
-            if(ratio == r){
-                argMax = pi;
-                count = i + 1;
-                break;
-            }
-
         }
-
-        return securities.get(count);
-
-
+        return argMax;
     }
 
 
