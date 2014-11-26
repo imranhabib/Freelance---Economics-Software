@@ -5,6 +5,7 @@ import project.parameters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 /**
@@ -22,9 +23,8 @@ public class testClass {
        income = new incomeRequired(2);
        int mbar = income.getMbar(price,amount);
        System.out.println(mbar);
-
-
-
+       int argMax = params.getArgMaxFormula(params.getReservationRatio(), params.getSecurityList());
+       System.out.println(argMax);
 
    }
 
