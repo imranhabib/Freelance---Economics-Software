@@ -2,7 +2,9 @@ package project;
 
 import sun.text.IntHashtable;
 
+import java.security.Security;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,26 +35,39 @@ public class parameters {
 
     }
 
-    public List<Integer> getSecurityPriceList(){
+    public ArrayList<Integer> getSecurityPriceList(){
         String price = bundle.getString("securityPriceList");
         String[] priceList = price.split(",");
-        List<Integer> prices = new ArrayList<Integer>();
+        ArrayList<Integer> prices = new ArrayList<Integer>();
         for(String str: priceList){
             prices.add(Integer.parseInt(str));
         }
-
         return prices;
-
     }
 
-    public List<Integer> getSecurityList(){
-        String security = bundle.getString("securityList");
-        String[] securityList = security.split(",");
-        List<Integer> securities = new ArrayList<Integer>();
-        for(String str: securityList){
-            securities.add(Integer.parseInt(str));
+    public ArrayList<Integer> getIncomeShareList(){
+        String price = bundle.getString("incomeShare");
+        String[] priceList = price.split(",");
+        ArrayList<Integer> shares = new ArrayList<Integer>();
+        for(String str: priceList){
+            shares.add(Integer.parseInt(str));
         }
 
+        return shares;
+
+    }
+    public List<Security> getSecurityList(){
+        ArrayList<Security> securities = new ArrayList<Security>();
+        String security = bundle.getString("securityList");
+        String[] securityNumber = security.split(",");
+        ArrayList<Integer> securityPrices = getSecurityPriceList();
+        //get income share
+        ArrayList<Integer> incomeShareList = getIncomeShareList();
+        for (int i=0; i < securityNumber.length; i++) {
+            int is = incomeShareList.get(i);
+            int sp = securityPrices.get(i);
+            securities.add(new Security(sp, is, i));
+        }
         return securities;
 
     }
