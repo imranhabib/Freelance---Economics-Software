@@ -30,6 +30,8 @@ public class testClass {
        float hi = params.getAR();
        System.out.println(hi);
        System.out.println(params.getPR());
+       allocation = new allocation(params, income);
+       System.out.println(allocation.allocationForShare(3));
    }
 
 
