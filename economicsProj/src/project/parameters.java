@@ -114,9 +114,25 @@ public class parameters {
         return argMax;
     }
 
+    //this calculates a(r)
+    public float getAR(){
+        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        float sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + getSecurityList().get(i-1).getIncomeShare();
+        }
+        return ((1/nR)* sum);
+    }
 
-
-
+    //this calculates p(r)
+    public float getPR(){
+        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        float sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + getSecurityList().get(i-1).getPrice();
+        }
+        return ((1/nR)* sum);
+    }
 
 
 
