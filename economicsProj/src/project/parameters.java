@@ -121,7 +121,7 @@ public class parameters {
         for(int i=1; i < nR+1; i++){
             sum = sum + getSecurityList().get(i-1).getIncomeShare();
         }
-        float mult = (1/nR);
+        float mult = (1.0f/nR);
         return mult * sum;
     }
 
@@ -132,7 +132,7 @@ public class parameters {
         for(int i=1; i < nR+1; i++){
             sum = sum + getSecurityList().get(i-1).getPrice();
         }
-        return ((1/nR)* sum);
+        return ((1.0f/nR)* sum);
     }
 
 
