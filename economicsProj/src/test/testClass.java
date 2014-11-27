@@ -2,6 +2,7 @@ package test;
 
 import project.incomeRequired;
 import project.parameters;
+import project.allocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class testClass {
 
     static parameters params;
     static incomeRequired income;
+    static allocation allocation;
 
    public static void main (String[] args) throws Exception{
        params = new parameters();
@@ -25,7 +27,9 @@ public class testClass {
        System.out.println(mbar);
        int argMax = params.getArgMaxFormula(params.getReservationRatio(), params.getSecurityList());
        System.out.println(argMax);
-
+       float hi = params.getAR();
+       System.out.println(hi);
+       System.out.println(params.getPR());
    }
 
 

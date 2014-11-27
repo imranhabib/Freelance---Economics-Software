@@ -121,7 +121,8 @@ public class parameters {
         for(int i=1; i < nR+1; i++){
             sum = sum + getSecurityList().get(i-1).getIncomeShare();
         }
-        return ((1/nR)* sum);
+        float mult = (1/nR);
+        return mult * sum;
     }
 
     //this calculates p(r)

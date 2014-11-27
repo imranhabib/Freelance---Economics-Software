@@ -12,8 +12,9 @@ public class allocation {
     static parameters params;
     static incomeRequired income;
 
-    public allocation() {
-
+    public allocation(parameters parameter, incomeRequired incomerequired) {
+        income = incomerequired;
+        params = parameter;
     }
 
     public float allocationForShare(int shareNumber) {
