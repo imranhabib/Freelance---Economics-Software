@@ -4,7 +4,6 @@
     <list default="true" id="7cfa02d1-5f62-46e6-98f4-7d20c5bc6eca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project/allocation.java" afterPath="$PROJECT_DIR$/src/project/allocation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project/parameters.java" afterPath="$PROJECT_DIR$/src/project/parameters.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/systemdata.properties" afterPath="$PROJECT_DIR$/src/resources/systemdata.properties" />
     </list>
     <ignored path="economicsProj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +31,8 @@
       <file leaf-file-name="allocation.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/project/allocation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7442748" vertical-offset="180" max-vertical-offset="1845">
-              <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.82824427" vertical-offset="436" max-vertical-offset="960">
+              <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -57,8 +56,8 @@
       <file leaf-file-name="parameters.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/project/parameters.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.884615" vertical-offset="1094" max-vertical-offset="1950">
-              <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+            <state vertical-scroll-proportion="-14.538462" vertical-offset="1587" max-vertical-offset="2190">
+              <caret line="131" column="62" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#541#542#0" expanded="true" />
@@ -76,7 +75,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/testClass.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+              <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,9 +106,9 @@
         <option value="$PROJECT_DIR$/src/main/parameters.java" />
         <option value="$PROJECT_DIR$/src/project/incomeRequired.java" />
         <option value="$PROJECT_DIR$/src/Security/security.java" />
-        <option value="$PROJECT_DIR$/src/test/testClass.java" />
-        <option value="$PROJECT_DIR$/src/project/parameters.java" />
         <option value="$PROJECT_DIR$/src/resources/systemdata.properties" />
+        <option value="$PROJECT_DIR$/src/project/parameters.java" />
+        <option value="$PROJECT_DIR$/src/test/testClass.java" />
         <option value="$PROJECT_DIR$/src/project/allocation.java" />
       </list>
     </option>
@@ -816,16 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/testClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/resources/systemdata.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
@@ -849,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/project/parameters.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.884615" vertical-offset="1094" max-vertical-offset="1950">
-          <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+        <state vertical-scroll-proportion="-14.538462" vertical-offset="1587" max-vertical-offset="2190">
+          <caret line="131" column="62" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#541#542#0" expanded="true" />
@@ -863,10 +852,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
+          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/project/allocation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7442748" vertical-offset="180" max-vertical-offset="1845">
-          <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.82824427" vertical-offset="436" max-vertical-offset="960">
+          <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="59" selection-end-column="1" />
           <folding />
         </state>
       </provider>
