@@ -25,7 +25,7 @@ public class parameters {
   }
 
     public int getAllocation (){
-        return Integer.parseInt(bundle.getString("incomeRequired"));
+        return Integer.parseInt(bundle.getString("incomeHave"));
     }
 
     public int getNumberOfSecurities(){
