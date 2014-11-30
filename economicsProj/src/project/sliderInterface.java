@@ -64,11 +64,13 @@ public class sliderInterface extends JFrame {
 
 
     public JSlider formatSlider(int price){
-
         JSlider slider = new JSlider(JSlider.VERTICAL);
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(10);
         slider.setMinorTickSpacing(5);
+       // slider.setValue();
+        slider.setPaintLabels(true);
+
 
 
         slider.add(new JLabel(Integer.toString(price)));
