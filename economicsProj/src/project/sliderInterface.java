@@ -36,6 +36,7 @@ public class sliderInterface extends JFrame {
       setTitle("Slider Interface");
       setSize(1000, 500);
 
+      int size = shares.size();
       panel2 = new JPanel();
 
 
@@ -50,24 +51,37 @@ public class sliderInterface extends JFrame {
       panel3 = new JPanel();
 
       panel3.setLayout(new GridLayout(1, shares.size()));
+
       textField = new JTextField();
       textField2 = new JTextField();
       textField3 = new JTextField();
       textField4 = new JTextField();
       textField5 = new JTextField();
 
-      panel3.add(textField);
-      panel3.add(textField2);
-      panel3.add(textField3);
 
-      panel3.add(textField4);
-      panel3.add(textField5);
+      if(size >= 1) {
+        panel3.add(textField);
+      }
+      if(size >= 2) {
+        panel3.add(textField2);
+      }
+      if(size >= 3) {
+        panel3.add(textField3);
+      }
+      if(size >= 4) {
+        panel3.add(textField4);
+      }
+      if(size >= 5) {
+        panel3.add(textField5);
+      }
 
 
       panel2.add(panel, BorderLayout.SOUTH);
       panel2.add(panel3, BorderLayout.CENTER);
       add(panel2, BorderLayout.CENTER);
       //add(panel3, BorderLayout.PAGE_START);
+
+
 
         changelistener = new ChangeListener()
         {
