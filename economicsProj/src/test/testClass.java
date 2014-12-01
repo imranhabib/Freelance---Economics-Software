@@ -17,11 +17,15 @@ public class testClass {
 
    public static void main (String[] args) throws Exception {
        params = new parameters();
-       System.out.println(params.getSecurityList());
        EventQueue.invokeLater(new Runnable() {
            public void run() {
                sliderInterface frame = new sliderInterface(params.getSecurityList());
+
+
+
+
                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
                frame.setVisible(true);
            }
 
