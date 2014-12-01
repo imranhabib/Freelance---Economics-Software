@@ -44,8 +44,8 @@ public class sliderInterface extends JFrame {
 
       panel = new JPanel();
       panel.setLayout(new GridLayout(1, shares.size()));
-      label = new JLabel("Securities");
-      panel.add(label);
+    // label = new JLabel("Securities");
+     // panel.add(label);
 
 
       panel3 = new JPanel();
@@ -57,6 +57,15 @@ public class sliderInterface extends JFrame {
       textField3 = new JTextField();
       textField4 = new JTextField();
       textField5 = new JTextField();
+
+      textField.setEditable(false);
+      textField2.setEditable(false);
+      textField3.setEditable(false);
+      textField4.setEditable(false);
+      textField5.setEditable(false);
+
+
+
 
 
       if(size >= 1) {
@@ -75,6 +84,7 @@ public class sliderInterface extends JFrame {
         panel3.add(textField5);
       }
 
+ //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
 
       panel2.add(panel, BorderLayout.SOUTH);
       panel2.add(panel3, BorderLayout.CENTER);
