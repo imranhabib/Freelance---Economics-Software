@@ -21,9 +21,6 @@ public class testClass {
            public void run() {
                sliderInterface frame = new sliderInterface(params.getSecurityList());
 
-
-
-
                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                frame.setVisible(true);
