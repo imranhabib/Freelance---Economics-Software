@@ -39,10 +39,14 @@ public class sliderInterface extends JFrame {
   private static JTextField textField4D;
   private static JTextField textField5E;
 
- private static ChangeListener changelistener;
+  private static ChangeListener changelistener;
 
   private final Color blue = Color.BLUE;
   private final Color red = Color.RED;
+
+
+  static int total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
+  static int allocation = 0;
 
 
     public sliderInterface(List<Share> shares) {
@@ -54,6 +58,9 @@ public class sliderInterface extends JFrame {
       panel2 = new JPanel();
 
 
+      allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
+
+
       panel2.setLayout(new BorderLayout(5, 10));
 
       panel = new JPanel();
@@ -62,11 +69,6 @@ public class sliderInterface extends JFrame {
       panel.setBorder(new TitledBorder("Securities"));
     // label = new JLabel("Securities");
      // panel.add(label);
-
-
-
-
-
 
 
       panel3 = new JPanel();
@@ -138,8 +140,6 @@ public class sliderInterface extends JFrame {
       }
 
 
-
-
       JSplitPane splitPane = new JSplitPane(
           JSplitPane.VERTICAL_SPLIT, panel, panel4
       );
@@ -170,28 +170,35 @@ public class sliderInterface extends JFrame {
             public void stateChanged(ChangeEvent event)
             {
                 JSlider source = (JSlider) event.getSource();
+
                if (!source.getValueIsAdjusting()) {
                  int value = source.getValue();
+
                  String name = source.getName();
                  if(name.equals("1")){
                    textField.setText("Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Security # " + source.getName() + " = " + value);
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(allocation, value)));
+
                  }
                  if(name.equals("2")){
                    textField2.setText("Security # " + source.getName() + " = " + value);
-                   textField2B.setText("Security # " + source.getName() + " = " + value);
+                   textField2B.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
+
                  }
                  if(name.equals("3")){
                    textField3.setText("Security # " + source.getName() + " = " + value);
-                   textField3C.setText("Security # " + source.getName() + " = " + value);
+                   textField3C.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
+
                  }
                  if (name.equals("4")){
                    textField4.setText("Security # " + source.getName() + " = " + value);
-                   textField4D.setText("Security # " + source.getName() + " = " + value);
+                   textField4D.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
+
                  }
                  if (name.equals("5")){
                    textField5.setText("Security # " + source.getName() + " = " + value);
-                   textField5E.setText("Security # " + source.getName() + " = " + value);
+                   textField5E.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
+
                  }
                }
 
@@ -222,20 +229,37 @@ public class sliderInterface extends JFrame {
     public JSlider formatSlider(int price, int number){
         JSlider slider = new JSlider(JSlider.VERTICAL);
         slider.setName(Integer.toString(number));
+        slider.setMinimum(0);
+        slider.setMaximum(10);
+        slider.setValue(0);
         slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(10);
-        slider.setMinorTickSpacing(5);
+        slider.setMajorTickSpacing(5);
+        slider.setMinorTickSpacing(1);
         slider.setPreferredSize(new Dimension(100, 400));
-       // slider.setValue();
+        slider.setBorder(new TitledBorder("Security " + Integer.toString(number)));
         slider.setPaintLabels(true);
 
 
 
-        slider.add(new JLabel(Integer.toString(price)));
+        //slider.add(new JLabel(Integer.toString(price)));
         return slider;
 
+    }
 
 
+    public int remainingIncome(int allocation,  int value){
+
+      setTotal(allocation - value);
+      return allocation - value;
+    }
+
+
+    public void setTotal (int remains){
+      total = remains;
+    }
+
+    public int getTotal(){
+      return total;
     }
 
 }
