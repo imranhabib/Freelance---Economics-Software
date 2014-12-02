@@ -6,6 +6,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +41,12 @@ public class sliderInterface extends JFrame {
   private static JTextField textField5E;
 
   private static ChangeListener changelistener;
+  private static ActionListener action;
 
   private final Color blue = Color.BLUE;
   private final Color red = Color.RED;
+
+  private static boolean check;
 
 
   static int total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
@@ -144,6 +149,11 @@ public class sliderInterface extends JFrame {
       button1.setBorder(new TitledBorder("Move on"));
 
 
+
+
+
+
+
  //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
 
    panel2.add(splitPane, BorderLayout.CENTER );
@@ -153,6 +163,7 @@ public class sliderInterface extends JFrame {
       add(panel2, BorderLayout.CENTER);
       //add(panel3, BorderLayout.PAGE_START);
 
+        check= false;
 
         changelistener = new ChangeListener()
         {
@@ -166,35 +177,56 @@ public class sliderInterface extends JFrame {
                  String name = source.getName();
                  if(name.equals("1")){
                    textField.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(allocation, value)));
-
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(allocation, value, Integer.parseInt(source.getName()))));
+                   check = true;                                                                         //using getName to store the price of the security
                  }
                  if(name.equals("2")){
                    textField2.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
-
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   check = true;
                  }
                  if(name.equals("3")){
                    textField3.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
-
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   check = true;
                  }
                  if (name.equals("4")){
                    textField4.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
-
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   check = true;
                  }
                  if (name.equals("5")){
                    textField5.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value)));
-
+                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   check = true;
                  }
                }
 
             }
         };
 
-            //create as many slider instances of the size of 'shares'
+
+
+
+
+      action = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          if(check){
+            confirmation(e);
+          } else {
+            error(e);
+          }
+
+        }
+      };
+
+
+      button1.addActionListener(action);
+
+
+
+      //create as many slider instances of the size of 'shares'
             //call the addSlider method with the correct param taken from the share object
             for(int i = 0; i < shares.size(); i++){
                 addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getIncomeShare(), shares.get(i).getPrice());
@@ -215,7 +247,7 @@ public class sliderInterface extends JFrame {
 
     public JSlider formatSlider(int price, int number){
         JSlider slider = new JSlider(JSlider.VERTICAL);
-        slider.setName(Integer.toString(number));
+        slider.setName(Integer.toString(price));
         slider.setMinimum(0);
         slider.setMaximum(10);
         slider.setValue(0);
@@ -231,10 +263,10 @@ public class sliderInterface extends JFrame {
 
     }
 
-    public int remainingIncome(int allocation,  int value){
+    public int remainingIncome(int allocation,  int value, int price){
 
-      setTotal(allocation - value);
-      return allocation - value;
+      setTotal(allocation - value*price);
+      return allocation - value*price;
     }
 
 
@@ -245,5 +277,18 @@ public class sliderInterface extends JFrame {
     public int getTotal(){
       return total;
     }
+
+
+    public void confirmation(ActionEvent action){
+      JOptionPane.showConfirmDialog(null,
+          "Confirm Allocations?", "There's no going back!", JOptionPane.YES_NO_OPTION);
+
+    }
+
+
+    public void error(ActionEvent e){
+      JOptionPane.showMessageDialog(null, "Please complete allocations", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
 
 }
