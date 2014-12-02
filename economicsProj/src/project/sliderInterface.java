@@ -22,6 +22,9 @@ public class sliderInterface extends JFrame {
     static JPanel panel2;
     static JLabel label;
     static JPanel panel3;
+    static JPanel panel4;
+
+    static JButton button1;
 
     private static JTextField textField;
     private static JTextField textField2;
@@ -29,6 +32,9 @@ public class sliderInterface extends JFrame {
     private static JTextField textField4;
     private static JTextField textField5;
     private static ChangeListener changelistener;
+
+  private final Color blue = Color.BLUE;
+  private final Color red = Color.RED;
 
 
     public sliderInterface(List<Share> shares) {
@@ -44,19 +50,35 @@ public class sliderInterface extends JFrame {
 
       panel = new JPanel();
       panel.setLayout(new GridLayout(1, shares.size()));
-      label = new JLabel("Securities");
-      panel.add(label);
+      panel.setPreferredSize(new Dimension(50, 200));
+    // label = new JLabel("Securities");
+     // panel.add(label);
 
 
       panel3 = new JPanel();
 
       panel3.setLayout(new GridLayout(1, shares.size()));
+      panel3.setPreferredSize(new Dimension(50, 100));
 
       textField = new JTextField();
       textField2 = new JTextField();
       textField3 = new JTextField();
       textField4 = new JTextField();
       textField5 = new JTextField();
+
+      textField.setEditable(false);
+      textField2.setEditable(false);
+      textField3.setEditable(false);
+      textField4.setEditable(false);
+      textField5.setEditable(false);
+
+      textField.setForeground(blue);
+      textField2.setForeground(red);
+      textField3.setForeground(blue);
+      textField4.setForeground(red);
+      textField5.setForeground(blue);
+
+
 
 
       if(size >= 1) {
@@ -76,8 +98,18 @@ public class sliderInterface extends JFrame {
       }
 
 
-      panel2.add(panel, BorderLayout.SOUTH);
-      panel2.add(panel3, BorderLayout.CENTER);
+      panel4 = new JPanel();
+      button1 = new JButton("Submit");
+      button1.setToolTipText("Click to submit allocations");
+
+      panel4.add(button1);
+
+
+ //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
+
+      panel2.add(panel, BorderLayout.CENTER);
+      panel2.add(panel3, BorderLayout.NORTH);
+      panel2.add(button1, BorderLayout.SOUTH);
       add(panel2, BorderLayout.CENTER);
       //add(panel3, BorderLayout.PAGE_START);
 
