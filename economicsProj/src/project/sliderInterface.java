@@ -60,7 +60,7 @@ public class sliderInterface extends JFrame {
 
   //file stuffz
 
-  String filename = "output.txt";
+  String filename = "output.csv";
   String directory = System.getProperty("user.home") + "/Desktop";
   File file;
   FileWriter filer;
@@ -264,8 +264,13 @@ public class sliderInterface extends JFrame {
             //put the output of all the sliders here, when the user presses enter it will read the updated slider values
             // call a writer function here and pass it the sliders (either as a list or as single sliders)
             writeToFile(filer, slide);
+
             //System.out.println("Slide name = " + slide.getName() + "slide name = " + slide.getValue());
           }
+          closeFile(filer);
+
+          //TODO: right now the code writes to the file, but after submit it pressed and before the confirmation is completed
+
           confirmation(e);
         } else {
           error(e);
@@ -398,7 +403,7 @@ public class sliderInterface extends JFrame {
 
   public void writeToFile(FileWriter filer, JSlider slide) {
     try {
-      filer.write("Slide name = " + slide.getName() + "slide name = " + slide.getValue());
+      filer.write("\n" + "Slide name = " + slide.getName()  +  " slide value = " + slide.getValue());
       System.out.println("here so this is also good, this should show up 5 times");
     } catch (IOException e) {
     System.out.println("failed hurr");
@@ -406,5 +411,15 @@ public class sliderInterface extends JFrame {
 
   }
 
+
+
+  public void closeFile(FileWriter filer){
+    try {
+      filer.flush();
+      filer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
 }

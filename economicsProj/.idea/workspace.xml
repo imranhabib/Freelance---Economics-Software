@@ -29,19 +29,18 @@
       <file leaf-file-name="sliderInterface.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/project/sliderInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7287234" vertical-offset="6150" max-vertical-offset="7072">
-              <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.79787236" vertical-offset="4126" max-vertical-offset="7327">
+              <caret line="278" column="7" selection-start-line="278" selection-start-column="7" selection-end-line="278" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4647#7286#0" expanded="true" />
                 <element signature="e#7279#7280#0" expanded="true" />
-                <element signature="e#7456#8241#0" expanded="true" />
-                <element signature="e#8234#8235#0" expanded="true" />
-                <element signature="e#9522#9539#0" expanded="true" />
-                <element signature="e#10278#10279#0" expanded="true" />
-                <element signature="e#10300#10301#0" expanded="true" />
-                <element signature="e#10748#10749#0" expanded="true" />
-                <element signature="e#10772#10773#0" expanded="true" />
+                <element signature="e#7456#8398#0" expanded="true" />
+                <element signature="e#9679#9696#0" expanded="true" />
+                <element signature="e#10435#10436#0" expanded="true" />
+                <element signature="e#10457#10458#0" expanded="true" />
+                <element signature="e#10905#10906#0" expanded="true" />
+                <element signature="e#10929#10930#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -507,13 +506,12 @@
             <element signature="imports" expanded="true" />
             <element signature="e#4647#7286#0" expanded="true" />
             <element signature="e#7279#7280#0" expanded="true" />
-            <element signature="e#7456#8241#0" expanded="true" />
-            <element signature="e#8234#8235#0" expanded="true" />
-            <element signature="e#9522#9539#0" expanded="true" />
-            <element signature="e#10278#10279#0" expanded="true" />
-            <element signature="e#10300#10301#0" expanded="true" />
-            <element signature="e#10748#10749#0" expanded="true" />
-            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#7456#8398#0" expanded="true" />
+            <element signature="e#9679#9696#0" expanded="true" />
+            <element signature="e#10435#10436#0" expanded="true" />
+            <element signature="e#10457#10458#0" expanded="true" />
+            <element signature="e#10905#10906#0" expanded="true" />
+            <element signature="e#10929#10930#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -851,19 +849,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/project/sliderInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7287234" vertical-offset="6150" max-vertical-offset="7072">
-          <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.79787236" vertical-offset="4126" max-vertical-offset="7327">
+          <caret line="278" column="7" selection-start-line="278" selection-start-column="7" selection-end-line="278" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4647#7286#0" expanded="true" />
             <element signature="e#7279#7280#0" expanded="true" />
-            <element signature="e#7456#8241#0" expanded="true" />
-            <element signature="e#8234#8235#0" expanded="true" />
-            <element signature="e#9522#9539#0" expanded="true" />
-            <element signature="e#10278#10279#0" expanded="true" />
-            <element signature="e#10300#10301#0" expanded="true" />
-            <element signature="e#10748#10749#0" expanded="true" />
-            <element signature="e#10772#10773#0" expanded="true" />
+            <element signature="e#7456#8398#0" expanded="true" />
+            <element signature="e#9679#9696#0" expanded="true" />
+            <element signature="e#10435#10436#0" expanded="true" />
+            <element signature="e#10457#10458#0" expanded="true" />
+            <element signature="e#10905#10906#0" expanded="true" />
+            <element signature="e#10929#10930#0" expanded="true" />
           </folding>
         </state>
       </provider>
