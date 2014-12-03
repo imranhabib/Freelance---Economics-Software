@@ -249,14 +249,21 @@ public class sliderInterface extends JFrame {
         JSlider slider = new JSlider(JSlider.VERTICAL);
         slider.setName(Integer.toString(price));
         slider.setMinimum(0);
-        slider.setMaximum(10);
+        slider.setMaximum(100);
         slider.setValue(0);
         slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(5);
-        slider.setMinorTickSpacing(1);
+        slider.setMajorTickSpacing(25);
+        slider.setMinorTickSpacing(5);
         slider.setPreferredSize(new Dimension(100, 400));
         slider.setBorder(new TitledBorder("Security " + Integer.toString(number)));
         slider.setPaintLabels(true);
+        java.util.Hashtable<Integer,JLabel> labelTable = new java.util.Hashtable<Integer,JLabel>();
+        labelTable.put(new Integer(100), new JLabel("1.0"));
+        labelTable.put(new Integer(75), new JLabel("0.75"));
+        labelTable.put(new Integer(50), new JLabel("0.50"));
+        labelTable.put(new Integer(25), new JLabel("0.25"));
+        labelTable.put(new Integer(0), new JLabel("0.0"));
+        slider.setLabelTable( labelTable );
 
         //slider.add(new JLabel(Integer.toString(price)));
         return slider;
