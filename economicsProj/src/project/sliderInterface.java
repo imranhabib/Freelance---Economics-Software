@@ -34,11 +34,11 @@ public class sliderInterface extends JFrame {
   private static JTextField textField4;
   private static JTextField textField5;
 
-  private static JTextField textFieldA;
-  private static JTextField textField2B;
-  private static JTextField textField3C;
-  private static JTextField textField4D;
-  private static JTextField textField5E;
+  private static JTextArea textFieldA;
+  private static JTextArea textField2B;
+  private static JTextArea textField3C;
+  private static JTextArea textField4D;
+  private static JTextArea textField5E;
 
   private static ChangeListener changelistener;
   private static ActionListener action;
@@ -76,7 +76,7 @@ public class sliderInterface extends JFrame {
 
       panel3.setLayout(new GridLayout(0, shares.size()));
       //panel3.setPreferredSize(new Dimension(50, 100));
-      panel3.setBorder(new TitledBorder("Allocation"));
+      panel3.setBorder(new TitledBorder("Income Share"));
 
       textField = new JTextField();
       textField2 = new JTextField();
@@ -98,11 +98,11 @@ public class sliderInterface extends JFrame {
       textField5.setForeground(blue);
       */
 
-      textFieldA = new JTextField();
-      textField2B = new JTextField();
-      textField3C = new JTextField();
-      textField4D = new JTextField();
-      textField5E = new JTextField();
+      textFieldA = new JTextArea();
+      textField2B = new JTextArea();
+      textField3C = new JTextArea();
+      textField4D = new JTextArea();
+      textField5E = new JTextArea();
 
 
       textFieldA.setEditable(false);
@@ -139,13 +139,19 @@ public class sliderInterface extends JFrame {
       }
 
 
+
+
+
+
+
+
       JSplitPane splitPane = new JSplitPane(
           JSplitPane.VERTICAL_SPLIT, panel, panel4
       );
 
 
       button1 = new JButton("Submit");
-      button1.setToolTipText("Click to submit allocations");
+      button1.setToolTipText("Click to submit input selection");
       button1.setBorder(new TitledBorder("Move on"));
 
 
@@ -176,28 +182,28 @@ public class sliderInterface extends JFrame {
 
                  String name = source.getName();
                  if(name.equals("1")){
-                   textField.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(allocation, value, Integer.parseInt(source.getName()))));
+                   textField.setText("Security #" + source.getName() + " = " + value + "%");
+                   textFieldA.setText("Remaining income share" + "\n" + "must be below " + value);
                    check = true;                                                                         //using getName to store the price of the security
                  }
                  if(name.equals("2")){
-                   textField2.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   textField2.setText("Security #" + source.getName() + " = " + value +"%");
+                     textField2B.setText("Remaining income share" + "\n" + "must be below " + value);
                    check = true;
                  }
                  if(name.equals("3")){
-                   textField3.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   textField3.setText("Security #" + source.getName() + " = " + value+"%");
+                     textField3C.setText("Remaining income share" + "\n" + "must be below " + value);
                    check = true;
                  }
                  if (name.equals("4")){
-                   textField4.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   textField4.setText("Security #" + source.getName() + " = " + value+"%");
+                     textField4D.setText("Remaining income share" + "\n" + "must be below " + value);
                    check = true;
                  }
                  if (name.equals("5")){
-                   textField5.setText("Units of Security # " + source.getName() + " = " + value);
-                   textFieldA.setText("Remaining income " + " = " + (remainingIncome(getTotal(), value, Integer.parseInt(source.getName()))));
+                   textField5.setText("Security #" + source.getName() + " = " + value+ "%");
+                     textField5E.setText("Remaining income share" + "\n" + "must be below " + value);
                    check = true;
                  }
                }
@@ -272,13 +278,16 @@ public class sliderInterface extends JFrame {
 
     public int remainingIncome(int allocation,  int value, int price){
 
-      setTotal(allocation - value*price);
+        float v = (float) value / 100;
+      setTotal(allocation - v*price);
       return allocation - value*price;
     }
 
 
-    public void setTotal (int remains){
-      total = remains;
+    public void setTotal (float remains){
+        float temp = Math.round(remains);
+        int r = (int) temp;
+      total = r;
     }
 
     public int getTotal(){
