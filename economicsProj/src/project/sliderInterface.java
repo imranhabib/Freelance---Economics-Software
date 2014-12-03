@@ -28,6 +28,8 @@ public class sliderInterface extends JFrame {
   static JPanel panel4;
   static JButton button1;
 
+  private static List<JSlider> sliders;
+
   private static JTextField textField;
   private static JTextField textField2;
   private static JTextField textField3;
@@ -140,11 +142,6 @@ public class sliderInterface extends JFrame {
 
 
 
-
-
-
-
-
       JSplitPane splitPane = new JSplitPane(
           JSplitPane.VERTICAL_SPLIT, panel, panel4
       );
@@ -157,7 +154,7 @@ public class sliderInterface extends JFrame {
 
 
 
-
+        sliders = new ArrayList<JSlider>();
 
 
  //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
@@ -184,26 +181,56 @@ public class sliderInterface extends JFrame {
                  if(name.equals("1")){
                    textField.setText("Security #" + source.getName() + " = " + value + "%");
                    textFieldA.setText("Remaining income share" + "\n" + "must be below " + value);
+                   if (getSliders().contains(source)){
+                     getSliders().remove(source);
+                     setSliders(source);
+                   } else {
+                     setSliders(source);
+                   }
                    check = true;                                                                         //using getName to store the price of the security
                  }
                  if(name.equals("2")){
                    textField2.setText("Security #" + source.getName() + " = " + value +"%");
                      textField2B.setText("Remaining income share" + "\n" + "must be below " + value);
+                   if (getSliders().contains(source)){
+                     getSliders().remove(source);
+                     setSliders(source);
+                   } else {
+                     setSliders(source);
+                   }
                    check = true;
                  }
                  if(name.equals("3")){
                    textField3.setText("Security #" + source.getName() + " = " + value+"%");
                      textField3C.setText("Remaining income share" + "\n" + "must be below " + value);
+                   if (getSliders().contains(source)){
+                     getSliders().remove(source);
+                     setSliders(source);
+                   } else {
+                     setSliders(source);
+                   }
                    check = true;
                  }
                  if (name.equals("4")){
                    textField4.setText("Security #" + source.getName() + " = " + value+"%");
                      textField4D.setText("Remaining income share" + "\n" + "must be below " + value);
+                   if (getSliders().contains(source)){
+                     getSliders().remove(source);
+                     setSliders(source);
+                   } else {
+                     setSliders(source);
+                   }
                    check = true;
                  }
                  if (name.equals("5")){
                    textField5.setText("Security #" + source.getName() + " = " + value+ "%");
                      textField5E.setText("Remaining income share" + "\n" + "must be below " + value);
+                   if (getSliders().contains(source)){
+                     getSliders().remove(source);
+                     setSliders(source);
+                   } else {
+                     setSliders(source);
+                   }
                    check = true;
                  }
                }
@@ -212,13 +239,16 @@ public class sliderInterface extends JFrame {
         };
 
 
-
-
-
       action = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
           if(check){
+            for(JSlider slide: sliders) {
+              //put the output of all the sliders here, when the user presses enter it will read the updated slider values
+              // call a writer function here and pass it the sliders (either as a list or as single sliders)
+
+              System.out.println("Slide name = " + slide.getName() + "slide name = " + slide.getValue());
+            }
             confirmation(e);
           } else {
             error(e);
@@ -249,6 +279,7 @@ public class sliderInterface extends JFrame {
         pan.add(new JLabel("Price of security = " + price));
         panel.add(pan);
 
+
     }
 
     public JSlider formatSlider(int price, int number){
@@ -277,7 +308,6 @@ public class sliderInterface extends JFrame {
     }
 
     public int remainingIncome(int allocation,  int value, int price){
-
         float v = (float) value / 100;
       setTotal(allocation - v*price);
       return allocation - value*price;
@@ -298,6 +328,7 @@ public class sliderInterface extends JFrame {
     public void confirmation(ActionEvent action){
       JOptionPane.showConfirmDialog(null,
           "Confirm Allocations?", "There's no going back!", JOptionPane.YES_NO_OPTION);
+     // System.out.println("slider name = " + slider.getName() + "slider value = " + slider.getValue());
 
     }
 
@@ -305,6 +336,23 @@ public class sliderInterface extends JFrame {
     public void error(ActionEvent e){
       JOptionPane.showMessageDialog(null, "Please complete allocations", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+
+   public void setSliders (JSlider slider){
+     sliders.add(slider);
+
+   }
+
+  public List<JSlider> getSliders(){
+    return sliders;
+  }
+
+
+  //make a file, make a directory to place the file
+  //write the output to the file passed to it by the slider info
+  
+
+
 
 
 }
