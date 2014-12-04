@@ -25,14 +25,11 @@ public class parameters {
   }
 
     public int getAllocation (){
-        return Integer.parseInt(bundle.getString("incomeRequired"));
-
+        return Integer.parseInt(bundle.getString("incomeHave"));
     }
 
     public int getNumberOfSecurities(){
         return Integer.parseInt(bundle.getString("securityAmount"));
-
-
     }
 
     public ArrayList<Integer> getSecurityPriceList(){
@@ -45,16 +42,14 @@ public class parameters {
         return prices;
     }
 
-    public ArrayList<Integer> getIncomeShareList(){
+    public ArrayList<Float> getIncomeShareList(){
         String price = bundle.getString("incomeShare");
         String[] priceList = price.split(",");
-        ArrayList<Integer> shares = new ArrayList<Integer>();
+        ArrayList<Float> shares = new ArrayList<Float>();
         for(String str: priceList){
-            shares.add(Integer.parseInt(str));
+            shares.add(Float.parseFloat(str));
         }
-
         return shares;
-
     }
     public List<Share> getSecurityList(){
         ArrayList<Share> shares = new ArrayList<Share>();
@@ -62,10 +57,10 @@ public class parameters {
         String[] securityNumber = security.split(",");
         ArrayList<Integer> securityPrices = getSecurityPriceList();
         //get income share
-        ArrayList<Integer> incomeShareList = getIncomeShareList();
-        for (int i=1; i <= securityNumber.length; i++) {
-            int is = incomeShareList.get(i);
-            int sp = securityPrices.get(i);
+        ArrayList<Float> incomeShareList = getIncomeShareList();
+        for (int i=1; i < securityNumber.length+1; i++) {
+            float is = incomeShareList.get(i-1);
+            int sp = securityPrices.get(i-1);
             Share share = new Share(sp, is, i);
             shares.add(share);
         }
@@ -92,14 +87,15 @@ public class parameters {
     }
 
     // this gets r
-    public int getReservationRatio(){
-        int r = Integer.parseInt(bundle.getString("reservationRatio"));
-        return r;
+    public float getReservationRatio(){
+        String r = bundle.getString("reservationRatio");
+        float ratio = Float.parseFloat(r);
+        return ratio;
     }
 
 
     //n(r) arg max pi/p1 <= r
-    public int getArgMaxFormula(int r, List<Share> securities){
+    public int getArgMaxFormula(float r, List<Share> securities){
         int argMax = 0;
         int p1 = securities.get(0).getPrice();
         int pi = 0;
@@ -118,9 +114,26 @@ public class parameters {
         return argMax;
     }
 
+    //this calculates a(r)
+    public float getAR(){
+        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        float sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + getSecurityList().get(i-1).getIncomeShare();
+        }
+        float mult = (1.0f/nR);
+        return mult * sum;
+    }
 
-
-
+    //this calculates p(r)
+    public float getPR(){
+        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        float sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + getSecurityList().get(i-1).getPrice();
+        }
+        return ((1.0f/nR)* sum);
+    }
 
 
 

@@ -9,62 +9,53 @@ import java.util.List;
  */
 public class allocation {
 
-    parameters params;
+    static parameters params;
+    static incomeRequired income;
 
-    public allocation() {
-        params = new parameters();
-
+    public allocation(parameters parameter, incomeRequired incomerequired) {
+        income = incomerequired;
+        params = parameter;
     }
 
-    public static int getPortfolioAllocation (int m, int choice) {
-        int allocation = m;
-        int numberOfSecuritiesEach = choice;
-        int totalAssets = 0;
-        if (!canYouAfford (allocation, numberOfSecuritiesEach)){
-            System.out.println("you cant afford this shit");
-            return -1;
+    public float allocationForShare(int shareNumber) {
+        int m = params.getAllocation();
+        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        if (m < mXBar) {
+            return allocationMethodOne();
         }
-        List<Integer> numberOfSecurities = new ArrayList<Integer>();
-        List<Integer> assets = new ArrayList<Integer>();
-
-        List<Integer> prices = new ArrayList<Integer>();
-
-
-
-
-        for (int i = 0; i < numberOfSecurities.size(); i++) {
-            assets.add(numberOfSecurities.get(i) * choice);
-            allocation = allocation - (numberOfSecurities.get(i) * prices.get(i));
-            System.out.println("this is the allocation = " + allocation);
-            System.out.println("this is the current price = " + i);
-            totalAssets = totalAssets + numberOfSecurities.get(i);
-            System.out.println("this is the assets = " + totalAssets);
-
-        }
-
-        return allocation;
-
+        int nR = params.getArgMaxFormula(params.getReservationRatio(), params.getSecurityList());
+        if (shareNumber <= nR) {
+            return allocationMethodTwo();
+        } else
+            return allocationMethodThree(shareNumber);
     }
 
-
-    public static boolean canYouAfford(int m, int choice){
-        int allocation = m;
-        int sum = 0;
-        List<Integer> priceOfSecurities = new ArrayList<Integer>();
-
-
-        for(int i = 0; i < priceOfSecurities.size(); i++){
-            sum = sum + (priceOfSecurities.get(i) * choice);
-
-        }
-        if(sum > allocation){
-            return false;
-        }
-
-        return true;
-
+    public int allocationMethodOne() {
+        int m = params.getAllocation();
+        int p = params.getMeanPriceAmount();
+        int n = params.getSecurityList().size();
+        return m / (n * p);
     }
 
+    public float allocationMethodTwo() {
+        int xBar = income.x;
+        int m = params.getAllocation();
+        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        float aR = params.getAR();
+        float pR = params.getPR();
+
+        return xBar + ((aR * (m - mXBar)) / pR);
+    }
+
+    public float allocationMethodThree(int shareNumber) {
+        int xBar = income.x;
+        int m = params.getAllocation();
+        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        float aI = params.getSecurityList().get(shareNumber - 1).getIncomeShare();
+        int pI = params.getSecurityList().get(shareNumber - 1).getPrice();
+
+        return xBar + ((aI * (m - mXBar)) / pI);
+    }
 
 
 }
