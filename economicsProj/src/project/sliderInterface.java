@@ -101,8 +101,9 @@ public class sliderInterface extends JFrame {
 
 
         SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 1);
+        SpinnerNumberModel spinnerNumberModel2 = new SpinnerNumberModel(0, 0, 100, 1);
         jSpinner = new JSpinner(spinnerNumberModel);
-        jSpinner2 = new JSpinner(spinnerNumberModel);
+        jSpinner2 = new JSpinner(spinnerNumberModel2);
 
         panel5 = new JPanel();
         panel5.setLayout(new GridLayout(0, shares.size()));
