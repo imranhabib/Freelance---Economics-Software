@@ -32,7 +32,10 @@ public class sliderInterface extends JFrame {
   static JPanel panel5;
   static JPanel panel6;
   static JPanel panel7;
+  static JPanel panel8;
   static JButton button1;
+  static JTextField remainingAlloc;
+  static JButton button3;
 
   private static List<JSlider> sliders;
 
@@ -48,6 +51,7 @@ public class sliderInterface extends JFrame {
 
   private static ChangeListener changelistener;
   private static ChangeListener changelistener2;
+  private static ChangeListener changelistener3;
   private static ActionListener action;
 
   private final Color blue = Color.BLUE;
@@ -78,8 +82,10 @@ public class sliderInterface extends JFrame {
   incomeRequired income;
 
   static Integer value;
+  static Integer value2;
   static int pBar;
   static int mBar;
+  static int r;
 
   private static final int n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount"));
 
@@ -158,16 +164,28 @@ public class sliderInterface extends JFrame {
         income = new incomeRequired(value);
         alloc = new allocation(param, income);
         pBar = param.getMeanPriceAmount();
-        mBar = getMBar(pBar, n, income);
-        System.out.println("this is mbar = " + mBar);
+        setMBar(pBar, n, income);
+        remainingAlloc.setText("Money left = " + (allocation - getMBar()));
+        System.out.println("this is mbar = " + getMBar());
         System.out.println("this is the value of the Jspinner " + value);
       }
       };
 
-    jSpinner.addChangeListener(changelistener2);
+
     jSpinner2.addChangeListener(changelistener2);
 
 
+    changelistener3 = new ChangeListener() {
+      public void stateChanged(ChangeEvent event) {
+        JSpinner source = (JSpinner) event.getSource();
+        value2 = (Integer) source.getValue();
+        r = value2;
+        setR(r);
+        System.out.println("reservation ratio = " + getR());
+      }
+    };
+
+     jSpinner.addChangeListener(changelistener3);
 
 
 
@@ -181,11 +199,41 @@ public class sliderInterface extends JFrame {
     panel6.setBorder(new TitledBorder("Minimum Share"));
     panel6.add(jSpinner2);
 
+
+
+    remainingAlloc = new JTextField();
+    remainingAlloc.setEditable(false);
+
+    button3 = new JButton("Save Ratio");
+
+
+
+
+    panel7 = new JPanel();
+    panel7.setLayout(new GridLayout(0, shares.size()));
+    panel7.setBorder(new TitledBorder("Remaining dough"));
+    panel7.add(remainingAlloc);
+
+
+
+
+
+    panel8 = new JPanel();
+    panel8.setLayout(new GridLayout(0, shares.size()));
+    panel8.setBorder(new TitledBorder("test"));
+    panel8.add(button3);
+
+
+
+
+
     panel4 = new JPanel();
     panel4.setLayout(new GridLayout(0, 2));
     panel4.setBorder(new TitledBorder("Inputs"));
     panel4.add(panel5);
     panel4.add(panel6);
+    panel4.add(panel7);
+    panel4.add(panel8);
 
 
     if (size >= 1) {
@@ -486,11 +534,23 @@ public class sliderInterface extends JFrame {
 //TODO: plan. Using the allocation class methods, and the inputs from the JSpinners (xbar, reservation ratio, and income shares). Make the security levels move on their own (by calling their setValue() methods)
 //TODO: have; the input for xBar
 
-  public int getMBar (int pbar, int n, incomeRequired income){
+  public void setMBar (int pbar, int n, incomeRequired income){
     //this is not a recursive call, getMbar is another meth in the incomeRequired class
-    int mBar = income.getMbar(pbar, n);
-    return mBar;
+   mBar = income.getMbar(pbar, n);
 
+  }
+
+  public int getMBar (){
+    return mBar;
+  }
+
+
+  public void setR(Integer value2){
+     r = value2;
+  }
+
+  public int getR(){
+     return r;
   }
 
 
