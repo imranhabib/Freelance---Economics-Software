@@ -26,6 +26,8 @@ public class sliderInterface extends JFrame {
   static JLabel label;
   static JPanel panel3;
   static JPanel panel4;
+    static JPanel panel5;
+    static JPanel panel6;
   static JButton button1;
 
   private static JTextField textField;
@@ -34,11 +36,8 @@ public class sliderInterface extends JFrame {
   private static JTextField textField4;
   private static JTextField textField5;
 
-  private static JTextArea textFieldA;
-  private static JTextArea textField2B;
-  private static JTextArea textField3C;
-  private static JTextArea textField4D;
-  private static JTextArea textField5E;
+    private static JSpinner jSpinner;
+    private static JSpinner jSpinner2;
 
   private static ChangeListener changelistener;
   private static ActionListener action;
@@ -51,6 +50,8 @@ public class sliderInterface extends JFrame {
 
   static int total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
   static int allocation = 0;
+
+
 
 
     public sliderInterface(List<Share> shares) {
@@ -98,47 +99,45 @@ public class sliderInterface extends JFrame {
       textField5.setForeground(blue);
       */
 
-      textFieldA = new JTextArea();
-      textField2B = new JTextArea();
-      textField3C = new JTextArea();
-      textField4D = new JTextArea();
-      textField5E = new JTextArea();
 
+        SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 1);
+        jSpinner = new JSpinner(spinnerNumberModel);
+        jSpinner2 = new JSpinner(spinnerNumberModel);
 
-      textFieldA.setEditable(false);
-      textField2B.setEditable(false);
-      textField3C.setEditable(false);
-      textField4D.setEditable(false);
-      textField5E.setEditable(false);
+        panel5 = new JPanel();
+        panel5.setLayout(new GridLayout(0, shares.size()));
+        panel5.setBorder(new TitledBorder("R Ratio"));
+        panel5.add(jSpinner);
 
-      panel4 = new JPanel();
-      panel4.setLayout(new GridLayout(0, shares.size()));
-      panel4.setBorder(new TitledBorder("Data"));
+        panel6 = new JPanel();
+        panel6.setLayout(new GridLayout(0, shares.size()));
+        panel6.setBorder(new TitledBorder("Minimum Share"));
+        panel6.add(jSpinner2);
+
+        panel4 = new JPanel();
+        panel4.setLayout(new GridLayout(0, 2));
+        panel4.setBorder(new TitledBorder("Inputs"));
+        panel4.add(panel5);
+        panel4.add(panel6);
+
 
       if(size >= 1) {
         panel3.add(textField);
-        panel4.add(textFieldA);
 
       }
       if(size >= 2) {
         panel3.add(textField2);
-        panel4.add(textField2B);
       }
       if(size >= 3) {
         panel3.add(textField3);
-        panel4.add(textField3C);
       }
       if(size >= 4) {
         panel3.add(textField4);
-        panel4.add(textField4D);
 
       }
       if(size >= 5) {
         panel3.add(textField5);
-        panel4.add(textField5E);
       }
-
-
 
 
 
@@ -183,27 +182,27 @@ public class sliderInterface extends JFrame {
                  String name = source.getName();
                  if(name.equals("1")){
                    textField.setText("Security #" + source.getName() + " = " + value + "%");
-                   textFieldA.setText("Remaining income share" + "\n" + "must be below " + value);
+
                    check = true;                                                                         //using getName to store the price of the security
                  }
                  if(name.equals("2")){
                    textField2.setText("Security #" + source.getName() + " = " + value +"%");
-                     textField2B.setText("Remaining income share" + "\n" + "must be below " + value);
+
                    check = true;
                  }
                  if(name.equals("3")){
                    textField3.setText("Security #" + source.getName() + " = " + value+"%");
-                     textField3C.setText("Remaining income share" + "\n" + "must be below " + value);
+
                    check = true;
                  }
                  if (name.equals("4")){
                    textField4.setText("Security #" + source.getName() + " = " + value+"%");
-                     textField4D.setText("Remaining income share" + "\n" + "must be below " + value);
+
                    check = true;
                  }
                  if (name.equals("5")){
                    textField5.setText("Security #" + source.getName() + " = " + value+ "%");
-                     textField5E.setText("Remaining income share" + "\n" + "must be below " + value);
+
                    check = true;
                  }
                }
