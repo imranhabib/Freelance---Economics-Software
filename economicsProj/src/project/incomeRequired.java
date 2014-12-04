@@ -21,6 +21,10 @@ public class incomeRequired {
         x = input;
     }
 
+  public incomeRequired(Integer input) {
+    x = input;
+  }
+
     public int getInput(){
         return x;
     }
