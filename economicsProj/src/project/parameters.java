@@ -87,15 +87,15 @@ public class parameters {
     }
 
     // this gets r
-    public float getReservationRatio(){
+    public Double getReservationRatio(){
         String r = bundle.getString("reservationRatio");
-        float ratio = Float.parseFloat(r);
+        Double ratio = Double.parseDouble(r);
         return ratio;
     }
 
 
     //n(r) arg max pi/p1 <= r
-    public int getArgMaxFormula(float r, List<Share> securities){
+    public int getArgMaxFormula(Double r, List<Share> securities){
         int argMax = 0;
         int p1 = securities.get(0).getPrice();
         int pi = 0;
