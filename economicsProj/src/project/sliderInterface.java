@@ -45,6 +45,8 @@ public class sliderInterface extends JFrame {
     private static JTextField textField4;
     private static JTextField textField5;
 
+    private static JTextField textField6;
+
     private static JSpinner jSpinner;
     private static JSpinner jSpinner2;
 
@@ -131,12 +133,14 @@ public class sliderInterface extends JFrame {
         textField3 = new JTextField();
         textField4 = new JTextField();
         textField5 = new JTextField();
+        textField6 = new JTextField();
 
         textField.setEditable(false);
         textField2.setEditable(false);
         textField3.setEditable(false);
         textField4.setEditable(false);
         textField5.setEditable(false);
+        textField6.setEditable(false);
 
       /*
       textField.setForeground(blue);
@@ -206,16 +210,28 @@ public class sliderInterface extends JFrame {
         remainingAlloc = new JTextField();
         remainingAlloc.setEditable(false);
 
-        button3 = new JButton("Save Ratio");
+        button3 = new JButton("Press to Check");
 
 
         changelistener4 = new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent event) {
+                for(int i = 0; i < sliders.size() -1 ; i++) {
+                    List<JSlider> sliders = getSliders();
+                    System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
+                    if (sliders.get(i).getValue() < sliders.get(i + 1).getValue()) {
+                      //  System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
+                        textField6.setText("Security " + sliders.get(i + 1).getName() + " must be less than Security " + Integer.toString((Integer.parseInt(sliders.get(i + 1).getName())) - 1) );
+                        break;
+                    }
+                    textField6.setText("Everything looks good, you can continue!");
+                }
+          //      textField6.setText("Everything looks good, you can continue!");
+                /*
                 setNofR(getR(), shares, param);
                 float value = getNofR();
                 System.out.println("this is dat valu = " + value);
-
+                */
             }
         };
 
@@ -232,9 +248,10 @@ public class sliderInterface extends JFrame {
 
 
         panel8 = new JPanel();
-        panel8.setLayout(new GridLayout(0, shares.size()));
-        panel8.setBorder(new TitledBorder("test"));
+        panel8.setLayout(new GridLayout(0, 2));
+        panel8.setBorder(new TitledBorder("Check Allocations"));
         panel8.add(button3);
+        panel8.add(textField6);
 
 
 
@@ -243,10 +260,10 @@ public class sliderInterface extends JFrame {
         panel4 = new JPanel();
         panel4.setLayout(new GridLayout(0, 2));
         panel4.setBorder(new TitledBorder("Inputs"));
-        panel4.add(panel5);
+        panel4.add(panel8);
         panel4.add(panel6);
         panel4.add(panel7);
-        panel4.add(panel8);
+        panel4.add(panel5);
 
 
         if (size >= 1) {
