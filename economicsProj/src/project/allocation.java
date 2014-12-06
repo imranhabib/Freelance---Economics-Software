@@ -17,41 +17,41 @@ public class allocation {
         params = parameter;
     }
 
-    public float allocationForShare(int shareNumber) {
+    public Double allocationForShare(int shareNumber) {
         int m = params.getAllocation();
-        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        Double mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
         if (m < mXBar) {
             return allocationMethodOne();
         }
-        int nR = params.getArgMaxFormula(params.getReservationRatio(), params.getSecurityList());
+        double nR = params.getArgMaxFormula(params.getReservationRatio(), params.getSecurityList());
         if (shareNumber <= nR) {
             return allocationMethodTwo();
         } else
             return allocationMethodThree(shareNumber);
     }
 
-    public int allocationMethodOne() {
+    public Double allocationMethodOne() {
         int m = params.getAllocation();
-        int p = params.getMeanPriceAmount();
+        Double p = params.getMeanPriceAmount();
         int n = params.getSecurityList().size();
         return m / (n * p);
     }
 
-    public float allocationMethodTwo() {
+    public Double allocationMethodTwo() {
         int xBar = income.x;
         int m = params.getAllocation();
-        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
-        float aR = params.getAR();
-        float pR = params.getPR();
+        double mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        double aR = params.getAR();
+        double pR = params.getPR();
 
         return xBar + ((aR * (m - mXBar)) / pR);
     }
 
-    public float allocationMethodThree(int shareNumber) {
+    public Double allocationMethodThree(int shareNumber) {
         int xBar = income.x;
         int m = params.getAllocation();
-        int mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
-        float aI = params.getSecurityList().get(shareNumber - 1).getIncomeShare();
+        Double mXBar = income.getMbar(params.getMeanPriceAmount(), params.getSecurityList().size());
+        Double aI = params.getSecurityList().get(shareNumber - 1).getIncomeShare();
         int pI = params.getSecurityList().get(shareNumber - 1).getPrice();
 
         return xBar + ((aI * (m - mXBar)) / pI);
