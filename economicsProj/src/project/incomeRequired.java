@@ -17,19 +17,15 @@ public class incomeRequired {
 
     int x;
 
-   public incomeRequired(int input) {
+    public incomeRequired(int input) {
         x = input;
     }
-
-  public incomeRequired(Integer input) {
-    x = input;
-  }
 
     public int getInput(){
         return x;
     }
 
-    public int getMbar (int pBar, int n){
+    public Double getMbar (double pBar, int n){
         return ((n*pBar)*x);
 
     }
