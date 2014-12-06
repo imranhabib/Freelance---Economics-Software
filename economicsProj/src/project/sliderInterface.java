@@ -46,6 +46,8 @@ public class sliderInterface extends JFrame {
     private static JTextField textField5;
 
     private static JTextField textField6;
+    private static JTextField textField7;
+    private static JTextField textField8;
 
     private static JSpinner jSpinner;
     private static JSpinner jSpinner2;
@@ -54,7 +56,7 @@ public class sliderInterface extends JFrame {
     private static ChangeListener changelistener;
     private static ChangeListener changelistener2;
     private static ChangeListener changelistener3;
-    private static ChangeListener changelistener4;
+    private static ActionListener Actionlistener4;
     private static ActionListener action;
 
     private final Color blue = Color.BLUE;
@@ -86,12 +88,15 @@ public class sliderInterface extends JFrame {
 
     static Integer value;
     static Double value2;
-    static int pBar;
-    static int mBar;
+    static Double pBar;
+    static Double mBar;
     static Double r;
-    static int nOfr;
+    static Double nOfr;
 
     private static final int n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount"));
+
+
+    List<Share> shareList;
 
 
 
@@ -107,6 +112,15 @@ public class sliderInterface extends JFrame {
         setLayout(new BorderLayout());
         setTitle("Slider Interface");
         setSize(1000, 1000);
+
+
+
+
+
+
+
+
+
 
         int size = shares.size();
         panel2 = new JPanel();
@@ -155,6 +169,13 @@ public class sliderInterface extends JFrame {
 
 
         param = new parameters();
+        shareList = param.getSecurityListWithEmptyIncomeShares();
+        param.getArgMaxFormula(2, shareList);
+        for(Share share: shareList) {
+
+            //System.out.println(" number = " + share.getSecurityNumber() + " income share = " + share.getIncomeShare() + " price = " + share.getPrice());
+        }
+
 
 
 
@@ -171,7 +192,13 @@ public class sliderInterface extends JFrame {
                 alloc = new allocation(param, income);
                 pBar = param.getMeanPriceAmount();
                 setMBar(pBar, n, income);
-                remainingAlloc.setText("Money left = " + (allocation - getMBar()));
+
+                remainingAlloc.setText("= " + (allocation - getMBar()));
+                if(allocation - getMBar() < 0){
+                    textField7.setText("No!");
+                } else {
+                    textField7.setText("Yes!");
+                }
                 System.out.println("this is mbar = " + getMBar());
                 System.out.println("this is the value of the Jspinner " + value);
             }
@@ -187,21 +214,25 @@ public class sliderInterface extends JFrame {
                 value2 = (Double) source.getValue();
                 r = value2;
                 setR(r);
+                textField8.setText(Double.toString(param.getArgMaxFormula(getR(), shareList)));
                 System.out.println("reservation ratio = " + getR());
             }
         };
 
         jSpinner.addChangeListener(changelistener3);
 
-
+        textField8 = new JTextField();
+        textField8.setEditable(false);
+        textField8.setBorder(new TitledBorder("ArgMax"));
 
         panel5 = new JPanel();
         panel5.setLayout(new GridLayout(0, shares.size()));
-        panel5.setBorder(new TitledBorder("R Ratio"));
+        panel5.setBorder(new TitledBorder("Reservation Ratio"));
         panel5.add(jSpinner);
+        panel5.add(textField8);
 
         panel6 = new JPanel();
-        panel6.setLayout(new GridLayout(0, shares.size()));
+        panel6.setLayout(new GridLayout(0, 3));
         panel6.setBorder(new TitledBorder("Minimum Share"));
         panel6.add(jSpinner2);
 
@@ -209,13 +240,15 @@ public class sliderInterface extends JFrame {
 
         remainingAlloc = new JTextField();
         remainingAlloc.setEditable(false);
+        remainingAlloc.setBorder(new TitledBorder("Remaining Money"));
+
 
         button3 = new JButton("Press to Check");
 
 
-        changelistener4 = new ChangeListener() {
+        Actionlistener4 = new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent event) {
+            public void actionPerformed(ActionEvent event) {
                 for(int i = 0; i < sliders.size() -1 ; i++) {
                     List<JSlider> sliders = getSliders();
                     System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
@@ -235,13 +268,17 @@ public class sliderInterface extends JFrame {
             }
         };
 
-        button3.addChangeListener(changelistener4);
+        button3.addActionListener(Actionlistener4);
 
+        textField7 = new JTextField();
+        textField7.setEditable(false);
+        textField7.setBorder(new TitledBorder("Affordable?"));
 
         panel7 = new JPanel();
         panel7.setLayout(new GridLayout(0, shares.size()));
-        panel7.setBorder(new TitledBorder("Remaining dough"));
+        panel7.setBorder(new TitledBorder("Data"));
         panel7.add(remainingAlloc);
+        panel7.add(textField7);
 
 
 
@@ -315,10 +352,14 @@ public class sliderInterface extends JFrame {
 
                 if (!source.getValueIsAdjusting()) {
                     int value = source.getValue();
+                    Double valueD = Double.parseDouble(Integer.toString(source.getValue()));
 
                     String name = source.getName();
                     if (name.equals("1")) {
                         textField.setText("Security #" + source.getName() + " = " + value + "%");
+                        Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+                        shareList.remove(0);
+                        shareList.add(0, share1);
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
                             setSliders(source);
@@ -329,6 +370,11 @@ public class sliderInterface extends JFrame {
                     }
                     if (name.equals("2")) {
                         textField2.setText("Security #" + source.getName() + " = " + value + "%");
+                        Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+                        shareList.remove(1);
+                        shareList.add(1, share2);
+
+
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
                             setSliders(source);
@@ -339,6 +385,9 @@ public class sliderInterface extends JFrame {
                     }
                     if (name.equals("3")) {
                         textField3.setText("Security #" + source.getName() + " = " + value + "%");
+                        Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+                        shareList.remove(2);
+                        shareList.add(2, share3);
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
                             setSliders(source);
@@ -349,6 +398,9 @@ public class sliderInterface extends JFrame {
                     }
                     if (name.equals("4")) {
                         textField4.setText("Security #" + source.getName() + " = " + value + "%");
+                        Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+                        shareList.remove(3);
+                        shareList.add(3, share4);
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
                             setSliders(source);
@@ -359,6 +411,9 @@ public class sliderInterface extends JFrame {
                     }
                     if (name.equals("5")) {
                         textField5.setText("Security #" + source.getName() + " = " + value + "%");
+                        Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+                        shareList.remove(4);
+                        shareList.add(4, share5);
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
                             setSliders(source);
@@ -425,17 +480,17 @@ public class sliderInterface extends JFrame {
         //create as many slider instances of the size of 'shares'
         //call the addSlider method with the correct param taken from the share object
         for (int i = 0; i < shares.size(); i++) {
-            addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getIncomeShare(), shares.get(i).getPrice());
+            addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
         }
 
 
     }
 
-    public void addShare(JSlider slider, float incomeShare, int price) {
+    public void addShare(JSlider slider, int price) {
         slider.addChangeListener(changelistener);
         JPanel pan = new JPanel();
         pan.add(slider);
-        pan.setToolTipText(Float.toString(incomeShare));
+        //pan.setToolTipText(Float.toString(incomeShare));
         pan.add(new JLabel("Price of security = " + price));
         panel.add(pan);
 
@@ -444,7 +499,7 @@ public class sliderInterface extends JFrame {
 
     public JSlider formatSlider(int price, int number) {
         JSlider slider = new JSlider(JSlider.VERTICAL);
-        slider.setName(Integer.toString(price));
+        slider.setName(Integer.toString(number));
         slider.setMinimum(0);
         slider.setMaximum(100);
         slider.setValue(0);
@@ -564,13 +619,14 @@ public class sliderInterface extends JFrame {
 //TODO: plan. Using the allocation class methods, and the inputs from the JSpinners (xbar, reservation ratio, and income shares). Make the security levels move on their own (by calling their setValue() methods)
 //TODO: have; the input for xBar
 
-    public void setMBar (int pbar, int n, incomeRequired income){
+    public void setMBar (Double pbar, int n, incomeRequired income){
         //this is not a recursive call, getMbar is another meth in the incomeRequired class
         mBar = income.getMbar(pbar, n);
 
     }
 
-    public int getMBar (){
+    public Double
+    getMBar (){
         return mBar;
     }
 
@@ -591,7 +647,7 @@ public class sliderInterface extends JFrame {
 
     }
 
-    public float getNofR (){
+    public Double getNofR (){
         return nOfr;
     }
 
