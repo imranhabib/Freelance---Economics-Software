@@ -42,6 +42,7 @@ public class parameters {
         return prices;
     }
 
+    /*
     public ArrayList<Float> getIncomeShareList(){
         String price = bundle.getString("incomeShare");
         String[] priceList = price.split(",");
@@ -51,15 +52,38 @@ public class parameters {
         }
         return shares;
     }
+
+
+    */
+
     public List<Share> getSecurityList(){
         ArrayList<Share> shares = new ArrayList<Share>();
         String security = bundle.getString("securityList");
         String[] securityNumber = security.split(",");
         ArrayList<Integer> securityPrices = getSecurityPriceList();
         //get income share
-        ArrayList<Float> incomeShareList = getIncomeShareList();
+     //   ArrayList<Float> incomeShareList = getIncomeShareList();
         for (int i=1; i < securityNumber.length+1; i++) {
-            float is = incomeShareList.get(i-1);
+        //    float is = incomeShareList.get(i-1);
+            int sp = securityPrices.get(i-1);
+            Share share = new Share(sp, i);
+            shares.add(share);
+        }
+        return shares;
+
+    }
+
+
+
+    public List<Share> getSecurityListWithEmptyIncomeShares(){
+        ArrayList<Share> shares = new ArrayList<Share>();
+        String security = bundle.getString("securityList");
+        String[] securityNumber = security.split(",");
+        ArrayList<Integer> securityPrices = getSecurityPriceList();
+        //get income share
+      //  ArrayList<Float> incomeShareList = getIncomeShareList();
+        for (int i=1; i < securityNumber.length+1; i++) {
+            Double is = 0.0;
             int sp = securityPrices.get(i-1);
             Share share = new Share(sp, is, i);
             shares.add(share);
@@ -68,19 +92,31 @@ public class parameters {
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
     // this calculates p(bar)
-    public int getMeanPriceAmount(){
+    public double getMeanPriceAmount(){
         String price = bundle.getString("securityPriceList");
         String[] priceList = price.split(",");
-        List<Integer> prices = new ArrayList<Integer>();
+        List<Double> prices = new ArrayList<Double>();
         for(String str: priceList){
-            prices.add(Integer.parseInt(str));
+            prices.add(Double.parseDouble(str));
         }
-        int sum = 0;
+        Double sum = 0.0;
         int amount = prices.size();
-        for(int num: prices){
+        for(Double num: prices){
             sum = sum + num;
         }
+        System.out.println(sum/amount);
         return sum/amount;
 
 
@@ -89,46 +125,43 @@ public class parameters {
     // this gets r
     public Double getReservationRatio(){
         String r = bundle.getString("reservationRatio");
-        Double ratio = Double.parseDouble(r);
+        double ratio = Double.parseDouble(r);
         return ratio;
     }
 
 
     //n(r) arg max pi/p1 <= r
-    public int getArgMaxFormula(Double r, List<Share> securities){
-        int argMax = 0;
+    public Double getArgMaxFormula(double r, List<Share> securities){
+        double argMax = 0;
         int p1 = securities.get(0).getPrice();
-        int pi = 0;
-        int ratio = 0;
-        int count = 0;
-        for(int i = 0; i < securities.size()-1; i++){
+        double pi = 0;
+        double ratio = 0;
+        for(int i = 0; i < securities.size(); i++){
             pi = securities.get(i).getPrice();
             ratio = pi/p1;
-            if(ratio <= r){
-                argMax = securities.get(i).getSecurityNumber();
-            }
-            if(ratio>r) {
+            if(ratio > r){
                 break;
             }
+            argMax = (securities.get(i).getSecurityNumber());
         }
         return argMax;
     }
 
     //this calculates a(r)
-    public float getAR(){
-        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
-        float sum = 0;
+    public Double getAR(){
+        Double nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        Double sum = 0.0;
         for(int i=1; i < nR+1; i++){
             sum = sum + getSecurityList().get(i-1).getIncomeShare();
         }
-        float mult = (1.0f/nR);
+        Double mult = (1.0/nR);
         return mult * sum;
     }
 
     //this calculates p(r)
-    public float getPR(){
-        int nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
-        float sum = 0;
+    public Double getPR(){
+        double nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
+        double sum = 0.0;
         for(int i=1; i < nR+1; i++){
             sum = sum + getSecurityList().get(i-1).getPrice();
         }
