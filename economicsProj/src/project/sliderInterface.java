@@ -268,13 +268,11 @@ public class sliderInterface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 List<JSlider> temp = getSliders();
-                for(int i = 0; i < temp.size() -1 ; i++) {
-                    System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
+                for(int i = 0; i < temp.size()-1 ; i++) {
+                    System.out.println("this is temp " + temp.size());
                     if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
                             (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i+1).getName()))) {
                         //  System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
-                        System.out.println("this is slider1" + temp.get(i).getValue());
-                        System.out.println("this is slider2" +temp.get(i + 1).getValue());
                         textField6.setText("S" + temp.get(i + 1).getName() + " must be less than S" + temp.get(i).getName());
                         break;
                     }
@@ -394,6 +392,7 @@ public class sliderInterface extends JFrame {
                         shareList.add(0, share1);
                         if (getSliders().contains(source)) {
                             getSliders().remove(source);
+                            System.out.println((getSliders().contains(source)));
                             setSliders(source);
                         } else {
                             setSliders(source);
@@ -538,8 +537,6 @@ public class sliderInterface extends JFrame {
         //pan.setToolTipText(Float.toString(incomeShare));
         pan.add(new JLabel("Price of security = " + price));
         panel.add(pan);
-
-
     }
 
     public JSlider formatSlider(int price, int number) {
@@ -605,6 +602,7 @@ public class sliderInterface extends JFrame {
     //return sliders in order by name
     public List<JSlider> getSliders() {
         List<JSlider> orderedSliders = new ArrayList<JSlider>();
+        System.out.println(sliders.size());
         for (int i = 0; i < sliders.size(); i++){
             String nTemp = sliders.get(i).getName();
             int temp = Integer.parseInt(nTemp);
@@ -710,36 +708,6 @@ public class sliderInterface extends JFrame {
     public int getMinVal(){
         return minimumShare;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
