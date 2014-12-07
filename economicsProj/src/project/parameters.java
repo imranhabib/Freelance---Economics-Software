@@ -111,23 +111,16 @@ public class parameters {
         for(String str: priceList){
             prices.add(Double.parseDouble(str));
         }
-        Double sum = 0.0;
+        double sum = 0;
         int amount = prices.size();
         for(Double num: prices){
             sum = sum + num;
         }
-        System.out.println(sum/amount);
         return sum/amount;
 
 
     }
 
-    // this gets r
-    public Double getReservationRatio(){
-        String r = bundle.getString("reservationRatio");
-        double ratio = Double.parseDouble(r);
-        return ratio;
-    }
 
 
     //n(r) arg max pi/p1 <= r
@@ -148,24 +141,24 @@ public class parameters {
     }
 
     //this calculates a(r)
-    public Double getAR(){
-        Double nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
-        Double sum = 0.0;
+    public Double getAR(double r, List<Share> shares){
+        double nR = getArgMaxFormula(r, shares);
+        double sum = 0;
         for(int i=1; i < nR+1; i++){
-            sum = sum + getSecurityList().get(i-1).getIncomeShare();
+            sum = sum + shares.get(i - 1).getIncomeShare();
         }
-        Double mult = (1.0/nR);
-        return mult * sum;
+        double mult = (1/nR);
+        return (mult * sum) / 100;
     }
 
     //this calculates p(r)
-    public Double getPR(){
-        double nR = getArgMaxFormula(getReservationRatio(), getSecurityList());
-        double sum = 0.0;
+    public Double getPR(double r, List<Share> shares){
+        double nR = getArgMaxFormula(r, shares);
+        double sum = 0;
         for(int i=1; i < nR+1; i++){
-            sum = sum + getSecurityList().get(i-1).getPrice();
+            sum = sum + shares.get(i-1).getPrice();
         }
-        return ((1.0f/nR)* sum);
+        return ((1/nR)* sum);
     }
 
 
