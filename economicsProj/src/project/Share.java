@@ -6,10 +6,17 @@ package project;
 public class Share {
 
     public int price;
-    public float incomeShare;
+    public Double incomeShare;
     public int securityNumber;
 
-     public Share(int price, float incomeShare, int securityNumber){
+
+    public Share(int price,int securityNumber){
+        this.price = price;
+        this.securityNumber = securityNumber;
+    }
+
+
+    public Share(int price, Double incomeShare, int securityNumber){
         this.price = price;
         this.incomeShare = incomeShare;
         this.securityNumber = securityNumber;
@@ -19,7 +26,7 @@ public class Share {
         return price;
     }
 
-    public float getIncomeShare(){
+    public Double getIncomeShare(){
         return incomeShare;
     }
 

@@ -15,20 +15,20 @@ public class testClass {
     static allocation allocation;
     static sliderInterface slider;
 
-   public static void main (String[] args) throws Exception {
-       params = new parameters();
-       EventQueue.invokeLater(new Runnable() {
-           public void run() {
-               sliderInterface frame = new sliderInterface(params.getSecurityList());
+    public static void main (String[] args) throws Exception {
+        params = new parameters();
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                sliderInterface frame = new sliderInterface(params.getSecurityList());
 
-               frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-               frame.setVisible(true);
-           }
+                frame.setVisible(true);
+            }
 
-       });
-   }
-   }
+        });
+    }
+}
 
 
 
