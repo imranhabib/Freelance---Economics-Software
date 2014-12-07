@@ -267,17 +267,19 @@ public class sliderInterface extends JFrame {
         Actionlistener4 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                for(int i = 0; i < sliders.size() -1 ; i++) {
-                    List<JSlider> sliders = getSliders();
-                    System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
-                    if (sliders.get(i).getValue() < sliders.get(i + 1).getValue()) {
+                List<JSlider> temp = getSliders();
+                for(int i = 0; i < temp.size() -1 ; i++) {
+                    System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
+                    if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
+                            (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i+1).getName()))) {
                         //  System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
-                        textField6.setText("S" + sliders.get(i + 1).getName() + " must be less than S" + Integer.toString((Integer.parseInt(sliders.get(i + 1).getName())) - 1) );
+                        System.out.println("this is slider1" + temp.get(i).getValue());
+                        System.out.println("this is slider2" +temp.get(i + 1).getValue());
+                        textField6.setText("S" + temp.get(i + 1).getName() + " must be less than S" + temp.get(i).getName());
                         break;
                     }
-                    int temp = (v1 + v2 + v3 + v4 + v5);
-                    System.out.println((temp > 100));
-                    if(temp > 100){
+                    int temp2 = (v1 + v2 + v3 + v4 + v5);
+                    if(temp2 > 100){
                         textField6.setText("IncomeShare cannot be more than 1");
                         break;
                     }
@@ -600,8 +602,15 @@ public class sliderInterface extends JFrame {
 
     }
 
+    //return sliders in order by name
     public List<JSlider> getSliders() {
-        return sliders;
+        List<JSlider> orderedSliders = new ArrayList<JSlider>();
+        for (int i = 0; i < sliders.size(); i++){
+            String nTemp = sliders.get(i).getName();
+            int temp = Integer.parseInt(nTemp);
+            orderedSliders.add(temp-1, sliders.get(i));
+        }
+        return orderedSliders;
     }
 
 
