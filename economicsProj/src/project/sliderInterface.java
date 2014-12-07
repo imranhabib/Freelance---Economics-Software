@@ -96,6 +96,7 @@ public class sliderInterface extends JFrame {
     static Double mBar;
     static Double r;
     static Double nOfr;
+    static int minimumShare;
 
     private static final int n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount"));
 
@@ -197,6 +198,7 @@ public class sliderInterface extends JFrame {
                 JSpinner source = (JSpinner) event.getSource();
                 value = (Integer) source.getValue();
                 income = new incomeRequired(value);
+                setMinVal(value);
                 alloc = new allocation(param, income);
                 pBar = param.getMeanPriceAmount();
                 setMBar(pBar, n, income);
@@ -453,7 +455,8 @@ public class sliderInterface extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(check && check2 && check3 && check4 && check5) {
                    for(int i = 0; i < shareList.size(); i ++){
-                       alloc.allocationForShare(i, getR(), shareList, getX());
+                       System.out.println("x being passed = " + getMinVal());
+                       alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
                    }
 
                 }
@@ -673,8 +676,13 @@ public class sliderInterface extends JFrame {
         return nOfr;
     }
 
+    public void setMinVal(int x){
+        minimumShare = x;
+    }
 
-
+    public int getMinVal(){
+        return minimumShare;
+    }
 
 
 
