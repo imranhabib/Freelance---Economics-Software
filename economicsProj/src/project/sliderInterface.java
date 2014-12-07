@@ -63,6 +63,10 @@ public class sliderInterface extends JFrame {
     private final Color red = Color.RED;
 
     private static boolean check;
+    private static boolean check2;
+    private static boolean check3;
+    private static boolean check4;
+    private static boolean check5;
 
 
     static int total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
@@ -169,8 +173,12 @@ public class sliderInterface extends JFrame {
 
 
         param = new parameters();
+        alloc = new allocation(param, new incomeRequired(2));
+
         shareList = param.getSecurityListWithEmptyIncomeShares();
-        param.getArgMaxFormula(2, shareList);
+        //param.getArgMaxFormula(2, shareList);
+
+
         for(Share share: shareList) {
 
             //System.out.println(" number = " + share.getSecurityNumber() + " income share = " + share.getIncomeShare() + " price = " + share.getPrice());
@@ -345,6 +353,12 @@ public class sliderInterface extends JFrame {
         //add(panel3, BorderLayout.PAGE_START);
 
         check = false;
+        check2 = false;
+        check3 = false;
+        check4 = false;
+        check5 = false;
+
+
 
         changelistener = new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
@@ -381,7 +395,7 @@ public class sliderInterface extends JFrame {
                         } else {
                             setSliders(source);
                         }
-                        check = true;
+                        check2 = true;
                     }
                     if (name.equals("3")) {
                         textField3.setText("Security #" + source.getName() + " = " + value + "%");
@@ -394,7 +408,7 @@ public class sliderInterface extends JFrame {
                         } else {
                             setSliders(source);
                         }
-                        check = true;
+                        check3 = true;
                     }
                     if (name.equals("4")) {
                         textField4.setText("Security #" + source.getName() + " = " + value + "%");
@@ -407,7 +421,7 @@ public class sliderInterface extends JFrame {
                         } else {
                             setSliders(source);
                         }
-                        check = true;
+                        check4 = true;
                     }
                     if (name.equals("5")) {
                         textField5.setText("Security #" + source.getName() + " = " + value + "%");
@@ -420,7 +434,7 @@ public class sliderInterface extends JFrame {
                         } else {
                             setSliders(source);
                         }
-                        check = true;
+                        check5 = true;
                     }
                 }
 
@@ -437,6 +451,14 @@ public class sliderInterface extends JFrame {
         action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(check && check2 && check3 && check4 && check5) {
+                   for(int i = 0; i < shareList.size(); i ++){
+                       alloc.allocationForShare(i, getR(), shareList, getX());
+                   }
+
+                }
+
+
 
                 if (!file.exists()) {
                     file = new File(directory, filename);
@@ -583,10 +605,10 @@ public class sliderInterface extends JFrame {
     public FileWriter createFileWriter(File file) {
         try {
             FileWriter fileWrite = new FileWriter(file);
-            System.out.println("here so this is good");
+        //    System.out.println("here so this is good");
             return fileWrite;
         } catch (IOException e) {
-            System.out.println("here so were screwed");
+           // System.out.println("here so were screwed");
             return null;
         }
 
@@ -597,7 +619,7 @@ public class sliderInterface extends JFrame {
     public void writeToFile(FileWriter filer, JSlider slide) {
         try {
             filer.write("\n" + "Slide name = " + slide.getName()  +  " slide value = " + slide.getValue());
-            System.out.println("here so this is also good, this should show up 5 times");
+         //   System.out.println("here so this is also good, this should show up 5 times");
         } catch (IOException e) {
             System.out.println("failed hurr");
         }
