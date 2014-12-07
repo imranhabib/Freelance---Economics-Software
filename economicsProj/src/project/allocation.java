@@ -50,12 +50,14 @@ public class allocation {
     }
 
     public Double allocationMethodThree(int shareNumber, List<Share> shares, int x) {
+        System.out.println("shareNumber = " + shareNumber);
         int m = params.getAllocation();
         Double mXBar = income.getMbar(params.getMeanPriceAmount(), shares.size());
         Double aI = (shares.get(shareNumber - 1).getIncomeShare()) / 100;
         int pI = shares.get(shareNumber - 1).getPrice();
 
         System.out.println(x + ((aI * (m - mXBar)) / pI));
+
 
         return x + ((aI * (m - mXBar)) / pI);
 
