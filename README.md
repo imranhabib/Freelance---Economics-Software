@@ -1,15 +1,3 @@
 economicsProj
 =============
-
-Project repo for econ project
-
-comments are in the code
-
-Formulas completed: 
-
-m(xbar) 
-pbar 
-n, price list are all accessed through a properties file 
-
-argmax formula in parameters.java is completed but not testesd, i.e it probs doesnt work 
-
+Everything in master is up-to-date with both our changes from 530pm Sunday, except for the 2 JAR files that need to be added to your project locally
