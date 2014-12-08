@@ -8,6 +8,7 @@ public class Share {
     public int price;
     public Double incomeShare;
     public int securityNumber;
+    double allocation;
 
 
     public Share(int price,int securityNumber){
@@ -15,12 +16,20 @@ public class Share {
         this.securityNumber = securityNumber;
     }
 
-
      public Share(int price, Double incomeShare, int securityNumber){
         this.price = price;
         this.incomeShare = incomeShare;
         this.securityNumber = securityNumber;
     }
+
+    public Share(int price, Double incomeShare, int securityNumber, double allocation){
+        this.price = price;
+        this.incomeShare = incomeShare;
+        this.securityNumber = securityNumber;
+        this.allocation = allocation;
+    }
+
+
 
     public int getPrice(){
         return price;
@@ -33,9 +42,11 @@ public class Share {
     public int getSecurityNumber () {
         return securityNumber;
 
-
     }
 
+    public double getAllocation() {
+        return allocation;
+    }
 
 
 }
