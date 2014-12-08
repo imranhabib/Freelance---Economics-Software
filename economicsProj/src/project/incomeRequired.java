@@ -17,7 +17,7 @@ public class incomeRequired {
 
     int x;
 
-   public incomeRequired(int input) {
+    public incomeRequired(int input) {
         x = input;
     }
 
@@ -25,7 +25,7 @@ public class incomeRequired {
         return x;
     }
 
-    public int getMbar (int pBar, int n){
+    public Double getMbar (double pBar, int n){
         return ((n*pBar)*x);
 
     }
