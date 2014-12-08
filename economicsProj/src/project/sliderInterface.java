@@ -1,5 +1,8 @@
 package project;
 
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -8,6 +11,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -59,6 +64,7 @@ public class sliderInterface extends JFrame {
     private static ActionListener Actionlistener4;
     private static ActionListener action;
 
+
     private final Color blue = Color.BLUE;
     private final Color red = Color.RED;
 
@@ -103,6 +109,7 @@ public class sliderInterface extends JFrame {
 
     List<Share> shareList;
 
+    JOptionPane jOption;
 
 
 
@@ -116,14 +123,8 @@ public class sliderInterface extends JFrame {
     public sliderInterface(final List<Share> shares) {
         setLayout(new BorderLayout());
         setTitle("Slider Interface");
-        setSize(1000, 1000);
-
-
-
-
-
-
-
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds(0, 0, screenSize.width, screenSize.height);
 
 
 
@@ -333,8 +334,13 @@ public class sliderInterface extends JFrame {
 
 
         JSplitPane splitPane = new JSplitPane(
-                JSplitPane.VERTICAL_SPLIT, panel, panel4
+                JSplitPane.VERTICAL_SPLIT
         );
+
+        splitPane.setTopComponent(panel);
+        splitPane.setBottomComponent(panel4);
+        splitPane.setResizeWeight(.99);
+
 
 
         button1 = new JButton("Submit");
@@ -450,17 +456,31 @@ public class sliderInterface extends JFrame {
         // System.out.println("current path the file is sent to : " + file.getAbsolutePath());
 
 
+
+
+
         action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+            int result =JOptionPane.showConfirmDialog(null,
+                        "Confirm Choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if(result != 0){
+                    return;
+                }
+
+
                 if(check && check2 && check3 && check4 && check5) {
                    for(int i = 0; i < shareList.size(); i ++){
-                       System.out.println("x being passed = " + getMinVal());
-                       alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
+                       double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
+                       Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+                       shareList.remove(i);
+                       shareList.add(i, share);
+
                    }
 
                 }
-
 
 
                 if (!file.exists()) {
@@ -470,26 +490,11 @@ public class sliderInterface extends JFrame {
                 if (check) {
                     filer = createFileWriter(file);
                     for (JSlider slide : sliders) {
-                        //put the output of all the sliders here, when the user presses enter it will read the updated slider values
-                        // call a writer function here and pass it the sliders (either as a list or as single sliders)
                         writeToFile(filer, slide);
-
-                        //System.out.println("Slide name = " + slide.getName() + "slide name = " + slide.getValue());
                     }
                     closeFile(filer);
 
-                    //TODO: right now the code writes to the file, but after submit it pressed and before the confirmation is completed
-
-                    confirmation(e);
-                    final JFrame frame = new JFrame();
-                    JPanel panel = new JPanel();
-
-                    JButton button1 = new JButton();
-
-                    frame.add(panel);
-                    panel.add(button1);
-                    frame.setVisible(true);
-                    JOptionPane.showMessageDialog(frame.getComponent(0), "This is your allocation based on your inputs");
+                    allocationPage(shareList);
 
                 } else {
                     error(e);
@@ -565,13 +570,6 @@ public class sliderInterface extends JFrame {
     }
 
 
-    public void confirmation(ActionEvent action) {
-        JOptionPane.showConfirmDialog(null,
-                "Confirm Allocations?", "There's no going back!", JOptionPane.YES_NO_OPTION);
-
-    }
-
-
     public void error(ActionEvent e) {
         JOptionPane.showMessageDialog(null, "Please complete allocations", "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -639,11 +637,6 @@ public class sliderInterface extends JFrame {
     }
 
 
-
-
-//TODO: plan. Using the allocation class methods, and the inputs from the JSpinners (xbar, reservation ratio, and income shares). Make the security levels move on their own (by calling their setValue() methods)
-//TODO: have; the input for xBar
-
     public void setMBar (Double pbar, int n, incomeRequired income){
         //this is not a recursive call, getMbar is another meth in the incomeRequired class
         mBar = income.getMbar(pbar, n);
@@ -685,8 +678,92 @@ public class sliderInterface extends JFrame {
     }
 
 
+    public void allocationPage(final List<Share> shareList){
+        JFrame frame2 = new JFrame("Allocations");
+        frame2.setLayout(new BorderLayout());
 
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame2.setBounds(0, 0, screenSize.width, screenSize.height);
+        frame2.setLayout(new BorderLayout());
+
+        JButton button1 = new JButton("View data as a chart");
+        button1.setLayout(new GridLayout(0, 3));
+        button1.setBorder(new TitledBorder("Chart"));
+
+        JButton button2 = new JButton("Continue");
+        button2.setLayout(new GridLayout(0, 3));
+        button2.setBorder(new TitledBorder("Next Round"));
+
+        JPanel panelNew = new JPanel();
+        panelNew.setLayout(new GridLayout(shareList.size(), 2));
+        panelNew.setBorder(new TitledBorder("Data"));
+
+        for(int i = 0; i <shareList.size(); i++){
+            JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
+            jText.setEditable(false);
+            jText.setBorder(new TitledBorder("Exact Amount"));
+            jText.setSize(100, 50);
+
+            JProgressBar progress = new JProgressBar();
+            progress.setBorder(new TitledBorder("Investment"));
+            progress.setValue(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation()))));
+            progress.setStringPainted(true);
+            progress.setForeground(Color.BLACK);
+            progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
+
+            JPanel panels = new JPanel();
+            panels.setLayout(new GridLayout(0, 2));
+            panels.add(progress);
+            panels.add(jText);
+            panels.setBorder(new TitledBorder("Security " + shareList.get(i).getSecurityNumber()));
+
+            panelNew.add(panels);
+        }
+
+
+        ActionListener action = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chartView(shareList);
+            }
+        };
+
+        button1.addActionListener(action);
+
+
+        JSplitPane splitPanel1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPanel1.setTopComponent(panelNew);
+        splitPanel1.setBottomComponent(button1);
+        splitPanel1.setResizeWeight(0.75);
+
+           frame2.add(splitPanel1, BorderLayout.CENTER);
+          frame2.add(button2, BorderLayout.SOUTH);
+           frame2.setVisible(true);
+        JOptionPane.showMessageDialog(frame2.getComponent(0), "This is your allocation based on your inputs");
+
+
+    }
+
+
+    public void chartView (List<Share> shareList){
+
+        pieChart pie = new pieChart(shareList);
+        JFreeChart pieCharter = pie.getChart();
+
+        ChartFrame frame = new ChartFrame("Data", pieCharter);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setBounds(0, 0, screenSize.width, screenSize.height);
+        frame.setLayout(new BorderLayout());
+
+
+        frame.pack();
+        frame.setVisible(true);
+
+
+
+    }
 
 
 
