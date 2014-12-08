@@ -514,8 +514,8 @@ public class sliderInterface extends JFrame {
         }
         if (check) {
           filer = createFileWriter(file);
-          for (JSlider slide : sliders) {
-            writeToFile(filer, slide);
+          for (Share share : shareList) {
+            writeToFile(filer, share);
           }
           closeFile(filer);
 
@@ -649,10 +649,11 @@ public class sliderInterface extends JFrame {
   }
 
 
-  public void writeToFile(FileWriter filer, JSlider slide) {
+  public void writeToFile(FileWriter filer, Share share) {
     try {
-      filer.write("\n" + "Slide name = " + slide.getName()  +  " slide value = " + slide.getValue());
-      //   System.out.println("here so this is also good, this should show up 5 times");
+      filer.write("\n" + "Security number = " + share.getSecurityNumber()  +  " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
+          " Security Allocation = " + share.getAllocation() );
+
     } catch (IOException e) {
       System.out.println("failed hurr");
     }
