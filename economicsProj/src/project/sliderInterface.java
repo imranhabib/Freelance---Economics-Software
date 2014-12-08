@@ -2,6 +2,7 @@ package project;
 
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import test.testClass;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -38,6 +39,8 @@ public class sliderInterface extends JFrame {
   static JButton button1;
   static JTextField remainingAlloc;
   static JButton button3;
+
+  static testClass test;
 
   private static List<JSlider> sliders;
 
@@ -78,8 +81,10 @@ public class sliderInterface extends JFrame {
   private int v4;
   private int v5;
 
+  static int curSysProp;
 
-  static int total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
+  static int total;
+
   static int allocation = 0;
 
 
@@ -108,34 +113,27 @@ public class sliderInterface extends JFrame {
   static Double nOfr;
   static int minimumShare;
 
-  private static final int n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount"));
+  private static int n;
 
 
   List<Share> shareList;
 
-  JOptionPane jOption;
 
-
-
-
-
-
-
-
-
-
-  public sliderInterface(final List<Share> shares) {
+  public sliderInterface(final List<Share> shares, int cur) {
+    curSysProp = cur;
+    test = new testClass();
     setLayout(new BorderLayout());
     setTitle("Slider Interface");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     setBounds(0, 0, screenSize.width, screenSize.height);
 
-
+    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
 
     int size = shares.size();
     panel2 = new JPanel();
 
-    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave"));
+    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
 
     panel2.setLayout(new BorderLayout(5, 10));
 
@@ -269,7 +267,6 @@ public class sliderInterface extends JFrame {
           System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
           if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
               (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i+1).getName()))) {
-            //  System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
             System.out.println("this is slider1" + temp.get(i).getValue());
             System.out.println("this is slider2" +temp.get(i + 1).getValue());
             textField6.setText("Security " + temp.get(i + 1).getName() + " must be less than Security " + temp.get(i).getName());
@@ -367,11 +364,10 @@ public class sliderInterface extends JFrame {
     //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
 
     panel2.add(splitPane, BorderLayout.CENTER);
-    // panel2.add(panel, BorderLayout.CENTER);
     panel2.add(panel3, BorderLayout.NORTH);
     panel2.add(button1, BorderLayout.SOUTH);
     add(panel2, BorderLayout.CENTER);
-    //add(panel3, BorderLayout.PAGE_START);
+
 
     check = false;
     check2 = false;
@@ -472,17 +468,13 @@ public class sliderInterface extends JFrame {
     //File stuffz
 
     file = new File(directory, filename);
-    // System.out.println("current path the file is sent to : " + file.getAbsolutePath());
-
-
-
 
 
     action = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
 
-       //check if check allocations button is cleared, if it isnt cleared throw an error
+        //check if check allocations button is cleared, if it isnt cleared throw an error
         if(!check6) {
           JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
           return;
@@ -712,6 +704,7 @@ public class sliderInterface extends JFrame {
 
 
   public void allocationPage(final List<Share> shareList){
+    test = new testClass(curSysProp+1);
     JFrame frame2 = new JFrame("Allocations");
     frame2.setLayout(new BorderLayout());
 
@@ -727,6 +720,25 @@ public class sliderInterface extends JFrame {
     JButton button2 = new JButton("Continue");
     button2.setLayout(new GridLayout(0, 3));
     button2.setBorder(new TitledBorder("Next Round"));
+
+
+    ActionListener nextRound = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        parameters params = new parameters();
+        sliderInterface slider = new sliderInterface(params.getSecurityList(), test.getCurrent());
+        slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        slider.setVisible(true);
+
+
+      }
+    };
+
+    button2.addActionListener(nextRound);
+
+
+
+
 
     JPanel panelNew = new JPanel();
     panelNew.setLayout(new GridLayout(shareList.size(), 2));
