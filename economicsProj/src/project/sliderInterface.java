@@ -11,6 +11,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -705,7 +706,7 @@ public class sliderInterface extends JFrame {
 
   public void allocationPage(final List<Share> shareList){
     test = new testClass(curSysProp+1);
-    JFrame frame2 = new JFrame("Allocations");
+    final JFrame frame2 = new JFrame("Allocations");
     frame2.setLayout(new BorderLayout());
 
 
@@ -725,6 +726,10 @@ public class sliderInterface extends JFrame {
     ActionListener nextRound = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        sliderInterface.this.setVisible(false);
+        sliderInterface.this.dispose();
+        frame2.setVisible(false);
+        frame2.dispose();
       parameters params = new parameters();
       sliderInterface slider = new sliderInterface(params.getSecurityList(), test.getCurrent());
         slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
