@@ -253,19 +253,22 @@ public class sliderInterface extends JFrame {
         Actionlistener4 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                List<JSlider> temp = getSliders();
-                for (int i = 0; i < temp.size() - 1; i++) {
-                    System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
-                    if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
-                            (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i + 1).getName()))) {
-                        System.out.println("this is slider1" + temp.get(i).getValue());
-                        System.out.println("this is slider2" + temp.get(i + 1).getValue());
-                        textField6.setText("Security " + temp.get(i + 1).getName() + " must be less than Security " + temp.get(i).getName());
+                    for (int i = 0; i < sliders.size() - 1; i++) {
+                    System.out.println("name = " + sliders.get(i).getName() + " value = " + sliders.get(i).getValue());
+                    if ((sliders.get(i).getValue() < sliders.get(i + 1).getValue()) &&
+                            (Integer.parseInt(sliders.get(i).getName()) < Integer.parseInt(sliders.get(i + 1).getName()))) {
+                        System.out.println("this is slider1" + sliders.get(i).getValue());
+                        System.out.println("this is slider2" + sliders.get(i + 1).getValue());
+                        textField6.setText("Security " + sliders.get(i + 1).getName() + " must be less than Security " + sliders.get(i).getName());
                         break;
                     }
                     int temp2 = (v1 + v2 + v3 + v4 + v5);
                     if (temp2 > 100) {
                         textField6.setText("Total income share cannot be more than 100%");
+                        break;
+                    }
+                    if (temp2 != 100){
+                        textField6.setText("Total income share must add up to 100%");
                         break;
                     }
                     textField6.setText("Allocation is possible, you can continue!");
@@ -375,13 +378,7 @@ public class sliderInterface extends JFrame {
                         Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(0);
                         shareList.add(0, share1);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            System.out.println((getSliders().contains(source)));
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
-                        }
+                        setSliders(source);
                         check = true;                                                                         //using getName to store the price of the security
                     }
                     if (name.equals("2")) {
@@ -390,14 +387,7 @@ public class sliderInterface extends JFrame {
                         Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(1);
                         shareList.add(1, share2);
-
-
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
-                        }
+                        setSliders(source);
                         check2 = true;
                     }
                     if (name.equals("3")) {
@@ -406,12 +396,7 @@ public class sliderInterface extends JFrame {
                         Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(2);
                         shareList.add(2, share3);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
-                        }
+                        setSliders(source);
                         check3 = true;
                     }
                     if (name.equals("4")) {
@@ -420,12 +405,7 @@ public class sliderInterface extends JFrame {
                         Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(3);
                         shareList.add(3, share4);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
-                        }
+                        setSliders(source);
                         check4 = true;
                     }
                     if (name.equals("5")) {
@@ -434,12 +414,7 @@ public class sliderInterface extends JFrame {
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(4);
                         shareList.add(4, share5);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
-                        }
+                        setSliders(source);
                         check5 = true;
                     }
                 }
@@ -637,20 +612,36 @@ public class sliderInterface extends JFrame {
         if(sliders.contains(slid)){
             for(int i = 0; i < sliders.size(); i++){
                 if((sliders.get(i).getName()) == slid.getName()){
+                    sliders.remove(sliders.get(i));
                     sliders.add(i, slid);
+                    System.out.println("value of replaceed slider " + sliders.get(i).getValue());
                     return;
                 }
             }
         }
         else{
             sliders.add(slid);
-            for(int i = 0; i < sliders.size()-1; i++){
-                if((Integer.parseInt(sliders.get(i).getName())) > (Integer.parseInt(sliders.get(i+1).getName()))){
-                    Collections.swap(sliders, i, i+1);
+            for(int i = sliders.size()-1; i > 0; i--){
+                System.out.println("I'm outside if statement");
+                if((Integer.parseInt(sliders.get(i).getName())) < (Integer.parseInt(sliders.get(i-1).getName()))){
+                    System.out.println("this is before change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
+                    swapSliders(i, i-1);
+                    System.out.println("this is after change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
                 }
             }
             }
 
+    }
+
+    public void swapSliders(int pos1, int pos2){
+        JSlider tempSlid;
+        JSlider tempSlid2;
+        tempSlid = sliders.get(pos1);
+        tempSlid2 = sliders.get(pos2);
+        sliders.remove(sliders.get(pos1));
+        sliders.add(pos1, tempSlid2);
+        sliders.remove(sliders.get(pos2));
+        sliders.add(pos2, tempSlid);
     }
 
     public List<JSlider> getSliders() {
