@@ -123,7 +123,7 @@ public class sliderInterface extends JFrame {
         setLayout(new BorderLayout());
         setTitle("Slider Interface");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(0, 0, screenSize.width, screenSize.height);
+        setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
         total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
         n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
@@ -533,7 +533,7 @@ public class sliderInterface extends JFrame {
 
 
 
-                
+
 
                 if (!file.exists()) {
                     file = new File(directory, filename);
@@ -761,7 +761,7 @@ public class sliderInterface extends JFrame {
 
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame2.setBounds(0, 0, screenSize.width, screenSize.height);
+        frame2.setBounds(0, 0, screenSize.width, screenSize.height - 45);
         frame2.setLayout(new BorderLayout());
 
         JButton button1 = new JButton("View data as a chart");
