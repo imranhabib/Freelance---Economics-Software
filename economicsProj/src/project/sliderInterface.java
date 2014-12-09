@@ -96,8 +96,6 @@ public class sliderInterface extends JFrame {
   FileWriter filer;
 
 
-
-
   //backend stuffz
 
 
@@ -175,7 +173,6 @@ public class sliderInterface extends JFrame {
     //backend stuffz
 
 
-
     param = new parameters();
     alloc = new allocation(param, new incomeRequired(2));
 
@@ -183,12 +180,10 @@ public class sliderInterface extends JFrame {
     //param.getArgMaxFormula(2, shareList);
 
 
-    for(Share share: shareList) {
+    for (Share share : shareList) {
 
       //System.out.println(" number = " + share.getSecurityNumber() + " income share = " + share.getIncomeShare() + " price = " + share.getPrice());
     }
-
-
 
 
     SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 0.5);
@@ -207,7 +202,7 @@ public class sliderInterface extends JFrame {
         setMBar(pBar, n, income);
 
         remainingAlloc.setText("= " + (allocation - getMBar()));
-        if(allocation - getMBar() < 0){
+        if (allocation - getMBar() < 0) {
           textField7.setText("No!");
         } else {
           textField7.setText("Yes!");
@@ -250,7 +245,6 @@ public class sliderInterface extends JFrame {
     panel6.add(jSpinner2);
 
 
-
     remainingAlloc = new JTextField();
     remainingAlloc.setEditable(false);
     remainingAlloc.setBorder(new TitledBorder("Remaining Money"));
@@ -263,17 +257,17 @@ public class sliderInterface extends JFrame {
       @Override
       public void actionPerformed(ActionEvent event) {
         List<JSlider> temp = getSliders();
-        for(int i = 0; i < temp.size() -1 ; i++) {
+        for (int i = 0; i < temp.size() - 1; i++) {
           System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
           if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
-              (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i+1).getName()))) {
+              (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i + 1).getName()))) {
             System.out.println("this is slider1" + temp.get(i).getValue());
-            System.out.println("this is slider2" +temp.get(i + 1).getValue());
+            System.out.println("this is slider2" + temp.get(i + 1).getValue());
             textField6.setText("Security " + temp.get(i + 1).getName() + " must be less than Security " + temp.get(i).getName());
             break;
           }
           int temp2 = (v1 + v2 + v3 + v4 + v5);
-          if(temp2 > 100){
+          if (temp2 > 100) {
             textField6.setText("Total income share cannot be more than 100%");
             break;
           }
@@ -302,17 +296,11 @@ public class sliderInterface extends JFrame {
     panel7.add(textField7);
 
 
-
-
-
     panel8 = new JPanel();
     panel8.setLayout(new GridLayout(0, 2));
     panel8.setBorder(new TitledBorder("Check Allocations"));
     panel8.add(button3);
     panel8.add(textField6);
-
-
-
 
 
     panel4 = new JPanel();
@@ -352,7 +340,6 @@ public class sliderInterface extends JFrame {
     splitPane.setResizeWeight(.99);
 
 
-
     button1 = new JButton("Submit");
     button1.setToolTipText("Click to submit input selection");
     button1.setBorder(new TitledBorder("Move on"));
@@ -375,7 +362,6 @@ public class sliderInterface extends JFrame {
     check4 = false;
     check5 = false;
     check6 = false;
-
 
 
     changelistener = new ChangeListener() {
@@ -475,21 +461,21 @@ public class sliderInterface extends JFrame {
       public void actionPerformed(ActionEvent e) {
 
         //check if check allocations button is cleared, if it isnt cleared throw an error
-        if(!check6) {
+        if (!check6) {
           JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
 
-        int result =JOptionPane.showConfirmDialog(null,
+        int result = JOptionPane.showConfirmDialog(null,
             "Confirm Choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-        if(result != 0){
+        if (result != 0) {
           return;
         }
 
 
-        if(check && check2 && check3 && check4 && check5) {
-          for(int i = 0; i < shareList.size(); i ++){
+        if (check && check2 && check3 && check4 && check5) {
+          for (int i = 0; i < shareList.size(); i++) {
             double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
             Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
             shareList.remove(i);
@@ -506,11 +492,16 @@ public class sliderInterface extends JFrame {
         }
         if (check) {
           filer = createFileWriter(file);
+          formatFile(filer);
           for (Share share : shareList) {
-            writeToFile(filer, share);
+             writeToFile(filer, share);
           }
           closeFile(filer);
 
+
+
+          sliderInterface.this.setVisible(false);
+          sliderInterface.this.dispose();
           allocationPage(shareList);
 
         } else {
@@ -608,7 +599,6 @@ public class sliderInterface extends JFrame {
   }
 
 
-
   //make a file, make a directory to place the file
   //write the output to the file passed to it by the slider info
 
@@ -629,7 +619,7 @@ public class sliderInterface extends JFrame {
 
   public FileWriter createFileWriter(File file) {
     try {
-      FileWriter fileWrite = new FileWriter(file);
+      FileWriter fileWrite = new FileWriter(file, true);
       //    System.out.println("here so this is good");
       return fileWrite;
     } catch (IOException e) {
@@ -641,10 +631,23 @@ public class sliderInterface extends JFrame {
   }
 
 
+  public void formatFile(FileWriter filer) {
+    test = new testClass(curSysProp);
+    try {
+       filer.write("\n" + "Round " + test.getCurrent() + "\n");
+     } catch (IOException e) {
+       System.out.println("new file code failed");
+     }
+
+
+  }
+
+
+
   public void writeToFile(FileWriter filer, Share share) {
     try {
-      filer.write("\n" + "Security number = " + share.getSecurityNumber()  +  " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
-          " Security Allocation = " + share.getAllocation() );
+        filer.write("\n" + "Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
+            " Security Allocation = " + share.getAllocation());
 
     } catch (IOException e) {
       System.out.println("failed hurr");
@@ -668,8 +671,7 @@ public class sliderInterface extends JFrame {
 
   }
 
-  public Double
-  getMBar (){
+  public Double getMBar (){
     return mBar;
   }
 
@@ -705,7 +707,7 @@ public class sliderInterface extends JFrame {
 
   public void allocationPage(final List<Share> shareList){
     test = new testClass(curSysProp+1);
-    JFrame frame2 = new JFrame("Allocations");
+    final JFrame frame2 = new JFrame("Allocations");
     frame2.setLayout(new BorderLayout());
 
 
@@ -725,6 +727,8 @@ public class sliderInterface extends JFrame {
     ActionListener nextRound = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        frame2.setVisible(false);
+        frame2.dispose();
         parameters params = new parameters();
         sliderInterface slider = new sliderInterface(params.getSecurityList(), test.getCurrent());
         slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -733,6 +737,8 @@ public class sliderInterface extends JFrame {
 
       }
     };
+
+    button2.addActionListener(nextRound);
 
     button2.addActionListener(nextRound);
 
