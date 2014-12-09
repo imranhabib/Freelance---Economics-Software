@@ -511,7 +511,8 @@ public class sliderInterface extends JFrame {
             writeToFile(filer, share);
           }
           closeFile(filer);
-
+          sliderInterface.this.setVisible(false);
+          sliderInterface.this.dispose();
           allocationPage(shareList);
 
         } else {
@@ -726,8 +727,6 @@ public class sliderInterface extends JFrame {
     ActionListener nextRound = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        sliderInterface.this.setVisible(false);
-        sliderInterface.this.dispose();
         frame2.setVisible(false);
         frame2.dispose();
       parameters params = new parameters();
