@@ -1,0 +1,366 @@
+package project;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Created by ihabib on 12/11/2014.
+ */
+public class openingPage {
+
+
+  static JFrame mainScreen;
+  static JFrame frameForFile;
+  static JPanel titleBar;
+  static JSplitPane innerWindow;
+  static JPanel topComp;
+  static JPanel bottomComp;
+  static JButton submit;
+  static JTextField enterStuNum;
+  static JTextField enterStuFirstName;
+  static JTextField enterStuLastName;
+  static JTextField enterExperNum;
+  static JTextField enterStuNumConfirm;
+  static JTextField enterStuFirstNameConfirm;
+  static JTextField enterStuLastNameConfirm;
+  static JTextField enterExperNumConfirm;
+  static JTextField titlePane;
+  static JButton submitStuNum;
+  static JButton openbutton;
+  static JButton savebutton;
+  static JPanel buttonPanel;
+  static JLabel pictureHolder;
+  static JLabel fileSavedAs;
+  static ImageIcon logo;
+  static JFileChooser jfile;
+  static JTextArea text;
+  static ActionListener al;
+  static ActionListener cl;
+
+
+
+  static File outputfile;
+  static Border raisedBorder;
+  static Border loweredBorder;
+
+
+
+  public openingPage(){
+    mainScreen = new JFrame("Economics Experiment");
+    mainScreen.setLayout(new BorderLayout());
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    mainScreen.setBounds(0, 0, screenSize.width, screenSize.height - 45);
+
+
+    raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
+    loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
+
+
+    titleBar = new JPanel();
+    titleBar.setBorder(new TitledBorder("Introduction"));
+    titleBar.setLayout(new GridLayout(0, 1));
+    titlePane = new JTextField();
+    titlePane.setEditable(false);
+    titlePane.setText("Welcome, please enter your details below");
+    titlePane.setBackground(Color.BLACK);
+    titlePane.setForeground(Color.white);
+    titlePane.setFont(new Font("Calibri", Font.BOLD, 30));
+
+    titleBar.add(titlePane);
+
+    innerWindow = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+
+    //Top Component
+
+    topComp = new JPanel();
+    topComp.setLayout(new GridLayout(5, 2));
+    topComp.setBorder(new TitledBorder("Enter data"));
+    enterStuNum = new JTextField();
+    enterStuNum.setBorder(new TitledBorder(loweredBorder, "Enter Student Number"));
+    enterStuNum.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterStuLastName = new JTextField();
+    enterStuLastName.setBorder(new TitledBorder(loweredBorder, "Enter Last Name"));
+    enterStuLastName.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterStuFirstName = new JTextField();
+    enterStuFirstName.setBorder(new TitledBorder(loweredBorder, "Enter First Name"));
+    enterStuFirstName.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterExperNum = new JTextField();
+    enterExperNum.setBorder(new TitledBorder(loweredBorder,"Enter Experiment Number"));
+    enterExperNum.setFont(new Font("Calibri", Font.BOLD, 15));
+
+    enterStuNumConfirm = new JTextField();
+    enterStuNumConfirm.setEditable(false);
+    enterStuNumConfirm.setBorder(new TitledBorder(raisedBorder, "Student Number"));
+    enterStuNumConfirm.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterStuFirstNameConfirm = new JTextField();
+    enterStuFirstNameConfirm.setEditable(false);
+    enterStuFirstNameConfirm.setBorder(new TitledBorder(raisedBorder, "First Name"));
+    enterStuFirstNameConfirm.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterStuLastNameConfirm = new JTextField();
+    enterStuLastNameConfirm.setEditable(false);
+    enterStuLastNameConfirm.setBorder(new TitledBorder(raisedBorder, "Last Name"));
+    enterStuLastNameConfirm.setFont(new Font("Calibri", Font.BOLD, 15));
+    enterExperNumConfirm = new JTextField();
+    enterExperNumConfirm.setEditable(false);
+    enterExperNumConfirm.setBorder(new TitledBorder(raisedBorder, "Experiment Number"));
+    enterExperNumConfirm.setFont(new Font("Calibri", Font.BOLD, 15));
+
+    submitStuNum = new JButton("Submit information");
+    submitStuNum.setBorder(loweredBorder);
+    submitStuNum.setForeground(Color.white);
+    submitStuNum.setBackground(Color.black);
+
+    topComp.add(enterStuFirstName);
+    topComp.add(enterStuFirstNameConfirm);
+    topComp.add(enterStuLastName);
+    topComp.add(enterStuLastNameConfirm);
+    topComp.add(enterStuNum);
+    topComp.add(enterStuNumConfirm);
+    topComp.add(enterExperNum);
+    topComp.add(enterExperNumConfirm);
+    topComp.add(submitStuNum);
+
+    innerWindow.setTopComponent(topComp);
+
+
+    bottomComp = new JPanel(new BorderLayout());
+
+    jfile = new JFileChooser();
+    jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+    openbutton = new JButton("Open a File...");
+    savebutton = new JButton("Save a File...");
+    buttonPanel = new JPanel(new FlowLayout());
+
+    buttonPanel.add(savebutton);
+
+    text = new JTextArea(5,20);
+    text.setMargin(new Insets(5, 5, 5, 5));
+    text.setEditable(false);
+
+
+
+    fileSavedAs = new JLabel();
+
+    bottomComp.add(buttonPanel, BorderLayout.PAGE_START);
+    bottomComp.add(fileSavedAs, BorderLayout.CENTER);
+
+
+    frameForFile = new JFrame();
+    frameForFile.setSize(820, 600);
+    frameForFile.setPreferredSize(new Dimension(820, 600));
+    frameForFile.setLayout(new BorderLayout());
+    frameForFile.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+
+
+   al = new ActionListener() {
+  @Override
+  public void actionPerformed(ActionEvent e) {
+
+    if (e.getSource() == savebutton) {
+      int returnVal = jfile.showSaveDialog(frameForFile);
+      if (returnVal == JFileChooser.APPROVE_OPTION) {
+        outputfile = jfile.getSelectedFile();
+
+        if (!outputfile.getName().contains(".csv")) {
+          File newN = new File(outputfile.getAbsolutePath().concat(".csv"));
+          outputfile = newN;
+        }
+        if (outputfile.exists()) {
+          JOptionPane.showMessageDialog(frameForFile,
+              "File already exists",
+              "Warning",
+              JOptionPane.WARNING_MESSAGE);
+        }
+
+        saveFile(outputfile);
+        fileSavedAs.setText("  Selected file: " + outputfile.getName());
+
+      }
+    }
+  }
+
+    };
+
+  
+
+
+    cl = new DocumentListener() {
+      @Override
+      public void insertUpdate(DocumentEvent e) {
+        JTextField jtext = (JTextField) e.getSource();
+        if(e.getSource() == enterStuNum){
+           enterStuNum.setText(jtext.getText());
+           enterStuNumConfirm.setText(jtext.getText());
+        } else if (e.getSource() == enterStuFirstName){
+          enterStuFirstName.setText(jtext.getText());
+          enterStuFirstNameConfirm.setText(enterStuFirstName.getText());
+        } else if (e.getSource() == enterStuLastName){
+          enterStuLastName.setText(jtext.getText());
+          enterStuLastNameConfirm.setText(jtext.getText());
+        } else if (e.getSource() == enterExperNum){
+          enterExperNum.setText(jtext.getText());
+          enterExperNumConfirm.setText(jtext.getText());
+        }
+
+
+      }
+      
+      @Override
+    public void removeUpdate(DocumentEvent e){
+        
+        
+      }
+      
+      
+    };
+
+    enterStuNum.addActionListener(cl);
+    enterStuFirstName.addActionListener(cl);
+    enterStuLastName.addActionListener(cl);
+    enterExperNum.addActionListener(cl);
+    savebutton.addActionListener(al);
+
+
+
+    innerWindow.setBottomComponent(bottomComp);
+
+
+
+    logo = new ImageIcon("resources/UBCLogo1.jpg");
+    submit = new JButton("Continue");
+    submit.setBackground(Color.black);
+    submit.setForeground(Color.white);
+    pictureHolder = new JLabel(logo, JLabel.CENTER);
+
+
+
+
+
+    mainScreen.add(titleBar, BorderLayout.NORTH);
+    mainScreen.add(innerWindow, BorderLayout.CENTER);
+    mainScreen.add(submit, BorderLayout.SOUTH);
+    mainScreen.add(pictureHolder, BorderLayout.WEST);
+
+
+
+    mainScreen.setVisible(true);
+
+
+
+
+  }
+
+
+
+  public void saveFile(File file){
+    try {
+      if (file.createNewFile()) {
+        System.out.println("here");
+      } else {
+        System.out.println("you already have this file playa");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+
+  }
+
+
+
+
+
+
+
+    public static void main(String[] args) throws  Exception {
+
+      openingPage open = new openingPage();
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
