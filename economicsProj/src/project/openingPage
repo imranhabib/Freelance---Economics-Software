@@ -4,9 +4,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +32,7 @@ public class openingPage {
   static JTextField enterStuLastNameConfirm;
   static JTextField enterExperNumConfirm;
   static JTextField titlePane;
+  static JTextField confirmation;
   static JButton submitStuNum;
   static JButton openbutton;
   static JButton savebutton;
@@ -120,6 +118,11 @@ public class openingPage {
     submitStuNum.setForeground(Color.white);
     submitStuNum.setBackground(Color.black);
 
+    confirmation = new JTextField();
+    confirmation.setBorder(new TitledBorder(loweredBorder, "Confirmation"));
+
+
+
     topComp.add(enterStuFirstName);
     topComp.add(enterStuFirstNameConfirm);
     topComp.add(enterStuLastName);
@@ -129,8 +132,11 @@ public class openingPage {
     topComp.add(enterExperNum);
     topComp.add(enterExperNumConfirm);
     topComp.add(submitStuNum);
+    topComp.add(confirmation);
 
     innerWindow.setTopComponent(topComp);
+
+
 
 
     bottomComp = new JPanel(new BorderLayout());
@@ -193,44 +199,30 @@ public class openingPage {
 
     };
 
-  
 
 
-    cl = new DocumentListener() {
+
+    cl = new ActionListener() {
       @Override
-      public void insertUpdate(DocumentEvent e) {
-        JTextField jtext = (JTextField) e.getSource();
-        if(e.getSource() == enterStuNum){
-           enterStuNum.setText(jtext.getText());
-           enterStuNumConfirm.setText(jtext.getText());
-        } else if (e.getSource() == enterStuFirstName){
-          enterStuFirstName.setText(jtext.getText());
+      public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        if(e.getSource() == submitStuNum){
+           enterStuNumConfirm.setText(enterStuNum.getText());
           enterStuFirstNameConfirm.setText(enterStuFirstName.getText());
-        } else if (e.getSource() == enterStuLastName){
-          enterStuLastName.setText(jtext.getText());
-          enterStuLastNameConfirm.setText(jtext.getText());
-        } else if (e.getSource() == enterExperNum){
-          enterExperNum.setText(jtext.getText());
-          enterExperNumConfirm.setText(jtext.getText());
+          enterStuLastNameConfirm.setText(enterStuLastName.getText());
+          enterExperNumConfirm.setText(enterExperNum.getText());
+          confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
+
         }
 
 
       }
-      
-      @Override
-    public void removeUpdate(DocumentEvent e){
-        
-        
-      }
-      
-      
+
+
     };
 
-    enterStuNum.addActionListener(cl);
-    enterStuFirstName.addActionListener(cl);
-    enterStuLastName.addActionListener(cl);
-    enterExperNum.addActionListener(cl);
     savebutton.addActionListener(al);
+    submitStuNum.addActionListener(cl);
 
 
 
