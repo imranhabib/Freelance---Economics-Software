@@ -33,6 +33,7 @@ public class openingPage {
   static JTextField enterExperNumConfirm;
   static JTextField titlePane;
   static JTextField confirmation;
+  static JLabel instrucs;
   static JButton submitStuNum;
   static JButton openbutton;
   static JButton savebutton;
@@ -65,18 +66,20 @@ public class openingPage {
 
 
     titleBar = new JPanel();
-    titleBar.setBorder(new TitledBorder("Introduction"));
+    titleBar.setBorder(new TitledBorder(loweredBorder, "Introduction"));
     titleBar.setLayout(new GridLayout(0, 1));
     titlePane = new JTextField();
+    titlePane.setBorder(loweredBorder);
     titlePane.setEditable(false);
-    titlePane.setText("Welcome, please enter your details below");
+    titlePane.setText("Welcome");
     titlePane.setBackground(Color.BLACK);
-    titlePane.setForeground(Color.white);
+    titlePane.setForeground(Color.BLUE);
     titlePane.setFont(new Font("Calibri", Font.BOLD, 30));
 
     titleBar.add(titlePane);
 
     innerWindow = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+    innerWindow.setBorder(loweredBorder);
 
     //Top Component
 
@@ -123,6 +126,7 @@ public class openingPage {
 
 
 
+
     topComp.add(enterStuFirstName);
     topComp.add(enterStuFirstNameConfirm);
     topComp.add(enterStuLastName);
@@ -135,19 +139,27 @@ public class openingPage {
     topComp.add(confirmation);
 
     innerWindow.setTopComponent(topComp);
+    innerWindow.setBackground(Color.DARK_GRAY);
 
 
+    instrucs = new JLabel();
+    instrucs.setText("Please choose a location to save data --> ");
+    instrucs.setFont(new Font("Calibri", Font.BOLD, 15));
+    instrucs.setBorder(loweredBorder);
 
-
-    bottomComp = new JPanel(new BorderLayout());
+    bottomComp = new JPanel(new GridLayout(1, 0));
 
     jfile = new JFileChooser();
     jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-    openbutton = new JButton("Open a File...");
-    savebutton = new JButton("Save a File...");
+    savebutton = new JButton("Browse...");
     buttonPanel = new JPanel(new FlowLayout());
 
+    fileSavedAs = new JLabel();
+
+
+    buttonPanel.add(instrucs);
     buttonPanel.add(savebutton);
+    buttonPanel.add(fileSavedAs);
 
     text = new JTextArea(5,20);
     text.setMargin(new Insets(5, 5, 5, 5));
@@ -157,8 +169,7 @@ public class openingPage {
 
     fileSavedAs = new JLabel();
 
-    bottomComp.add(buttonPanel, BorderLayout.PAGE_START);
-    bottomComp.add(fileSavedAs, BorderLayout.CENTER);
+    bottomComp.add(buttonPanel);
 
 
     frameForFile = new JFrame();
