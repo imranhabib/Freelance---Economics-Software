@@ -2,6 +2,7 @@ package project;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class openingPage {
   static JTextField confirmation;
   static JLabel instrucs;
   static JButton submitStuNum;
-  static JButton openbutton;
+  static JButton clear;
   static JButton savebutton;
   static JPanel buttonPanel;
   static JLabel pictureHolder;
@@ -45,6 +46,7 @@ public class openingPage {
   static JTextArea text;
   static ActionListener al;
   static ActionListener cl;
+  static ActionListener al3;
 
 
 
@@ -57,8 +59,9 @@ public class openingPage {
   public openingPage(){
     mainScreen = new JFrame("Economics Experiment");
     mainScreen.setLayout(new BorderLayout());
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    mainScreen.setBounds(0, 0, screenSize.width, screenSize.height - 45);
+    Dimension screenSize = new Dimension(600, 800);
+    mainScreen.setBounds(0,0,1000,600);
+    mainScreen.setLocationRelativeTo(null);
 
 
     raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
@@ -80,11 +83,12 @@ public class openingPage {
 
     innerWindow = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     innerWindow.setBorder(loweredBorder);
+    innerWindow.setResizeWeight(0.85);
 
     //Top Component
 
     topComp = new JPanel();
-    topComp.setLayout(new GridLayout(5, 2));
+    topComp.setLayout(new GridLayout(6, 2));
     topComp.setBorder(new TitledBorder("Enter data"));
     enterStuNum = new JTextField();
     enterStuNum.setBorder(new TitledBorder(loweredBorder, "Enter Student Number"));
@@ -116,6 +120,14 @@ public class openingPage {
     enterExperNumConfirm.setBorder(new TitledBorder(raisedBorder, "Experiment Number"));
     enterExperNumConfirm.setFont(new Font("Calibri", Font.BOLD, 15));
 
+
+    clear = new JButton("Clear Information");
+    clear.setBorder(new LineBorder(Color.WHITE));
+    clear.setBackground(Color.black);
+    clear.setForeground(Color.red);
+
+
+
     submitStuNum = new JButton("Submit information");
     submitStuNum.setBorder(loweredBorder);
     submitStuNum.setForeground(Color.white);
@@ -137,6 +149,7 @@ public class openingPage {
     topComp.add(enterExperNumConfirm);
     topComp.add(submitStuNum);
     topComp.add(confirmation);
+    topComp.add(clear);
 
     innerWindow.setTopComponent(topComp);
     innerWindow.setBackground(Color.DARK_GRAY);
@@ -145,31 +158,33 @@ public class openingPage {
     instrucs = new JLabel();
     instrucs.setText("Please choose a location to save data --> ");
     instrucs.setFont(new Font("Calibri", Font.BOLD, 15));
-    instrucs.setBorder(loweredBorder);
+    instrucs.setBorder(raisedBorder);
 
-    bottomComp = new JPanel(new GridLayout(1, 0));
+
 
     jfile = new JFileChooser();
     jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
     savebutton = new JButton("Browse...");
-    buttonPanel = new JPanel(new FlowLayout());
+    Dimension dim2 = new Dimension(100, 50);
+    savebutton.setBorder(new TitledBorder("File Location"));
+    savebutton.setPreferredSize(dim2);
+    buttonPanel = new JPanel(new BorderLayout());
 
     fileSavedAs = new JLabel();
+    fileSavedAs.setBorder(new TitledBorder(raisedBorder, "File is saved here"));
 
 
-    buttonPanel.add(instrucs);
-    buttonPanel.add(savebutton);
-    buttonPanel.add(fileSavedAs);
+    buttonPanel.add(instrucs, BorderLayout.LINE_START);
+    buttonPanel.add(savebutton, BorderLayout.CENTER);
+    buttonPanel.add(fileSavedAs, BorderLayout.LINE_END);
 
     text = new JTextArea(5,20);
     text.setMargin(new Insets(5, 5, 5, 5));
     text.setEditable(false);
 
 
+    innerWindow.setBottomComponent(buttonPanel);
 
-    fileSavedAs = new JLabel();
-
-    bottomComp.add(buttonPanel);
 
 
     frameForFile = new JFrame();
@@ -202,7 +217,7 @@ public class openingPage {
         }
 
         saveFile(outputfile);
-        fileSavedAs.setText("  Selected file: " + outputfile.getName());
+        fileSavedAs.setText("Selected file: " + outputfile.getName());
 
       }
     }
@@ -212,16 +227,97 @@ public class openingPage {
 
 
 
+  al3 = new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == clear){
+       Object[] options = { "OK", "CANCEL" };
+       final int option = JOptionPane.showOptionDialog(null, "Are you sure you want to clear data?", "Warning",
+           JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+            null, options, options[0]);
+        if(option == JOptionPane.OK_OPTION){
+          enterStuNum.setText("");
+          enterStuFirstName.setText("");
+          enterStuLastName.setText("");
+          enterExperNum.setText("");
+          enterStuNumConfirm.setText("");
+          enterStuFirstNameConfirm.setText("");
+          enterStuLastNameConfirm.setText("");
+          enterExperNumConfirm.setText("");
+          confirmation.setText("");
+
+
+        }
+          else if(option == JOptionPane.CANCEL_OPTION) {
+          return;
+        }
+
+        }
+
+
+    }
+  };
+
+clear.addActionListener(al3);
+
 
     cl = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if(e.getSource() == submitStuNum){
-           enterStuNumConfirm.setText(enterStuNum.getText());
-          enterStuFirstNameConfirm.setText(enterStuFirstName.getText());
-          enterStuLastNameConfirm.setText(enterStuLastName.getText());
-          enterExperNumConfirm.setText(enterExperNum.getText());
+
+          Object[] options = { "OK", "CANCEL" };
+          final int option = JOptionPane.showOptionDialog(null, "Are you sure you want to submit data?", "Warning",
+              JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+              null, options, options[0]);
+
+          if(option == JOptionPane.CANCEL_OPTION){
+            return;
+          }
+
+          if(option == JOptionPane.OK_OPTION) {
+
+            if (enterStuFirstName.getText().equals("")) {
+              JOptionPane.showMessageDialog(null, "Please enter a first name", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+              enterStuFirstNameConfirm.setText(enterStuFirstName.getText());
+            }
+
+
+            if (enterStuLastName.getText().equals("")) {
+              if (!enterStuFirstName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, enterStuFirstName.getText() + ", you must enter your last name", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+              }
+              JOptionPane.showMessageDialog(null, "Please enter a last name", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+              enterStuLastNameConfirm.setText(enterStuLastName.getText());
+            }
+
+
+            if (enterStuNum.getText().equals("")) {
+              if (!enterStuFirstName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, enterStuFirstName.getText() + ", you must enter a student number", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+              }
+              JOptionPane.showMessageDialog(null, "Please enter a student number", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+              enterStuNumConfirm.setText(enterStuNum.getText());
+            }
+
+
+            if (enterExperNum.getText().equals("")) {
+              if (!enterStuFirstName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, enterStuFirstName.getText() + ", you must enter the experiment number", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+              }
+              JOptionPane.showMessageDialog(null, "Please enter an experiment number", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+              enterExperNumConfirm.setText(enterExperNum.getText());
+            }
+
+          }
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
 
         }
@@ -236,8 +332,6 @@ public class openingPage {
     submitStuNum.addActionListener(cl);
 
 
-
-    innerWindow.setBottomComponent(bottomComp);
 
 
 
