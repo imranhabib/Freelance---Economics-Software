@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -217,6 +218,9 @@ public class openingPage {
         }
 
         saveFile(outputfile);
+        FileWriter fw = createFileWriter(outputfile);
+        formatFile(fw);
+        closeFile(fw);
         fileSavedAs.setText("Selected file: " + outputfile.getName());
 
       }
@@ -259,7 +263,6 @@ public class openingPage {
   };
 
 clear.addActionListener(al3);
-
 
     cl = new ActionListener() {
       @Override
@@ -320,6 +323,7 @@ clear.addActionListener(al3);
           }
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
 
+
         }
 
 
@@ -331,31 +335,17 @@ clear.addActionListener(al3);
     savebutton.addActionListener(al);
     submitStuNum.addActionListener(cl);
 
-
-
-
-
-    logo = new ImageIcon("resources/UBCLogo1.jpg");
     submit = new JButton("Continue");
     submit.setBackground(Color.black);
     submit.setForeground(Color.white);
-    pictureHolder = new JLabel(logo, JLabel.CENTER);
-
-
-
 
 
     mainScreen.add(titleBar, BorderLayout.NORTH);
     mainScreen.add(innerWindow, BorderLayout.CENTER);
     mainScreen.add(submit, BorderLayout.SOUTH);
-    mainScreen.add(pictureHolder, BorderLayout.WEST);
-
 
 
     mainScreen.setVisible(true);
-
-
-
 
   }
 
@@ -374,6 +364,55 @@ clear.addActionListener(al3);
 
 
 
+  }
+
+
+
+  public FileWriter createFileWriter(File file) {
+    try {
+      FileWriter fileWrite = new FileWriter(file, true);
+      //    System.out.println("here so this is good");
+      return fileWrite;
+    } catch (IOException e) {
+      // System.out.println("here so were screwed");
+      return null;
+    }
+
+
+  }
+
+
+  public void formatFile(FileWriter filer) {
+    try {
+      filer.write("\n" + "Name: " + enterStuFirstName.getText() +
+      " " + enterStuLastName.getText() + "\n" + "Student Number: " + enterStuNum.getText());
+    } catch (IOException e) {
+      System.out.println("new file code failed");
+    }
+
+
+  }
+
+
+
+  public void writeToFile(FileWriter filer, Share share) {
+    try {
+      filer.write("\n" + "Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
+          " Security Allocation = " + share.getAllocation());
+
+    } catch (IOException e) {
+      System.out.println("failed hurr");
+    }
+
+  }
+
+  public void closeFile(FileWriter filer){
+    try {
+      filer.flush();
+      filer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
 
