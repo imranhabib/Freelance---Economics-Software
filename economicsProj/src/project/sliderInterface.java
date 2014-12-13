@@ -379,13 +379,27 @@ public class sliderInterface extends JFrame {
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        model.setRangeProperties(100-v1,v1,0,100,false);
+                        if(v1 < (100-v1)){
+                            model.setRangeProperties(v1, 100-v1, 0, 100, false);
+                            textField2.setText("Security #" + s.getName() + " = " + v1 + "%");
+                            v2 =v1;
+                            s2 =source;
+                            s2Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(v1 < 25){
+                                    JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                    + "Please press the reset allocations button and reallocate your income shares.",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        else {
+                            model.setRangeProperties(100-v1,v1,0,100,false);
+                            textField2.setText("Security #" + s.getName() + " = " + (100-v1) + "%");
+                        }
                         System.out.println((Integer.parseInt(name)));
                         panel.removeAll();
                         addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                         addShare(s,temp);
-                        textField2.setText("Security #" + s.getName() + " = " + (100-v1) + "%");
-                        recreate((Integer.parseInt(name)));
+                        recreate((Integer.parseInt(name)), 100-v1);
                         panel.revalidate();
                         panel.repaint();
                         s1 =source;
@@ -406,14 +420,29 @@ public class sliderInterface extends JFrame {
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        model.setRangeProperties(100-v1-v2, v1+v2,0,100,false);
+                        if(v2 < (100-v1-v2)){
+                            model.setRangeProperties(v2, 100-v1-v2, 0, 100, false);
+                            textField3.setText("Security #" + s.getName() + " = " + v2 + "%");
+                            v3=v2;
+                            s3 =source;
+                            s3Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(((100-v1-v2)/3) > v2){
+                                JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                + "Please press the reset allocations button and reallocate your income shares.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                        }
+                        else {
+                            model.setRangeProperties(100-v1-v2, v1+v2,0,100,false);
+                            textField3.setText("Security #" + s.getName() + " = " + (100-v1-v2) + "%");
+                        }
                         System.out.println((Integer.parseInt(name)));
                         panel.removeAll();
                         addShare(s1, s1Price);
                         addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                         addShare(s,temp);
-                        textField3.setText("Security #" + s.getName() + " = " + (100-v1-v2) + "%");
-                        recreate((Integer.parseInt(name)));
+                        recreate((Integer.parseInt(name)), 100-v1-v2);
                         panel.revalidate();
                         panel.repaint();
                         s2 =source;
@@ -433,15 +462,31 @@ public class sliderInterface extends JFrame {
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        model.setRangeProperties(100-v1-v2-v3, v1+v2+v3,0,100,false);
+
+                        if(v3 < (100-v1-v2-v3)){
+                            model.setRangeProperties(v3, 100-v1-v2-v3, 0, 100, false);
+                            textField4.setText("Security #" + s.getName() + " = " + v3 + "%");
+                            v4=v3;
+                            s4 =source;
+                            s4Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(((100-v1-v2-v3)/2) > v3){
+                                JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                + "Please press the reset allocations button and reallocate your income shares.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        else {
+                            model.setRangeProperties(100-v1-v2-v3, v1+v2+v3,0,100,false);
+                            textField4.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3) + "%");
+                        }
+
                         System.out.println((Integer.parseInt(name)));
                         panel.removeAll();
                         addShare(s1, s1Price);
                         addShare(s2, s2Price);
                         addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                         addShare(s,temp);
-                        textField4.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3) + "%");
-                        recreate((Integer.parseInt(name)));
+                        recreate((Integer.parseInt(name)), 100-v1-v2-v3);
                         panel.revalidate();
                         panel.repaint();
                         s3 =source;
@@ -461,7 +506,20 @@ public class sliderInterface extends JFrame {
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        model.setRangeProperties(100-v1-v2-v3-v4, v1+v2+v3+v4,0,100,false);
+
+                        if(v4 < (100-v1-v2-v3-v4)){
+                            model.setRangeProperties(v4, 100-v1-v2-v3-v4, 0, 100, false);
+                            textField5.setText("Security #" + s.getName() + " = " + v4 + "%");
+                            JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                            + "Please press the reset allocations button and reallocate your income shares.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else {
+                            model.setRangeProperties(100-v1-v2-v3-v4, v1+v2+v3+v4,0,100,false);
+                            textField5.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3-v4) + "%");
+                        }
+
+
                         System.out.println((Integer.parseInt(name)));
                         panel.removeAll();
                         addShare(s1, s1Price);
@@ -469,8 +527,8 @@ public class sliderInterface extends JFrame {
                         addShare(s3, s3Price);
                         addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                         addShare(s,temp);
-                        textField5.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3-v4) + "%");
-                        recreate((Integer.parseInt(name)));
+
+                        recreate((Integer.parseInt(name)), 100-v1-v2-v3-v4);
                         panel.revalidate();
                         panel.repaint();
                         s4 =source;
@@ -942,12 +1000,15 @@ public class sliderInterface extends JFrame {
     }
 
 
-    public void recreate(int num){
+    public void recreate(int num, int limit){
         int t = shareList.size();
         for (int i = num+1; i < t; i++) {
             System.out.println("this is sharelist order " + shareList.get(i).getSecurityNumber());
             System.out.println("this is component " + i);
-            addShare(formatSlider(shareList.get(i).getPrice(), i + 1), shareList.get(i).getPrice());
+            JSlider sl = formatSlider(shareList.get(i).getPrice(), i + 1);
+            BoundedRangeModel model = sl.getModel();
+            model.setRangeProperties(0,limit,0,100,false);
+            addShare(sl, shareList.get(i).getPrice());
         }
     }
 
