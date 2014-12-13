@@ -14,11 +14,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
-
-
 
 
 /**
@@ -86,6 +83,18 @@ public class sliderInterface extends JFrame {
     static int total;
 
     static int allocation = 0;
+
+    static JSlider s1;
+    static int s1Price;
+    static JSlider s2;
+    static int s2Price;
+    static JSlider s3;
+    static int s3Price;
+    static JSlider s4;
+    static int s4Price;
+    static JSlider s5;
+    static int s5Price;
+
 
 
     //file stuffz
@@ -250,36 +259,23 @@ public class sliderInterface extends JFrame {
         remainingAlloc.setBorder(new TitledBorder("Remaining Money"));
 
 
-        button3 = new JButton("Press to Check");
+        button3 = new JButton("Reset Allocations");
 
 
         Actionlistener4 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                List<JSlider> temp = getSliders();
-                for (int i = 0; i < temp.size() - 1; i++) {
-                    System.out.println("name = " + temp.get(i).getName() + " value = " + temp.get(i).getValue());
-                    if ((temp.get(i).getValue() < temp.get(i + 1).getValue()) &&
-                            (Integer.parseInt(temp.get(i).getName()) < Integer.parseInt(temp.get(i + 1).getName()))) {
-                        System.out.println("this is slider1" + temp.get(i).getValue());
-                        System.out.println("this is slider2" + temp.get(i + 1).getValue());
-                        textField6.setText("Security " + temp.get(i + 1).getName() + " must be less than Security " + temp.get(i).getName());
-                        break;
-                    }
-                    int temp2 = (v1 + v2 + v3 + v4 + v5);
-                    if (temp2 > 100) {
-                        textField6.setText("Total income share cannot be more than 100%");
-                        break;
-                    }
-                    textField6.setText("Allocation is possible, you can continue!");
-                    check6 = true;
+                panel.removeAll();
+                for (int i = 0; i < shares.size(); i++) {
+                    addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
                 }
-                //      textField6.setText("Everything looks good, you can continue!");
-                /*
-                setNofR(getR(), shares, param);
-                float value = getNofR();
-                System.out.println("this is dat valu = " + value);
-                */
+                textField.setText("");
+                textField2.setText("");
+                textField3.setText("");
+                textField4.setText("");
+                textField5.setText("");
+                panel.revalidate();
+                panel.repaint();
             }
         };
 
@@ -373,19 +369,44 @@ public class sliderInterface extends JFrame {
                     Double valueD = Double.parseDouble(Integer.toString(source.getValue()));
                     String name = source.getName();
                     if (name.equals("1")) {
+                        setSliders(source);
                         v1 = value;
                         textField.setText("Security #" + source.getName() + " = " + value + "%");
                         Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(0);
                         shareList.add(0, share1);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            System.out.println((getSliders().contains(source)));
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
+                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
+                        JSlider s = formatSlider(temp, temp2);
+                        BoundedRangeModel model = s.getModel();
+                        if(v1 < (100-v1)){
+                            model.setRangeProperties(v1, 100-v1, 0, 100, false);
+                            textField2.setText("Security #" + s.getName() + " = " + v1 + "%");
+                            v2 =v1;
+                            s2 =source;
+                            s2Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(v1 < 25){
+                                    JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                    + "Please press the reset allocations button and reallocate your income shares.",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
-                        check = true;                                                                         //using getName to store the price of the security
+                        else {
+                            model.setRangeProperties(100-v1,v1,0,100,false);
+                            textField2.setText("Security #" + s.getName() + " = " + (100-v1) + "%");
+                        }
+                        System.out.println((Integer.parseInt(name)));
+                        panel.removeAll();
+                        addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+                        addShare(s,temp);
+                        recreate((Integer.parseInt(name)), 100-v1);
+                        panel.revalidate();
+                        panel.repaint();
+                        s1 =source;
+                        s1Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                        check = true;
+                        check6 = true;
+                        //using getName to store the price of the security
                     }
                     if (name.equals("2")) {
                         v2 = value;
@@ -393,14 +414,40 @@ public class sliderInterface extends JFrame {
                         Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(1);
                         shareList.add(1, share2);
+                        setSliders(source);
 
+                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
+                        JSlider s = formatSlider(temp, temp2);
+                        BoundedRangeModel model = s.getModel();
+                        if(v2 < (100-v1-v2)){
+                            model.setRangeProperties(v2, 100-v1-v2, 0, 100, false);
+                            textField3.setText("Security #" + s.getName() + " = " + v2 + "%");
+                            v3=v2;
+                            s3 =source;
+                            s3Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(((100-v1-v2)/3) > v2){
+                                JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                + "Please press the reset allocations button and reallocate your income shares.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
 
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
                         }
+                        else {
+                            model.setRangeProperties(100-v1-v2, v1+v2,0,100,false);
+                            textField3.setText("Security #" + s.getName() + " = " + (100-v1-v2) + "%");
+                        }
+                        System.out.println((Integer.parseInt(name)));
+                        panel.removeAll();
+                        addShare(s1, s1Price);
+                        addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+                        addShare(s,temp);
+                        recreate((Integer.parseInt(name)), 100-v1-v2);
+                        panel.revalidate();
+                        panel.repaint();
+                        s2 =source;
+                        s2Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+
                         check2 = true;
                     }
                     if (name.equals("3")) {
@@ -409,12 +456,42 @@ public class sliderInterface extends JFrame {
                         Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(2);
                         shareList.add(2, share3);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
+                        setSliders(source);
+
+                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
+                        JSlider s = formatSlider(temp, temp2);
+                        BoundedRangeModel model = s.getModel();
+
+                        if(v3 < (100-v1-v2-v3)){
+                            model.setRangeProperties(v3, 100-v1-v2-v3, 0, 100, false);
+                            textField4.setText("Security #" + s.getName() + " = " + v3 + "%");
+                            v4=v3;
+                            s4 =source;
+                            s4Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+                            if(((100-v1-v2-v3)/2) > v3){
+                                JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                + "Please press the reset allocations button and reallocate your income shares.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
+                        else {
+                            model.setRangeProperties(100-v1-v2-v3, v1+v2+v3,0,100,false);
+                            textField4.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3) + "%");
+                        }
+
+                        System.out.println((Integer.parseInt(name)));
+                        panel.removeAll();
+                        addShare(s1, s1Price);
+                        addShare(s2, s2Price);
+                        addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+                        addShare(s,temp);
+                        recreate((Integer.parseInt(name)), 100-v1-v2-v3);
+                        panel.revalidate();
+                        panel.repaint();
+                        s3 =source;
+                        s3Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+
                         check3 = true;
                     }
                     if (name.equals("4")) {
@@ -423,12 +500,40 @@ public class sliderInterface extends JFrame {
                         Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(3);
                         shareList.add(3, share4);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
+                        setSliders(source);
+
+                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
+                        JSlider s = formatSlider(temp, temp2);
+                        BoundedRangeModel model = s.getModel();
+
+                        if(v4 < (100-v1-v2-v3-v4)){
+                            model.setRangeProperties(v4, 100-v1-v2-v3-v4, 0, 100, false);
+                            textField5.setText("Security #" + s.getName() + " = " + v4 + "%");
+                            JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                            + "Please press the reset allocations button and reallocate your income shares.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
                         }
+                        else {
+                            model.setRangeProperties(100-v1-v2-v3-v4, v1+v2+v3+v4,0,100,false);
+                            textField5.setText("Security #" + s.getName() + " = " + (100-v1-v2-v3-v4) + "%");
+                        }
+
+
+                        System.out.println((Integer.parseInt(name)));
+                        panel.removeAll();
+                        addShare(s1, s1Price);
+                        addShare(s2, s2Price);
+                        addShare(s3, s3Price);
+                        addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+                        addShare(s,temp);
+
+                        recreate((Integer.parseInt(name)), 100-v1-v2-v3-v4);
+                        panel.revalidate();
+                        panel.repaint();
+                        s4 =source;
+                        s4Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
+
                         check4 = true;
                     }
                     if (name.equals("5")) {
@@ -437,12 +542,14 @@ public class sliderInterface extends JFrame {
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
                         shareList.remove(4);
                         shareList.add(4, share5);
-                        if (getSliders().contains(source)) {
-                            getSliders().remove(source);
-                            setSliders(source);
-                        } else {
-                            setSliders(source);
+                        setSliders(source);
+
+                        if((v1+v2+v3+v4+v5) != 100){
+                            JOptionPane.showMessageDialog(null, "The sum of income shares do not equal to 100." + "\n"
+                                            + "Please press the reset allocations button and reallocate your income shares.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
                         }
+
                         check5 = true;
                     }
                 }
@@ -581,15 +688,13 @@ public class sliderInterface extends JFrame {
         pan.add(new JLabel("Price of security = " + price));
         panel.add(pan);
 
-
     }
 
     public JSlider formatSlider(int price, int number) {
         JSlider slider = new JSlider(JSlider.VERTICAL);
+        BoundedRangeModel model = slider.getModel();
+        model.setRangeProperties(0,0,0,100,false);
         slider.setName(Integer.toString(number));
-        slider.setMinimum(0);
-        slider.setMaximum(100);
-        slider.setValue(0);
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(25);
         slider.setMinorTickSpacing(5);
@@ -632,19 +737,48 @@ public class sliderInterface extends JFrame {
     }
 
 
-    public void setSliders(JSlider slider) {
-        sliders.add(slider);
+    public void setSliders(JSlider slid) {
+        if(sliders.isEmpty()){
+            sliders.add(slid);
+            return;
+        }
+        if(sliders.contains(slid)){
+            for(int i = 0; i < sliders.size(); i++){
+                if((sliders.get(i).getName()) == slid.getName()){
+                    sliders.remove(sliders.get(i));
+                    sliders.add(i, slid);
+                    System.out.println("value of replaceed slider " + sliders.get(i).getValue());
+                    return;
+                }
+            }
+        }
+        else{
+            sliders.add(slid);
+            for(int i = sliders.size()-1; i > 0; i--){
+                System.out.println("I'm outside if statement");
+                if((Integer.parseInt(sliders.get(i).getName())) < (Integer.parseInt(sliders.get(i-1).getName()))){
+                    System.out.println("this is before change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
+                    swapSliders(i, i-1);
+                    System.out.println("this is after change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
+                }
+            }
+        }
 
     }
 
+    public void swapSliders(int pos1, int pos2){
+        JSlider tempSlid;
+        JSlider tempSlid2;
+        tempSlid = sliders.get(pos1);
+        tempSlid2 = sliders.get(pos2);
+        sliders.remove(sliders.get(pos1));
+        sliders.add(pos1, tempSlid2);
+        sliders.remove(sliders.get(pos2));
+        sliders.add(pos2, tempSlid);
+    }
+
     public List<JSlider> getSliders() {
-        List<JSlider> orderedSliders = new ArrayList<JSlider>();
-        for (int i = 0; i < sliders.size(); i++) {
-            String nTemp = sliders.get(i).getName();
-            int temp = Integer.parseInt(nTemp);
-            orderedSliders.add(temp - 1, sliders.get(i));
-        }
-        return orderedSliders;
+        return sliders;
     }
 
 
@@ -866,6 +1000,17 @@ public class sliderInterface extends JFrame {
     }
 
 
+    public void recreate(int num, int limit){
+        int t = shareList.size();
+        for (int i = num+1; i < t; i++) {
+            System.out.println("this is sharelist order " + shareList.get(i).getSecurityNumber());
+            System.out.println("this is component " + i);
+            JSlider sl = formatSlider(shareList.get(i).getPrice(), i + 1);
+            BoundedRangeModel model = sl.getModel();
+            model.setRangeProperties(0,limit,0,100,false);
+            addShare(sl, shareList.get(i).getPrice());
+        }
+    }
 
 
 
