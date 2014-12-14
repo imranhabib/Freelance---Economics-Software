@@ -36,6 +36,7 @@ public class sliderInterface extends JFrame {
     static JButton button1;
     static JTextField remainingAlloc;
     static JButton button3;
+    static JTextField valueAdjust;
 
     static testClass test;
 
@@ -60,6 +61,12 @@ public class sliderInterface extends JFrame {
     private static ChangeListener changelistener3;
     private static ActionListener Actionlistener4;
     private static ActionListener action;
+    private static ChangeListener changelistener4;
+    
+    
+    
+    static Border raisedBorder;
+    static Border loweredBorder;
 
 
     private final Color blue = Color.BLUE;
@@ -140,6 +147,10 @@ public class sliderInterface extends JFrame {
         int size = shares.size();
         panel2 = new JPanel();
 
+        raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
+        loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
+
+
         allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
 
         panel2.setLayout(new BorderLayout(5, 10));
@@ -189,11 +200,7 @@ public class sliderInterface extends JFrame {
         //param.getArgMaxFormula(2, shareList);
 
 
-        for (Share share : shareList) {
-
-            //System.out.println(" number = " + share.getSecurityNumber() + " income share = " + share.getIncomeShare() + " price = " + share.getPrice());
-        }
-
+      
 
         SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 0.5);
         SpinnerNumberModel spinnerNumberModel2 = new SpinnerNumberModel(0, 0, 100, 1);
@@ -238,28 +245,26 @@ public class sliderInterface extends JFrame {
 
         jSpinner.addChangeListener(changelistener3);
 
-        textField8 = new JTextField();
-        textField8.setEditable(false);
-        textField8.setBorder(new TitledBorder("ArgMax"));
+        
 
         panel5 = new JPanel();
         panel5.setLayout(new GridLayout(0, shares.size()));
-        panel5.setBorder(new TitledBorder("Reservation Ratio"));
+        panel5.setBorder(new TitledBorder(raisedBorder, "Reservation Ratio"));
         panel5.add(jSpinner);
-        panel5.add(textField8);
 
         panel6 = new JPanel();
         panel6.setLayout(new GridLayout(0, 3));
-        panel6.setBorder(new TitledBorder("Minimum Share"));
+        panel6.setBorder(new TitledBorder(raisedBorder, "Minimum Share"));
         panel6.add(jSpinner2);
-
 
         remainingAlloc = new JTextField();
         remainingAlloc.setEditable(false);
-        remainingAlloc.setBorder(new TitledBorder("Remaining Money"));
+        remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
+        
 
 
         button3 = new JButton("Reset Allocations");
+        button3.setBorder(new TitledBorder(raisedBorder, "Reset"));
 
 
         Actionlistener4 = new ActionListener() {
@@ -281,27 +286,36 @@ public class sliderInterface extends JFrame {
 
         button3.addActionListener(Actionlistener4);
 
-        textField7 = new JTextField();
+       textField7 = new JTextField();
         textField7.setEditable(false);
-        textField7.setBorder(new TitledBorder("Affordable?"));
+        textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
+
+        valueAdjust = new JTextField();
+        valueAdjust.setBorder(raisedBorder);
+        valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
+        valueAdjust.setText("Value = ");
 
         panel7 = new JPanel();
         panel7.setLayout(new GridLayout(0, shares.size()));
-        panel7.setBorder(new TitledBorder("Data"));
+        panel7.setBorder(new TitledBorder(raisedBorder, "Data"));
         panel7.add(remainingAlloc);
         panel7.add(textField7);
 
 
+
         panel8 = new JPanel();
-        panel8.setLayout(new GridLayout(0, 2));
-        panel8.setBorder(new TitledBorder("Check Allocations"));
+        panel8.setLayout(new GridLayout(0, 2, 5, 5));
+        panel8.setBorder(raisedBorder);
+        panel8.add(valueAdjust);
         panel8.add(button3);
-        panel8.add(textField6);
+
+        empty1 = new JLabel();
+        empty2 = new JLabel();
 
 
         panel4 = new JPanel();
         panel4.setLayout(new GridLayout(0, 2));
-        panel4.setBorder(new TitledBorder("Inputs"));
+        panel4.setBorder(new TitledBorder("Create a choice rule"));
         panel4.add(panel8);
         panel4.add(panel6);
         panel4.add(panel7);
@@ -558,6 +572,19 @@ public class sliderInterface extends JFrame {
         };
 
 
+
+   changelistener4 = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider) e.getSource();
+                if (source.getValueIsAdjusting()){
+                    valueAdjust.setText("Value = " + Integer.toString(source.getValue()));
+                }
+            }
+        };
+
+
+
         //File stuffz
 
         file = new File(directory, filename);
@@ -682,6 +709,7 @@ public class sliderInterface extends JFrame {
 
     public void addShare(JSlider slider, int price) {
         slider.addChangeListener(changelistener);
+        slider.addChangeListener(changelistener4);
         JPanel pan = new JPanel();
         pan.add(slider);
         //pan.setToolTipText(Float.toString(incomeShare));
