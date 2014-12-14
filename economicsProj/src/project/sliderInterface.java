@@ -279,6 +279,7 @@ public class sliderInterface extends JFrame {
                 textField3.setText("");
                 textField4.setText("");
                 textField5.setText("");
+                valueAdjust.setText("Value = ");
                 panel.revalidate();
                 panel.repaint();
             }
