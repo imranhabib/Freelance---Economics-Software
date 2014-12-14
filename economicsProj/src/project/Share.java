@@ -16,7 +16,14 @@ public class Share {
         this.securityNumber = securityNumber;
     }
 
-     public Share(int price, Double incomeShare, int securityNumber){
+    public Share(int price,int securityNumber, double allocation){
+        this.price = price;
+        this.securityNumber = securityNumber;
+        this.allocation = allocation;
+    }
+
+
+    public Share(int price, Double incomeShare, int securityNumber){
         this.price = price;
         this.incomeShare = incomeShare;
         this.securityNumber = securityNumber;
