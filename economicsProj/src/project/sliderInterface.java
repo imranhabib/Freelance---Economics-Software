@@ -238,7 +238,7 @@ public class sliderInterface extends JFrame {
                 value2 = (Double) source.getValue();
                 r = value2;
                 setR(r);
-                textField8.setText(Double.toString(param.getArgMaxFormula(getR(), shareList)));
+               // textField8.setText(Double.toString(param.getArgMaxFormula(getR(), shareList)));
                 System.out.println("reservation ratio = " + getR());
             }
         };
