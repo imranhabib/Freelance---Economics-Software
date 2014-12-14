@@ -214,6 +214,7 @@ public class phase1 extends JFrame{
                 textFieldUsedtobePanel5.setText(Integer.toString(0));
                 textField7.setText(Integer.toString(allocation));
                 remainingAlloc.setText("");
+                valueAdjust.setText("Value = ");
                 panel.revalidate();
                 panel.repaint();
             }
