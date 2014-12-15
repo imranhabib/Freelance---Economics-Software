@@ -436,7 +436,7 @@ public class sliderInterface extends JFrame {
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
                         if(v2 < (100-v1-v2)){
-                            model.setRangeProperties(v2, 100-v1-v2, 0, 100, false);
+                            model.setRangeProperties(v2, 100-v2, 0, 100, false);
                             textField3.setText("Security #" + s.getName() + " = " + v2 + "%");
                             v3=v2;
                             s3 =source;
@@ -479,7 +479,7 @@ public class sliderInterface extends JFrame {
                         BoundedRangeModel model = s.getModel();
 
                         if(v3 < (100-v1-v2-v3)){
-                            model.setRangeProperties(v3, 100-v1-v2-v3, 0, 100, false);
+                            model.setRangeProperties(v3, 100-v3, 0, 100, false);
                             textField4.setText("Security #" + s.getName() + " = " + v3 + "%");
                             v4=v3;
                             s4 =source;
@@ -523,7 +523,7 @@ public class sliderInterface extends JFrame {
                         BoundedRangeModel model = s.getModel();
 
                         if(v4 < (100-v1-v2-v3-v4)){
-                            model.setRangeProperties(v4, 100-v1-v2-v3-v4, 0, 100, false);
+                            model.setRangeProperties(v4, 100-v4, 0, 100, false);
                             textField5.setText("Security #" + s.getName() + " = " + v4 + "%");
                             JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
                                             + "Please press the reset allocations button and reallocate your income shares.",
