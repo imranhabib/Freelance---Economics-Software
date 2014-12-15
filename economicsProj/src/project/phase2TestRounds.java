@@ -179,7 +179,7 @@ public class phase2TestRounds extends JFrame{
         }
 
         filer1 = createFileWriter(file1);
-        formatFile2(filer1);
+
         for (Share share : store.getSharesListers1()) {
           writeToFile2(filer1, share);
         }
@@ -200,7 +200,7 @@ public class phase2TestRounds extends JFrame{
       }
 
       filer2 = createFileWriter(file2);
-      formatFile2(filer2);
+
       for (Share share : store.getSharesListers2()) {
         writeToFile2(filer2, share);
       }
@@ -224,7 +224,7 @@ public class phase2TestRounds extends JFrame{
       }
 
       filer3 = createFileWriter(file3);
-      formatFile2(filer3);
+
       for (Share share : store.getSharesListers3()) {
         writeToFile2(filer3, share);
       }
@@ -247,7 +247,7 @@ public class phase2TestRounds extends JFrame{
       }
 
       filer4 = createFileWriter(file4);
-      formatFile2(filer4);
+
       for (Share share : store.getSharesListers4()) {
         writeToFile2(filer4, share);
       }
@@ -664,10 +664,13 @@ public class phase2TestRounds extends JFrame{
 
 
 
+
+
+
   public void writeToFile2(FileWriter filer, Share share) {
     try {
-      filer.write("\n" + "Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
-          " Security Allocation = " + share.getAllocation());
+      filer.write("\n" + "@" + "%" + share.getSecurityNumber() + "%" + "$" + share.getPrice() + "$" + "^" + share.getIncomeShare() + "^" +
+          "#" + share.getAllocation() + "#" + "*");
 
     } catch (IOException e) {
       System.out.println("failed hurr");
