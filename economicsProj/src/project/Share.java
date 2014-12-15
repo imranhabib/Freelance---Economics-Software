@@ -53,6 +53,9 @@ public class Share {
     }
 
 
+public void setPrice(int p){
+  price = p;
+}
 
 
     public int getPrice(){
