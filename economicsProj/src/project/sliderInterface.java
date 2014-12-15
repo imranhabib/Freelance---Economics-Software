@@ -5,12 +5,15 @@ import org.jfree.chart.JFreeChart;
 import test.testClass;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Arc2D;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,7 +39,6 @@ public class sliderInterface extends JFrame {
     static JButton button1;
     static JTextField remainingAlloc;
     static JButton button3;
-    static JTextField valueAdjust;
 
     static testClass test;
 
@@ -48,12 +50,18 @@ public class sliderInterface extends JFrame {
     private static JTextField textField4;
     private static JTextField textField5;
 
+
+    static JLabel empty1;
+    static JLabel empty2;
+
     private static JTextField textField6;
     private static JTextField textField7;
     private static JTextField textField8;
 
     private static JSpinner jSpinner;
     private static JSpinner jSpinner2;
+
+    private static JTextField valueAdjust;
 
 
     private static ChangeListener changelistener;
@@ -62,12 +70,8 @@ public class sliderInterface extends JFrame {
     private static ActionListener Actionlistener4;
     private static ActionListener action;
     private static ChangeListener changelistener4;
-    
-    
-    
-    static Border raisedBorder;
-    static Border loweredBorder;
 
+    static List<Share> anotherShareList;
 
     private final Color blue = Color.BLUE;
     private final Color red = Color.RED;
@@ -78,6 +82,10 @@ public class sliderInterface extends JFrame {
     private static boolean check4;
     private static boolean check5;
     private static boolean check6;
+
+    static Border raisedBorder;
+    static Border loweredBorder;
+
 
     private int v1;
     private int v2;
@@ -141,15 +149,15 @@ public class sliderInterface extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
+        raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
+        loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
+
+
         total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
         n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
 
         int size = shares.size();
         panel2 = new JPanel();
-
-        raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
-        loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
-
 
         allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
 
@@ -200,8 +208,6 @@ public class sliderInterface extends JFrame {
         //param.getArgMaxFormula(2, shareList);
 
 
-      
-
         SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 0.5);
         SpinnerNumberModel spinnerNumberModel2 = new SpinnerNumberModel(0, 0, 100, 1);
         jSpinner = new JSpinner(spinnerNumberModel);
@@ -245,7 +251,7 @@ public class sliderInterface extends JFrame {
 
         jSpinner.addChangeListener(changelistener3);
 
-        
+
 
         panel5 = new JPanel();
         panel5.setLayout(new GridLayout(0, shares.size()));
@@ -260,7 +266,6 @@ public class sliderInterface extends JFrame {
         remainingAlloc = new JTextField();
         remainingAlloc.setEditable(false);
         remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
-        
 
 
         button3 = new JButton("Reset Allocations");
@@ -287,14 +292,9 @@ public class sliderInterface extends JFrame {
 
         button3.addActionListener(Actionlistener4);
 
-       textField7 = new JTextField();
+        textField7 = new JTextField();
         textField7.setEditable(false);
         textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
-
-        valueAdjust = new JTextField();
-        valueAdjust.setBorder(raisedBorder);
-        valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
-        valueAdjust.setText("Value = ");
 
         panel7 = new JPanel();
         panel7.setLayout(new GridLayout(0, shares.size()));
@@ -302,7 +302,10 @@ public class sliderInterface extends JFrame {
         panel7.add(remainingAlloc);
         panel7.add(textField7);
 
-
+        valueAdjust = new JTextField();
+        valueAdjust.setBorder(raisedBorder);
+        valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
+        valueAdjust.setText("Value = ");
 
         panel8 = new JPanel();
         panel8.setLayout(new GridLayout(0, 2, 5, 5));
@@ -310,8 +313,10 @@ public class sliderInterface extends JFrame {
         panel8.add(valueAdjust);
         panel8.add(button3);
 
+
         empty1 = new JLabel();
         empty2 = new JLabel();
+
 
 
         panel4 = new JPanel();
@@ -401,9 +406,9 @@ public class sliderInterface extends JFrame {
                             s2 =source;
                             s2Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
                             if(v1 < 25){
-                                    JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
-                                                    + "Please press the reset allocations button and reallocate your income shares.",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "The sum of income shares will not be able to add up to 100." + "\n"
+                                                + "Please press the reset allocations button and reallocate your income shares.",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                         else {
@@ -572,9 +577,7 @@ public class sliderInterface extends JFrame {
             }
         };
 
-
-
-   changelistener4 = new ChangeListener() {
+        changelistener4 = new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();
@@ -583,8 +586,6 @@ public class sliderInterface extends JFrame {
                 }
             }
         };
-
-
 
         //File stuffz
 
@@ -609,58 +610,127 @@ public class sliderInterface extends JFrame {
                 }
 
 
-                if (check && shareList.size() == 1) {
-                    for (int i = 0; i < shareList.size(); i++) {
-                        double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
-                        Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                        shareList.remove(i);
-                        shareList.add(i, share);
+                anotherShareList = new ArrayList<Share>(shareList.size());
 
-                    }
+                if (check && shareList.size() == 1) {
+                    Share share = new Share(shareList.get(0).getPrice(), Double.parseDouble(Integer.toString(v1)), 1);
+                    anotherShareList.add(share);
+
 
                 }
 
 
 
                 if (check && check2 && shareList.size() == 2) {
-                    for (int i = 0; i < shareList.size(); i++) {
-                        double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
-                        Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                        shareList.remove(i);
-                        shareList.add(i, share);
+                    Share share = new Share(shareList.get(0).getPrice(), Double.parseDouble(Integer.toString(v1)), 1);
+                    anotherShareList.add(share);
+                    Share share2 = new Share(shareList.get(1).getPrice(), Double.parseDouble(Integer.toString(v2)), 2);
+                    anotherShareList.add(share2);
 
-                    }
+
+
+
 
                 }
 
                 if (check && check2 && check3 &&  shareList.size() == 3) {
-                    for (int i = 0; i < shareList.size(); i++) {
-                        double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
-                        Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                        shareList.remove(i);
-                        shareList.add(i, share);
+                    Share share = new Share(shareList.get(0).getPrice(), Double.parseDouble(Integer.toString(v1)), 1);
+                    anotherShareList.add(share);
+                    Share share2 = new Share(shareList.get(1).getPrice(), Double.parseDouble(Integer.toString(v2)), 2);
+                    anotherShareList.add(share2);
+                    Share share3 = new Share(shareList.get(2).getPrice(), Double.parseDouble(Integer.toString(v3)), 3);
+                    anotherShareList.add(share3);
 
-                    }
 
                 }
 
                 if (check && check2 && check3 && check4 && shareList.size() == 4) {
-                    for (int i = 0; i < shareList.size(); i++) {
-                        double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
-                        Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                        shareList.remove(i);
-                        shareList.add(i, share);
+                    Share share = new Share(shareList.get(0).getPrice(), Double.parseDouble(Integer.toString(v1)), 1);
+                    anotherShareList.add(share);
+                    Share share2 = new Share(shareList.get(1).getPrice(), Double.parseDouble(Integer.toString(v2)), 2);
+                    anotherShareList.add(share2);
+                    Share share3 = new Share(shareList.get(2).getPrice(), Double.parseDouble(Integer.toString(v3)), 3);
+                    anotherShareList.add(share3);
+                    Share share4 = new Share(shareList.get(3).getPrice(), Double.parseDouble(Integer.toString(v4)), 4);
+                    anotherShareList.add(share4);
+
+
+
+                }
+
+                if (check && check2 && check3 && check4 && check5 && shareList.size() == 5) {
+                    Share share = new Share(shareList.get(0).getPrice(), Double.parseDouble(Integer.toString(v1)), 1);
+                    anotherShareList.add(share);
+                    Share share2 = new Share(shareList.get(1).getPrice(), Double.parseDouble(Integer.toString(v2)), 2);
+                    anotherShareList.add(share2);
+                    Share share3 = new Share(shareList.get(2).getPrice(), Double.parseDouble(Integer.toString(v3)), 3);
+                    anotherShareList.add(share3);
+                    Share share4 = new Share(shareList.get(3).getPrice(), Double.parseDouble(Integer.toString(v4)), 4);
+                    anotherShareList.add(share4);
+                    Share share5 = new Share(shareList.get(4).getPrice(), Double.parseDouble(Integer.toString(v5)), 5);
+                    anotherShareList.add(share5);
+
+                }
+
+                for(Share shr: anotherShareList){
+                    System.out.println("share of income = "+ shr.getIncomeShare() + "share price = " + shr.getPrice());
+                }
+
+
+
+                if (anotherShareList.size() == 1) {
+                    for (int i = 0; i <  anotherShareList.size(); i++) {
+                        double allocationVal = alloc.allocationForShare(i + 1, getR(),anotherShareList, getMinVal());
+                        Share share = new Share(anotherShareList.get(i).getPrice(),  anotherShareList.get(i).getIncomeShare(),  anotherShareList.get(i).getSecurityNumber(), allocationVal);
+                        anotherShareList.remove(i);
+                        anotherShareList.add(i, share);
 
                     }
 
                 }
 
-                if (check && check2 && check3 && check4 && check5 && shareList.size() == 5) {
-                    for (int i = 0; i < shareList.size(); i++) {
-                        double allocationVal = alloc.allocationForShare(i + 1, getR(), shareList, getMinVal());
-                        Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                        shareList.remove(i);
-                        shareList.add(i, share);
+
+
+                if (anotherShareList.size() == 2) {
+                    for (int i = 0; i <  anotherShareList.size(); i++) {
+                        double allocationVal = alloc.allocationForShare(i + 1, getR(),  anotherShareList, getMinVal());
+                        Share share = new Share( anotherShareList.get(i).getPrice(),  anotherShareList.get(i).getIncomeShare(), anotherShareList.get(i).getSecurityNumber(), allocationVal);
+                        anotherShareList.remove(i);
+                        anotherShareList.add(i, share);
+
+                    }
+
+                }
+
+                if (anotherShareList.size() == 3) {
+                    for (int i = 0; i <  anotherShareList.size(); i++) {
+                        double allocationVal = alloc.allocationForShare(i + 1, getR(),  anotherShareList, getMinVal());
+                        Share share = new Share( anotherShareList.get(i).getPrice(),  anotherShareList.get(i).getIncomeShare(),  anotherShareList.get(i).getSecurityNumber(), allocationVal);
+                        anotherShareList.remove(i);
+                        anotherShareList.add(i, share);
+
+                    }
+
+                }
+
+                if (anotherShareList.size() == 4) {
+                    for (int i = 0; i <  anotherShareList.size(); i++) {
+                        double allocationVal = alloc.allocationForShare(i + 1, getR(),  anotherShareList, getMinVal());
+                        Share share = new Share( anotherShareList.get(i).getPrice(),  anotherShareList.get(i).getIncomeShare(),  anotherShareList.get(i).getSecurityNumber(), allocationVal);
+                        anotherShareList.remove(i);
+                        anotherShareList.add(i, share);
+
+                    }
+
+                }
+
+                if (anotherShareList.size() == 5) {
+
+                    for (int i = 0; i < anotherShareList.size(); i++) {
+                        double allocationVal = alloc.allocationForShare(i + 1, getR(),  anotherShareList, getMinVal());
+                        Share share = new Share(anotherShareList.get(i).getPrice(),  anotherShareList.get(i).getIncomeShare(), anotherShareList.get(i).getSecurityNumber(), allocationVal);
+                        anotherShareList.remove(i);
+                        anotherShareList.add(i, share);
 
                     }
 
@@ -677,7 +747,7 @@ public class sliderInterface extends JFrame {
                 if (check) {
                     filer = createFileWriter(file);
                     formatFile(filer);
-                    for (Share share : shareList) {
+                    for (Share share :  anotherShareList) {
                         writeToFile(filer, share);
                     }
                     closeFile(filer);
@@ -686,7 +756,7 @@ public class sliderInterface extends JFrame {
 
                     sliderInterface.this.setVisible(false);
                     sliderInterface.this.dispose();
-                    allocationPage(shareList);
+                    allocationPage(anotherShareList, getR(), getMinVal());
 
                 } else {
                     error(e);
@@ -917,7 +987,7 @@ public class sliderInterface extends JFrame {
     }
 
 
-    public void allocationPage(final List<Share> shareList){
+    public void allocationPage(final List<Share> shareList, final double r, final int m){
         test = new testClass(curSysProp+1);
         final JFrame frame2 = new JFrame("Allocations");
         frame2.setLayout(new BorderLayout());
@@ -942,7 +1012,7 @@ public class sliderInterface extends JFrame {
                 frame2.setVisible(false);
                 frame2.dispose();
                 parameters params = new parameters();
-                sliderInterface slider = new sliderInterface(params.getSecurityList(), test.getCurrent());
+                phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, new storageClass());
                 slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 slider.setVisible(true);
 
