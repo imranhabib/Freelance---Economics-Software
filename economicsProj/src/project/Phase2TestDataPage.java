@@ -178,9 +178,18 @@ public class phase2TestDataPage extends JFrame {
           char[] arr = new char[1000];
           reader = createReader(filename1);
           arr = readFile(arr, reader);
-          for(char c: arr){
-            System.out.print(c);
+          String line = "";
+          for(char c: arr) {
+            line = line + c;
           }
+          System.out.println("this is the full line " + line);
+          String firstLine = line.substring(line.indexOf("@"), line.indexOf("*"));
+          String number = firstLine.substring(firstLine.indexOf("%") + 1, firstLine.lastIndexOf("%"));
+          String price = firstLine.substring(firstLine.indexOf("$") + 1 , firstLine.lastIndexOf("$"));
+          String incomeShare = firstLine.substring(firstLine.indexOf("^") + 1, firstLine.lastIndexOf("^"));
+          String allocation = firstLine.substring(firstLine.indexOf("#") + 1, firstLine.lastIndexOf("#"));
+          System.out.println("firstLine" + firstLine + "number" + number + "price" + price + "income share" + incomeShare + "all" + allocation);
+
           closeFile(reader);
         }
         else if(source == button2){
