@@ -174,22 +174,22 @@ public class phase2TestRounds extends JFrame{
       fileCreator(file1);
 
       if (!file1.exists()) {
-          file1 = new File(directory, filename1);
-          fileCreator(file1);
-        }
+        file1 = new File(directory, filename1);
+        fileCreator(file1);
+      }
 
-        filer1 = createFileWriter(file1);
+      filer1 = createFileWriter(file1);
 
-        for (Share share : store.getSharesListers1()) {
-          writeToFile2(filer1, share);
-        }
-        closeFile(filer1);
+      for (Share share : store.getSharesListers1()) {
+        writeToFile2(filer1, share);
+      }
+      closeFile(filer1);
 
-        listOfAllocations.add(store.getSharesListers1());
+      listOfAllocations.add(store.getSharesListers1());
 
 
-      } else if (test.getCurrent() == 3) {
-        store.setListers2(shares);
+    } else if (test.getCurrent() == 3) {
+      store.setListers2(shares);
 
       file2 = new File(directory, filename2);
       fileCreator(file2);
@@ -211,8 +211,8 @@ public class phase2TestRounds extends JFrame{
 
 
 
-      } else if (test.getCurrent() == 4) {
-        store.setListers3(shares);
+    } else if (test.getCurrent() == 4) {
+      store.setListers3(shares);
 
 
       file3 = new File(directory, filename3);
@@ -233,9 +233,9 @@ public class phase2TestRounds extends JFrame{
       listOfAllocations.add(store.getSharesListers3());
 
 
-      } else {
-        store.setListers4(shares);
-        checkNew = true;
+    } else {
+      store.setListers4(shares);
+      checkNew = true;
 
 
       file4 = new File(directory, filename4);
@@ -256,53 +256,53 @@ public class phase2TestRounds extends JFrame{
 
       listOfAllocations.add(store.getSharesListers4());
 
-      }
+    }
 
 
-      setLayout(new BorderLayout());
-      setTitle("Slider Interface");
-      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      setBounds(0, 0, screenSize.width, screenSize.height - 45);
+    setLayout(new BorderLayout());
+    setTitle("Slider Interface");
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
-      total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
-      n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
+    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
 
-      int size = shares.size();
-      panel2 = new JPanel();
+    int size = shares.size();
+    panel2 = new JPanel();
 
-      allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
 
-      panel2.setLayout(new BorderLayout(5, 10));
+    panel2.setLayout(new BorderLayout(5, 10));
 
-      panel = new JPanel();
-      panel.setLayout(new GridLayout(0, shares.size()));
-      panel.setPreferredSize(new Dimension(500, 500));
-      panel.setBorder(new TitledBorder("Income Share %'s"));
-      // label = new JLabel("Securities");
-      // panel.add(label);
+    panel = new JPanel();
+    panel.setLayout(new GridLayout(0, shares.size()));
+    panel.setPreferredSize(new Dimension(500, 500));
+    panel.setBorder(new TitledBorder("Income Share %'s"));
+    // label = new JLabel("Securities");
+    // panel.add(label);
 
-      panel3 = new JPanel();
+    panel3 = new JPanel();
 
-      panel3.setLayout(new GridLayout(0, shares.size()));
-      //panel3.setPreferredSize(new Dimension(50, 100));
-      panel3.setBorder(new TitledBorder("Total"));
+    panel3.setLayout(new GridLayout(0, shares.size()));
+    //panel3.setPreferredSize(new Dimension(50, 100));
+    panel3.setBorder(new TitledBorder("Total"));
 
-      textField = new JTextField();
+    textField = new JTextField();
 
-      textField2 = new JTextField();
+    textField2 = new JTextField();
 
-      textField3 = new JTextField();
+    textField3 = new JTextField();
 
-      textField4 = new JTextField();
+    textField4 = new JTextField();
 
-      textField5 = new JTextField();
+    textField5 = new JTextField();
 
 
-      textField.setEditable(false);
-      textField2.setEditable(false);
-      textField3.setEditable(false);
-      textField4.setEditable(false);
-      textField5.setEditable(false);
+    textField.setEditable(false);
+    textField2.setEditable(false);
+    textField3.setEditable(false);
+    textField4.setEditable(false);
+    textField5.setEditable(false);
 
 
       /*
@@ -313,17 +313,17 @@ public class phase2TestRounds extends JFrame{
       textField5.setForeground(blue);
       */
 
-      //backend stuffz
+    //backend stuffz
 
 
-      param = new parameters();
-      List<Integer> prices = param.getSecurityPriceList();
-      alloc = new allocation(param, new incomeRequired(2));
+    param = new parameters();
+    List<Integer> prices = param.getSecurityPriceList();
+    alloc = new allocation(param, new incomeRequired(2));
 
-      shareList = param.getSecurityListWithEmptyIncomeShares();
+    shareList = param.getSecurityListWithEmptyIncomeShares();
 
 
-      shareList = shares;
+    shareList = shares;
     for(int i = 0; i < shareList.size(); i++){
       shareList.get(i).setPrice(prices.get(i));
     }
@@ -331,203 +331,203 @@ public class phase2TestRounds extends JFrame{
 
 
     textFieldjSpinner = new JTextField();
-      textFieldjSpinner.setText(Double.toString(r));
-      textFieldjSpinner.setEditable(false);
-      textFieldjSpinner2 = new JTextField();
-      textFieldjSpinner2.setEditable(false);
-      textFieldjSpinner2.setText(Integer.toString(minShare));
+    textFieldjSpinner.setText(Double.toString(r));
+    textFieldjSpinner.setEditable(false);
+    textFieldjSpinner2 = new JTextField();
+    textFieldjSpinner2.setEditable(false);
+    textFieldjSpinner2.setText(Integer.toString(minShare));
 
 
-      panel5 = new JPanel();
+    panel5 = new JPanel();
 
-      panel5.setLayout(new GridLayout(0, shares.size()));
-      panel5.setBorder(new TitledBorder("Reservation Ratio"));
-      panel5.add(textFieldjSpinner);
-
-
-      panel6 = new JPanel();
-      panel6.setLayout(new GridLayout(0, 3));
-      panel6.setBorder(new TitledBorder("Minimum Share"));
-      panel6.add(textFieldjSpinner2);
+    panel5.setLayout(new GridLayout(0, shares.size()));
+    panel5.setBorder(new TitledBorder("Reservation Ratio"));
+    panel5.add(textFieldjSpinner);
 
 
-      panel7 = new JPanel();
-      panel7.setLayout(new GridLayout(0, shares.size()));
-      panel7.setBorder(new TitledBorder("Data"));
+    panel6 = new JPanel();
+    panel6.setLayout(new GridLayout(0, 3));
+    panel6.setBorder(new TitledBorder("Minimum Share"));
+    panel6.add(textFieldjSpinner2);
 
 
-      panel4 = new JPanel();
-      panel4.setLayout(new GridLayout(0, 2));
-      panel4.setBorder(new TitledBorder("Inputs"));
-      panel4.add(panel6);
-      panel4.add(panel5);
+    panel7 = new JPanel();
+    panel7.setLayout(new GridLayout(0, shares.size()));
+    panel7.setBorder(new TitledBorder("Data"));
 
 
-      if (size >= 1) {
-        panel3.add(textField);
-        textField.setText("Security #1 = " + shares.get(0).getIncomeShare());
-      }
-      if (size >= 2) {
-        panel3.add(textField2);
-        textField2.setText("Security #2 = " + shares.get(1).getIncomeShare());
-      }
-      if (size >= 3) {
-        panel3.add(textField3);
-        textField3.setText("Security #3 = " + shares.get(2).getIncomeShare());
-      }
-      if (size >= 4) {
-        panel3.add(textField4);
-        textField4.setText("Security #4 = " + shares.get(3).getIncomeShare());
-
-      }
-      if (size >= 5) {
-        panel3.add(textField5);
-        textField5.setText("Security #5 = " + shares.get(4).getIncomeShare());
-      }
+    panel4 = new JPanel();
+    panel4.setLayout(new GridLayout(0, 2));
+    panel4.setBorder(new TitledBorder("Inputs"));
+    panel4.add(panel6);
+    panel4.add(panel5);
 
 
-      JSplitPane splitPane = new JSplitPane(
-          JSplitPane.VERTICAL_SPLIT
-      );
+    if (size >= 1) {
+      panel3.add(textField);
+      textField.setText("Security #1 = " + shares.get(0).getIncomeShare());
+    }
+    if (size >= 2) {
+      panel3.add(textField2);
+      textField2.setText("Security #2 = " + shares.get(1).getIncomeShare());
+    }
+    if (size >= 3) {
+      panel3.add(textField3);
+      textField3.setText("Security #3 = " + shares.get(2).getIncomeShare());
+    }
+    if (size >= 4) {
+      panel3.add(textField4);
+      textField4.setText("Security #4 = " + shares.get(3).getIncomeShare());
 
-      splitPane.setTopComponent(panel);
-      splitPane.setBottomComponent(panel4);
-      splitPane.setResizeWeight(.99);
-
-
-      button1 = new JButton("Submit");
-      button1.setToolTipText("Click to submit input selection");
-      button1.setBorder(new TitledBorder("Move on"));
-
-
-      sliders = new ArrayList<JSlider>();
-
-
-      //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
-
-      panel2.add(splitPane, BorderLayout.CENTER);
-      panel2.add(panel3, BorderLayout.NORTH);
-      panel2.add(button1, BorderLayout.SOUTH);
-      add(panel2, BorderLayout.CENTER);
+    }
+    if (size >= 5) {
+      panel3.add(textField5);
+      textField5.setText("Security #5 = " + shares.get(4).getIncomeShare());
+    }
 
 
-      check = true;
-      check2 = false;
-      check3 = false;
-      check4 = false;
-      check5 = false;
-      check6 = false;
+    JSplitPane splitPane = new JSplitPane(
+        JSplitPane.VERTICAL_SPLIT
+    );
+
+    splitPane.setTopComponent(panel);
+    splitPane.setBottomComponent(panel4);
+    splitPane.setResizeWeight(.99);
 
 
-      //File stuffz
-
-      file = new File(directory, filename);
-
-
-      action = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    button1 = new JButton("Submit");
+    button1.setToolTipText("Click to submit input selection");
+    button1.setBorder(new TitledBorder("Move on"));
 
 
-          int result = JOptionPane.showConfirmDialog(null,
-              "Move to Allocation Data?", "Confirmation", JOptionPane.YES_NO_OPTION);
-
-          if (result != 0) {
-            return;
-          }
+    sliders = new ArrayList<JSlider>();
 
 
-          if (shareList.size() == 1) {
-            for (int i = 0; i < shareList.size(); i++) {
-              double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
-              Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-              shareList.remove(i);
-              shareList.add(i, share);
+    //you can change the first SOUTH -> NORTH && the first CENTER -> SOUTH to get a different spacing/sizing
 
-            }
-
-          }
+    panel2.add(splitPane, BorderLayout.CENTER);
+    panel2.add(panel3, BorderLayout.NORTH);
+    panel2.add(button1, BorderLayout.SOUTH);
+    add(panel2, BorderLayout.CENTER);
 
 
-          if (shareList.size() == 2) {
-            for (int i = 0; i < shareList.size(); i++) {
-              double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
-              Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-              shareList.remove(i);
-              shareList.add(i, share);
-
-            }
-
-          }
-
-          if (shareList.size() == 3) {
-            for (int i = 0; i < shareList.size(); i++) {
-              double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
-              Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-              shareList.remove(i);
-              shareList.add(i, share);
-
-            }
-
-          }
-
-          if (shareList.size() == 4) {
-            for (int i = 0; i < shareList.size(); i++) {
-              double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
-              Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-              shareList.remove(i);
-              shareList.add(i, share);
-
-            }
-
-          }
-
-          if (shareList.size() == 5) {
-            for (int i = 0; i < shareList.size(); i++) {
-              double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
-              Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-              shareList.remove(i);
-              shareList.add(i, share);
-
-            }
-
-          }
+    check = true;
+    check2 = false;
+    check3 = false;
+    check4 = false;
+    check5 = false;
+    check6 = false;
 
 
-          if (!file.exists()) {
-            file = new File(directory, filename);
-            fileCreator(file);
-          }
-          if (check) {
-            filer = createFileWriter(file);
-            formatFile(filer);
-            for (Share share : shareList) {
-              writeToFile(filer, share);
-            }
-            closeFile(filer);
+    //File stuffz
+
+    file = new File(directory, filename);
 
 
-            allocationPage(shareList, r, minShare, listOfAllocations);
+    action = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
 
-          } else {
-            error(e);
+
+        int result = JOptionPane.showConfirmDialog(null,
+            "Move to Allocation Data?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (result != 0) {
+          return;
+        }
+
+
+        if (shareList.size() == 1) {
+          for (int i = 0; i < shareList.size(); i++) {
+            double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
+            Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+            shareList.remove(i);
+            shareList.add(i, share);
+
           }
 
         }
-      };
 
 
-      button1.addActionListener(action);
+        if (shareList.size() == 2) {
+          for (int i = 0; i < shareList.size(); i++) {
+            double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
+            Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+            shareList.remove(i);
+            shareList.add(i, share);
+
+          }
+
+        }
+
+        if (shareList.size() == 3) {
+          for (int i = 0; i < shareList.size(); i++) {
+            double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
+            Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+            shareList.remove(i);
+            shareList.add(i, share);
+
+          }
+
+        }
+
+        if (shareList.size() == 4) {
+          for (int i = 0; i < shareList.size(); i++) {
+            double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
+            Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+            shareList.remove(i);
+            shareList.add(i, share);
+
+          }
+
+        }
+
+        if (shareList.size() == 5) {
+          for (int i = 0; i < shareList.size(); i++) {
+            double allocationVal = alloc.allocationForShare(i + 1, r, shareList, minShare);
+            Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
+            shareList.remove(i);
+            shareList.add(i, share);
+
+          }
+
+        }
 
 
-      //create as many slider instances of the size of 'shares'
-      //call the addSlider method with the correct param taken from the share object
-      for (int i = 0; i < shares.size(); i++) {
-        addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getIncomeShare(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
+        if (!file.exists()) {
+          file = new File(directory, filename);
+          fileCreator(file);
+        }
+        if (check) {
+          filer = createFileWriter(file);
+          formatFile(filer);
+          for (Share share : shareList) {
+            writeToFile(filer, share);
+          }
+          closeFile(filer);
+
+
+          allocationPage(shareList, r, minShare, listOfAllocations);
+
+        } else {
+          error(e);
+        }
+
       }
+    };
 
 
+    button1.addActionListener(action);
+
+
+    //create as many slider instances of the size of 'shares'
+    //call the addSlider method with the correct param taken from the share object
+    for (int i = 0; i < shares.size(); i++) {
+      addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getIncomeShare(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
     }
+
+
+  }
 
   public void addShare(JSlider slider, int price) {
     JPanel pan = new JPanel();
@@ -725,7 +725,7 @@ public class phase2TestRounds extends JFrame{
           }
 
           System.out.println("HERE");
-          phase2TestDataPage phase = new phase2TestDataPage(alloc, m, r);
+          phase2TestDataPage phase = new phase2TestDataPage(shareList, m, r);
           phase.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           phase.setVisible(true);
         } else {
