@@ -1,9 +1,6 @@
 package test;
 
-import project.allocation;
-import project.incomeRequired;
-import project.parameters;
-import project.sliderInterface;
+import project.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,7 +49,7 @@ public class testClass {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         testClass test = new testClass(1);
-        sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent());
+        sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, 0, 0.0);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
       }
