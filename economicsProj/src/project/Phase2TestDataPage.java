@@ -99,6 +99,7 @@ public class phase2TestDataPage extends JFrame {
     static double R;
     static int M;
 
+  //TODO: add a button under each set of allocations that says "confirm selection", when selected the proceed button will be enabled with the income shares from that selection
 
 
     public phase2TestDataPage(final List<Share> shares, final int m, final double r, final boolean rewind){
