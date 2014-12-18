@@ -113,6 +113,11 @@ public class phase1 extends JFrame{
   String filename2 = "Phase1priceSet2.csv";
   String filename3 = "Phase1priceSet3.csv";
   String filename4 = "Phase1priceSet4.csv";
+  String filename6 = "Phase1priceSet6.csv";
+  String filename7 = "Phase1priceSet7.csv";
+  String filename8 = "Phase1priceSet8.csv";
+  String filename9 = "Phase1priceSet9.csv";
+  String filename10 = "Phase1priceSet10.csv";
   String filename5 = "Phase1priceSet5.csv";
   String directory = System.getProperty("user.home") + "/Desktop";
 
@@ -122,6 +127,11 @@ public class phase1 extends JFrame{
   File file3;
   File file4;
   File file5;
+  File file6;
+  File file7;
+  File file8;
+  File file9;
+  File file10;
 
   FileWriter filer;
   FileWriter filer1;
@@ -129,6 +139,12 @@ public class phase1 extends JFrame{
   FileWriter filer3;
   FileWriter filer4;
   FileWriter filer5;
+  FileWriter filer6;
+  FileWriter filer7;
+  FileWriter filer8;
+  FileWriter filer9;
+  FileWriter filer10;
+
 
 
 
@@ -656,14 +672,11 @@ public class phase1 extends JFrame{
         }
 
 
-
         if (shareList.size() == 2) {
           Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
           Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
           anotherShareList.add(share2);
-
-
 
 
         }
@@ -707,8 +720,6 @@ public class phase1 extends JFrame{
         }
 
 
-
-
         if (!file.exists()) {
           file = new File(directory, filename);
           fileCreator(file);
@@ -720,7 +731,6 @@ public class phase1 extends JFrame{
             writeToFile(filer, share);
           }
           closeFile(filer);
-
 
 
           if (test.getCurrent() == 1) {
@@ -767,7 +777,7 @@ public class phase1 extends JFrame{
 
             if (!file3.exists()) {
               file3 = new File(directory, filename3);
-              fileCreator(file2);
+              fileCreator(file3);
             }
 
             filer3 = createFileWriter(file3);
@@ -778,7 +788,7 @@ public class phase1 extends JFrame{
             closeFile(filer3);
 
 
-          } else if(test.getCurrent() == 4) {
+          } else if (test.getCurrent() == 4) {
 
             checkNew = true;
 
@@ -798,7 +808,129 @@ public class phase1 extends JFrame{
             }
             closeFile(filer4);
 
+          } else if (test.getCurrent() == 5) {
+
+
+            file5 = new File(directory, filename5);
+            fileCreator(file5);
+
+            if (!file5.exists()) {
+              file5 = new File(directory, filename5);
+              fileCreator(file5);
+            }
+
+            filer5 = createFileWriter(file5);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer5, share);
+            }
+            closeFile(filer5);
+
+
+          } else if (test.getCurrent() == 6) {
+
+            file6 = new File(directory, filename6);
+            fileCreator(file6);
+
+            if (!file6.exists()) {
+              file6 = new File(directory, filename6);
+              fileCreator(file6);
+            }
+
+            filer6 = createFileWriter(file6);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer6, share);
+            }
+            closeFile(filer6);
+
+
+          } else if (test.getCurrent() == 7) {
+
+            file7 = new File(directory, filename7);
+            fileCreator(file7);
+
+            if (!file7.exists()) {
+              file7 = new File(directory, filename7);
+              fileCreator(file7);
+            }
+
+            filer7 = createFileWriter(file7);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer7, share);
+            }
+            closeFile(filer7);
+
+
+          } else if (test.getCurrent() == 8) {
+
+            checkNew = true;
+
+
+            file8 = new File(directory, filename8);
+            fileCreator(file8);
+
+            if (!file8.exists()) {
+              file4 = new File(directory, filename8);
+              fileCreator(file8);
+            }
+
+            filer8 = createFileWriter(file8);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer8, share);
+            }
+            closeFile(filer8);
+
+          } else if (test.getCurrent() == 9) {
+
+            checkNew = true;
+
+
+            file4 = new File(directory, filename4);
+            fileCreator(file9);
+
+            if (!file9.exists()) {
+              file9 = new File(directory, filename4);
+              fileCreator(file9);
+            }
+
+            filer9 = createFileWriter(file9);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer9, share);
+            }
+            closeFile(filer9);
+
           }
+         else if (test.getCurrent() == 10) {
+
+          checkNew = true;
+
+
+          file10 = new File(directory, filename4);
+          fileCreator(file10);
+
+          if (!file10.exists()) {
+            file10 = new File(directory, filename4);
+            fileCreator(file10);
+          }
+
+          filer4 = createFileWriter(file10);
+
+          for (Share share : anotherShareList) {
+            writeToFile2(filer10, share);
+          }
+          closeFile(filer10);
+
+        }
+
+
+
+
+
+
 
           phase1.this.setVisible(false);
           phase1.this.dispose();
