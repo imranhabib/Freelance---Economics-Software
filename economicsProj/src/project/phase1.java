@@ -2,8 +2,6 @@
 
 package project;
 
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
 import test.testClass;
 
 import javax.swing.*;
@@ -111,9 +109,30 @@ public class phase1 extends JFrame{
   //file stuffz
 
   String filename = "output.csv";
+  String filename1 = "Phase1priceSet1.csv";
+  String filename2 = "Phase1priceSet2.csv";
+  String filename3 = "Phase1priceSet3.csv";
+  String filename4 = "Phase1priceSet4.csv";
+  String filename5 = "Phase1priceSet5.csv";
   String directory = System.getProperty("user.home") + "/Desktop";
+
   File file;
+  File file1;
+  File file2;
+  File file3;
+  File file4;
+  File file5;
+
   FileWriter filer;
+  FileWriter filer1;
+  FileWriter filer2;
+  FileWriter filer3;
+  FileWriter filer4;
+  FileWriter filer5;
+
+
+
+
 
 
   //backend stuffz
@@ -131,10 +150,13 @@ public class phase1 extends JFrame{
   static Double nOfr;
   static int minimumShare;
 
+
+  static boolean checkNew;
+
   private static int n;
 
 
-  List<Share> shareList;
+  static List<Share> shareList;
 
 
   public phase1(final List<Share> shares, int cur) {
@@ -147,6 +169,13 @@ public class phase1 extends JFrame{
 
     raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
     loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
+
+
+    checkNew = false;
+
+    shareList = shares;
+
+
 
 
     total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
@@ -370,7 +399,7 @@ public class phase1 extends JFrame{
             cost = v1 * price;
             remainingMoney = allocation2-cost;
 
-            Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+            Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(0);
             shareList.add(0, share1);
             int temp = shareList.get(Integer.parseInt(name)).getPrice();
@@ -413,7 +442,7 @@ public class phase1 extends JFrame{
             remainingMoney = remainingMoney -cost;
             System.out.println("This is the cost = " + cost);
             System.out.println("This is the price = " + price);
-            Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+            Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(1);
             shareList.add(1, share2);
             setSliders(source);
@@ -461,7 +490,7 @@ public class phase1 extends JFrame{
             System.out.println("This is the cost = " + cost);
             System.out.println("This is the price = " + price);
             textField3.setText("Units of security #" + source.getName() + " = " + value);
-            Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+            Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(2);
             shareList.add(2, share3);
             setSliders(source);
@@ -511,7 +540,7 @@ public class phase1 extends JFrame{
             System.out.println("This is the cost = " + cost);
             System.out.println("This is the price = " + price);
             textField4.setText("Units of security #" + source.getName() + " = " + value);
-            Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+            Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(3);
             shareList.add(3, share4);
             setSliders(source);
@@ -562,7 +591,7 @@ public class phase1 extends JFrame{
             System.out.println("This is the cost = " + cost);
             System.out.println("This is the price = " + price);
             textField5.setText("Units of security #" + source.getName() + " = " + value);
-            Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), valueD, shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber());
+            Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(4);
             shareList.add(4, share5);
             setSliders(source);
@@ -620,18 +649,18 @@ public class phase1 extends JFrame{
 
         anotherShareList = new ArrayList<Share>(shareList.size());
 
-        if (check && shareList.size() == 1) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, v1);
+        if (shareList.size() == 1) {
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
 
         }
 
 
 
-        if (check && check2 && shareList.size() == 2) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, v1);
+        if (shareList.size() == 2) {
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, v2);
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
           anotherShareList.add(share2);
 
 
@@ -639,40 +668,40 @@ public class phase1 extends JFrame{
 
         }
 
-        if (check && check2 && check3 &&  shareList.size() == 3) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, v1);
+        if (shareList.size() == 3) {
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, v2);
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, v3);
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
           anotherShareList.add(share3);
 
 
         }
 
-        if (check && check2 && check3 && check4 && shareList.size() == 4) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, v1);
+        if (shareList.size() == 4) {
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, v2);
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, v3);
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, v4);
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
           anotherShareList.add(share4);
 
 
         }
 
-        if (check && check2 && check3 && check4 && check5 && shareList.size() == 5) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, v1);
+        if (shareList.size() == 5) {
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, v2);
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, v3);
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, v4);
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
           anotherShareList.add(share4);
-          Share share5 = new Share(shareList.get(4).getPrice(), 5, v5);
+          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)));
           anotherShareList.add(share5);
 
         }
@@ -694,9 +723,93 @@ public class phase1 extends JFrame{
 
 
 
+          if (test.getCurrent() == 1) {
+
+
+            file1 = new File(directory, filename1);
+            fileCreator(file1);
+
+            if (!file1.exists()) {
+              file1 = new File(directory, filename1);
+              fileCreator(file1);
+            }
+
+            filer1 = createFileWriter(file1);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer1, share);
+            }
+            closeFile(filer1);
+
+
+          } else if (test.getCurrent() == 2) {
+
+            file2 = new File(directory, filename2);
+            fileCreator(file2);
+
+            if (!file2.exists()) {
+              file2 = new File(directory, filename2);
+              fileCreator(file2);
+            }
+
+            filer2 = createFileWriter(file2);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer2, share);
+            }
+            closeFile(filer2);
+
+
+          } else if (test.getCurrent() == 3) {
+
+            file3 = new File(directory, filename3);
+            fileCreator(file3);
+
+            if (!file3.exists()) {
+              file3 = new File(directory, filename3);
+              fileCreator(file2);
+            }
+
+            filer3 = createFileWriter(file3);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer3, share);
+            }
+            closeFile(filer3);
+
+
+          } else if(test.getCurrent() == 4) {
+
+            checkNew = true;
+
+
+            file4 = new File(directory, filename4);
+            fileCreator(file4);
+
+            if (!file4.exists()) {
+              file4 = new File(directory, filename4);
+              fileCreator(file4);
+            }
+
+            filer4 = createFileWriter(file4);
+
+            for (Share share : anotherShareList) {
+              writeToFile2(filer4, share);
+            }
+            closeFile(filer4);
+
+          }
+
           phase1.this.setVisible(false);
           phase1.this.dispose();
-          allocationPage(anotherShareList);
+          test = new testClass(curSysProp+1);
+          phase1 phases = new phase1(anotherShareList, test.getCurrent());
+
+
+          phases.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          phases.setVisible(true);
+
+
 
         } else {
           error(e);
@@ -716,7 +829,7 @@ public class phase1 extends JFrame{
       JSlider jSlider = formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber());
       BoundedRangeModel model = jSlider.getModel();
       model.setRangeProperties(0,0,0,allocation/priceofsecurity,false);
-      addShare(jSlider, shares.get(i).getPrice());
+      addShare(jSlider, shareList.get(i).getPrice());
     }
 
 
@@ -883,6 +996,20 @@ public class phase1 extends JFrame{
 
   }
 
+
+
+  public void writeToFile2(FileWriter filer, Share share) {
+    try {
+      filer.write("\n" + "@" + "%" + share.getSecurityNumber() + "%" + "$" + share.getPrice() + "$" + "^" + share.getIncomeShare() + "^" +
+          "#" + share.getAllocation() + "#" + "*");
+
+    } catch (IOException e) {
+      System.out.println("failed hurr");
+    }
+
+  }
+
+
   public void closeFile(FileWriter filer){
     try {
       filer.flush();
@@ -904,116 +1031,6 @@ public class phase1 extends JFrame{
   }
 
 
-  public void allocationPage(final List<Share> shareList){
-    test = new testClass(curSysProp+1);
-    final JFrame frame2 = new JFrame("Allocations");
-    frame2.setLayout(new BorderLayout());
-
-
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    frame2.setBounds(0, 0, screenSize.width, screenSize.height - 45);
-    frame2.setLayout(new BorderLayout());
-
-    JButton button1 = new JButton("View data as a chart");
-    button1.setLayout(new GridLayout(0, 3));
-    button1.setBorder(new TitledBorder("Chart"));
-
-    JButton button2 = new JButton("Continue");
-    button2.setLayout(new GridLayout(0, 3));
-    button2.setBorder(new TitledBorder("Next Round"));
-
-
-    ActionListener nextRound = new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        frame2.setVisible(false);
-        frame2.dispose();
-        parameters params = new parameters();
-        sliderInterface slider = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, 0, 0.0);
-        slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        slider.setVisible(true);
-
-
-      }
-    };
-
-    button2.addActionListener(nextRound);
-
-    button2.addActionListener(nextRound);
-
-
-
-
-
-    JPanel panelNew = new JPanel();
-    panelNew.setLayout(new GridLayout(shareList.size(), 2));
-    panelNew.setBorder(new TitledBorder("Data"));
-
-    for(int i = 0; i <shareList.size(); i++){
-      JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
-      jText.setEditable(false);
-      jText.setBorder(new TitledBorder("Exact Amount"));
-      jText.setSize(100, 50);
-
-      JProgressBar progress = new JProgressBar();
-      progress.setBorder(new TitledBorder("Investment"));
-      progress.setValue(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation()))));
-      progress.setStringPainted(false);
-      progress.setForeground(Color.BLACK);
-      progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
-
-      JPanel panels = new JPanel();
-      panels.setLayout(new GridLayout(0, 2));
-      panels.add(progress);
-      panels.add(jText);
-      panels.setBorder(new TitledBorder("Security " + shareList.get(i).getSecurityNumber()));
-
-      panelNew.add(panels);
-    }
-
-
-    ActionListener action = new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        chartView(shareList);
-      }
-    };
-
-    button1.addActionListener(action);
-
-
-    JSplitPane splitPanel1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-    splitPanel1.setTopComponent(panelNew);
-    splitPanel1.setBottomComponent(button1);
-    splitPanel1.setResizeWeight(0.75);
-
-    frame2.add(splitPanel1, BorderLayout.CENTER);
-    frame2.add(button2, BorderLayout.SOUTH);
-    frame2.setVisible(true);
-    JOptionPane.showMessageDialog(frame2.getComponent(0), "This is your allocation based on your inputs");
-
-
-  }
-
-
-  public void chartView (List<Share> shareList){
-
-    pieChart pie = new pieChart(shareList);
-    JFreeChart pieCharter = pie.getChart();
-
-    ChartFrame frame = new ChartFrame("Data", pieCharter);
-
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    frame.setBounds(0, 0, screenSize.width, screenSize.height);
-    frame.setLayout(new BorderLayout());
-
-
-    frame.pack();
-    frame.setVisible(true);
-
-
-
-  }
 
 
   public void recreate(int num, int limit){
