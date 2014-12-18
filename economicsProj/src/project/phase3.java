@@ -82,6 +82,28 @@ public class phase3 extends JFrame{
 
 
 
+    button1 = new JButton();
+    button2  = new JButton();
+    button3 = new JButton();
+    button4 = new JButton();
+    button5 = new JButton();
+    button6 = new JButton();
+    button7 = new JButton();
+    button8 = new JButton();
+    button9 = new JButton();
+    button10 = new JButton();
+    button11 = new JButton();
+    button12 = new JButton();
+    button13 = new JButton();
+    button14 = new JButton();
+
+    mainButtonsPanel = new JPanel(new GridLayout(10, 1, 5, 5));
+
+
+
+
+
+
 
 
 
