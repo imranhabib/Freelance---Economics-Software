@@ -163,12 +163,20 @@ public class phase4 extends JFrame{
       buttonPanel.add(button11);
       buttonPanel.add(button12);
 
+      instructions = new JLabel("Instructions");
+      bottomPanel = new JPanel(new BorderLayout());
+      bottomPanel.add(instructions, BorderLayout.NORTH);
+
+      split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomPanel, split);
+      split3.setResizeWeight(0.6);
+
+
       title = new JLabel("Stage 4");
       title.setFont(new Font("Calibri", Font.BOLD, 20));
       mainScreen.add(title, BorderLayout.NORTH);
 
 
-      mainScreen.add(split);
+      mainScreen.add(split3);
       mainScreen.add(buttonPanel, BorderLayout.SOUTH);
 
       mainScreen.setVisible(true);
