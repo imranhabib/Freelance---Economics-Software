@@ -77,6 +77,7 @@ public class phase2TestDataPage extends JFrame {
     static ActionListener changes;
     static ActionListener changes2;
     static ActionListener changes3;
+    static ActionListener changes4;
 
     static JSplitPane split;
     static JSplitPane split2;
@@ -99,7 +100,6 @@ public class phase2TestDataPage extends JFrame {
     static double R;
     static int M;
 
-  //TODO: add a button under each set of allocations that says "confirm selection", when selected the proceed button will be enabled with the income shares from that selection
 
 
     public phase2TestDataPage(final List<Share> shares, final int m, final double r, final boolean rewind){
@@ -109,6 +109,8 @@ public class phase2TestDataPage extends JFrame {
 
         R = r;
         M = m;
+
+
 
 
 
@@ -434,6 +436,7 @@ public class phase2TestDataPage extends JFrame {
                     }
 
                     closeFile(readerRewind4);
+
                     allocationPage(shareList, R, M);
                 }
 
@@ -445,16 +448,35 @@ public class phase2TestDataPage extends JFrame {
 
 
 
+        changes4 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Continue to stage 3?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                    return;
+                }
 
 
+                double finalRatio = R;
+                int finalM = M;
+                double[] arr = new double[shares.size()];
+                for(int i = 0; i < shares.size(); i ++){
+                    arr[i] = shares.get(i).getIncomeShare();
+                }
 
 
+                phase2Real phaseReal = new phase2Real(arr, finalRatio, finalM);
+                phaseReal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                phaseReal.setVisible(true);
+
+            }
+        };
 
 
-
-
-
-
+        button5.addActionListener(changes4);
 
 
 
@@ -515,13 +537,13 @@ public class phase2TestDataPage extends JFrame {
         frame2.setBounds(0, 0, screenSize.width, screenSize.height - 45);
         frame2.setLayout(new BorderLayout());
 
-        JButton button1 = new JButton("View data as a chart");
+       final JButton button1 = new JButton("View data as a chart");
         button1.setLayout(new GridLayout(0, 3));
         button1.setBorder(new TitledBorder("Chart"));
 
-        JButton button2 = new JButton("Continue");
+      final  JButton button2 = new JButton("Close");
         button2.setLayout(new GridLayout(0, 3));
-        button2.setBorder(new TitledBorder("Next Round"));
+        button2.setBorder(new TitledBorder("Back to data page"));
 
 
 
@@ -555,11 +577,19 @@ public class phase2TestDataPage extends JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartView(shareList);
+                JButton source = (JButton) e.getSource();
+                if(source == button1) {
+                    chartView(shareList);
+                }
+                if(source == button2) {
+                    frame2.dispose();
+
+                }
             }
         };
 
         button1.addActionListener(action);
+        button2.addActionListener(action);
 
 
         JSplitPane splitPanel1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
