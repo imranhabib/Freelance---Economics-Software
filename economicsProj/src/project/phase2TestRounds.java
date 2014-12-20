@@ -769,7 +769,7 @@ public class phase2TestRounds extends JFrame{
                     "#" + share.getAllocation() + "#" + "*");
 
         } catch (IOException e) {
-            System.out.println("failed hurr");
+            System.out.println("failed");
         }
 
     }
