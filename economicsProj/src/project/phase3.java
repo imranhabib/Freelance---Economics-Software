@@ -32,9 +32,9 @@ public class phase3 extends JFrame{
     static JFrame frameForPrices;
 
 
-    static JButton button1;
-    static JButton button2;
-    static JButton button3;
+    static JButton buttonFirst;
+    static JButton buttonSecond;
+    static JButton buttonThird;
     static JButton button4;
     static JButton button5;
     static JButton button6;
@@ -67,11 +67,19 @@ public class phase3 extends JFrame{
 
     static JTextField jtext;
 
-    static ActionListener action;
+    static ActionListener actionListener;
+    static ActionListener switchOver;
+    static ActionListener applyChoiceButton;
+    static ActionListener maintainButton;
+    static ActionListener continueButton;
 
 
     static Border raisedBorder;
     static Border loweredBorder;
+
+
+    static boolean maintain;
+    static boolean apply;
 
 
 
@@ -106,9 +114,9 @@ public class phase3 extends JFrame{
 
 
 
+    String [] stage1Prices;
 
-
-    public phase3 (final List<List<Share>> stage2ShareList, final int m, final double r) {
+    public phase3 (final List<List<Share>> stage2ShareList, final int m, final double r, final double[] incomeShares) {
 
 
         setLayout(new BorderLayout());
@@ -121,12 +129,16 @@ public class phase3 extends JFrame{
         M = m;
 
 
+
+        maintain = false;
+        apply = false;
+
         raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
-        button1 = new JButton("Select to view allocations");
-        button2  = new JButton("Select to view allocations");
-        button3 = new JButton("Select to view allocations");
+        buttonFirst = new JButton("Select to view allocations");
+        buttonSecond  = new JButton("Select to view allocations");
+        buttonThird = new JButton("Select to view allocations");
         button4 = new JButton("Select to view allocations");
         button5 = new JButton("Select to view allocations");
         button6 = new JButton("Select to view allocations");
@@ -142,9 +154,9 @@ public class phase3 extends JFrame{
 
 
 
-        button1.setFont(new Font("Calibri",  Font.ROMAN_BASELINE, 15));
-        button2.setFont(new Font("Calibri",  Font.ROMAN_BASELINE, 15));
-        button3.setFont(new Font("Calibri",Font.ROMAN_BASELINE, 15));
+        buttonFirst.setFont(new Font("Calibri",  Font.ROMAN_BASELINE, 15));
+        buttonSecond.setFont(new Font("Calibri",  Font.ROMAN_BASELINE, 15));
+        buttonThird.setFont(new Font("Calibri",Font.ROMAN_BASELINE, 15));
         button4.setFont(new Font("Calibri", Font.ROMAN_BASELINE,15));
         button5.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
         button6.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
@@ -162,9 +174,9 @@ public class phase3 extends JFrame{
 
 
 
-        button1.setBorder(new TitledBorder("Stage 1: Price Set 1 vs. Stage 2: Price Set 1"));
-        button2.setBorder(new TitledBorder("Stage 1: Price Set 2 vs. Stage 2: Price Set 2"));
-        button3.setBorder(new TitledBorder("Stage 1: Price Set 3 vs. Stage 2: Price Set 3"));
+        buttonFirst.setBorder(new TitledBorder("Stage 1: Price Set 1 vs. Stage 2: Price Set 1"));
+        buttonSecond.setBorder(new TitledBorder("Stage 1: Price Set 2 vs. Stage 2: Price Set 2"));
+        buttonThird.setBorder(new TitledBorder("Stage 1: Price Set 3 vs. Stage 2: Price Set 3"));
         button4.setBorder(new TitledBorder("Stage 1: Price Set 4 vs. Stage 2: Price Set 4"));
         button5.setBorder(new TitledBorder("Stage 1: Price Set 5 vs. Stage 2: Price Set 5"));
         button6.setBorder(new TitledBorder("Stage 1: Price Set 6 vs. Stage 2: Price Set 6"));
@@ -177,6 +189,8 @@ public class phase3 extends JFrame{
 
 
 
+        button13.setEnabled(false);
+        button14.setEnabled(false);
 
         mainButtonsPanel = new JPanel(new GridLayout(12, 1, 5, 5));
         mainButtonsPanel.setBorder(new TitledBorder(raisedBorder, "Data Sets"));
@@ -190,9 +204,9 @@ public class phase3 extends JFrame{
         buttonPanel2.add(button15);
 
 
-        mainButtonsPanel.add(button1);
-        mainButtonsPanel.add(button2);
-        mainButtonsPanel.add(button3);
+        mainButtonsPanel.add(buttonFirst);
+        mainButtonsPanel.add(buttonSecond);
+        mainButtonsPanel.add(buttonThird);
         mainButtonsPanel.add(button4);
         mainButtonsPanel.add(button5);
         mainButtonsPanel.add(button6);
@@ -222,11 +236,12 @@ public class phase3 extends JFrame{
 
 
 
-        action = new ActionListener() {
+        actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton source = (JButton) e.getSource();
-                if(source == button1){
+
+                if(source == buttonFirst){
                     char[] arr = new char[1000];
                     reader1 = createReader(filename1);
                     arr = readFile(arr, reader1);
@@ -235,24 +250,24 @@ public class phase3 extends JFrame{
                         line = line + c;
                     }
                     String[] secondLine = line.split("@");
-
                     List<Share> shareList = new ArrayList<Share>();
                     //the loop has to be -5 b/c the csv file doubles up on errythang
-                    for(int i = 1; i < secondLine.length -5; i ++){
+
+                    for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
+
                     for(Share shr: shareList) {
                         System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
                     closeFile(reader1);
                     allocationPage(shareList, stage2ShareList.get(0), R, M);
                 }
-                else if(source == button2){
+                else if(source == buttonSecond){
                     char[] arr = new char[1000];
                     reader2 = createReader(filename2);
                     arr = readFile(arr, reader2);
@@ -264,10 +279,10 @@ public class phase3 extends JFrame{
 
                     List<Share> shareList = new ArrayList<Share>();
                     //the loop has to be -5 b/c the csv file doubles up on errythang
-                    for(int i = 1; i < secondLine.length -5; i ++){
+                    for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                 //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -279,7 +294,7 @@ public class phase3 extends JFrame{
                     closeFile(reader2);
                     allocationPage(shareList,stage2ShareList.get(1), R, M);
                 }
-                else if(source == button3){
+                else if(source == buttonThird){
                     char[] arr = new char[1000];
                     reader3 = createReader(filename3);
                     arr = readFile(arr, reader3);
@@ -291,10 +306,10 @@ public class phase3 extends JFrame{
 
                    List<Share> shareList = new ArrayList<Share>();
                     //the loop has to be -5 b/c the csv file doubles up on errythang
-                    for(int i = 1; i < secondLine.length -5; i ++){
+                    for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                 //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -314,13 +329,11 @@ public class phase3 extends JFrame{
                         line = line + c;
                     }
                     String[] secondLine = line.split("@");
-
                     List<Share> shareList = new ArrayList<Share>();
                     //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -350,7 +363,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                //        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -377,7 +390,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -404,7 +417,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -431,7 +444,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -458,7 +471,6 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -485,7 +497,6 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -501,16 +512,134 @@ public class phase3 extends JFrame{
             }
         };
 
-        button1.addActionListener(action);
-        button2.addActionListener(action);
-        button3.addActionListener(action);
-        button4.addActionListener(action);
-        button5.addActionListener(action);
-        button6.addActionListener(action);
-        button7.addActionListener(action);
-        button8.addActionListener(action);
-        button9.addActionListener(action);
-        button10.addActionListener(action);
+        buttonFirst.addActionListener(actionListener);
+        buttonSecond.addActionListener(actionListener);
+        buttonThird.addActionListener(actionListener);
+        button4.addActionListener(actionListener);
+        button5.addActionListener(actionListener);
+        button6.addActionListener(actionListener);
+        button7.addActionListener(actionListener);
+        button8.addActionListener(actionListener);
+        button9.addActionListener(actionListener);
+        button10.addActionListener(actionListener);
+
+
+
+
+
+
+        switchOver = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                List<List<Share>> listOfAllocs = new ArrayList<List<Share>>();
+                for(int i = 1; i < stage2ShareList.size() + 1; i++) {
+                    String maxMoney = (ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(i)));
+                    String pric = (ResourceBundle.getBundle("resources/systemdata").getString("securityPriceList" + Integer.toString(i)));
+                    String[] prices = pric.split(",");
+                    ArrayList<Share> shares = convertPriceSets(prices, R, M, incomeShares, Integer.parseInt(maxMoney));
+                    listOfAllocs.add(shares);
+                }
+
+                phase3Switch phase = new phase3Switch(stage2ShareList, listOfAllocs, M, R, incomeShares);
+                phase.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                phase.setVisible(true);
+                button13.setEnabled(true);
+
+            }
+        };
+
+
+        button15.addActionListener(switchOver);
+
+
+
+
+
+        applyChoiceButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to apply choice to rule to stage 1 prices?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                    return;
+                }
+
+                buttonFirst.setEnabled(false);
+                buttonSecond.setEnabled(false);
+                buttonThird.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
+                button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
+                button11.setEnabled(false);
+                button12.setEnabled(false);
+                button13.setEnabled(false);
+                button15.setEnabled(false);
+                button14.setEnabled(true);
+                apply = true;
+
+            }
+        };
+
+        button13.addActionListener(applyChoiceButton);
+
+
+        maintainButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to maintain current allocations?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                    return;
+                }
+
+
+                buttonFirst.setEnabled(false);
+                buttonSecond.setEnabled(false);
+                buttonThird.setEnabled(false);
+                button4.setEnabled(false);
+                button5.setEnabled(false);
+                button6.setEnabled(false);
+                button7.setEnabled(false);
+                button8.setEnabled(false);
+                button9.setEnabled(false);
+                button10.setEnabled(false);
+                button11.setEnabled(false);
+                button12.setEnabled(false);
+                button13.setEnabled(false);
+                button15.setEnabled(false);
+                button14.setEnabled(true);
+                maintain = true;
+
+
+            }
+        };
+
+
+        button12.addActionListener(maintainButton);
+
+        continueButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(maintain){
+
+                }
+
+                if(apply){
+
+
+                }
+
+            }
+        };
+
 
 
 
@@ -529,12 +658,6 @@ public class phase3 extends JFrame{
 
 
 
-
-
-
-
-
-
     public void allocationPage(final List<Share> stage1, final List<Share> stage2, final double r, final int m){
 
         final JFrame frame2 = new JFrame("Allocations");
@@ -543,29 +666,30 @@ public class phase3 extends JFrame{
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame2.setBounds(0, 0, screenSize.width, screenSize.height - 45);
-        frame2.setLayout(new BorderLayout());
-
-        JButton button1 = new JButton("View data as a chart");
-        button1.setLayout(new GridLayout(0, 3));
-        button1.setBorder(new TitledBorder("Chart"));
-
-        JButton button3 = new JButton("View data as a chart");
-        button1.setLayout(new GridLayout(0, 3));
-        button1.setBorder(new TitledBorder("Chart"));
-
-        JButton button2 = new JButton("Continue");
-        button2.setLayout(new GridLayout(0, 3));
-        button2.setBorder(new TitledBorder("Next Round"));
 
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+        final JButton buttonUno = new JButton("View data as a chart");
+        buttonUno.setLayout(new GridLayout(0, 3));
+        buttonUno.setBorder(new TitledBorder("Chart"));
 
-        JPanel panelNew = new JPanel();
-        JPanel panelNewer = new JPanel();
-        JPanel mainPanel = new JPanel(new GridLayout(stage1.size(), 4));
-        panelNew.setLayout(new GridLayout(stage1.size(), 2));
-        panelNewer.setLayout(new GridLayout(stage2.size(), 2));
-        panelNew.setBorder(new TitledBorder("Data"));
+        final JButton buttonThree = new JButton("View data as a chart");
+        buttonThree.setLayout(new GridLayout(0, 3));
+        buttonThree.setBorder(new TitledBorder("Chart"));
+
+        final JButton buttonTwo = new JButton("Close");
+        buttonTwo.setLayout(new GridLayout(0, 3));
+        buttonTwo.setBorder(new TitledBorder("Back to data page"));
+
+
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+
+        JSplitPane mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        JPanel leftPanel = new JPanel(new GridLayout(stage1.size(), 1, 5, 5));
+        JPanel rightPanel = new JPanel(new GridLayout(stage2.size(), 1, 5, 5));
+        mainSplit.setBorder(new TitledBorder(raisedBorder, "Data Points"));
+        leftPanel.setBorder(new TitledBorder(raisedBorder, "Stage 1 Allocations"));
+        rightPanel.setBorder(new TitledBorder(raisedBorder, "Stage 2 Allocations"));
+
 
         for(int i = 0; i <stage1.size(); i++){
             JTextField jText = new JTextField(Double.toString(stage1.get(i).getAllocation()));
@@ -586,7 +710,7 @@ public class phase3 extends JFrame{
             panels.add(jText);
             panels.setBorder(new TitledBorder("Security " + stage1.get(i).getSecurityNumber()));
 
-            panelNew.add(panels);
+            leftPanel.add(panels);
         }
 
 
@@ -609,16 +733,26 @@ public class phase3 extends JFrame{
             panels.add(jText);
             panels.setBorder(new TitledBorder("Security " + stage2.get(i).getSecurityNumber()));
 
-            panelNewer.add(panels);
+            rightPanel.add(panels);
         }
 
 
-        ActionListener action = new ActionListener() {
+        ActionListener actionChart = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartView(stage1);
+                JButton source = (JButton) e.getSource();
+                if(source == buttonUno) {
+                    chartView(stage1);
+                }
+                if(source == buttonTwo) {
+                    frame2.dispose();
+
+                }
             }
         };
+
+        buttonUno.addActionListener(actionChart);
+        buttonTwo.addActionListener(actionChart);
 
         ActionListener action2 = new ActionListener() {
             @Override
@@ -627,22 +761,19 @@ public class phase3 extends JFrame{
             }
         };
 
-        buttonPanel.add(button1);
-        buttonPanel.add(button2);
+        buttonPanel.add(buttonUno);
+        buttonPanel.add(buttonTwo);
+        buttonPanel.add(buttonThree);
 
-        button1.addActionListener(action);
-        button3.addActionListener(action2);
+        buttonUno.addActionListener(actionChart);
+        buttonThree.addActionListener(action2);
 
-        mainPanel.add(panelNew);
-        mainPanel.add(panelNewer);
+        mainSplit.setLeftComponent(leftPanel);
+        mainSplit.setRightComponent(rightPanel);
+        mainSplit.setResizeWeight(0.50);
 
-        JSplitPane splitPanel1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitPanel1.setTopComponent(mainPanel);
-        splitPanel1.setBottomComponent(buttonPanel);
-        splitPanel1.setResizeWeight(0.75);
-
-        frame2.add(splitPanel1, BorderLayout.CENTER);
-        frame2.add(button2, BorderLayout.SOUTH);
+        frame2.add(mainSplit, BorderLayout.CENTER);
+        frame2.add(buttonPanel, BorderLayout.SOUTH);
         frame2.setVisible(true);
         JOptionPane.showMessageDialog(frame2.getComponent(0), "This is your allocation based on your inputs");
 
@@ -676,6 +807,7 @@ public class phase3 extends JFrame{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("Here for some reason");
         return null;
 
     }
@@ -697,6 +829,7 @@ public class phase3 extends JFrame{
         } catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println("Here for some other reaspn");
         return null;
 
     }
@@ -705,12 +838,169 @@ public class phase3 extends JFrame{
 
 
 
+    public ArrayList<Share> convertPriceSets(String[] prices, double r, int minShare, double[] incomes, int max){
+        int maxMoney = max;
+        ArrayList<Share> shareLister = new ArrayList<Share>();
+        for(int i=0; i< prices.length; i++){
+            int temp = Integer.parseInt(prices[i]);
+            shareLister.add(new Share(temp,incomes[i],i+1));
+        }
+
+        if (shareLister.size() == 1) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
+
+            }
+
+        }
+
+
+        if (shareLister.size() == 2) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
+
+            }
+
+        }
+
+        if (shareLister.size() == 3) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
+            }
+
+        }
+
+        if (shareLister.size() == 4) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
+            }
+
+        }
+
+        if (shareLister.size() == 5) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
+            }
+
+        }
+        return shareLister;
+    }
 
 
 
 
 
 
+    public Double allocForShare(int shareNumber, double r, List<Share> shares, int x, int max) {
+        int m = max;
+        double meanPrice = 0;
+        for(int i=0; i< shares.size(); i++){
+            meanPrice = meanPrice + shares.get(i).getPrice();
+        }
+        meanPrice = meanPrice/shares.size();
+
+        Double mXBar = getMbar(meanPrice, shares.size(), x);
+        if (m < mXBar) {
+            return allocationMethodOne(shares, m, meanPrice);
+        }
+        double nR = getArgMax(r, shares);
+        if (shareNumber <= nR) {
+            return allocationMethodTwo(r, shares, x, m, meanPrice, mXBar);
+        } else
+            return allocationMethodThree(shareNumber, shares, x, m, meanPrice, mXBar);
+    }
+
+    public Double getArgMax(double r, List<Share> securities){
+        double argMax = 0;
+        int p1 = securities.get(0).getPrice();
+        double pi = 0;
+        double ratio = 0;
+        for(int i = 0; i < securities.size(); i++){
+            pi = securities.get(i).getPrice();
+            ratio = pi/p1;
+            if(ratio > r){
+                break;
+            }
+            argMax = (securities.get(i).getSecurityNumber());
+        }
+        return argMax;
+    }
+
+    public Double allocationMethodOne(List<Share> shares, int maxMoney, double meanPrice) {
+        int m = maxMoney;
+        Double p = meanPrice;
+        int n = shares.size();
+        System.out.println("allocationmethod one = " + m/ (n*p));
+        return m / (n * p);
+    }
+
+
+    public Double allocationMethodTwo(double r, List<Share> shares, int x, int maxMoney, double meanPrice, double mbar) {
+        int m = maxMoney;
+        double p = meanPrice;
+        double mXBar = mbar;
+        double aR = getA(r, shares);
+        double pR = getP(r, shares);
+        System.out.println("allocationmethod two = " + "x Bar = " + "aR = " + aR + "m = " + m + "mxBar = " + mXBar+ "pR = "  +  pR);
+        System.out.println("allocationmethod two = " + ((aR * (m - mXBar)) / pR));
+        return x + ((aR * (m - mXBar)) / pR);
+    }
+
+    public Double allocationMethodThree(int shareNumber, List<Share> shares, int x, int maxMoney, double meanPrice, double mbar) {
+        System.out.println("shareNumber = " + shareNumber);
+        int m = maxMoney;
+        double p = meanPrice;
+        Double mXBar = mbar;
+        Double aI = (shares.get(shareNumber - 1).getIncomeShare()) / 100;
+        int pI = shares.get(shareNumber - 1).getPrice();
+
+        System.out.println(x + ((aI * (m - mXBar)) / pI));
+
+
+        return x + ((aI * (m - mXBar)) / pI);
+
+
+    }
+    public Double getA(double r, List<Share> shares){
+        double nR = getArgMax(r, shares);
+        double sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + shares.get(i - 1).getIncomeShare();
+        }
+        double mult = (1/nR);
+        return (mult * sum) / 100;
+    }
+
+    //this calculates p(r)
+    public Double getP(double r, List<Share> shares){
+        double nR = getArgMax(r, shares);
+        double sum = 0;
+        for(int i=1; i < nR+1; i++){
+            sum = sum + shares.get(i-1).getPrice();
+        }
+        return ((1/nR)* sum);
+    }
+
+
+    public Double getMbar (double pBar, int n, int x){
+        return ((n*pBar)*x);
+
+    }
 
 
 
