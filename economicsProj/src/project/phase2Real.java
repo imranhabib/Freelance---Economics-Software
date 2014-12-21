@@ -130,11 +130,6 @@ public class phase2Real extends JFrame {
         minShare = m;
 
 
-        for(int i = 0; i <incomes.length; i ++){
-            System.out.println("THIS IS THE PASSED VAL = " + incomes[i] + "tHIS IS THE CREATED VAL = " + incomeShares[i]);
-        }
-
-        System.out.println("THIS IS R = " + r + " THIS IS MOINSHARE = " + minShare );
 
 
         maxMoney1 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney1"));
@@ -293,6 +288,7 @@ public class phase2Real extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String price = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet1"));
                 String[] prices = price.split(",");
+
                 ArrayList<Share> shares = convertPriceSets(prices, r, minShare, incomeShares, maxMoney1);
                 //make it pop up the allocation page
                 allocationPage(shares, r, minShare);
@@ -305,6 +301,7 @@ public class phase2Real extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String price = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet2"));
                 String[] prices = price.split(",");
+
                 ArrayList<Share> shares = convertPriceSets(prices, r, minShare, incomeShares, maxMoney2);
                 //make it pop up the allocation page
                 allocationPage(shares, r, minShare);
@@ -317,6 +314,7 @@ public class phase2Real extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String price = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet3"));
                 String[] prices = price.split(",");
+
                 ArrayList<Share> shares = convertPriceSets(prices, r, minShare, incomeShares, maxMoney3);
                 //make it pop up the allocation page
                 allocationPage(shares, r, minShare);
@@ -329,6 +327,7 @@ public class phase2Real extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String price = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet4"));
                 String[] prices = price.split(",");
+
                 ArrayList<Share> shares = convertPriceSets(prices, r, minShare, incomeShares, maxMoney4);
                 //make it pop up the allocation page
                 allocationPage(shares, r, minShare);
@@ -414,35 +413,54 @@ public class phase2Real extends JFrame {
                 String price = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet1"));
                 String[] prices = price.split(",");
                 passingToStage3.add(convertPriceSets(prices, r, minShare, incomeShares, maxMoney1));
+
+
                 String price2 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet2"));
                 String[] prices2 = price2.split(",");
                 passingToStage3.add(convertPriceSets(prices2, r, minShare, incomeShares, maxMoney2));
+
+
                 String price3 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet3"));
                 String[] prices3 = price3.split(",");
                 passingToStage3.add(convertPriceSets(prices3, r, minShare, incomeShares, maxMoney3));
+
+
                 String price4 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet4"));
                 String[] prices4 = price4.split(",");
                 passingToStage3.add(convertPriceSets(prices4, r, minShare, incomeShares, maxMoney4));
+
+
                 String price5 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet5"));
                 String[] prices5 = price5.split(",");
                 passingToStage3.add(convertPriceSets(prices5, r, minShare, incomeShares, maxMoney5));
+
+
                 String price6 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet6"));
                 String[] prices6 = price6.split(",");
                 passingToStage3.add(convertPriceSets(prices6, r, minShare, incomeShares, maxMoney6));
+
+
+
                 String price7 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet7"));
                 String[] prices7 = price7.split(",");
                 passingToStage3.add(convertPriceSets(prices7, r, minShare, incomeShares, maxMoney7));
+
+
                 String price8 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet8"));
                 String[] prices8 = price8.split(",");
                 passingToStage3.add(convertPriceSets(prices8, r, minShare, incomeShares, maxMoney8));
+
+
                 String price9 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet9"));
                 String[] prices9 = price9.split(",");
                 passingToStage3.add(convertPriceSets(prices9, r, minShare, incomeShares, maxMoney9));
+
+
                 String price10 = (ResourceBundle.getBundle("resources/systemdata").getString("priceSet10"));
                 String[] prices10 = price10.split(",");
                 passingToStage3.add(convertPriceSets(prices10, r, minShare, incomeShares, maxMoney10));
 
-                phase3 phases = new phase3(passingToStage3, minShare, r);
+                phase3 phases = new phase3(passingToStage3, minShare, r, incomeShares);
                 phases.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 phases.setVisible(true);
             }
@@ -490,65 +508,65 @@ public class phase2Real extends JFrame {
 
     public ArrayList<Share> convertPriceSets(String[] prices, double r, int minShare, double[] incomes, int max){
         int maxMoney = max;
-        ArrayList<Share> shareList = new ArrayList<Share>();
-        for(int i=0; i<prices.length; i++){
+        ArrayList<Share> shareLister = new ArrayList<Share>();
+        for(int i=0; i< prices.length; i++){
             int temp = Integer.parseInt(prices[i]);
-            shareList.add(new Share(temp,incomes[i],i+1));
+            shareLister.add(new Share(temp,incomes[i],i+1));
         }
 
-        if (shareList.size() == 1) {
-            for (int i = 0; i < shareList.size(); i++) {
-                double allocationVal = allocForShare(i + 1, r, shareList, minShare, maxMoney);
-                Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                shareList.remove(i);
-                shareList.add(i, share);
+        if (shareLister.size() == 1) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
 
             }
 
         }
 
 
-        if (shareList.size() == 2) {
-            for (int i = 0; i < shareList.size(); i++) {
-                double allocationVal = allocForShare(i + 1, r, shareList, minShare, maxMoney);
-                Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                shareList.remove(i);
-                shareList.add(i, share);
+        if (shareLister.size() == 2) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
 
             }
 
         }
 
-        if (shareList.size() == 3) {
-            for (int i = 0; i < shareList.size(); i++) {
-                double allocationVal = allocForShare(i + 1, r, shareList, minShare, maxMoney);
-                Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                shareList.remove(i);
-                shareList.add(i, share);
+        if (shareLister.size() == 3) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
             }
 
         }
 
-        if (shareList.size() == 4) {
-            for (int i = 0; i < shareList.size(); i++) {
-                double allocationVal = allocForShare(i + 1, r, shareList, minShare, maxMoney);
-                Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                shareList.remove(i);
-                shareList.add(i, share);
+        if (shareLister.size() == 4) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
             }
 
         }
 
-        if (shareList.size() == 5) {
-            for (int i = 0; i < shareList.size(); i++) {
-                double allocationVal = allocForShare(i + 1, r, shareList, minShare, maxMoney);
-                Share share = new Share(shareList.get(i).getPrice(), shareList.get(i).getIncomeShare(), shareList.get(i).getSecurityNumber(), allocationVal);
-                shareList.remove(i);
-                shareList.add(i, share);
+        if (shareLister.size() == 5) {
+            for (int i = 0; i < shareLister.size(); i++) {
+                double allocationVal = allocForShare(i + 1, r, shareLister, minShare, maxMoney);
+                Share share = new Share(shareLister.get(i).getPrice(), shareLister.get(i).getIncomeShare(), shareLister.get(i).getSecurityNumber(), allocationVal);
+                shareLister.remove(i);
+                shareLister.add(i, share);
             }
 
         }
-        return shareList;
+        return shareLister;
     }
 
 
