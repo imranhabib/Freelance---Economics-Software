@@ -64,7 +64,6 @@ public class phase1 extends JFrame{
     private static ChangeListener changelistener;
     private static ChangeListener changelistener2;
     private static ChangeListener changelistener3;
-    private static ChangeListener changelistener4;
     private static ActionListener Actionlistener4;
     private static ActionListener action;
 
@@ -640,16 +639,7 @@ public class phase1 extends JFrame{
                     int temp = Integer.parseInt(textFieldUsedtobePanel5.getText());
                     int temp2 = (source.getValue()  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                     textField7.setText( Integer.toString(remainingMoney-temp2)  );
-                }
-            }
-        };
-
-        changelistener4 = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                JSlider source = (JSlider) e.getSource();
-                if(source.getValueIsAdjusting()){
-                    source.getValue();
+                    remainingAlloc.setText("Security #" + source.getName() + " = " + Integer.toString(temp2));
                 }
             }
         };
@@ -993,7 +983,6 @@ public class phase1 extends JFrame{
     public void addShare(JSlider slider, int price) {
         slider.addChangeListener(changelistener);
         slider.addChangeListener(changelistener2);
-        slider.addChangeListener(changelistener4);
         JPanel pan = new JPanel();
         pan.add(slider);
 
