@@ -144,7 +144,7 @@ public class sliderInterface extends JFrame {
 
     public sliderInterface(final List<Share> shares, int cur, final boolean rewind, int m, double ratio) {
         curSysProp = cur;
-        test = new testClass();
+        test = new testClass(cur);
         setLayout(new BorderLayout());
         setTitle("Slider Interface");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
