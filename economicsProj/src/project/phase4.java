@@ -181,6 +181,8 @@ public class phase4 extends JFrame{
 
 
 
+
+
         checkBox1 = new JCheckBox();
         checkBox2 = new JCheckBox();
         checkBox3 = new JCheckBox();
@@ -263,6 +265,7 @@ public class phase4 extends JFrame{
 
         button11 = new JButton("Confirm Choices");
         button12= new JButton("Submit");
+        button12.setEnabled(false);
 
         buttonPanel = new JPanel(new GridLayout(1, 0, 5, 5));
         buttonPanel.add(button11);
@@ -581,6 +584,7 @@ public class phase4 extends JFrame{
                 checkBox10.setEnabled(false);
 
                 button11.setEnabled(false);
+                button12.setEnabled(true);
 
 
 
@@ -604,12 +608,8 @@ public class phase4 extends JFrame{
 
 
 
-
-
-
-
-
-
+                finalPage fini = new finalPage(results);
+                fini.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
             }
         };
@@ -639,6 +639,9 @@ public class phase4 extends JFrame{
         button8b.addActionListener(actionListener8);
         button9b.addActionListener(actionListener9);
         button10b.addActionListener(actionListener10);
+
+        button11.addActionListener(actionListener11);
+        button12.addActionListener(actionListener12);
 
 
 
