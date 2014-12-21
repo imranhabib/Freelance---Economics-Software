@@ -37,7 +37,7 @@ public class phase2TestRounds extends JFrame{
     static JPanel panel8;
     static JButton button1;
     static JTextField remainingAlloc;
-    static JButton button3;
+
 
     static testClass test;
 
@@ -57,10 +57,6 @@ public class phase2TestRounds extends JFrame{
     private static JTextField textFieldjSpinner2;
 
 
-    private static ChangeListener changelistener;
-    private static ChangeListener changelistener2;
-    private static ChangeListener changelistener3;
-    private static ActionListener Actionlistener4;
     private static ActionListener action;
 
 
