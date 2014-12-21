@@ -46,10 +46,10 @@ public class phase2TestDataPage extends JFrame {
     String directory = System.getProperty("user.home") + "/Desktop";
 
 
-    String filename1 = directory + "/priceSet1.csv";
-    String filename2 = directory + "/priceSet2.csv";
-    String filename3 = directory + "/priceSet3.csv";
-    String filename4 = directory + "/priceSet4.csv";
+    String filenameer1 = directory + "/priceSet1.csv";
+    String filenameer2 = directory + "/priceSet2.csv";
+    String filenameer3 = directory + "/priceSet3.csv";
+    String filenameer4 = directory + "/priceSet4.csv";
     String filename5 = "priceSet5.csv";
 
 
@@ -60,10 +60,10 @@ public class phase2TestDataPage extends JFrame {
     String filenameRewind5 = "priceSetRewind5.csv";
 
 
-    FileReader reader;
-    FileReader reader2;
-    FileReader reader3;
-    FileReader reader4;
+    FileReader Stage2reader;
+    FileReader Stage2reader2;
+    FileReader Stage2reader3;
+    FileReader Stage2reader4;
 
 
     FileReader readerRewind;
@@ -217,8 +217,8 @@ public class phase2TestDataPage extends JFrame {
                 JButton source = (JButton) e.getSource();
                 if(source == button1){
                     char[] arr = new char[1000];
-                    reader = createReader(filename1);
-                    arr = readFile(arr, reader);
+                    Stage2reader = createReader(filenameer1);
+                    arr = readFile(arr, Stage2reader);
                     String line = "";
                     for(char c: arr) {
                         line = line + c;
@@ -238,13 +238,13 @@ public class phase2TestDataPage extends JFrame {
                     for(Share shr: shareList) {
                         System.out.println("price = " + shr.getPrice() + " income share = " + shr.getIncomeShare() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
-                    closeFile(reader);
+                    closeFile(Stage2reader);
                     allocationPage(shareList, R, M);
                 }
                 else if(source == button2){
                     char[] arr = new char[1000];
-                    reader2 = createReader(filename2);
-                    arr = readFile(arr, reader2);
+                    Stage2reader2 = createReader(filenameer2);
+                    arr = readFile(arr, Stage2reader2);
                     String line = "";
                     for(char c: arr) {
                         line = line + c;
@@ -265,13 +265,13 @@ public class phase2TestDataPage extends JFrame {
                         System.out.println("price = " + shr.getPrice() + " income share = " + shr.getIncomeShare() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
 
-                    closeFile(reader2);
+                    closeFile(Stage2reader2);
                     allocationPage(shareList, R, M);
                 }
                 else if(source == button3){
                     char[] arr = new char[1000];
-                    reader3 = createReader(filename3);
-                    arr = readFile(arr, reader3);
+                    Stage2reader3 = createReader(filenameer3);
+                    arr = readFile(arr, Stage2reader3);
                     String line = "";
                     for(char c: arr) {
                         line = line + c;
@@ -291,13 +291,13 @@ public class phase2TestDataPage extends JFrame {
                     for(Share shr: shareList) {
                         System.out.println("price = " + shr.getPrice() + " income share = " + shr.getIncomeShare() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
-                    closeFile(reader3);
+                    closeFile(Stage2reader3);
                     allocationPage(shareList, R, M);
                 }
                 else if(source == button4){
                     char[] arr = new char[1000];
-                    reader4 = createReader(filename4);
-                    arr = readFile(arr, reader4);
+                    Stage2reader4 = createReader(filenameer4);
+                    arr = readFile(arr, Stage2reader4);
                     String line = "";
                     for(char c: arr) {
                         line = line + c;
@@ -318,7 +318,7 @@ public class phase2TestDataPage extends JFrame {
                         System.out.println("price = " + shr.getPrice() + " income share = " + shr.getIncomeShare() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
 
-                    closeFile(reader4);
+                    closeFile(Stage2reader4);
                     allocationPage(shareList, R, M);
                 }
 
@@ -453,7 +453,7 @@ public class phase2TestDataPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 int result = JOptionPane.showConfirmDialog(null,
-                        "Continue to stage 3?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                        "Continue to stage 2?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
                 if (result != 0) {
                     return;
