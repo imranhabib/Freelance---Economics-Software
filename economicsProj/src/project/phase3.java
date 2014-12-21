@@ -113,6 +113,7 @@ public class phase3 extends JFrame{
     static int M;
 
 
+    List<List<Share>> stage1AllocationForStage4;
 
     String [] stage1Prices;
 
@@ -129,6 +130,7 @@ public class phase3 extends JFrame{
         M = m;
 
 
+        stage1AllocationForStage4 = new ArrayList<List<Share>>();
 
         maintain = false;
         apply = false;
@@ -233,9 +235,6 @@ public class phase3 extends JFrame{
 
 
 
-
-
-
         actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -261,9 +260,6 @@ public class phase3 extends JFrame{
                         shareList.add(shr);
                     }
 
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
                     closeFile(reader1);
                     allocationPage(shareList, stage2ShareList.get(0), R, M);
                 }
@@ -286,9 +282,6 @@ public class phase3 extends JFrame{
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
-                    }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
 
                     closeFile(reader2);
@@ -314,9 +307,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
                     closeFile(reader3);
                     allocationPage(shareList,stage2ShareList.get(2), R, M);
                 }
@@ -337,9 +328,6 @@ public class phase3 extends JFrame{
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
-                    }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
 
                     closeFile(reader4);
@@ -368,9 +356,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
 
                     closeFile(reader5);
                     allocationPage(shareList,stage2ShareList.get(4), R, M);
@@ -395,9 +381,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
 
                     closeFile(reader6);
                     allocationPage(shareList, stage2ShareList.get(5),R, M);
@@ -422,9 +406,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
 
                     closeFile(reader7);
                     allocationPage(shareList, stage2ShareList.get(6),R, M);
@@ -449,9 +431,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
 
                     closeFile(reader8);
                     allocationPage(shareList,stage2ShareList.get(7), R, M);
@@ -475,9 +455,7 @@ public class phase3 extends JFrame{
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
                     }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
-                    }
+
 
                     closeFile(reader9);
                     allocationPage(shareList, stage2ShareList.get(8),R, M);
@@ -500,9 +478,6 @@ public class phase3 extends JFrame{
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
-                    }
-                    for(Share shr: shareList) {
-                        System.out.println("price = " + shr.getPrice() + " number = " + shr.getPrice() + " allocation = " + shr.getAllocation());
                     }
 
                     closeFile(reader10);
@@ -629,10 +604,16 @@ public class phase3 extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 if(maintain){
+                    phase4 phasez = new phase4(stage2ShareList, M, R);
+                    phasez.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    phasez.setVisible(true);
 
                 }
 
                 if(apply){
+                    phase4 phasez = new phase4(stage2ShareList, M, R);
+                    phasez.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    phasez.setVisible(true);
 
 
                 }
@@ -641,7 +622,7 @@ public class phase3 extends JFrame{
         };
 
 
-
+        button14.addActionListener(continueButton);
 
 
 
