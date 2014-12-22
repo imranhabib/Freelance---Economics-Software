@@ -347,12 +347,12 @@ public class phase2TestRounds extends JFrame{
                 }
                 closeFile(filerRewind4);
             }
-            }
+        }
 
 
 
         setLayout(new BorderLayout());
-        setTitle("Slider Interface");
+        setTitle("Stage 2 Practice round " + test.getCurrent());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
