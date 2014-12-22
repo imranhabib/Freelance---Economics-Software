@@ -59,6 +59,10 @@ public class Share {
         return price;
     }
 
+    public void setPrice(int p){
+        price = p;
+    }
+
     public Double getIncomeShare(){
         return incomeShare;
     }
