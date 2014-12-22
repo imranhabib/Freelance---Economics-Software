@@ -545,7 +545,7 @@ public class finalPage extends JFrame {
             JProgressBar progress = new JProgressBar();
             progress.setBorder(new TitledBorder("Investment"));
             progress.setValue(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation()))));
-            progress.setStringPainted(true);
+            progress.setStringPainted(false);
             progress.setForeground(Color.BLACK);
             progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
 
