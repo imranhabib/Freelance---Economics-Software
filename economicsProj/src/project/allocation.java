@@ -25,7 +25,7 @@ public class allocation {
         }
         double nR = params.getArgMaxFormula(r, shares);
         if (shareNumber <= nR) {
-           return allocationMethodTwo(r, shares, x);
+            return allocationMethodTwo(r, shares, x);
         } else
             return allocationMethodThree(shareNumber, shares, x);
     }
@@ -34,7 +34,7 @@ public class allocation {
         int m = params.getAllocation();
         Double p = params.getMeanPriceAmount();
         int n = shares.size();
-        System.out.println("allocationmethod one = " + m/ (n*p));
+
         return m / (n * p);
     }
 
@@ -44,8 +44,7 @@ public class allocation {
         double mXBar = income.getMbar(params.getMeanPriceAmount(), shares.size());
         double aR = params.getAR(r, shares);
         double pR = params.getPR(r, shares);
-        System.out.println("allocationmethod two = " + "x Bar = " + "aR = " + aR + "m = " + m + "mxBar = " + mXBar+ "pR = "  +  pR);
-        System.out.println("allocationmethod two = " + ((aR * (m - mXBar)) / pR));
+
         return x + ((aR * (m - mXBar)) / pR);
     }
 
@@ -56,7 +55,7 @@ public class allocation {
         Double aI = (shares.get(shareNumber - 1).getIncomeShare()) / 100;
         int pI = shares.get(shareNumber - 1).getPrice();
 
-        System.out.println(x + ((aI * (m - mXBar)) / pI));
+
 
 
         return x + ((aI * (m - mXBar)) / pI);
