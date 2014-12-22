@@ -245,7 +245,37 @@ public class phase3 extends JFrame{
         inputButton = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                //need minshare, r ratio, income share choices
+                // prices from stage 1, prices from stage2
+                //(final List<List<Share>> stage2ShareList, final int m, final double r, final double[] incomeShares) {
+                JFrame frame = new JFrame("Heuristic Inputs and prices");
+                JLabel minshare = new JLabel("Minimum share: " + Integer.toString(m));
+                JLabel ratio = new JLabel("R-ratio: " + Double.toString(r));
+                String iS = "";
+                for(int i=0; i<incomeShares.length; i++){
+                    if(i == 0) {
+                        iS = iS + Double.toString(incomeShares[i]);
+                    }
+                    iS = iS + ", " + Double.toString(incomeShares[i]);
+                }
+                JLabel incomeShares = new JLabel("Income share selection: " + iS);
+                JLabel st1Prices = new JLabel("Prices for Stage1: ");
+                JLabel st2Prices = new JLabel("Prices for Stage2: ");
+
+                // Panels do have "FlowLayout"
+                JPanel panel = new JPanel(new GridLayout(5, 1));
+                panel.add(minshare);
+                panel.add(ratio);
+                panel.add(incomeShares);
+                panel.add(st1Prices);
+                panel.add(st2Prices);
+
+
+                frame.add( panel );
+                frame.pack();
+                frame.setVisible(true);
+
+
             }
         };
 
