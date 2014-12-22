@@ -37,7 +37,7 @@ public class phase2TestRounds extends JFrame{
     static JPanel panel8;
     static JButton button1;
     static JTextField remainingAlloc;
-    static JButton button3;
+
 
     static testClass test;
 
@@ -57,10 +57,6 @@ public class phase2TestRounds extends JFrame{
     private static JTextField textFieldjSpinner2;
 
 
-    private static ChangeListener changelistener;
-    private static ChangeListener changelistener2;
-    private static ChangeListener changelistener3;
-    private static ActionListener Actionlistener4;
     private static ActionListener action;
 
 
@@ -100,28 +96,113 @@ public class phase2TestRounds extends JFrame{
 
 
     static boolean checkNew;
+    static boolean checkNew2;
+    static boolean checkNew3;
+    static boolean checkNew4;
+    static boolean checkNew5;
+
+
 
     //file stuffz
+
+
+    String directory = System.getProperty("user.home") + "/Desktop/output";
 
     String filename = "output.csv";
     String filename1 = "priceSet1.csv";
     String filename2 = "priceSet2.csv";
     String filename3 = "priceSet3.csv";
     String filename4 = "priceSet4.csv";
-    String filename5 = "priceSet5.csv";
-    String directory = System.getProperty("user.home") + "/Desktop";
+
+
+
+
+    String filenameRewind1 = "priceSetRewind1.csv";
+    String filenameRewind2 = "priceSetRewind2.csv";
+    String filenameRewind3 = "priceSetRewind3.csv";
+    String filenameRewind4 = "priceSetRewind4.csv";
+    String filenameRewind5 = "priceSetRewind5.csv";
+
+    String secondfilenameRewind1 = "secondpriceSetRewind1.csv";
+    String secondfilenameRewind2 = "secondpriceSetRewind2.csv";
+    String secondfilenameRewind3 =  "secondpriceSetRewind3.csv";
+    String secondfilenameRewind4 = "secondpriceSetRewind4.csv";
+
+    String thirdfilenameRewind1 = "thirdpriceSetRewind1.csv";
+    String thirdfilenameRewind2 =  "thirdpriceSetRewind2.csv";
+    String thirdfilenameRewind3 =  "thirdpriceSetRewind3.csv";
+    String thirdfilenameRewind4 = "thirdpriceSetRewind4.csv";
+
+    String forthfilenameRewind1 = "forthpriceSetRewind1.csv";
+    String forthfilenameRewind2 =  "forthpriceSetRewind2.csv";
+    String forthfilenameRewind3 = "forthpriceSetRewind3.csv";
+    String forthfilenameRewind4 = "forthpriceSetRewind4.csv";
+
+
     File file;
     File file1;
     File file2;
     File file3;
     File file4;
-    File file5;
+
     FileWriter filer;
     FileWriter filer1;
     FileWriter filer2;
     FileWriter filer3;
     FileWriter filer4;
-    FileWriter filer5;
+
+
+
+    File fileRewind1;
+    File fileRewind2;
+    File fileRewind3;
+    File fileRewind4;
+
+
+    File secondfileRewind1;
+    File secondfileRewind2;
+    File secondfileRewind3;
+    File secondfileRewind4;
+
+
+    File thirdfileRewind1;
+    File thirdfileRewind2;
+    File thirdfileRewind3;
+    File thirdfileRewind4;
+
+    File forthfileRewind1;
+    File forthfileRewind2;
+    File forthfileRewind3;
+    File forthfileRewind4;
+
+
+
+    FileWriter filerRewind1;
+    FileWriter filerRewind2;
+    FileWriter filerRewind3;
+    FileWriter filerRewind4;
+
+
+    FileWriter secondfilerRewind1;
+    FileWriter secondfilerRewind2;
+    FileWriter secondfilerRewind3;
+    FileWriter secondfilerRewind4;
+
+
+    FileWriter thirdfilerRewind1;
+    FileWriter thirdfilerRewind2;
+    FileWriter thirdfilerRewind3;
+    FileWriter thirdfilerRewind4;
+
+
+    FileWriter forthfilerRewind1;
+    FileWriter forthfilerRewind2;
+    FileWriter forthfilerRewind3;
+    FileWriter forthfilerRewind4;
+
+
+
+
 
 
     //backend stuffz
@@ -136,6 +217,7 @@ public class phase2TestRounds extends JFrame{
     static Double pBar;
     static Double mBar;
     static Double r;
+    private static Double rForExcel;
     static Double nOfr;
     static int minimumShare;
 
@@ -150,14 +232,17 @@ public class phase2TestRounds extends JFrame{
     static  List<Share> shareList;
 
 
-    public phase2TestRounds(final List<Share> shares, int cur, final int minShare, final double r, storageClass storage)  {
+    public phase2TestRounds(final List<Share> shares, int cur, final int minShare, final double r, storageClass storage, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4)  {
 
 
 
         curSysProp = cur;
+
         test = new testClass();
 
+        rForExcel = r;
 
+        minimumShare = minShare;
 
 
         System.out.println("called here " + test.getCurrent());
@@ -165,97 +250,402 @@ public class phase2TestRounds extends JFrame{
         store = storage;
 
 
-        if (test.getCurrent() == 2) {
-            if (listOfAllocations == null) {
-                listOfAllocations = new ArrayList<List<Share>>(7);
-            }
-            store.setListers(shares);
-            file1 = new File(directory, filename1);
-            fileCreator(file1);
+        if(!rewind) {
+            if (test.getCurrent() == 2) {
 
-            if (!file1.exists()) {
+                store.setListers(shares);
                 file1 = new File(directory, filename1);
                 fileCreator(file1);
-            }
 
-            filer1 = createFileWriter(file1);
+                if (!file1.exists()) {
+                    file1 = new File(directory, filename1);
+                    fileCreator(file1);
+                }
 
-            for (Share share : store.getSharesListers1()) {
-                writeToFile2(filer1, share);
-            }
-            closeFile(filer1);
+                filer1 = createFileWriter(file1);
 
-            listOfAllocations.add(store.getSharesListers1());
+                for (Share share : store.getSharesListers1()) {
+                    writeToFile2(filer1, share);
+                }
+                closeFile(filer1);
 
 
-        } else if (test.getCurrent() == 3) {
-            store.setListers2(shares);
+            } else if (test.getCurrent() == 3) {
+                store.setListers2(shares);
 
-            file2 = new File(directory, filename2);
-            fileCreator(file2);
-
-            if (!file2.exists()) {
                 file2 = new File(directory, filename2);
                 fileCreator(file2);
-            }
 
-            filer2 = createFileWriter(file2);
+                if (!file2.exists()) {
+                    file2 = new File(directory, filename2);
+                    fileCreator(file2);
+                }
 
-            for (Share share : store.getSharesListers2()) {
-                writeToFile2(filer2, share);
-            }
-            closeFile(filer2);
+                filer2 = createFileWriter(file2);
 
-
-            listOfAllocations.add(store.getSharesListers2());
-
-
-
-        } else if (test.getCurrent() == 4) {
-            store.setListers3(shares);
+                for (Share share : store.getSharesListers2()) {
+                    writeToFile2(filer2, share);
+                }
+                closeFile(filer2);
 
 
-            file3 = new File(directory, filename3);
-            fileCreator(file3);
+            } else if (test.getCurrent() == 4) {
+                store.setListers3(shares);
 
-            if (!file3.exists()) {
+
                 file3 = new File(directory, filename3);
-                fileCreator(file2);
-            }
+                fileCreator(file3);
 
-            filer3 = createFileWriter(file3);
+                if (!file3.exists()) {
+                    file3 = new File(directory, filename3);
+                    fileCreator(file2);
+                }
 
-            for (Share share : store.getSharesListers3()) {
-                writeToFile2(filer3, share);
-            }
-            closeFile(filer3);
+                filer3 = createFileWriter(file3);
 
-            listOfAllocations.add(store.getSharesListers3());
-
-
-        } else {
-            store.setListers4(shares);
-            checkNew = true;
+                for (Share share : store.getSharesListers3()) {
+                    writeToFile2(filer3, share);
+                }
+                closeFile(filer3);
 
 
-            file4 = new File(directory, filename4);
-            fileCreator(file4);
+            } else {
+                store.setListers4(shares);
+                checkNew = true;
 
-            if (!file4.exists()) {
+
                 file4 = new File(directory, filename4);
                 fileCreator(file4);
+
+                if (!file4.exists()) {
+                    file4 = new File(directory, filename4);
+                    fileCreator(file4);
+                }
+
+                filer4 = createFileWriter(file4);
+
+                for (Share share : store.getSharesListers4()) {
+                    writeToFile2(filer4, share);
+                }
+                closeFile(filer4);
+
             }
+        } else if(rewind) {
+            if (test.getCurrent() == 2) {
 
-            filer4 = createFileWriter(file4);
+                store.setListers(shares);
+                fileRewind1 = new File(directory, filenameRewind1);
+                fileCreator(fileRewind1);
 
-            for (Share share : store.getSharesListers4()) {
-                writeToFile2(filer4, share);
+                if (!fileRewind1.exists()) {
+                    fileRewind1 = new File(directory, filenameRewind1);
+                    fileCreator(fileRewind1);
+                }
+
+                filerRewind1 = createFileWriter(fileRewind1);
+
+                for (Share share : store.getSharesListers1()) {
+                    writeToFile2(filerRewind1, share);
+                }
+                closeFile(filerRewind1);
+
+
+            } else if (test.getCurrent() == 3) {
+                store.setListers2(shares);
+
+                fileRewind2 = new File(directory, filenameRewind2);
+                fileCreator(fileRewind2);
+
+                if (!fileRewind2.exists()) {
+                    fileRewind2 = new File(directory, filenameRewind2);
+                    fileCreator(fileRewind2);
+                }
+
+                filerRewind2 = createFileWriter(fileRewind2);
+
+                for (Share share : store.getSharesListers2()) {
+                    writeToFile2(filerRewind2, share);
+                }
+                closeFile(filerRewind2);
+
+
+            } else if (test.getCurrent() == 4) {
+                store.setListers3(shares);
+
+
+                fileRewind3 = new File(directory, filenameRewind3);
+                fileCreator(fileRewind3);
+
+                if (!fileRewind3.exists()) {
+                    fileRewind3 = new File(directory, filenameRewind3);
+                    fileCreator(fileRewind3);
+                }
+
+                filerRewind3 = createFileWriter(fileRewind3);
+
+                for (Share share : store.getSharesListers3()) {
+                    writeToFile2(filerRewind3, share);
+                }
+                closeFile(filerRewind3);
+
+
+            } else {
+                store.setListers4(shares);
+                checkNew2 = true;
+
+
+                fileRewind4 = new File(directory, filenameRewind4);
+                fileCreator(fileRewind4);
+
+                if (!fileRewind4.exists()) {
+                    fileRewind4 = new File(directory, filenameRewind4);
+                    fileCreator(fileRewind4);
+                }
+
+                filerRewind4 = createFileWriter(fileRewind4);
+
+                for (Share share : store.getSharesListers4()) {
+                    writeToFile2(filerRewind4, share);
+                }
+                closeFile(filerRewind4);
             }
-            closeFile(filer4);
+            }  if(rewind2) {
+            if (test.getCurrent() == 2) {
+
+                store.setListers(shares);
+                secondfileRewind1 = new File(directory, secondfilenameRewind1);
+                fileCreator(secondfileRewind1);
+
+                if (!fileRewind1.exists()) {
+                    secondfileRewind1 = new File(directory, secondfilenameRewind1);
+                    fileCreator(secondfileRewind1);
+                }
+
+                secondfilerRewind1 = createFileWriter(secondfileRewind1);
+
+                for (Share share : store.getSharesListers1()) {
+                    writeToFile2(secondfilerRewind1, share);
+                }
+                closeFile(secondfilerRewind1);
 
 
-            listOfAllocations.add(store.getSharesListers4());
+            } else if (test.getCurrent() == 3) {
+                store.setListers2(shares);
 
+                secondfileRewind2 = new File(directory, secondfilenameRewind2);
+                fileCreator(fileRewind2);
+
+                if (!secondfileRewind2.exists()) {
+                    secondfileRewind2 = new File(directory, secondfilenameRewind2);
+                    fileCreator(secondfileRewind2);
+                }
+
+                secondfilerRewind2 = createFileWriter(secondfileRewind2);
+
+                for (Share share : store.getSharesListers2()) {
+                    writeToFile2(secondfilerRewind2, share);
+                }
+                closeFile(secondfilerRewind2);
+
+
+            } else if (test.getCurrent() == 4) {
+                store.setListers3(shares);
+
+
+                secondfileRewind3 = new File(directory, secondfilenameRewind3);
+                fileCreator(secondfileRewind3);
+
+                if (!secondfileRewind3.exists()) {
+                    secondfileRewind3 = new File(directory, secondfilenameRewind3);
+                    fileCreator(secondfileRewind3);
+                }
+
+                secondfilerRewind3 = createFileWriter(secondfileRewind3);
+
+                for (Share share : store.getSharesListers3()) {
+                    writeToFile2(secondfilerRewind3, share);
+                }
+                closeFile(secondfilerRewind3);
+
+
+            } else {
+                store.setListers4(shares);
+                checkNew3 = true;
+
+
+                secondfileRewind4 = new File(directory, secondfilenameRewind4);
+                fileCreator(secondfileRewind4);
+
+                if (!secondfileRewind4.exists()) {
+                    secondfileRewind4 = new File(directory, secondfilenameRewind4);
+                    fileCreator(secondfileRewind4);
+                }
+
+                secondfilerRewind4 = createFileWriter(secondfileRewind4);
+
+                for (Share share : store.getSharesListers4()) {
+                    writeToFile2(secondfilerRewind4, share);
+                }
+                closeFile(secondfilerRewind4);
+            }
+        }  if(rewind3) {
+            if (test.getCurrent() == 2) {
+
+                store.setListers(shares);
+                thirdfileRewind1 = new File(directory,  thirdfilenameRewind1);
+                fileCreator(thirdfileRewind1);
+
+                if (!thirdfileRewind1.exists()) {
+                    thirdfileRewind1 = new File(directory, thirdfilenameRewind1);
+                    fileCreator(thirdfileRewind1);
+                }
+
+                thirdfilerRewind1 = createFileWriter(thirdfileRewind1);
+
+                for (Share share : store.getSharesListers1()) {
+                    writeToFile2(thirdfilerRewind1, share);
+                }
+                closeFile(thirdfilerRewind1);
+
+
+            } else if (test.getCurrent() == 3) {
+                store.setListers2(shares);
+
+                thirdfileRewind2 = new File(directory, thirdfilenameRewind2);
+                fileCreator(thirdfileRewind2);
+
+                if (!thirdfileRewind2.exists()) {
+                    thirdfileRewind2 = new File(directory, thirdfilenameRewind2);
+                    fileCreator(thirdfileRewind2);
+                }
+
+                thirdfilerRewind2 = createFileWriter(thirdfileRewind2);
+
+                for (Share share : store.getSharesListers2()) {
+                    writeToFile2(thirdfilerRewind2, share);
+                }
+                closeFile(thirdfilerRewind2);
+
+
+            } else if (test.getCurrent() == 4) {
+                store.setListers3(shares);
+
+
+                thirdfileRewind3 = new File(directory, thirdfilenameRewind3);
+                fileCreator(thirdfileRewind3);
+
+                if (!thirdfileRewind3.exists()) {
+                    thirdfileRewind3 = new File(directory, thirdfilenameRewind3);
+                    fileCreator(thirdfileRewind3);
+                }
+
+                thirdfilerRewind3 = createFileWriter(thirdfileRewind3);
+
+                for (Share share : store.getSharesListers3()) {
+                    writeToFile2(thirdfilerRewind3, share);
+                }
+                closeFile(thirdfilerRewind3);
+
+
+            } else {
+                store.setListers4(shares);
+                checkNew4 = true;
+
+
+                thirdfileRewind4 = new File(directory, thirdfilenameRewind4);
+                fileCreator(thirdfileRewind4);
+
+                if (!thirdfileRewind4.exists()) {
+                    thirdfileRewind4 = new File(directory, thirdfilenameRewind4);
+                    fileCreator(thirdfileRewind4);
+                }
+
+                thirdfilerRewind4 = createFileWriter(thirdfileRewind4);
+
+                for (Share share : store.getSharesListers4()) {
+                    writeToFile2(thirdfilerRewind4, share);
+                }
+                closeFile(thirdfilerRewind4);
+            }
+        } if (rewind4){
+            if (test.getCurrent() == 2) {
+
+                store.setListers(shares);
+                forthfileRewind1 = new File(directory, forthfilenameRewind1);
+                fileCreator(forthfileRewind1);
+
+                if (!forthfileRewind1.exists()) {
+                    forthfileRewind1 = new File(directory, forthfilenameRewind1);
+                    fileCreator(forthfileRewind1);
+                }
+
+                forthfilerRewind1 = createFileWriter(forthfileRewind1);
+
+                for (Share share : store.getSharesListers1()) {
+                    writeToFile2(forthfilerRewind1, share);
+                }
+                closeFile(forthfilerRewind1);
+
+
+            } else if (test.getCurrent() == 3) {
+                store.setListers2(shares);
+
+                forthfileRewind2 = new File(directory, forthfilenameRewind2);
+                fileCreator(forthfileRewind2);
+
+                if (!forthfileRewind2.exists()) {
+                    forthfileRewind2 = new File(directory, forthfilenameRewind2);
+                    fileCreator(forthfileRewind2);
+                }
+
+                forthfilerRewind2 = createFileWriter(forthfileRewind2);
+
+                for (Share share : store.getSharesListers2()) {
+                    writeToFile2(forthfilerRewind2, share);
+                }
+                closeFile(forthfilerRewind2);
+
+
+            } else if (test.getCurrent() == 4) {
+                store.setListers3(shares);
+
+
+                forthfileRewind3 = new File(directory, forthfilenameRewind3);
+                fileCreator(forthfileRewind3);
+
+                if (!forthfileRewind3.exists()) {
+                    forthfileRewind3 = new File(directory, forthfilenameRewind3);
+                    fileCreator(forthfileRewind3);
+                }
+
+                forthfilerRewind3 = createFileWriter(forthfileRewind3);
+
+                for (Share share : store.getSharesListers3()) {
+                    writeToFile2(forthfilerRewind3, share);
+                }
+                closeFile(forthfilerRewind3);
+
+
+            } else {
+                store.setListers4(shares);
+                checkNew5 = true;
+
+
+                forthfileRewind4 = new File(directory, forthfilenameRewind4);
+                fileCreator(forthfileRewind4);
+
+                if (!forthfileRewind4.exists()) {
+                    forthfileRewind4 = new File(directory, forthfilenameRewind4);
+                    fileCreator(forthfileRewind4);
+                }
+
+                forthfilerRewind4 = createFileWriter(forthfileRewind4);
+
+                for (Share share : store.getSharesListers4()) {
+                    writeToFile2(forthfilerRewind4, share);
+                }
+                closeFile(forthfilerRewind4);
+            }
         }
 
 
@@ -507,7 +897,7 @@ public class phase2TestRounds extends JFrame{
                     closeFile(filer);
 
 
-                    allocationPage(shareList, r, minShare, listOfAllocations);
+                    allocationPage(shareList, r, minShare, listOfAllocations, rewind, rewind2, rewind3, rewind4);
 
                 } else {
                     error(e);
@@ -624,16 +1014,18 @@ public class phase2TestRounds extends JFrame{
     }
 
 
+
     public void formatFile(FileWriter filer) {
         test = new testClass(curSysProp);
         try {
-            filer.write("\n" + "Round " + test.getCurrent() + "\n");
+            filer.write("\n\n" + "(Stage2 Test) Round " + test.getCurrent() + "\n");
         } catch (IOException e) {
             System.out.println("new file code failed");
         }
 
 
     }
+
 
 
 
@@ -649,10 +1041,9 @@ public class phase2TestRounds extends JFrame{
     }
 
 
-
     public void writeToFile(FileWriter filer, Share share) {
         try {
-            filer.write("\n" + "Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
+            filer.write("\n" + "Reservation Ratio = " + rForExcel + " Minimum Share = " + minimumShare + " Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
                     " Security Allocation = " + share.getAllocation());
 
         } catch (IOException e) {
@@ -666,14 +1057,13 @@ public class phase2TestRounds extends JFrame{
 
 
 
-
     public void writeToFile2(FileWriter filer, Share share) {
         try {
             filer.write("\n" + "@" + "%" + share.getSecurityNumber() + "%" + "$" + share.getPrice() + "$" + "^" + share.getIncomeShare() + "^" +
                     "#" + share.getAllocation() + "#" + "*");
 
         } catch (IOException e) {
-            System.out.println("failed hurr");
+            System.out.println("failed");
         }
 
     }
@@ -693,7 +1083,7 @@ public class phase2TestRounds extends JFrame{
 
 
 
-    public void allocationPage(final List<Share> shareList, final double r, final int m, final List<List<Share>> alloc){
+    public void allocationPage(final List<Share> shareList, final double r, final int m, final List<List<Share>> alloc, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4){
         test = new testClass(curSysProp+1);
         final JFrame frame2 = new JFrame("Allocations");
         frame2.setLayout(new BorderLayout());
@@ -719,17 +1109,18 @@ public class phase2TestRounds extends JFrame{
                 frame2.dispose();
                 testClass test = new testClass();
 
-                if(checkNew){
+                if(((checkNew) && (!rewind)) || ((checkNew2) && (rewind) && (!rewind2) && (!rewind3) && (!rewind4)) || ((checkNew2) && (rewind) && (rewind2) && (checkNew3) && (!rewind3) && (!rewind4))
+                || ((checkNew2) && (rewind) && (rewind2) && (checkNew3) && (rewind3) && (checkNew4) && (!rewind4)) || ((checkNew2) && (rewind) && (rewind2) && (checkNew3) && (rewind3) && (checkNew4) && (rewind4) && (checkNew5))) {
                     for(Share shr: store.getSharesListers3()){
                         System.out.println("This is the allocation share for set 3= " + shr.allocation);
                     }
 
                     System.out.println("HERE");
-                    phase2TestDataPage phase = new phase2TestDataPage(alloc, m, r);
+                    phase2TestDataPage phase = new phase2TestDataPage(shareList, m, r, rewind, rewind2, rewind3, rewind4);
                     phase.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     phase.setVisible(true);
                 } else {
-                    phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, store);
+                    phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, store, rewind, rewind2, rewind3, rewind4);
 
                     slider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     slider.setVisible(true);
