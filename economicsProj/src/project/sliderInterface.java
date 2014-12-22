@@ -146,7 +146,7 @@ public class sliderInterface extends JFrame {
         curSysProp = cur;
         test = new testClass(cur);
         setLayout(new BorderLayout());
-        setTitle("Slider Interface");
+        setTitle("Stage 2 Practice Round" + ": Entering inputs & round 1");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
@@ -422,7 +422,7 @@ public class sliderInterface extends JFrame {
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        if (v1 < (100 - v1)) {
+                        if (v1 < (total - v1)) {
                             model.setRangeProperties(v1, 100 - v1, 0, 100, false);
                             textField2.setText("Security #" + s.getName() + " = " + v1 + "%");
                             v2 = v1;
