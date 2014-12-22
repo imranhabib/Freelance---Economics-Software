@@ -165,18 +165,19 @@ public class phase2TestDataPage extends JFrame {
 
   public phase2TestDataPage(final List<Share> shares, final int m, final double r, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4){
 
-    prices = "Prices Portfolio 1: " + (ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(1))) + newline
-        +  "Prices Portfolio 2: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(2))) + newline
-        +  "Prices Portfolio 3: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(3))) + newline
-        +  "Prices Portfolio 4: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(4))) + newline
-        + "Prices Portfolio 5: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(5))) + newline
-        +"Prices Portfolio 6: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(6))) + newline
-        + "Prices Portfolio 7: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(7))) + newline
-        + "Prices Portfolio 8: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(8)))+ newline
-        +"Prices Portfolio 9: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(9))) + newline +
-        "Prices Portfolio 10: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(10))) + newline ; 
-    choices = "If you are satisfied with your choice rule, " + newline + "select the proceed button. " + newline + "Your choice rule will be applied to the prices of the portfolios, listed to the right, automatically. "
-        + newline + newline + "If you want to make a change to your choice rule, " + newline + "select the back to test rounds option";
+    prices = "Prices in Portfolio 1: " + (ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(1))) + newline
+        +  "Prices in Portfolio 2: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(2))) + newline
+        +  "Prices in Portfolio 3: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(3))) + newline
+        +  "Prices in Portfolio 4: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(4))) + newline
+        + "Prices in Portfolio 5: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(5))) + newline
+        +"Prices in Portfolio 6: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(6))) + newline
+        + "Prices in Portfolio 7: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(7))) + newline
+        + "Prices in Portfolio 8: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(8)))+ newline
+        +"Prices in Portfolio 9: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(9))) + newline +
+        "Prices in Portfolio 10: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(10))) + newline ;
+    choices = "If you are satisfied with your choice rule, select the proceed button. " + newline + newline + "In the next round, Your choice rule will be applied to the prices of the portfolios, listed to the right, automatically."+ newline+
+        "Each portfolio has 5 securities, the price of each security is listed in order."
+        + newline + newline + "If you want to make a change to your choice rule, " + newline + "select the back to test rounds option. But be careful! You can only go back and adjust your choice rule 4 times.";
 
     R = r;
     M = m;
@@ -204,10 +205,10 @@ public class phase2TestDataPage extends JFrame {
     topPanel = new JPanel(new GridLayout(4, 5, 10 , 10));
 
 
-    button1 = new JButton("Click to see allocations from price set 1");
-    button2 = new JButton("Click to see allocations from price set 2");
-    button3 = new JButton("Click to see allocations from price set 3");
-    button4 = new JButton("Click to see allocations from price set 4");
+    button1 = new JButton("Allocations: Price Set 1");
+    button2 = new JButton("Allocations: Price Set 2");
+    button3 = new JButton("Allocations: Price Set 3");
+    button4 = new JButton("Allocations: Price Set 4");
     button1b = new JButton();
     button2b = new JButton();
     button3b = new JButton();
@@ -256,29 +257,29 @@ public class phase2TestDataPage extends JFrame {
     title5.setFont(new Font("Calibri", Font.BOLD, 20));
 
     if(rewind){
-      title2.setText("Click to see allocations from price set 1");
-      title3.setText("Click to see allocations from price set 2");
-      title4.setText("Click to see allocations from price set 3");
-      title5.setText("Click to see allocations from price set 4");
+      title2.setText("Allocations: Price Set 1");
+      title3.setText("Allocations: Price Set 2");
+      title4.setText("Allocations: Price Set 3");
+      title5.setText("Allocations: Price Set 4");
     }
 
     if(rewind && rewind2){
-      button1b.setText("Click to see allocations from price set 1");
-      button2b.setText("Click to see allocations from price set 2");
-      button3b.setText("Click to see allocations from price set 3");
-      button4b.setText("Click to see allocations from price set 4");
+      button1b.setText("Allocations: Price Set 1");
+      button2b.setText("Allocations: Price Set 2");
+      button3b.setText("Allocations: Price Set 3");
+      button4b.setText("Allocations: Price Set 4");
     }
     if(rewind && rewind2 && rewind3){
-      button1c.setText("Click to see allocations from price set 1");
-      button2c.setText("Click to see allocations from price set 2");
-      button3c.setText("Click to see allocations from price set 3");
-      button4c.setText("Click to see allocations from price set 4");
+      button1c.setText("Allocations: Price Set 1");
+      button2c.setText("Allocations: Price Set 2");
+      button3c.setText("Allocations: Price Set 3");
+      button4c.setText("Allocations: Price Set 4");
     }
     if(rewind && rewind2 && rewind3 && rewind4){
-      button1d.setText("Click to see allocations from price set 1");
-      button2d.setText("Click to see allocations from price set 2");
-      button3d.setText("Click to see allocations from price set 3");
-      button4d.setText("Click to see allocations from price set 4");
+      button1d.setText("Allocations: Price Set 1");
+      button2d.setText("Allocations: Price Set 2");
+      button3d.setText("Allocations: Price Set 3");
+      button4d.setText("Allocations: Price Set 4");
     }
 
 
@@ -319,7 +320,7 @@ public class phase2TestDataPage extends JFrame {
     leftPanel.add(title7, BorderLayout.NORTH);
 
 
-    title6 = new JLabel("Prices in Stage 2");
+    title6 = new JLabel("Prices to be used in Stage 2");
     bottomPanel.add(title6, BorderLayout.NORTH);
 
     text = new JTextArea(prices);
