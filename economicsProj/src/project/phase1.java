@@ -13,6 +13,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -179,7 +180,7 @@ public class phase1 extends JFrame{
         curSysProp = cur;
         test = new testClass();
         setLayout(new BorderLayout());
-        setTitle("Stage 1");
+        setTitle("Stage 1" + ": round " + test.getCurrent() );
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
@@ -913,7 +914,6 @@ public class phase1 extends JFrame{
 
                         checkNew = true;
 
-
                         file10 = new File(directory, filename10);
                         fileCreator(file10);
 
@@ -949,12 +949,13 @@ public class phase1 extends JFrame{
 
 
                     }
-                    phase1 phases = new phase1(anotherShareList, test.getCurrent());
+                    else {
+                        phase1 phases = new phase1(anotherShareList, test.getCurrent());
 
-                    phases.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    phases.setVisible(true);
+                        phases.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        phases.setVisible(true);
 
-
+                    }
 
                 } else {
                     error(e);
