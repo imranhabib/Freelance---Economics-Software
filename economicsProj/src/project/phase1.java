@@ -285,12 +285,16 @@ public class phase1 extends JFrame{
           JOptionPane.showMessageDialog(null, "Task is impossible because there is no remaining money to be allocated",
               "Error", JOptionPane.ERROR_MESSAGE
           );
+          button4.setEnabled(false);
+          button4.setVisible(false);
           return;
         }
         else if(remainingMoney < shareList.get(0).getPrice()){
           JOptionPane.showMessageDialog(null, "There is not enough money to buy the least expensive security" + "\n" + "Click Reset Allocations and start all over",
               "Error", JOptionPane.ERROR_MESSAGE
           );
+          button4.setEnabled(false);
+          button4.setVisible(false);
           return;
         }
         int secnum=0;
@@ -314,30 +318,34 @@ public class phase1 extends JFrame{
           textFieldUsedtobePanel5.setText((ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())));
           textField7.setText(Integer.toString(0));
           if(nu == 1){
-            v1= price;
-            textField.setText("Security #1 = " + v1 + "%");
+            v1= (int) a;
+            textField.setText("Security #1 = " + a + "%");
           }
           if(nu == 2){
-            v2= price;
-            textField.setText("Security #2 = " + v2 + "%");
+            v2= (int) a;
+            textField.setText("Security #2 = " + a + "%");
           }
           if(nu == 3){
-            v3= price;
-            textField.setText("Security #3 = " + v3 + "%");
+            v3= (int) a;
+            textField.setText("Security #3 = " + a + "%");
           }
           if(nu == 4){
-            v4= price;
-            textField.setText("Security #4 = " + v4 + "%");
+            v4= (int) a;
+            textField.setText("Security #4 = " + a + "%");
           }
           if(nu == 5){
-            v5= price;
-            textField.setText("Security #5 = " + v5 + "%");
+            v5= (int) a;
+            textField.setText("Security #5 = " + a + "%");
           }
+          button4.setEnabled(false);
+          button4.setVisible(false);
         }
         else{
           JOptionPane.showMessageDialog(null, "Remaining money could not be allocated to one security entirely without remainders" + "\n" + "Click Reset Allocations and start all over",
               "Error", JOptionPane.ERROR_MESSAGE
           );
+          button4.setEnabled(false);
+          button4.setVisible(false);
         }
 
         //popup message
