@@ -47,6 +47,7 @@ public class phase3 extends JFrame{
     static JButton button13;
     static JButton button14;
     static JButton button15;
+    static JButton button16;
 
     static JButton previewButton;
 
@@ -54,6 +55,7 @@ public class phase3 extends JFrame{
     static JPanel buttonPanel2;
     static JPanel mainButtonsPanel;
     static JPanel topTitlePanel;
+    static JPanel lowerButtonPanel;
 
 
 
@@ -72,6 +74,7 @@ public class phase3 extends JFrame{
     static ActionListener applyChoiceButton;
     static ActionListener maintainButton;
     static ActionListener continueButton;
+    static ActionListener inputButton;
 
 
     static Border raisedBorder;
@@ -153,6 +156,7 @@ public class phase3 extends JFrame{
         button13 = new JButton("Apply choice rule to stage 1 prices");
         button14 = new JButton("Continue");
         button15 = new JButton("View potential allocations if you choose to switch");
+        button16 = new JButton("Click to view inputs for stage1 and stage2");
 
 
 
@@ -171,6 +175,7 @@ public class phase3 extends JFrame{
         button13.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
         button14.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
         button15.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        button16.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
 
 
@@ -194,6 +199,7 @@ public class phase3 extends JFrame{
         button13.setEnabled(false);
         button14.setEnabled(false);
 
+        lowerButtonPanel = new JPanel(new GridLayout(1,2));
         mainButtonsPanel = new JPanel(new GridLayout(12, 1, 5, 5));
         mainButtonsPanel.setBorder(new TitledBorder(raisedBorder, "Data Sets"));
 
@@ -219,6 +225,9 @@ public class phase3 extends JFrame{
         mainButtonsPanel.add(buttonPanel2);
         mainButtonsPanel.add(buttonPanel);
 
+        lowerButtonPanel.add(button14);
+        lowerButtonPanel.add(button16);
+
 
         topTitlePanel = new JPanel(new GridLayout(1, 1));
         label1 = new JLabel("Stage 3 | Price Allocations");
@@ -227,10 +236,20 @@ public class phase3 extends JFrame{
 
         add(topTitlePanel, BorderLayout.NORTH);
         add(mainButtonsPanel, BorderLayout.CENTER);
-        add(button14, BorderLayout.SOUTH);
+        add(lowerButtonPanel, BorderLayout.SOUTH);
+
 
 
         setVisible(true);
+
+        inputButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        };
+
+        button16.addActionListener(inputButton);
 
 
 
@@ -278,7 +297,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                 //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -297,12 +316,12 @@ public class phase3 extends JFrame{
                     }
                     String[] secondLine = line.split("@");
 
-                   List<Share> shareList = new ArrayList<Share>();
+                    List<Share> shareList = new ArrayList<Share>();
                     //the loop has to be -5 b/c the csv file doubles up on errythang
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                 //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -351,7 +370,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-                //        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -376,7 +395,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -401,7 +420,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
@@ -426,7 +445,7 @@ public class phase3 extends JFrame{
                     for(int i = 1; i < secondLine.length; i ++){
                         String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
                         String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
-              //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+                        //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
                         String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
                         Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
                         shareList.add(shr);
