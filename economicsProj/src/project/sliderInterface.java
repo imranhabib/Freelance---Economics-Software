@@ -146,7 +146,7 @@ public class sliderInterface extends JFrame {
         curSysProp = cur;
         test = new testClass(cur);
         setLayout(new BorderLayout());
-        setTitle("Slider Interface");
+        setTitle("Stage 2 | Choice Rule ");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
