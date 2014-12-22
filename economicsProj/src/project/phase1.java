@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
-* Created by Imran on 2014-12-13.
-*/
+ * Created by Imran on 2014-12-13.
+ */
 public class phase1 extends JFrame{
 
   static JSlider slider;
@@ -299,7 +299,6 @@ public class phase1 extends JFrame{
         for(int i=0; i<shareList.size(); i++){
           int temp = shareList.get(i).getPrice();
           if((remainingMoney%temp) == 0){
-            System.out.println("errrrooorrr " + (remainingMoney%temp));
             rem = remainingMoney/temp;
             secnum = i;
             canAllocate = true;
@@ -314,9 +313,28 @@ public class phase1 extends JFrame{
           shareList.add(new Share(price,nu,a));
           textFieldUsedtobePanel5.setText((ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())));
           textField7.setText(Integer.toString(0));
+          if(nu == 1){
+            v1= price;
+            textField.setText("Security #1 = " + v1 + "%");
+          }
+          if(nu == 2){
+            v2= price;
+            textField.setText("Security #2 = " + v2 + "%");
+          }
+          if(nu == 3){
+            v3= price;
+            textField.setText("Security #3 = " + v3 + "%");
+          }
+          if(nu == 4){
+            v4= price;
+            textField.setText("Security #4 = " + v4 + "%");
+          }
+          if(nu == 5){
+            v5= price;
+            textField.setText("Security #5 = " + v5 + "%");
+          }
         }
         else{
-          System.out.println("errrrooorrr");
           JOptionPane.showMessageDialog(null, "Remaining money could not be allocated to one security entirely without remainders" + "\n" + "Click Reset Allocations and start all over",
               "Error", JOptionPane.ERROR_MESSAGE
           );
@@ -1107,7 +1125,7 @@ public class phase1 extends JFrame{
   }
 
 
- public void error(ActionEvent e) {
+  public void error(ActionEvent e) {
     JOptionPane.showMessageDialog(null, "Please complete allocations", "Error", JOptionPane.ERROR_MESSAGE);
   }
 
