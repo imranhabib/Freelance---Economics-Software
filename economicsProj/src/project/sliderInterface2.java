@@ -208,7 +208,7 @@ public class sliderInterface2 extends JFrame{
     //param.getArgMaxFormula(2, shareList);
 
 
-    SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 0, 100, 0.5);
+    SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(0, 1, 100, 0.1);
     SpinnerNumberModel spinnerNumberModel2 = new SpinnerNumberModel(0, 0, 100, 1);
     jSpinner = new JSpinner(spinnerNumberModel);
     if (rewind) {
