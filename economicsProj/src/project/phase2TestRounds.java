@@ -649,7 +649,7 @@ public class phase2TestRounds extends JFrame{
 
 
     setLayout(new BorderLayout());
-    setTitle("Slider Interface");
+    setTitle("Test Round");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
