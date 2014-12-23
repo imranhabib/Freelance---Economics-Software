@@ -312,9 +312,8 @@ public class sliderInterface extends JFrame {
 
         panel7 = new JPanel();
         panel7.setLayout(new GridLayout(0, shares.size()));
-        panel7.setBorder(new TitledBorder(raisedBorder, "Data"));
-        panel7.add(remainingAlloc);
-        panel7.add(textField7);
+        panel7.setBorder(new TitledBorder(raisedBorder));
+        
 
         valueAdjust = new JTextField();
         valueAdjust.setBorder(raisedBorder);
