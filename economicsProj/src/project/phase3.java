@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -270,7 +271,20 @@ public class phase3 extends JFrame{
                 panel.add(st1Prices);
                 panel.add(st2Prices);
 
+                List<String> data = new ArrayList<String>();
+                for(int i=0; i<stage2ShareList.size();i++){
+                    String tem = "";
+                    List<Share> te = stage2ShareList.get(i);
+                    for(int k=0; k< te.size(); k++){
+                        if(k==0){
+                            tem = Integer.toString(te.get(k).getPrice());
+                        }
+                        tem = tem + "," + Integer.toString(te.get(k).getPrice());
+                    }
+                    data.add(tem);
+                }
 
+                
                 frame.add( panel );
                 frame.pack();
                 frame.setVisible(true);
