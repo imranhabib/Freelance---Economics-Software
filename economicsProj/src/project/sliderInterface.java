@@ -226,8 +226,10 @@ public class sliderInterface extends JFrame {
                 setMBar(pBar, n, income);
 
                 remainingAlloc.setText("= " + (allocation - getMBar()));
-                if (allocation - getMBar() < 0) {
+               if (allocation - getMBar() < 0) {
+                    JOptionPane.showMessageDialog(null, "You cant afford this minimum share", "Error", JOptionPane.ERROR_MESSAGE);
                     textField7.setText("No!");
+                    //add a warning message here
                 } else {
                     textField7.setText("Yes!");
                 }
@@ -259,14 +261,25 @@ public class sliderInterface extends JFrame {
         panel5.setBorder(new TitledBorder(raisedBorder, "Reservation Ratio"));
         panel5.add(jSpinner);
 
-        panel6 = new JPanel();
-        panel6.setLayout(new GridLayout(0, 3));
-        panel6.setBorder(new TitledBorder(raisedBorder, "Minimum Share"));
-        panel6.add(jSpinner2);
 
         remainingAlloc = new JTextField();
         remainingAlloc.setEditable(false);
         remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
+
+
+
+        textField7 = new JTextField();
+        textField7.setEditable(false);
+        textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
+
+
+        panel6 = new JPanel();
+        panel6.setLayout(new GridLayout(1, 0, 5, 5));
+        panel6.setBorder(new TitledBorder(raisedBorder, "Minimum Share"));
+        panel6.add(jSpinner2);
+        panel6.add(remainingAlloc);
+        panel6.add(textField7);
+
 
 
         button3 = new JButton("Reset Allocations");
@@ -623,6 +636,11 @@ public class sliderInterface extends JFrame {
                 //check if check allocations button is cleared, if it isnt cleared throw an error
                 if (!check6) {
                     JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                 if(textField7.getText().equals("No!")){
+                    JOptionPane.showMessageDialog(null, "Please lower minimum share", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
