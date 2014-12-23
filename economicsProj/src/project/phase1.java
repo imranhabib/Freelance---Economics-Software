@@ -775,6 +775,11 @@ public class phase1 extends JFrame{
           return;
         }
 
+        if (remainingMoney != 0) {
+          JOptionPane.showMessageDialog(null, "You did not use all your money. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+
         int result = JOptionPane.showConfirmDialog(null,
             "Confirm Choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
