@@ -306,6 +306,7 @@ public class phase1 extends JFrame{
             rem = remainingMoney/temp;
             secnum = i;
             canAllocate = true;
+            remainingMoney = 0;
             break;
           }
         }
