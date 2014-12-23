@@ -306,10 +306,6 @@ public class sliderInterface extends JFrame {
 
         button3.addActionListener(Actionlistener4);
 
-        textField7 = new JTextField();
-        textField7.setEditable(false);
-        textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
-
         panel7 = new JPanel();
         panel7.setLayout(new GridLayout(0, shares.size()));
         panel7.setBorder(new TitledBorder(raisedBorder));
