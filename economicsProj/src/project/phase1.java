@@ -318,24 +318,34 @@ public class phase1 extends JFrame{
           textFieldUsedtobePanel5.setText((ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())));
           textField7.setText(Integer.toString(0));
           if(nu == 1){
-            v1= (int) a;
-            textField.setText("Security #1 = " + a + "%");
+            String temp = Double.toString(a);
+            temp = temp.substring(0,temp.indexOf("."));
+            v1= (Integer.parseInt(temp));
+            textField.setText("Units of Security #1 = " + a);
           }
           if(nu == 2){
-            v2= (int) a;
-            textField.setText("Security #2 = " + a + "%");
+            String temp = Double.toString(a);
+            temp = temp.substring(0,temp.indexOf("."));
+            v2= (Integer.parseInt(temp));
+            textField2.setText("Units of Security #2 = " + a);
           }
           if(nu == 3){
-            v3= (int) a;
-            textField.setText("Security #3 = " + a + "%");
+            String temp = Double.toString(a);
+            temp = temp.substring(0,temp.indexOf("."));
+            v3= (Integer.parseInt(temp));
+            textField3.setText("Units of Security #3 = " + a);
           }
           if(nu == 4){
-            v4= (int) a;
-            textField.setText("Security #4 = " + a + "%");
+            String temp = Double.toString(a);
+            temp = temp.substring(0,temp.indexOf("."));
+            v4= (Integer.parseInt(temp));
+            textField4.setText("Units of Security #4 = " + a);
           }
           if(nu == 5){
-            v5= (int) a;
-            textField.setText("Security #5 = " + a + "%");
+            String temp = Double.toString(a);
+            temp = temp.substring(0,temp.indexOf("."));
+            v5= (Integer.parseInt(temp));
+            textField5.setText("Units of Security #5 = " + a);
           }
           button4.setEnabled(false);
           button4.setVisible(false);
