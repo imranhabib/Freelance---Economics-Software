@@ -266,14 +266,23 @@ public class sliderInterface2 extends JFrame{
     panel5.setBorder(new TitledBorder(raisedBorder, "Reservation Ratio"));
     panel5.add(jSpinner);
 
-    panel6 = new JPanel();
-    panel6.setLayout(new GridLayout(0, 3));
-    panel6.setBorder(new TitledBorder(raisedBorder, "Minimum Share"));
-    panel6.add(jSpinner2);
+     remainingAlloc = new JTextField();
+        remainingAlloc.setEditable(false);
+        remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
 
-    remainingAlloc = new JTextField();
-    remainingAlloc.setEditable(false);
-    remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
+
+
+        textField7 = new JTextField();
+        textField7.setEditable(false);
+        textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
+
+
+        panel6 = new JPanel();
+        panel6.setLayout(new GridLayout(1, 0, 5, 5));
+        panel6.setBorder(new TitledBorder(raisedBorder, "Minimum Share"));
+        panel6.add(jSpinner2);
+        panel6.add(remainingAlloc);
+        panel6.add(textField7);
 
 
     button3 = new JButton("Reset Allocations");
@@ -300,15 +309,11 @@ public class sliderInterface2 extends JFrame{
 
     button3.addActionListener(Actionlistener4);
 
-    textField7 = new JTextField();
-    textField7.setEditable(false);
-    textField7.setBorder(new TitledBorder(loweredBorder, "Affordable?"));
 
     panel7 = new JPanel();
     panel7.setLayout(new GridLayout(0, shares.size()));
-    panel7.setBorder(new TitledBorder(raisedBorder, "Data"));
-    panel7.add(remainingAlloc);
-    panel7.add(textField7);
+    panel7.setBorder(new TitledBorder(raisedBorder));
+
 
     valueAdjust = new JTextField();
     valueAdjust.setBorder(raisedBorder);
@@ -632,6 +637,12 @@ public class sliderInterface2 extends JFrame{
           JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
+
+            if(textField7.getText().equals("No!")){
+                    JOptionPane.showMessageDialog(null, "Please lower minimum share", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
 
         int result = JOptionPane.showConfirmDialog(null,
             "Confirm Choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
