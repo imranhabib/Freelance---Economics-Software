@@ -1,5 +1,7 @@
 package project;
 
+import test.testClass;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
@@ -32,7 +34,7 @@ public class instructions extends JFrame {
 
     static ActionListener stg1;
 
-
+    static parameters params;
 
     String initString_part1;
     String stager1;
@@ -87,8 +89,8 @@ public class instructions extends JFrame {
                 + "each option on the graph, as well as, in the dialog box labeled “Options” on the right-hand "
                 + "side of the screen. Figure 1 illustrates some examples of types of choices you may face." + newline + newline +
 
-                 //image	1
-                               //icon1
+                //image	1
+                //icon1
 
                 newline + newline +  "For the round that is selected for payment, your payment is determined by the number of "
                 + "tokens allocated to each account. At the end of the experiment, you will toss a fair coin to "
@@ -117,8 +119,8 @@ public class instructions extends JFrame {
                 + "to select your preferred option by clicking on the graph itself, so instead you may use the radio "
                 + "buttons in the “Options” box to make you selection. Figure 3 provides an example of this situation." + newline + newline +
 
-                 //image	3
-                       //icon3
+                //image	3
+                //icon3
 
                 newline + newline +"In all rounds, you may select a particular allocation in either of two ways: "
                 + "1) You may use the mouse to move the pointer on the computer screen to the option that you desire, "
@@ -222,7 +224,7 @@ public class instructions extends JFrame {
                 + "of the experiment, tokens are valued at the following conversion rate:" + newline + newline +
 
                 newtab + newtab + newtab + newtab + newtab +
-                 "2 tokens = $1" +
+                "2 tokens = $1" +
 
                 newline + newline + "You will receive your payment, along with the $10 show-up bonus, privately before you "
                 + "leave the lab. You will be asked to sign a receipt acknowledging receipt of your payment, "
@@ -231,6 +233,8 @@ public class instructions extends JFrame {
         setLayout(new BorderLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
+
+        params = new parameters();
 
         raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
@@ -266,7 +270,7 @@ public class instructions extends JFrame {
         stg1 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               JButton source = (JButton) e.getSource();
+                JButton source = (JButton) e.getSource();
 
                 if (source == stage){
                     texter.setText(initString_part1);
@@ -287,8 +291,16 @@ public class instructions extends JFrame {
                 if(source == stage4){
                     texter.setText(stager4);
                 }
+                if(source == next){
+                    testClass test = new testClass(1);
 
+
+                    phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.setVisible(true);
                 }
+
+            }
         };
 
         buttonPanel = new JPanel(new GridLayout(5, 1, 5, 5));
@@ -303,6 +315,7 @@ public class instructions extends JFrame {
         stage2.addActionListener(stg1);
         stage3.addActionListener(stg1);
         stage4.addActionListener(stg1);
+        next.addActionListener(stg1);
 
 
         add(scroller, BorderLayout.CENTER);
