@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by ihabib on 12/11/2014.
  */
-public class openingPage {
+public class openingPage extends JFrame {
 
 
     static JFrame mainScreen;
@@ -48,6 +48,7 @@ public class openingPage {
     static ActionListener al;
     static ActionListener cl;
     static ActionListener al3;
+    static ActionListener submitButton;
 
     String directory = System.getProperty("user.home") + "/Desktop/output";
 
@@ -335,13 +336,28 @@ public class openingPage {
 
         };
 
+
+        submitButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                mainScreen.setVisible(false);
+                mainScreen.dispose();
+                instructions instruc = new instructions();
+                instruc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                instruc.setVisible(true);
+            }
+        };
+
         savebutton.addActionListener(al);
         submitStuNum.addActionListener(cl);
+
 
         submit = new JButton("Continue");
         submit.setEnabled(false);
         submit.setBackground(Color.black);
         submit.setForeground(Color.white);
+        submit.addActionListener(submitButton);
 
 
         mainScreen.add(titleBar, BorderLayout.NORTH);
@@ -350,6 +366,9 @@ public class openingPage {
 
 
         mainScreen.setVisible(true);
+
+
+
 
     }
 
@@ -415,13 +434,6 @@ public class openingPage {
 
 
 
-    public static void main(String[] args) throws  Exception {
-
-        openingPage open = new openingPage();
-
-
-
-
     }
 
 
@@ -493,4 +505,4 @@ public class openingPage {
 
 
 
-}
+
