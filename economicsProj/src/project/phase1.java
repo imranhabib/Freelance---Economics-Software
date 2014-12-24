@@ -211,6 +211,7 @@ public class phase1 extends JFrame{
         panel2 = new JPanel();
 
         allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
 
         panel2.setLayout(new BorderLayout(5, 10));
 
@@ -545,7 +546,7 @@ public class phase1 extends JFrame{
                         textField.setText("Units of security #" + source.getName() + " = " + value);
 
                         cost = v1 * price;
-                        remainingMoney = allocation2-cost;
+                        remainingMoney = remainingMoney-cost;
 
                         Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(0);
@@ -555,9 +556,8 @@ public class phase1 extends JFrame{
                         JSlider s = formatSlider(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
-                        if((allocation2 - cost) < temp){
+                        if((remainingMoney - cost) < temp){
                             model.setRangeProperties(0,allocation2/temp,0, allocation2/temp, false);
-                            textField2.setText("Units of security #" + s.getName() + " = " + v1);
                         }
                         else{
                             model.setRangeProperties(0,((allocation2/temp) -(remainingIncome(allocation2,v1, price)/temp)), 0, allocation2/temp, false);
@@ -565,7 +565,7 @@ public class phase1 extends JFrame{
                         int tempForTextField = allocation2 - cost;
                         textFieldUsedtobePanel5.setText(Integer.toString(cost));
                         int tempForRemainingMoneyTextField = tempForTextField;
-                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -612,7 +612,7 @@ public class phase1 extends JFrame{
 
                         textFieldUsedtobePanel5.setText(Integer.toString(tempV));
                         int tempForRemainingMoneyTextField = tempForTextField;
-                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -662,7 +662,7 @@ public class phase1 extends JFrame{
 
                         textFieldUsedtobePanel5.setText(Integer.toString(tempV));
                         int tempForRemainingMoneyTextField = tempForTextField;
-                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -710,7 +710,7 @@ public class phase1 extends JFrame{
 
                         textFieldUsedtobePanel5.setText(Integer.toString(tempV));
                         int tempForRemainingMoneyTextField = tempForTextField;
-                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -749,7 +749,7 @@ public class phase1 extends JFrame{
 
                         textFieldUsedtobePanel5.setText(Integer.toString(tempV));
                         int tempForRemainingMoneyTextField = tempForTextField;
-                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -1344,7 +1344,7 @@ public class phase1 extends JFrame{
                 System.out.println("how many times have i been here?");
                 testClass test = new testClass(1);
                 //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-               // sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+                // sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
                 phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
