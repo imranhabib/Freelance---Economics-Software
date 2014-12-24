@@ -44,20 +44,27 @@ public class testClass {
 
 
 
-    public static void main (String[] args) throws Exception {
-        params = new parameters();
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                testClass test = new testClass(1);
-                //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-                sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false,  0, 0.0);
-                //phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }
-
-        });
+//    public static void main (String[] args) throws Exception {
+//        params = new parameters();
+//
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//             // openingPage open = new openingPage();
+//              //open.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//               // open.setVisible(true);
+//
+//
+//                System.out.println("how many times have i been here?");
+//                testClass test = new testClass(1);
+//                //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
+//                sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false,  0, 0.0);
+//                //phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                frame.setVisible(true);
+//
+//            }
+//
+//        });
 
 
 
@@ -67,7 +74,7 @@ public class testClass {
 
 
     }
-}
+
 
 
 
