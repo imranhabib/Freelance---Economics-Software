@@ -645,10 +645,28 @@ public class sliderInterface2 extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if((100-v1-v2-v3-v4-v5) != 0){
-                    JOptionPane.showMessageDialog(null, "Income shares must equal 100 percent. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+               if ((100 - (v1 + v2 + v3 + v4 + v5)) != 0) {
+          JOptionPane.showMessageDialog(null, "Income shares must equal 100 percent. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+
+        if (v1 < v2) {
+          JOptionPane.showMessageDialog(null, "Income Share 2 cannot be bigger than Income Share 1. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+        if (v2 < v3) {
+          JOptionPane.showMessageDialog(null, "Income Share 3 cannot be bigger than Income Share 2. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+        if (v3 < v4) {
+          JOptionPane.showMessageDialog(null, "Income Share 4 cannot be bigger than Income Share 3. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+        if (v4 < v5) {
+          JOptionPane.showMessageDialog(null, "Income Share 5 cannot be bigger than Income Share 4. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
+
 
                 //check if check allocations button is cleared, if it isnt cleared throw an error
                 if (!check6) {
