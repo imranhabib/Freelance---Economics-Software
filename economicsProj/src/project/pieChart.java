@@ -43,7 +43,7 @@ public class pieChart {
 
 
         PieSectionLabelGenerator labelGenerator = new StandardPieSectionLabelGenerator(
-                "{0}: {1} ({2})", new DecimalFormat("0.0"), new DecimalFormat("0%"));
+                "{0}: ({2})");
         plot.setLabelGenerator(labelGenerator);
 
 
