@@ -23,7 +23,7 @@ public class phase4 extends JFrame {
     static JFrame mainScreen;
 
     static JLabel title;
-    static JLabel instructions;
+    static JPanel instructions;
     static JLabel changeAllocations;
 
     static Border raisedBorder;
@@ -43,7 +43,7 @@ public class phase4 extends JFrame {
     private static ActionListener actionListener11;
     private static ActionListener actionListener12;
 
-    static JTextArea text;
+    static JTextField text;
 
 
     static JSplitPane split;
@@ -187,10 +187,10 @@ public class phase4 extends JFrame {
 
         instructions2 = "You must review the allocations before selecting them";
 
-        text = new JTextArea(instructions2);
+        text = new JTextField(instructions2);
+        text.setEditable(false);
         text.setFont(new Font("Calibri", Font.BOLD, 16));
-        text.setLineWrap(true);
-        text.setWrapStyleWord(true);
+
 
 
         checkBox1 = new JCheckBox();
@@ -280,7 +280,8 @@ public class phase4 extends JFrame {
         buttonPanel.add(button11);
         buttonPanel.add(button12);
 
-        instructions = new JLabel("Instructions");
+        instructions = new JPanel();
+        instructions.setBorder(new TitledBorder(raisedBorder, "Instructions"));
         instructions.add(text);
         bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(instructions, BorderLayout.NORTH);
@@ -678,7 +679,7 @@ public class phase4 extends JFrame {
 
 
                 finalPage fini = new finalPage(results, m, r);
-                fini.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                fini.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             }
         };
@@ -745,7 +746,7 @@ public class phase4 extends JFrame {
             JProgressBar progress = new JProgressBar();
             progress.setBorder(new TitledBorder("Investment"));
             progress.setValue(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation()))));
-            progress.setStringPainted(false);
+            progress.setStringPainted(true);
             progress.setForeground(Color.BLACK);
             progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
 
