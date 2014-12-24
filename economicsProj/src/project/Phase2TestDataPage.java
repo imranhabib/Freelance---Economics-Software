@@ -440,7 +440,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -464,7 +464,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -488,7 +488,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -548,7 +548,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -572,7 +572,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -597,7 +597,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -657,7 +657,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -681,7 +681,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -706,7 +706,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -769,7 +769,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -793,7 +793,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -818,7 +818,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -876,7 +876,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -900,7 +900,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
@@ -925,7 +925,7 @@ public class phase2TestDataPage extends JFrame {
 
           List<Share> shareList = new ArrayList<Share>();
           //the loop has to be -5 b/c the csv file doubles up on errythang
-          for(int i = 1; i < secondLine.length -5; i ++){
+          for(int i = 1; i < secondLine.length; i ++){
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
