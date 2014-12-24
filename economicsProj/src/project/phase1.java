@@ -10,7 +10,6 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -218,7 +217,7 @@ public class phase1 extends JFrame{
     panel = new JPanel();
     panel.setLayout(new GridLayout(0, shares.size()));
     panel.setPreferredSize(new Dimension(500, 500));
-    panel.setBorder(new TitledBorder("Allocations"));
+    panel.setBorder(new TitledBorder("Unit Allocations"));
 
     panel3 = new JPanel();
 
@@ -389,7 +388,7 @@ public class phase1 extends JFrame{
     remainingAlloc.setBorder(new TitledBorder(raisedBorder, "Cost of the currently selected security"));
     remainingAlloc.setFont(new Font("Calibri", Font.BOLD, 15));
 
-    leftoverMoney = new JLabel("Click button to assign remaining money to the least expensive security");
+    leftoverMoney = new JLabel("Click and we'll try our best to assign your remaining money ->");
     leftoverMoney.setBorder(raisedBorder);
     leftoverMoney.setEnabled(false);
     leftoverMoney.setVisible(false);
@@ -428,12 +427,9 @@ public class phase1 extends JFrame{
     label8.setFont(new Font("Calibri", Font.BOLD, 15));
 
     empty1 = new JLabel();
-    empty2 = new JLabel();
+    empty2 = new JLabel("You must allocate units in order, from left to rightmost security.");
     empty3 = new JLabel();
     empty4 = new JLabel();
-
-
-
 
 
     button1 = new JButton("Submit");
@@ -461,23 +457,12 @@ public class phase1 extends JFrame{
     panel4.add(valueAdjust);
     panel4.add(remainingAlloc);
     panel4.add(empty2);
-    panel4.add(leftoverMoney);
-    panel4.add(button4);
-    panel4.add(empty4);
     panel4.add(textFieldUsedtobePanel6);
     panel4.add(textFieldUsedtobePanel5);
     panel4.add(textField7);
-
-
-
-
-
-
-
-
-
-
-
+    panel4.add(leftoverMoney);
+    panel4.add(button4);
+    panel4.add(empty4);
 
 
     if (size >= 1) {
@@ -1083,6 +1068,11 @@ public class phase1 extends JFrame{
           test = new testClass(curSysProp+1);
 
           if(test.getCurrent() == 11) {
+
+          JOptionPane.showMessageDialog(null, "Nice Job! You're moving on to stage 2!", "Completed Stage 1",
+              JOptionPane.INFORMATION_MESSAGE);
+
+
             sliderInterface phase2 = new sliderInterface(param.getSecurityListWithEmptyIncomeSharesFromStart(), 1, false, false, false, false,  0, 0.0);
             //  phases.setVisible(false);
             phase2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
