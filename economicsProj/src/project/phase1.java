@@ -41,12 +41,14 @@ public class phase1 extends JFrame{
     static JTextField remainingAlloc;
     static JButton button3;
     static JButton button4;
+    static JPanel buttonPanel;
 
     static JFormattedTextField sliderNumba;
 
     private static int valueOfSlider;
 
     static testClass test;
+    static parameters params;
 
     private static List<JSlider> sliders;
 
@@ -187,7 +189,7 @@ public class phase1 extends JFrame{
         curSysProp = cur;
         test = new testClass();
         setLayout(new BorderLayout());
-        setTitle("Stage 1");
+        setTitle("Stage 1" + ": Round " + test.getCurrent() );
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
@@ -270,6 +272,7 @@ public class phase1 extends JFrame{
                 textField4.setText("");
                 textField5.setText("");
                 textFieldUsedtobePanel5.setText(Integer.toString(0));
+                remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
                 textField7.setText(Integer.toString(allocation));
                 remainingAlloc.setText("");
                 valueAdjust.setText("Value = ");
@@ -369,6 +372,9 @@ public class phase1 extends JFrame{
 
 
         button3.addActionListener(Actionlistener4);
+        button3.setBorder(new TitledBorder("Reset"));
+
+
         button4 = new JButton("Click to automatically allocate remaining money");
         button4.addActionListener(actionListener5);
         button4.setVisible(false);
@@ -382,7 +388,7 @@ public class phase1 extends JFrame{
         remainingAlloc.setBorder(new TitledBorder(raisedBorder, "Cost of the currently selected security"));
         remainingAlloc.setFont(new Font("Calibri", Font.BOLD, 15));
 
-        leftoverMoney = new JLabel("Clicking the button will assign the remaining money to the least expensive security if possible");
+        leftoverMoney = new JLabel("Click button to assign remaining money to the least expensive security");
         leftoverMoney.setBorder(raisedBorder);
         leftoverMoney.setEnabled(false);
         leftoverMoney.setVisible(false);
@@ -400,7 +406,7 @@ public class phase1 extends JFrame{
         textField7.setPreferredSize(new Dimension(30, 25));
         textField7.setText(Integer.toString(allocation));
         textField7.setEditable(false);
-        textField7.setBorder(loweredBorder);
+        textField7.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
         textField7.setFont(new Font("Calibri", Font.BOLD, 15));
 
         label7 = new JLabel("Currently Allocated");
@@ -412,7 +418,7 @@ public class phase1 extends JFrame{
 
         textFieldUsedtobePanel6 = new JTextField();
         textFieldUsedtobePanel6.setText(Integer.toString(allocation));
-        textFieldUsedtobePanel6.setBorder(loweredBorder);
+        textFieldUsedtobePanel6.setBorder(new TitledBorder(loweredBorder, "Total Money"));
         textFieldUsedtobePanel6.setFont(new Font("Calibri", Font.BOLD, 15));
         textFieldUsedtobePanel6.setEditable(false);
 
@@ -427,32 +433,48 @@ public class phase1 extends JFrame{
 
 
 
+
+
+        button1 = new JButton("Submit");
+        button1.setToolTipText("Click to submit input selection");
+        button1.setBorder(new TitledBorder("Move on"));
+
+
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1,1, 5, 5));
+        buttonPanel.add(button3);
+        buttonPanel.add(button1);
+
         textFieldUsedtobePanel5 = new JTextField();
         textFieldUsedtobePanel5.setText(Integer.toString(0));
-        textFieldUsedtobePanel5.setBorder(loweredBorder);
+        textFieldUsedtobePanel5.setBorder(new TitledBorder(loweredBorder, "Currently Allocated"));
         textFieldUsedtobePanel5.setFont(new Font("Calibri", Font.BOLD, 15));
         textFieldUsedtobePanel5.setEditable(false);
 
-        panel4 = new JPanel();
-        panel4.setLayout(new GridLayout(5,3,5,5));
+        panel4 = new JPanel(new GridLayout(3,2,5,5));
+
         panel4.setBorder(new TitledBorder(raisedBorder, "Allocation"));
         //add 3 things
-        panel4.add(leftoverMoney);
-        panel4.add(button4);
-        panel4.add(empty4);
 
 
         panel4.add(valueAdjust);
-        panel4.add(button3);
         panel4.add(remainingAlloc);
-        panel4.add(label8);
-        panel4.add(textFieldUsedtobePanel6);
-        panel4.add(empty1);
-        panel4.add(label7);
-        panel4.add(textFieldUsedtobePanel5);
         panel4.add(empty2);
-        panel4.add(LabelThatUsedtobeTextField8);
+        panel4.add(leftoverMoney);
+        panel4.add(button4);
+        panel4.add(empty4);
+        panel4.add(textFieldUsedtobePanel6);
+        panel4.add(textFieldUsedtobePanel5);
         panel4.add(textField7);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -482,12 +504,7 @@ public class phase1 extends JFrame{
 
         splitPane.setTopComponent(panel);
         splitPane.setBottomComponent(panel4);
-        splitPane.setResizeWeight(.99);
-
-
-        button1 = new JButton("Submit");
-        button1.setToolTipText("Click to submit input selection");
-        button1.setBorder(new TitledBorder("Move on"));
+        splitPane.setResizeWeight(1);
 
 
         sliders = new ArrayList<JSlider>();
@@ -497,7 +514,7 @@ public class phase1 extends JFrame{
 
         panel2.add(splitPane, BorderLayout.CENTER);
         panel2.add(panel3, BorderLayout.NORTH);
-        panel2.add(button1, BorderLayout.SOUTH);
+        panel2.add(buttonPanel, BorderLayout.SOUTH);
         add(panel2, BorderLayout.CENTER);
 
 
@@ -756,6 +773,10 @@ public class phase1 extends JFrame{
                 JSlider source = (JSlider) e.getSource();
                 if (source.getValueIsAdjusting()){
                     valueAdjust.setText("Value = " + Integer.toString(source.getValue()));
+                    int temp = Integer.parseInt(textFieldUsedtobePanel5.getText());
+                    int temp2 = (source.getValue()  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+                    textField7.setText( Integer.toString(remainingMoney-temp2)  );
+                    remainingAlloc.setText("Security #" + source.getName() + " = " + Integer.toString(temp2));
                 }
             }
         };
@@ -1059,17 +1080,18 @@ public class phase1 extends JFrame{
                     if(test.getCurrent() == 11) {
                         sliderInterface phase2 = new sliderInterface(param.getSecurityListWithEmptyIncomeSharesFromStart(), 1, false, false, false, false,  0, 0.0);
                         //  phases.setVisible(false);
-                        phase2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        phase2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         phase2.setVisible(true);
                     }
+                    else {
 
 
-                    phase1 phases = new phase1(anotherShareList, test.getCurrent());
+                        phase1 phases = new phase1(anotherShareList, test.getCurrent());
 
-                    phases.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    phases.setVisible(true);
+                        phases.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        phases.setVisible(true);
 
-
+                    }
 
                 } else {
                     error(e);
@@ -1309,7 +1331,28 @@ public class phase1 extends JFrame{
 
 
 
+    public static void main(String[] args) throws Exception {
+        params = new parameters();
 
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                // openingPage open = new openingPage();
+                //open.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                // open.setVisible(true);
+
+
+                System.out.println("how many times have i been here?");
+                testClass test = new testClass(1);
+                //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
+               // sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+                phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+
+            }
+
+        });
+    }
 
 
 
