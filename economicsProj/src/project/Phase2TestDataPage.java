@@ -44,6 +44,13 @@ public class phase2TestDataPage extends JFrame {
   static JButton button3d;
   static JButton button4d;
 
+  //new ish
+  static JButton selectionButtonRound1;
+  static JButton selectionButtonRound2;
+  static JButton selectionButtonRound3;
+  static JButton selectionButtonRound4;
+  //these buttons will determine which round is selected before the final round is advanced through
+
   static JButton round2;
   static JButton round3;
   static JButton round4;
@@ -142,6 +149,11 @@ public class phase2TestDataPage extends JFrame {
   static ActionListener thirdRew;
   static ActionListener forthRew;
 
+  //new ish
+  static ActionListener selectionButtons;
+
+
+
   static JSplitPane split;
   static JSplitPane split2;
   static JTextArea text;
@@ -162,6 +174,27 @@ public class phase2TestDataPage extends JFrame {
 
   static double R;
   static int M;
+
+  //new ish
+  //these are going hold the value set for the selectionButtons as the rewind calls are made
+
+  static double R2;
+  static int M2;
+
+  static double R3;
+  static int M3;
+
+  static double R4;
+  static int M4;
+
+  static double R5;
+  static int M5;
+
+  static double[] arr2;
+  static double[] arr3;
+  static double[] arr4;
+  static double[] arr5;
+
 
 
   boolean rewind2;
@@ -188,6 +221,41 @@ public class phase2TestDataPage extends JFrame {
 
     R = r;
     M = m;
+
+    if(rewind && !rewind2 && !rewind3 && !rewind4){
+      R2 = r;
+      M2 = m;
+      arr2 = new double[shares.size()];
+      for(int i = 0; i < shares.size(); i ++){
+        arr2[i] = shares.get(i).getIncomeShare();
+      }
+    }
+    if(rewind && rewind2 && !rewind3 && !rewind4){
+      R3 = r;
+      M3 = m;
+      arr3 = new double[shares.size()];
+      for(int i = 0; i < shares.size(); i ++){
+        arr3[i] = shares.get(i).getIncomeShare();
+      }
+    }
+
+    if(rewind && rewind2 && rewind3 && !rewind4){
+      R4 = r;
+      M4 = m;
+      arr4 = new double[shares.size()];
+      for(int i = 0; i < shares.size(); i ++){
+        arr4[i] = shares.get(i).getIncomeShare();
+      }
+    }
+
+    if(rewind && rewind2 && rewind3 && rewind4){
+      R5 = r;
+      M5 = m;
+     arr5 = new double[shares.size()];
+      for(int i = 0; i < shares.size(); i ++){
+        arr5[i] = shares.get(i).getIncomeShare();
+      }
+    }
 
 
 
@@ -228,6 +296,15 @@ public class phase2TestDataPage extends JFrame {
     button2d = new JButton();
     button3d = new JButton();
     button4d = new JButton();
+
+    //new ish
+    selectionButtonRound1 = new JButton();
+    selectionButtonRound2 = new JButton();
+    selectionButtonRound3 = new JButton();
+    selectionButtonRound4 = new JButton();
+
+
+
 
     String iS = "";
     for(int i=0; i<shares.size(); i++){
@@ -277,6 +354,14 @@ public class phase2TestDataPage extends JFrame {
     button4d.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
 
+    selectionButtonRound1.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    selectionButtonRound2.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    selectionButtonRound3.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    selectionButtonRound4.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+
+
+
+
     title2 = new JButton();
     title3 = new JButton();
     title4 = new JButton();
@@ -286,12 +371,14 @@ public class phase2TestDataPage extends JFrame {
     title3.setFont(new Font("Calibri",Font.ROMAN_BASELINE, 15));
     title4.setFont(new Font("Calibri", Font.ROMAN_BASELINE,15));
     title5.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    selectionButtonRound1.setText("Click to select this choice rule");
 
     if(rewind){
       title2.setText("Allocations: Price Set 1");
       title3.setText("Allocations: Price Set 2");
       title4.setText("Allocations: Price Set 3");
       title5.setText("Allocations: Price Set 4");
+      selectionButtonRound2.setText("Click to select this choice rule");
     }
 
     if(rewind && rewind2){
@@ -299,18 +386,21 @@ public class phase2TestDataPage extends JFrame {
       button2b.setText("Allocations: Price Set 2");
       button3b.setText("Allocations: Price Set 3");
       button4b.setText("Allocations: Price Set 4");
+      selectionButtonRound3.setText("Click to select this choice rule");
     }
     if(rewind && rewind2 && rewind3){
       button1c.setText("Allocations: Price Set 1");
       button2c.setText("Allocations: Price Set 2");
       button3c.setText("Allocations: Price Set 3");
       button4c.setText("Allocations: Price Set 4");
+      selectionButtonRound4.setText("Click to select this choice rule");
     }
     if(rewind && rewind2 && rewind3 && rewind4){
       button1d.setText("Allocations: Price Set 1");
       button2d.setText("Allocations: Price Set 2");
       button3d.setText("Allocations: Price Set 3");
       button4d.setText("Allocations: Price Set 4");
+
     }
 
 
@@ -334,10 +424,11 @@ public class phase2TestDataPage extends JFrame {
     topPanel.add(button4b);
     topPanel.add(button4c);
     topPanel.add(button4d);
-    topPanel.add(empty3);
-    topPanel.add(inputButton);
-    topPanel.add(empty1);
-    topPanel.add(empty2);
+    //new ish
+    topPanel.add(selectionButtonRound1);
+    topPanel.add(selectionButtonRound2);
+    topPanel.add(selectionButtonRound3);
+    topPanel.add(selectionButtonRound4);
 
     title = new JLabel("Data Page for Test Round Allocations");
     title.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -378,7 +469,7 @@ public class phase2TestDataPage extends JFrame {
     button6 = new JButton("Adjust Choice Rule Chance 1");
     round2= new JButton("Adjust Choice Rule Chance 2");
     round3= new JButton("Adjust Choice Rule Chance 3");
-    round4= new JButton("Adjust Choice Rule Chance 4");
+    round4= new JButton("Final Choice Rule Selection");
 
     if(!rewind){
       round2.setEnabled(false);
@@ -974,22 +1065,13 @@ public class phase2TestDataPage extends JFrame {
       public void actionPerformed(ActionEvent e) {
 
         int result = JOptionPane.showConfirmDialog(null,
-            "Continue to stage 2?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            "Get ready for stage2!", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result != 0) {
           return;
         }
 
-
-        double finalRatio = R;
-        int finalM = M;
-        double[] arr = new double[shares.size()];
-        for(int i = 0; i < shares.size(); i ++){
-          arr[i] = shares.get(i).getIncomeShare();
-        }
-
-
-        phase2Real phaseReal = new phase2Real(arr, finalRatio, finalM);
+        phase2Real phaseReal = new phase2Real(arr5, R5, M5);
         phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         phaseReal.setVisible(true);
 
@@ -1040,8 +1122,8 @@ public class phase2TestDataPage extends JFrame {
         JButton source = (JButton) e.getSource();
         if(source == button6){
           parameters params = new parameters();
-
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, false, false, false,  M, R);
+//The m's and r's might be an issue here since the boolean is set here
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, false, false, false,  M2, R2);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
 
@@ -1054,7 +1136,7 @@ public class phase2TestDataPage extends JFrame {
         if(source == round2){
           parameters params = new parameters();
 
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, false, false, M, R);
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, false, false, M3, R3);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
           setVisible(false);
@@ -1064,7 +1146,7 @@ public class phase2TestDataPage extends JFrame {
         if(source == round3){
           parameters params = new parameters();
 
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, true, false, M, R);
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, true, false, M4, R4);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
           setVisible(false);
@@ -1073,6 +1155,13 @@ public class phase2TestDataPage extends JFrame {
         }
 
         if(source == round4){
+
+          int result = JOptionPane.showConfirmDialog(null,
+              "This is your final chance! The choice rule after this round is final! Continue?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
           parameters params = new parameters();
 
           sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true,true, true, true, M, R);
@@ -1087,6 +1176,106 @@ public class phase2TestDataPage extends JFrame {
 
       }
     };
+
+    //new ish
+    //here, setting each select button into a submit button with the info from the test round its applied to
+
+    selectionButtons = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+          JButton source = (JButton) e.getSource();
+          if (source == selectionButtonRound1){
+          int result = JOptionPane.showConfirmDialog(null,
+              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
+
+
+            double finalRatio = R;
+            int finalM = M;
+            double[] arr = new double[shares.size()];
+            for(int i = 0; i < shares.size(); i ++){
+              arr[i] = shares.get(i).getIncomeShare();
+            }
+
+
+          phase2Real phaseReal = new phase2Real(arr, finalRatio, finalM);
+          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          phaseReal.setVisible(true);
+
+          setVisible(false);
+          dispose();
+
+        }
+
+
+        if (source == selectionButtonRound2){
+          int result = JOptionPane.showConfirmDialog(null,
+              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
+
+
+
+
+          phase2Real phaseReal = new phase2Real(arr2, R2, M2);
+          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          phaseReal.setVisible(true);
+
+          setVisible(false);
+          dispose();
+
+        }
+
+
+
+        if (source == selectionButtonRound3){
+          int result = JOptionPane.showConfirmDialog(null,
+              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
+
+
+
+          phase2Real phaseReal = new phase2Real(arr3, R3, M3);
+          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          phaseReal.setVisible(true);
+
+          setVisible(false);
+          dispose();
+
+        }
+
+
+
+        if (source == selectionButtonRound4){
+          int result = JOptionPane.showConfirmDialog(null,
+              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
+
+
+
+          phase2Real phaseReal = new phase2Real(arr4, R4, M4);
+          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+          phaseReal.setVisible(true);
+
+          setVisible(false);
+          dispose();
+
+        }
+      }
+    };
+
+
 
 
     if(rewind) {
@@ -1118,6 +1307,13 @@ public class phase2TestDataPage extends JFrame {
     round2.addActionListener(changes2);
     round3.addActionListener(changes2);
     round4.addActionListener(changes2);
+
+
+    //new ish
+    selectionButtonRound1.addActionListener(selectionButtons);
+    selectionButtonRound2.addActionListener(selectionButtons);
+    selectionButtonRound3.addActionListener(selectionButtons);
+    selectionButtonRound4.addActionListener(selectionButtons);
 
 
 
