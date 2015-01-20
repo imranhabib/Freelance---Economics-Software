@@ -354,6 +354,11 @@ public class phase2TestDataPage extends JFrame {
     button4d.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
 
+    button5 = new JButton();
+    button5.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button5.setEnabled(false);
+
+
     selectionButtonRound1.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     selectionButtonRound2.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     selectionButtonRound3.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
@@ -400,6 +405,35 @@ public class phase2TestDataPage extends JFrame {
       button2d.setText("Allocations: Price Set 2");
       button3d.setText("Allocations: Price Set 3");
       button4d.setText("Allocations: Price Set 4");
+      button5.setText("Proceed to Stage 2");
+
+      //new ish: these sets of buttons disable everything except for the final column
+
+      title2.setEnabled(false);
+      title3.setEnabled(false);
+      title4.setEnabled(false);
+      title5.setEnabled(false);
+      selectionButtonRound2.setEnabled(false);
+
+      button1b.setEnabled(false);
+      button2b.setEnabled(false);
+      button3b.setEnabled(false);
+      button4b.setEnabled(false);
+      selectionButtonRound3.setEnabled(false);
+
+      button1c.setEnabled(false);
+      button2c.setEnabled(false);
+      button3c.setEnabled(false);
+      button4c.setEnabled(false);
+      selectionButtonRound4.setEnabled(false);
+
+      button1.setEnabled(false);
+      button2.setEnabled(false);
+      button3.setEnabled(false);
+      button4.setEnabled(false);
+      selectionButtonRound1.setEnabled(false);
+
+
 
     }
 
@@ -429,6 +463,7 @@ public class phase2TestDataPage extends JFrame {
     topPanel.add(selectionButtonRound2);
     topPanel.add(selectionButtonRound3);
     topPanel.add(selectionButtonRound4);
+    topPanel.add(button5);
 
     title = new JLabel("Data Page for Test Round Allocations");
     title.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -465,7 +500,6 @@ public class phase2TestDataPage extends JFrame {
     leftPanel.add(text2, BorderLayout.CENTER);
 
 
-    button5 = new JButton("Proceed to Stage 2");
     button6 = new JButton("Adjust Choice Rule Chance 1");
     round2= new JButton("Adjust Choice Rule Chance 2");
     round3= new JButton("Adjust Choice Rule Chance 3");
@@ -475,6 +509,7 @@ public class phase2TestDataPage extends JFrame {
       round2.setEnabled(false);
       round3.setEnabled(false);
       round4.setEnabled(false);
+
     }
 
     if(rewind && !rewind2 && !rewind3 && !rewind4){
@@ -503,6 +538,7 @@ public class phase2TestDataPage extends JFrame {
       round2.setEnabled(false);
       round3.setEnabled(false);
       round4.setEnabled(false);
+      button5.setEnabled(true);
     }
 
 
@@ -512,7 +548,7 @@ public class phase2TestDataPage extends JFrame {
     buttonPanel.add(round2);
     buttonPanel.add(round3);
     buttonPanel.add(round4);
-    buttonPanel.add(button5);
+
 
 
     changes = new ActionListener() {
@@ -1065,7 +1101,7 @@ public class phase2TestDataPage extends JFrame {
       public void actionPerformed(ActionEvent e) {
 
         int result = JOptionPane.showConfirmDialog(null,
-            "Get ready for stage2!", "Confirmation", JOptionPane.YES_NO_OPTION);
+            "Get ready for stage 2!", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result != 0) {
           return;
