@@ -2,7 +2,6 @@ package project;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -15,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by ihabib on 12/11/2014.
  */
-public class openingPage {
+public class openingPage extends JFrame {
 
 
   static JFrame mainScreen;
@@ -48,6 +47,7 @@ public class openingPage {
   static ActionListener al;
   static ActionListener cl;
   static ActionListener al3;
+  static ActionListener submitButton;
 
 
 
@@ -55,6 +55,8 @@ public class openingPage {
   static Border raisedBorder;
   static Border loweredBorder;
 
+
+   String directory;
 
 
   public openingPage(){
@@ -71,7 +73,7 @@ public class openingPage {
 
     titleBar = new JPanel();
     titleBar.setBorder(new TitledBorder(loweredBorder, "Introduction"));
-    titleBar.setLayout(new GridLayout(0, 1));
+    titleBar.setLayout(new GridLayout(0, 1, 5, 5));
     titlePane = new JTextField();
     titlePane.setBorder(loweredBorder);
     titlePane.setEditable(false);
@@ -89,7 +91,7 @@ public class openingPage {
     //Top Component
 
     topComp = new JPanel();
-    topComp.setLayout(new GridLayout(6, 2));
+    topComp.setLayout(new GridLayout(6, 2, 5, 5));
     topComp.setBorder(new TitledBorder("Enter data"));
     enterStuNum = new JTextField();
     enterStuNum.setBorder(new TitledBorder(loweredBorder, "Enter Student Number"));
@@ -123,7 +125,7 @@ public class openingPage {
 
 
     clear = new JButton("Clear Information");
-    clear.setBorder(new LineBorder(Color.WHITE));
+    clear.setBorder(loweredBorder);
     clear.setBackground(Color.black);
     clear.setForeground(Color.red);
 
@@ -135,6 +137,7 @@ public class openingPage {
     submitStuNum.setBackground(Color.black);
 
     confirmation = new JTextField();
+    confirmation.setEditable(false);
     confirmation.setBorder(new TitledBorder(loweredBorder, "Confirmation"));
 
 
@@ -157,15 +160,15 @@ public class openingPage {
 
 
     instrucs = new JLabel();
-    instrucs.setText("Please choose a location to save data --> ");
+    instrucs.setText("Please name file: output.csv -->");
     instrucs.setFont(new Font("Calibri", Font.BOLD, 15));
     instrucs.setBorder(raisedBorder);
 
 
 
-    jfile = new JFileChooser();
-    jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
     savebutton = new JButton("Browse...");
+    savebutton.setEnabled(false);
     Dimension dim2 = new Dimension(100, 50);
     savebutton.setBorder(new TitledBorder("File Location"));
     savebutton.setPreferredSize(dim2);
@@ -197,72 +200,76 @@ public class openingPage {
 
 
 
-   al = new ActionListener() {
-  @Override
-  public void actionPerformed(ActionEvent e) {
+    al = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
 
-    if (e.getSource() == savebutton) {
-      int returnVal = jfile.showSaveDialog(frameForFile);
-      if (returnVal == JFileChooser.APPROVE_OPTION) {
-        outputfile = jfile.getSelectedFile();
+        if (e.getSource() == savebutton) {
+          jfile = new JFileChooser(getDirectory());
+          System.out.println(jfile.getName());
+          jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+          int returnVal = jfile.showSaveDialog(frameForFile);
+          if (returnVal == JFileChooser.APPROVE_OPTION) {
+            outputfile = jfile.getSelectedFile();
 
-        if (!outputfile.getName().contains(".csv")) {
-          File newN = new File(outputfile.getAbsolutePath().concat(".csv"));
-          outputfile = newN;
+            if (!outputfile.getName().contains(".csv")) {
+              File newN = new File(outputfile.getAbsolutePath().concat(".csv"));
+              outputfile = newN;
+            }
+            if (outputfile.exists()) {
+              JOptionPane.showMessageDialog(frameForFile,
+                  "File already exists",
+                  "Warning",
+                  JOptionPane.WARNING_MESSAGE);
+            }
+
+            saveFile(outputfile);
+            FileWriter fw = createFileWriter(outputfile);
+            formatFile(fw);
+            closeFile(fw);
+            fileSavedAs.setText("Selected file: " + outputfile.getName());
+            submit.setEnabled(true);
+
+          }
         }
-        if (outputfile.exists()) {
-          JOptionPane.showMessageDialog(frameForFile,
-              "File already exists",
-              "Warning",
-              JOptionPane.WARNING_MESSAGE);
-        }
-
-        saveFile(outputfile);
-        FileWriter fw = createFileWriter(outputfile);
-        formatFile(fw);
-        closeFile(fw);
-        fileSavedAs.setText("Selected file: " + outputfile.getName());
-
       }
-    }
-  }
 
     };
 
 
 
-  al3 = new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    al3 = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear){
-       Object[] options = { "OK", "CANCEL" };
-       final int option = JOptionPane.showOptionDialog(null, "Are you sure you want to clear data?", "Warning",
-           JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-            null, options, options[0]);
-        if(option == JOptionPane.OK_OPTION){
-          enterStuNum.setText("");
-          enterStuFirstName.setText("");
-          enterStuLastName.setText("");
-          enterExperNum.setText("");
-          enterStuNumConfirm.setText("");
-          enterStuFirstNameConfirm.setText("");
-          enterStuLastNameConfirm.setText("");
-          enterExperNumConfirm.setText("");
-          confirmation.setText("");
+          Object[] options = { "OK", "CANCEL" };
+          final int option = JOptionPane.showOptionDialog(null, "Are you sure you want to clear data?", "Warning",
+              JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+              null, options, options[0]);
+          if(option == JOptionPane.OK_OPTION){
+            enterStuNum.setText("");
+            enterStuFirstName.setText("");
+            enterStuLastName.setText("");
+            enterExperNum.setText("");
+            enterStuNumConfirm.setText("");
+            enterStuFirstNameConfirm.setText("");
+            enterStuLastNameConfirm.setText("");
+            enterExperNumConfirm.setText("");
+            confirmation.setText("");
 
 
-        }
+          }
           else if(option == JOptionPane.CANCEL_OPTION) {
-          return;
-        }
+            return;
+          }
 
         }
 
 
-    }
-  };
+      }
+    };
 
-clear.addActionListener(al3);
+    clear.addActionListener(al3);
 
     cl = new ActionListener() {
       @Override
@@ -322,8 +329,10 @@ clear.addActionListener(al3);
 
           }
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
-
-
+          savebutton.setEnabled(true);
+          setDirectory(enterStuLastName.getText()+enterStuNum.getText());
+          File dir = new File(getDirectory());
+          dir.mkdir();
         }
 
 
@@ -332,12 +341,28 @@ clear.addActionListener(al3);
 
     };
 
+
+    submitButton = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        mainScreen.setVisible(false);
+        mainScreen.dispose();
+        instructions instruc = new instructions();
+        instruc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        instruc.setVisible(true);
+      }
+    };
+
     savebutton.addActionListener(al);
     submitStuNum.addActionListener(cl);
 
+
     submit = new JButton("Continue");
+    submit.setEnabled(false);
     submit.setBackground(Color.black);
     submit.setForeground(Color.white);
+    submit.addActionListener(submitButton);
 
 
     mainScreen.add(titleBar, BorderLayout.NORTH);
@@ -346,6 +371,9 @@ clear.addActionListener(al3);
 
 
     mainScreen.setVisible(true);
+
+
+
 
   }
 
@@ -385,7 +413,7 @@ clear.addActionListener(al3);
   public void formatFile(FileWriter filer) {
     try {
       filer.write("\n" + "Name: " + enterStuFirstName.getText() +
-      " " + enterStuLastName.getText() + "\n" + "Student Number: " + enterStuNum.getText());
+          " " + enterStuLastName.getText() + "\n" + "Student Number: " + enterStuNum.getText() + "\n" + "Experiment Number: " + enterExperNum.getText());
     } catch (IOException e) {
       System.out.println("new file code failed");
     }
@@ -395,16 +423,6 @@ clear.addActionListener(al3);
 
 
 
-  public void writeToFile(FileWriter filer, Share share) {
-    try {
-      filer.write("\n" + "Security number = " + share.getSecurityNumber() + " Security price = " + share.getPrice() + " Security Income Share = " + share.getIncomeShare() +
-          " Security Allocation = " + share.getAllocation());
-
-    } catch (IOException e) {
-      System.out.println("failed hurr");
-    }
-
-  }
 
   public void closeFile(FileWriter filer){
     try {
@@ -416,78 +434,20 @@ clear.addActionListener(al3);
   }
 
 
+  public void setDirectory(String dir){
+    directory = dir;
+  }
 
+  public String getDirectory (){
+    return directory;
+  }
 
 
 
 
-    public static void main(String[] args) throws  Exception {
-
-      openingPage open = new openingPage();
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public static void main (String[] args) throws Exception {
+    openingPage open = new openingPage();
+  }
 
 
 
@@ -500,3 +460,74 @@ clear.addActionListener(al3);
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
