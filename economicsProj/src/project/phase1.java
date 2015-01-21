@@ -1136,8 +1136,7 @@ public class phase1 extends JFrame{
         JPanel pan = new JPanel();
         pan.add(slider);
 
-        pan.add(new JLabel("Price of security = " + price));
-
+        pan.add(new JLabel("                <"));
         panel.add(pan);
 
     }
