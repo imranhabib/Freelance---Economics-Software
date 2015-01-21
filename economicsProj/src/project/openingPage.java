@@ -56,7 +56,7 @@ public class openingPage extends JFrame {
   static Border loweredBorder;
 
 
-   String directory;
+   String directory = System.getProperty("user.home") + "/Desktop/";
 
 
   public openingPage(){
@@ -330,7 +330,7 @@ public class openingPage extends JFrame {
           }
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
           savebutton.setEnabled(true);
-          setDirectory(enterStuLastName.getText()+enterStuNum.getText());
+          setDirectory(directory + enterStuLastName.getText()+enterStuNum.getText());
           File dir = new File(getDirectory());
           dir.mkdir();
         }
