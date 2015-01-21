@@ -571,7 +571,7 @@ public class phase1 extends JFrame{
                         s1Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
                         check = true;
                         check6 = true;
-                        source.setEnabled(false);
+//                        source.setEnabled(false);
                         //using getName to store the price of the security
                     }
                     if (name.equals("2")) {
@@ -1134,9 +1134,10 @@ public class phase1 extends JFrame{
         slider.addChangeListener(changelistener);
         slider.addChangeListener(changelistener2);
         JPanel pan = new JPanel();
+        pan.setLayout(new GridLayout(1,2,5,5));
         pan.add(slider);
 
-        pan.add(new JLabel("                <"));
+        pan.add(new JButton("Confirm"));
         panel.add(pan);
 
     }
