@@ -669,8 +669,8 @@ public class phase3 extends JFrame{
     JPanel leftPanel = new JPanel(new GridLayout(stage1.size(), 1, 5, 5));
     JPanel rightPanel = new JPanel(new GridLayout(stage2.size(), 1, 5, 5));
     mainSplit.setBorder(new TitledBorder(raisedBorder, "Data Points"));
-    leftPanel.setBorder(new TitledBorder(raisedBorder, "Stage 1 Allocations"));
-    rightPanel.setBorder(new TitledBorder(raisedBorder, "Stage 2 Allocations"));
+    leftPanel.setBorder(new TitledBorder(raisedBorder, "Stage 2 Allocations (Choice Rule)"));
+    rightPanel.setBorder(new TitledBorder(raisedBorder, "Stage 2 Allocations (Choice Rule) WITH Stage 1 prices"));
 
 
     for(int i = 0; i <stage1.size(); i++){
@@ -682,7 +682,7 @@ public class phase3 extends JFrame{
       JProgressBar progress = new JProgressBar();
       progress.setBorder(new TitledBorder("Investment"));
       progress.setValue(Math.round(Float.parseFloat(Double.toString(stage1.get(i).getAllocation()))));
-      progress.setStringPainted(true);
+      progress.setStringPainted(false);
       progress.setForeground(Color.BLACK);
       progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(stage1.get(i).getAllocation())))));
 
@@ -705,7 +705,7 @@ public class phase3 extends JFrame{
       JProgressBar progress = new JProgressBar();
       progress.setBorder(new TitledBorder("Investment"));
       progress.setValue(Math.round(Float.parseFloat(Double.toString(stage2.get(i).getAllocation()))));
-      progress.setStringPainted(true);
+      progress.setStringPainted(false);
       progress.setForeground(Color.BLACK);
       progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(stage2.get(i).getAllocation())))));
 
@@ -779,40 +779,6 @@ public class phase3 extends JFrame{
     frame.setVisible(true);
 
 
-
-  }
-
-  public FileReader createReader (String filename){
-    try {
-      FileReader readMe = new FileReader(filename);
-      return readMe;
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    System.out.println("Here for some reason");
-    return null;
-
-  }
-
-
-  public void closeFile(FileReader filer){
-    try {
-      filer.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public char[] readFile(char [] arr, FileReader reader){
-    char [] details = new char[arr.length];
-    try {
-      reader.read(details);
-      return details;
-    } catch (IOException e){
-      e.printStackTrace();
-    }
-    System.out.println("Here for some other reaspn");
-    return null;
 
   }
 
