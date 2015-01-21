@@ -1122,6 +1122,11 @@ public class phase1 extends JFrame{
         for (int i = 0; i < shares.size(); i++) {
             int priceofsecurity = shareList.get(i).getPrice();
             JSlider jSlider = formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber());
+            jSlider.setEnabled(false);
+            if(i == 0){
+                jSlider.setEnabled(true);
+            }
+
             BoundedRangeModel model = jSlider.getModel();
             model.setRangeProperties(0,0,0,allocation/priceofsecurity,false);
             addShare(jSlider, shareList.get(i).getPrice());
@@ -1334,6 +1339,7 @@ public class phase1 extends JFrame{
             System.out.println("this is sharelist order " + shareList.get(i).getSecurityNumber());
             System.out.println("this is component " + i);
             JSlider sl = formatSlider(shareList.get(i).getPrice(), i + 1);
+            sl.setEnabled(false);
             int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
             BoundedRangeModel model = sl.getModel();
             model.setRangeProperties(0,limit,0,allocation2/shareList.get(i).getPrice(),false);
