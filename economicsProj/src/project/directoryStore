@@ -1,0 +1,46 @@
+package project;
+
+/**
+ * Created by ihabib on 1/22/2015.
+ */
+public class directoryStore {
+
+   static String directory;
+
+  public directoryStore(){
+    this.getDirectory();
+  }
+
+  public directoryStore(String dir){
+    this.directory = dir;
+  }
+
+
+  public String getDirectory(){
+    return directory;
+  }
+
+
+  public void setDirectory(String dir){
+    directory = dir;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
