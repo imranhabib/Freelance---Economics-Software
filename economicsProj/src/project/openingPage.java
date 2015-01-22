@@ -57,6 +57,7 @@ public class openingPage extends JFrame {
 
 
    String directory = System.getProperty("user.home") + "/Desktop/";
+   String adminDirectory = System.getProperty("user.home") + "/Desktop/";
 
 
   public openingPage(){
@@ -331,8 +332,14 @@ public class openingPage extends JFrame {
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
           savebutton.setEnabled(true);
           setDirectory(directory + enterStuLastName.getText()+enterStuNum.getText());
+          setAdminDirectory(adminDirectory + enterStuLastName.getText()+enterStuNum.getText() + "(Admin Data)");
+          directoryStore dirStore = new directoryStore(getDirectory());
+          dirStore.setDirectory(getDirectory());
+          dirStore.setAdminDirectory(getAdminDirectory());
           File dir = new File(getDirectory());
           dir.mkdir();
+          File adminDir = new File(getAdminDirectory());
+          adminDir.mkdir();
         }
 
 
@@ -438,9 +445,17 @@ public class openingPage extends JFrame {
     directory = dir;
   }
 
+  public void setAdminDirectory(String dir){
+    adminDirectory = dir;
+  }
+
   public String getDirectory (){
     return directory;
   }
+  public String getAdminDirectory (){
+    return adminDirectory;
+  }
+
 
 
 
