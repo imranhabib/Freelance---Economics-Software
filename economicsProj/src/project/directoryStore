@@ -6,6 +6,7 @@ package project;
 public class directoryStore {
 
    static String directory;
+   static String adminDirectory;
 
   public directoryStore(){
     this.getDirectory();
@@ -21,8 +22,16 @@ public class directoryStore {
   }
 
 
+  public String getAdminDirectory(){
+    return adminDirectory;
+  }
+
   public void setDirectory(String dir){
     directory = dir;
+  }
+
+  public void setAdminDirectory(String dir){
+    adminDirectory = dir;
   }
 
 
@@ -32,9 +41,6 @@ public class directoryStore {
 
 
 
-//  directoryStore dirStore = new directoryStore();
-//    directory = dirStore.getDirectory();
-//    System.out.println("THIS IS IT: " + dirStore.getDirectory());
 
 
 
