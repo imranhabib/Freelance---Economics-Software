@@ -32,7 +32,9 @@ public class directoryStore {
 
 
 
-
+//  directoryStore dirStore = new directoryStore();
+//    directory = dirStore.getDirectory();
+//    System.out.println("THIS IS IT: " + dirStore.getDirectory());
 
 
 
