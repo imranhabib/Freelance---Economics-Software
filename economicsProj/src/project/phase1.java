@@ -897,11 +897,11 @@ public class phase1 extends JFrame{
           if (test.getCurrent() == 1) {
 
 
-            file1 = new File(directory, filename1);
+            file1 = new File(adminDirectory, filename1);
             fileCreator(file1);
 
             if (!file1.exists()) {
-              file1 = new File(directory, filename1);
+              file1 = new File(adminDirectory, filename1);
               fileCreator(file1);
             }
 
@@ -915,11 +915,11 @@ public class phase1 extends JFrame{
 
           } else if (test.getCurrent() == 2) {
 
-            file2 = new File(directory, filename2);
+            file2 = new File(adminDirectory, filename2);
             fileCreator(file2);
 
             if (!file2.exists()) {
-              file2 = new File(directory, filename2);
+              file2 = new File(adminDirectory, filename2);
               fileCreator(file2);
             }
 
@@ -933,11 +933,11 @@ public class phase1 extends JFrame{
 
           } else if (test.getCurrent() == 3) {
 
-            file3 = new File(directory, filename3);
+            file3 = new File(adminDirectory, filename3);
             fileCreator(file3);
 
             if (!file3.exists()) {
-              file3 = new File(directory, filename3);
+              file3 = new File(adminDirectory, filename3);
               fileCreator(file3);
             }
 
@@ -954,11 +954,11 @@ public class phase1 extends JFrame{
 
 
 
-            file4 = new File(directory, filename4);
+            file4 = new File(adminDirectory, filename4);
             fileCreator(file4);
 
             if (!file4.exists()) {
-              file4 = new File(directory, filename4);
+              file4 = new File(adminDirectory, filename4);
               fileCreator(file4);
             }
 
@@ -972,11 +972,11 @@ public class phase1 extends JFrame{
           } else if (test.getCurrent() == 5) {
 
 
-            file5 = new File(directory, filename5);
+            file5 = new File(adminDirectory, filename5);
             fileCreator(file5);
 
             if (!file5.exists()) {
-              file5 = new File(directory, filename5);
+              file5 = new File(adminDirectory, filename5);
               fileCreator(file5);
             }
 
@@ -990,11 +990,11 @@ public class phase1 extends JFrame{
 
           } else if (test.getCurrent() == 6) {
 
-            file6 = new File(directory, filename6);
+            file6 = new File(adminDirectory, filename6);
             fileCreator(file6);
 
             if (!file6.exists()) {
-              file6 = new File(directory, filename6);
+              file6 = new File(adminDirectory, filename6);
               fileCreator(file6);
             }
 
@@ -1008,11 +1008,11 @@ public class phase1 extends JFrame{
 
           } else if (test.getCurrent() == 7) {
 
-            file7 = new File(directory, filename7);
+            file7 = new File(adminDirectory, filename7);
             fileCreator(file7);
 
             if (!file7.exists()) {
-              file7 = new File(directory, filename7);
+              file7 = new File(adminDirectory, filename7);
               fileCreator(file7);
             }
 
@@ -1029,11 +1029,11 @@ public class phase1 extends JFrame{
 
 
 
-            file8 = new File(directory, filename8);
+            file8 = new File(adminDirectory, filename8);
             fileCreator(file8);
 
             if (!file8.exists()) {
-              file4 = new File(directory, filename8);
+              file4 = new File(adminDirectory, filename8);
               fileCreator(file8);
             }
 
@@ -1049,11 +1049,11 @@ public class phase1 extends JFrame{
 
 
 
-            file9 = new File(directory, filename9);
+            file9 = new File(adminDirectory, filename9);
             fileCreator(file9);
 
             if (!file9.exists()) {
-              file9 = new File(directory, filename9);
+              file9 = new File(adminDirectory, filename9);
               fileCreator(file9);
             }
 
@@ -1067,11 +1067,11 @@ public class phase1 extends JFrame{
           }
           else if (test.getCurrent() == 10) {
 
-            file10 = new File(directory, filename10);
+            file10 = new File(adminDirectory, filename10);
             fileCreator(file10);
 
             if (!file10.exists()) {
-              file10 = new File(directory, filename10);
+              file10 = new File(adminDirectory, filename10);
               fileCreator(file10);
             }
 
