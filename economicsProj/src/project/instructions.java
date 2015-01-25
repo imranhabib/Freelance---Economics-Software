@@ -1,5 +1,7 @@
 package project;
 
+import test.testClass;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
@@ -14,6 +16,7 @@ public class instructions extends JFrame {
 
   private String newline = "\n";
   private String newtab = "\t\t\t\t";
+    static parameters params;
 
   static JScrollPane scroller;
   static JTextArea texter;
@@ -248,6 +251,7 @@ public class instructions extends JFrame {
 
     scroller = new JScrollPane(texter);
     texter.setText(initString_part1);
+      texter.setCaretPosition(0);
     scroller.setVerticalScrollBarPolicy(
         ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -298,6 +302,16 @@ public class instructions extends JFrame {
           texter.setCaretPosition(0);
         }
 
+          if(source == next){
+              params = new parameters();
+              testClass test = new testClass(1);
+              //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
+              // sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+              phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+              frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+              frame.setVisible(true);
+          }
+
       }
     };
 
@@ -313,6 +327,7 @@ public class instructions extends JFrame {
     stage2.addActionListener(stg1);
     stage3.addActionListener(stg1);
     stage4.addActionListener(stg1);
+      next.addActionListener(stg1);
 
 
     add(scroller, BorderLayout.CENTER);
@@ -329,14 +344,6 @@ public class instructions extends JFrame {
 
   }
 
-
-
-
-  public static void main(String[] args) throws Exception {
-
-    instructions ins = new instructions();
-
-  }
 
 
 
