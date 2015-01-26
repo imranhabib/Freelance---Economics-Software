@@ -1145,18 +1145,15 @@ public class phase2TestRounds extends JFrame{
         panelNew.setBorder(new TitledBorder("Data"));
 
         for(int i = 0; i <shareList.size(); i++){
-
             String data = Double.toString(shareList.get(i).getAllocation());
             String splitter = data.substring(data.indexOf("."));
             if(splitter.length() > 2){
-                splitter.substring(0, 3);
-                data.substring(0, data.indexOf("."));
-                data = data + splitter;
-                JTextField jText = new JTextField(data);
-            } else {
-                JTextField jText = new JTextField(data2);
+                splitter = splitter.substring(0, 3);
             }
-                jText.setEditable(false);
+            data = data.substring(0, data.indexOf(".")) + splitter;
+            JTextField jText = new JTextField(data);
+
+            jText.setEditable(false);
             jText.setBorder(new TitledBorder("Exact Amount"));
             jText.setSize(100, 50);
 
