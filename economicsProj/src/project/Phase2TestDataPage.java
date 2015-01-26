@@ -78,37 +78,37 @@ public class phase2TestDataPage extends JFrame {
   static JLabel title6;
   static JLabel title7;
 
-  String directory = System.getProperty("user.home") + "/Desktop/output";
+  String directory;
 
 
-  String filenameer1 = directory + "/priceSet1.csv";
-  String filenameer2 = directory + "/priceSet2.csv";
-  String filenameer3 = directory + "/priceSet3.csv";
-  String filenameer4 = directory + "/priceSet4.csv";
-  String filename5 = "priceSet5.csv";
+  String filenameer1;
+  String filenameer2;
+  String filenameer3;
+  String filenameer4;
 
 
-  String filenameRewind1 = directory + "/priceSetRewind1.csv";
-  String filenameRewind2 = directory + "/priceSetRewind2.csv";
-  String filenameRewind3 = directory + "/priceSetRewind3.csv";
-  String filenameRewind4 = directory + "/priceSetRewind4.csv";
-  String filenameRewind5 = "priceSetRewind5.csv";
+
+  String filenameRewind1;
+  String filenameRewind2;
+  String filenameRewind3;
+  String filenameRewind4;
 
 
-  String secondfilenameRewind1 = directory + "/secondpriceSetRewind1.csv";
-  String secondfilenameRewind2 = directory + "/secondpriceSetRewind2.csv";
-  String secondfilenameRewind3 = directory + "/secondpriceSetRewind3.csv";
-  String secondfilenameRewind4 = directory + "/secondpriceSetRewind4.csv";
 
-  String thirdfilenameRewind1 = directory + "/thirdpriceSetRewind1.csv";
-  String thirdfilenameRewind2 = directory + "/thirdpriceSetRewind2.csv";
-  String thirdfilenameRewind3 = directory + "/thirdpriceSetRewind3.csv";
-  String thirdfilenameRewind4 = directory + "/thirdpriceSetRewind4.csv";
+  String secondfilenameRewind1;
+  String secondfilenameRewind2;
+  String secondfilenameRewind3;
+  String secondfilenameRewind4;
 
-  String forthfilenameRewind1 = directory + "/forthpriceSetRewind1.csv";
-  String forthfilenameRewind2 = directory + "/forthpriceSetRewind2.csv";
-  String forthfilenameRewind3 = directory + "/forthpriceSetRewind3.csv";
-  String forthfilenameRewind4 = directory + "/forthpriceSetRewind4.csv";
+  String thirdfilenameRewind1;
+  String thirdfilenameRewind2;
+  String thirdfilenameRewind3;
+  String thirdfilenameRewind4;
+
+  String forthfilenameRewind1;
+  String forthfilenameRewind2;
+  String forthfilenameRewind3;
+  String forthfilenameRewind4;
 
   FileReader Stage2reader;
   FileReader Stage2reader2;
@@ -205,19 +205,57 @@ public class phase2TestDataPage extends JFrame {
 
   public phase2TestDataPage(final List<Share> shares, final int m, final double r, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4){
 
-    prices = "Prices in Portfolio 1: " + (ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(1))) + newline
-        +  "Prices in Portfolio 2: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(2))) + newline
-        +  "Prices in Portfolio 3: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(3))) + newline
-        +  "Prices in Portfolio 4: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(4))) + newline
-        + "Prices in Portfolio 5: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(5))) + newline
-        +"Prices in Portfolio 6: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(6))) + newline
-        + "Prices in Portfolio 7: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(7))) + newline
-        + "Prices in Portfolio 8: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(8)))+ newline
-        +"Prices in Portfolio 9: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(9))) + newline +
-        "Prices in Portfolio 10: " +(ResourceBundle.getBundle("resources/systemdata").getString("priceSet" + Integer.toString(10))) + newline ;
-    choices = "If you are satisfied with your choice rule, select the proceed button. " + newline + newline + "In the next round, Your choice rule will be applied to the prices of the portfolios, listed to the right, automatically."+ newline+
-        "Each portfolio has 5 securities, the price of each security is listed in order."
-        + newline + newline + "If you want to make a change to your choice rule, " + newline + "select the back to test rounds option. But be careful! You can only go back and adjust your choice rule 4 times.";
+
+    directoryStore dirStore = new directoryStore();
+    directory = dirStore.getAdminDirectory();
+    filenameer1 = directory + "/priceSet1.csv";
+    filenameer2 = directory + "/priceSet2.csv";
+    filenameer3 = directory + "/priceSet3.csv";
+    filenameer4 = directory + "/priceSet4.csv";
+
+
+
+    filenameRewind1 = directory + "/priceSetRewind1.csv";
+    filenameRewind2 = directory + "/priceSetRewind2.csv";
+    filenameRewind3 = directory + "/priceSetRewind3.csv";
+   filenameRewind4 = directory + "/priceSetRewind4.csv";
+
+
+
+    secondfilenameRewind1 = directory + "/secondpriceSetRewind1.csv";
+    secondfilenameRewind2 = directory + "/secondpriceSetRewind2.csv";
+    secondfilenameRewind3 = directory + "/secondpriceSetRewind3.csv";
+   secondfilenameRewind4 = directory + "/secondpriceSetRewind4.csv";
+
+    thirdfilenameRewind1 = directory + "/thirdpriceSetRewind1.csv";
+    thirdfilenameRewind2 = directory + "/thirdpriceSetRewind2.csv";
+    thirdfilenameRewind3 = directory + "/thirdpriceSetRewind3.csv";
+    thirdfilenameRewind4 = directory + "/thirdpriceSetRewind4.csv";
+
+   forthfilenameRewind1 = directory + "/forthpriceSetRewind1.csv";
+    forthfilenameRewind2 = directory + "/forthpriceSetRewind2.csv";
+    forthfilenameRewind3 = directory + "/forthpriceSetRewind3.csv";
+    forthfilenameRewind4 = directory + "/forthpriceSetRewind4.csv";
+
+
+
+    prices = "Total income for portfolio 1 allocation: " + (ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(1))) + newline
+        +  "Total income for portfolio 2 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(2))) + newline
+        +  "Total income for portfolio 3 allocation: "  +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(3))) + newline
+        +  "Total income for portfolio 4 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(4))) + newline
+        + "Total income for portfolio 5 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(5))) + newline
+        +"Total income for portfolio 6 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(6))) + newline
+        + "Total income for portfolio 7 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(7))) + newline
+        + "Total income for portfolio 8 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(8)))+ newline
+        +"Total income for portfolio 9 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(9))) + newline +
+        "Total income for portfolio 10 allocation: " +(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(10))) + newline ;
+    choices = "If you are satisfied with your choice rule, select the button under the corresponding set of allocations. " + newline + newline + "In the next round, Your choice rule will be applied to a set of price vectors, and the income totals listed to the right, automatically."+ newline+
+        "Each portfolio will have 5 securities."
+        + newline + newline + "If you want to make a change to your choice rule, " + newline + "select the adjust choice rule option. But be careful! You can only go back and adjust your choice rule 3 times. After 3 adjustments, the 4th adjustment (labelled as 'final chance') will be applied. ";
+
+
+
+
 
     R = r;
     M = m;
@@ -251,7 +289,7 @@ public class phase2TestDataPage extends JFrame {
     if(rewind && rewind2 && rewind3 && rewind4){
       R5 = r;
       M5 = m;
-     arr5 = new double[shares.size()];
+      arr5 = new double[shares.size()];
       for(int i = 0; i < shares.size(); i ++){
         arr5[i] = shares.get(i).getIncomeShare();
       }
@@ -259,14 +297,10 @@ public class phase2TestDataPage extends JFrame {
 
 
 
-
-
-
-
     setTitle("Stage 2 Test Round Data");
     setLayout(new BorderLayout());
     Dimension screenSize = new Dimension(600, 800);
-    setBounds(0, 0, 1500, 600);
+    setBounds(0, 0, 1250, 600);
     setLocationRelativeTo(null);
 
 
@@ -481,17 +515,17 @@ public class phase2TestDataPage extends JFrame {
     leftPanel.add(title7, BorderLayout.NORTH);
 
 
-    title6 = new JLabel("Prices to be used in Stage 2");
+    title6 = new JLabel("Income vectors to be used in Stage 2");
     bottomPanel.add(title6, BorderLayout.NORTH);
 
     text = new JTextArea(prices);
-    text.setFont(new Font("Calibri", Font.BOLD, 16));
+    text.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     text.setLineWrap(true);
     text.setEditable(false);
     text.setWrapStyleWord(true);
 
     text2 = new JTextArea(choices);
-    text2.setFont(new Font("Calibri", Font.BOLD, 16));
+    text2.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     text2.setEditable(false);
     text2.setLineWrap(true);
     text2.setWrapStyleWord(true);
@@ -1101,7 +1135,7 @@ public class phase2TestDataPage extends JFrame {
       public void actionPerformed(ActionEvent e) {
 
         int result = JOptionPane.showConfirmDialog(null,
-            "Get ready for stage 2!", "Confirmation", JOptionPane.YES_NO_OPTION);
+            "In the next window, you'll be able to view the results from your custom choice rule. Click to continue!", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result != 0) {
           return;
@@ -1159,7 +1193,7 @@ public class phase2TestDataPage extends JFrame {
         if(source == button6){
           parameters params = new parameters();
 //The m's and r's might be an issue here since the boolean is set here
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, false, false, false,  M2, R2);
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, false, false, false,  M, R);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
 
@@ -1172,7 +1206,7 @@ public class phase2TestDataPage extends JFrame {
         if(source == round2){
           parameters params = new parameters();
 
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, false, false, M3, R3);
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, false, false, M, R);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
           setVisible(false);
@@ -1182,7 +1216,7 @@ public class phase2TestDataPage extends JFrame {
         if(source == round3){
           parameters params = new parameters();
 
-          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, true, false, M4, R4);
+          sliderInterface2 slide = new sliderInterface2(params.getSecurityListFromStart(), 1, true, true, true, false, M, R);
           slide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
           slide.setVisible(true);
           setVisible(false);
@@ -1219,93 +1253,335 @@ public class phase2TestDataPage extends JFrame {
     selectionButtons = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-          JButton source = (JButton) e.getSource();
-          if (source == selectionButtonRound1){
-          int result = JOptionPane.showConfirmDialog(null,
-              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        JButton source = (JButton) e.getSource();
+        if (source == selectionButtonRound1){
 
-          if (result != 0) {
-            return;
+          final double finalRatio = R;
+          final int finalM = M;
+          final double[] arr = new double[shares.size()];
+          for(int i = 0; i < shares.size(); i ++){
+            arr[i] = shares.get(i).getIncomeShare();
           }
 
+          final JFrame frame = new JFrame("Heuristic inputs and prices");
+          frame.setLayout(new BorderLayout());
+          frame.setBounds(0, 0, 800, 600);
+          frame.setLocationRelativeTo(null);
+          JLabel minshare = new JLabel("Minimum share: " + Integer.toString(M));
 
-            double finalRatio = R;
-            int finalM = M;
-            double[] arr = new double[shares.size()];
-            for(int i = 0; i < shares.size(); i ++){
-              arr[i] = shares.get(i).getIncomeShare();
+
+
+          String datum = Double.toString(R);
+          String splitum = datum.substring(datum.indexOf("."));
+          if(splitum.length() > 2){
+            splitum = splitum.substring(0, 3);
+          }
+          datum = datum.substring(0, datum.indexOf(".")) + splitum;
+          JLabel ratio = new JLabel("R-ratio: " + datum);
+
+          String iS = "";
+          for(int i=0; i<arr.length; i++){
+            iS = iS + " " + Double.toString(arr[i]);
+          }
+          JLabel incomeShares = new JLabel("Income share selection: " + iS);
+          final JButton buts = new JButton("Click to confirm choice rule");
+          final JButton buts2 = new JButton ("Go Back");
+
+          ActionListener butsAction = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              JButton source = (JButton) e.getSource();
+              if(source == buts){
+                int result = JOptionPane.showConfirmDialog(null,
+                    "Submit this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                  return;
+                }
+                phase2Real phaseReal = new phase2Real(arr, finalRatio, finalM);
+                phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                phaseReal.setVisible(true);
+
+                frame.setVisible(false);
+                frame.dispose();
+
+                setVisible(false);
+                dispose();
+
+              }
+
+
+              if(source == buts2){
+                frame.setVisible(false);
+                frame.dispose();
+              }
+
             }
 
+          };
 
-          phase2Real phaseReal = new phase2Real(arr, finalRatio, finalM);
-          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-          phaseReal.setVisible(true);
+          buts.addActionListener(butsAction);
+          buts2.addActionListener(butsAction);
+          JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+          buttonPanel.add(buts2);
+          buttonPanel.add(buts);
+          JPanel panel = new JPanel(new GridLayout(3, 1));
+          panel.add(minshare);
+          panel.add(ratio);
+          panel.add(incomeShares);
 
-          setVisible(false);
-          dispose();
+          frame.add(panel, BorderLayout.CENTER);
+          frame.add(buttonPanel, BorderLayout.SOUTH);
+
+          frame.add( panel );
+          frame.pack();
+          frame.setVisible(true);
+
 
         }
 
 
         if (source == selectionButtonRound2){
-          int result = JOptionPane.showConfirmDialog(null,
-              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-          if (result != 0) {
-            return;
+
+          final JFrame frame = new JFrame("Heuristic inputs and prices");
+          frame.setLayout(new BorderLayout());
+          frame.setBounds(0, 0, 800, 600);
+          frame.setLocationRelativeTo(null);
+          JLabel minshare = new JLabel("Minimum share: " + Integer.toString(M2));
+
+
+
+          String datum = Double.toString(R2);
+          String splitum = datum.substring(datum.indexOf("."));
+          if(splitum.length() > 2){
+            splitum = splitum.substring(0, 3);
           }
+          datum = datum.substring(0, datum.indexOf(".")) + splitum;
+          JLabel ratio = new JLabel("R-ratio: " + datum);
+
+          String iS = "";
+          for(int i=0; i<arr2.length; i++){
+            iS = iS + " " + Double.toString(arr2[i]);
+          }
+          JLabel incomeShares = new JLabel("Income share selection: " + iS);
+          final JButton buts = new JButton("Click to confirm choice rule");
+          final JButton buts2 = new JButton ("Go Back");
+
+          ActionListener butsAction = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              JButton source = (JButton) e.getSource();
+              if(source == buts){
+                int result = JOptionPane.showConfirmDialog(null,
+                    "Submit this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                  return;
+                }
+                phase2Real phaseReal = new phase2Real(arr2, R2, M2);
+                phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                phaseReal.setVisible(true);
+
+                frame.setVisible(false);
+                frame.dispose();
+
+                setVisible(false);
+                dispose();
+
+              }
 
 
+              if(source == buts2){
+                frame.setVisible(false);
+                frame.dispose();
+              }
+
+            }
+
+          };
+
+          buts.addActionListener(butsAction);
+          buts2.addActionListener(butsAction);
+          JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+          buttonPanel.add(buts2);
+          buttonPanel.add(buts);
+          JPanel panel = new JPanel(new GridLayout(3, 1));
+          panel.add(minshare);
+          panel.add(ratio);
+          panel.add(incomeShares);
+
+          frame.add(panel, BorderLayout.CENTER);
+          frame.add(buttonPanel, BorderLayout.SOUTH);
+
+          frame.add( panel );
+          frame.pack();
+          frame.setVisible(true);
 
 
-          phase2Real phaseReal = new phase2Real(arr2, R2, M2);
-          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-          phaseReal.setVisible(true);
-
-          setVisible(false);
-          dispose();
 
         }
 
 
 
         if (source == selectionButtonRound3){
-          int result = JOptionPane.showConfirmDialog(null,
-              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-          if (result != 0) {
-            return;
+          final JFrame frame = new JFrame("Heuristic inputs and prices");
+          frame.setLayout(new BorderLayout());
+          frame.setBounds(0, 0, 800, 600);
+          frame.setLocationRelativeTo(null);
+          JLabel minshare = new JLabel("Minimum share: " + Integer.toString(M3));
+
+
+
+          String datum = Double.toString(R3);
+          String splitum = datum.substring(datum.indexOf("."));
+          if(splitum.length() > 2){
+            splitum = splitum.substring(0, 3);
           }
+          datum = datum.substring(0, datum.indexOf(".")) + splitum;
+          JLabel ratio = new JLabel("R-ratio: " + datum);
+
+          String iS = "";
+          for(int i=0; i<arr3.length; i++){
+            iS = iS + " " + Double.toString(arr3[i]);
+          }
+          JLabel incomeShares = new JLabel("Income share selection: " + iS);
+          final JButton buts = new JButton("Click to confirm choice rule");
+          final JButton buts2 = new JButton ("Go Back");
+
+          ActionListener butsAction = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              JButton source = (JButton) e.getSource();
+              if(source == buts){
+                int result = JOptionPane.showConfirmDialog(null,
+                    "Submit this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                  return;
+                }
+                phase2Real phaseReal = new phase2Real(arr3, R3, M3);
+                phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                phaseReal.setVisible(true);
+
+                frame.setVisible(false);
+                frame.dispose();
+
+                setVisible(false);
+                dispose();
+
+              }
 
 
+              if(source == buts2){
+                frame.setVisible(false);
+                frame.dispose();
+              }
 
-          phase2Real phaseReal = new phase2Real(arr3, R3, M3);
-          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-          phaseReal.setVisible(true);
+            }
 
-          setVisible(false);
-          dispose();
+          };
 
+          buts.addActionListener(butsAction);
+          buts2.addActionListener(butsAction);
+          JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+          buttonPanel.add(buts2);
+          buttonPanel.add(buts);
+          JPanel panel = new JPanel(new GridLayout(3, 1));
+          panel.add(minshare);
+          panel.add(ratio);
+          panel.add(incomeShares);
+
+          frame.add(panel, BorderLayout.CENTER);
+          frame.add(buttonPanel, BorderLayout.SOUTH);
+
+          frame.add( panel );
+          frame.pack();
+          frame.setVisible(true);
         }
 
 
 
         if (source == selectionButtonRound4){
-          int result = JOptionPane.showConfirmDialog(null,
-              "Continue to stage 2 with this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-          if (result != 0) {
-            return;
+          final JFrame frame = new JFrame("Heuristic inputs and prices");
+          frame.setLayout(new BorderLayout());
+          frame.setBounds(0, 0, 800, 600);
+          frame.setLocationRelativeTo(null);
+          JLabel minshare = new JLabel("Minimum share: " + Integer.toString(M4));
+
+
+
+          String datum = Double.toString(R4);
+          String splitum = datum.substring(datum.indexOf("."));
+          if(splitum.length() > 2){
+            splitum = splitum.substring(0, 3);
           }
+          datum = datum.substring(0, datum.indexOf(".")) + splitum;
+          JLabel ratio = new JLabel("R-ratio: " + datum);
+
+          String iS = "";
+          for(int i=0; i<arr4.length; i++){
+            iS = iS + " " + Double.toString(arr4[i]);
+          }
+          JLabel incomeShares = new JLabel("Income share selection: " + iS);
+          final JButton buts = new JButton("Click to confirm choice rule");
+          final JButton buts2 = new JButton ("Go Back");
+
+          ActionListener butsAction = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              JButton source = (JButton) e.getSource();
+              if(source == buts){
+                int result = JOptionPane.showConfirmDialog(null,
+                    "Submit this choice rule?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+                if (result != 0) {
+                  return;
+                }
+                phase2Real phaseReal = new phase2Real(arr4, R4, M4);
+                phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                phaseReal.setVisible(true);
+
+                frame.setVisible(false);
+                frame.dispose();
+
+                setVisible(false);
+                dispose();
+
+              }
 
 
+              if(source == buts2){
+                frame.setVisible(false);
+                frame.dispose();
+              }
 
-          phase2Real phaseReal = new phase2Real(arr4, R4, M4);
-          phaseReal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-          phaseReal.setVisible(true);
+            }
 
-          setVisible(false);
-          dispose();
+          };
+
+          buts.addActionListener(butsAction);
+          buts2.addActionListener(butsAction);
+          JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+          buttonPanel.add(buts2);
+          buttonPanel.add(buts);
+          JPanel panel = new JPanel(new GridLayout(3, 1));
+          panel.add(minshare);
+          panel.add(ratio);
+          panel.add(incomeShares);
+
+          frame.add(panel, BorderLayout.CENTER);
+          frame.add(buttonPanel, BorderLayout.SOUTH);
+
+          frame.add( panel );
+          frame.pack();
+          frame.setVisible(true);
 
         }
       }
@@ -1363,10 +1639,6 @@ public class phase2TestDataPage extends JFrame {
 
 
 
-
-
-
-
   }
 
 
@@ -1395,8 +1667,13 @@ public class phase2TestDataPage extends JFrame {
     panelNew.setBorder(new TitledBorder("Data"));
 
     for(int i = 0; i <shareList.size(); i++){
-      JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
-      jText.setEditable(false);
+      String data = Double.toString(shareList.get(i).getAllocation());
+      String splitter = data.substring(data.indexOf("."));
+      if(splitter.length() > 2){
+        splitter = splitter.substring(0, 3);
+      }
+      data = data.substring(0, data.indexOf(".")) + splitter;
+      JTextField jText = new JTextField(data);            jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
 
