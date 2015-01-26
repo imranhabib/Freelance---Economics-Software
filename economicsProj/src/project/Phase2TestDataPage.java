@@ -1396,8 +1396,13 @@ public class phase2TestDataPage extends JFrame {
         panelNew.setBorder(new TitledBorder("Data"));
 
         for(int i = 0; i <shareList.size(); i++){
-            JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
-            jText.setEditable(false);
+            String data = Double.toString(shareList.get(i).getAllocation());
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+            JTextField jText = new JTextField(data);            jText.setEditable(false);
             jText.setBorder(new TitledBorder("Exact Amount"));
             jText.setSize(100, 50);
 
