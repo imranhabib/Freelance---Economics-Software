@@ -812,10 +812,9 @@ public class phase2Real extends JFrame {
             String data = Double.toString(shareList.get(i).getAllocation());
             String splitter = data.substring(data.indexOf("."));
             if(splitter.length() > 2){
-                splitter.substring(splitter.indexOf("."), 2);
-                data.substring(0, data.indexOf("."));
-                data = data + splitter;
+                splitter = splitter.substring(0, 3);
             }
+            data = data.substring(0, data.indexOf(".")) + splitter;
             JTextField jText = new JTextField(data);
             jText.setEditable(false);
             jText.setBorder(new TitledBorder("Exact Amount"));
