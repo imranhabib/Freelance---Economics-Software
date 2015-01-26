@@ -11,27 +11,23 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
 /**
  * Created by livin_4_the_game on 14-12-18.
  */
-public class phase4 extends JFrame{
+public class phase4 extends JFrame {
 
-    static JFrame mainScreen;
+
 
     static JLabel title;
-    static JLabel instructions;
+    static JPanel instructions;
     static JLabel changeAllocations;
 
     static Border raisedBorder;
     static Border loweredBorder;
-
-
 
 
     private static ActionListener actionListener1;
@@ -47,7 +43,7 @@ public class phase4 extends JFrame{
     private static ActionListener actionListener11;
     private static ActionListener actionListener12;
 
-    static JTextArea text;
+    static JTextField text;
 
 
     static JSplitPane split;
@@ -102,8 +98,6 @@ public class phase4 extends JFrame{
     static List<List<Share>> results;
 
 
-
-
     FileReader reader1;
     FileReader reader2;
     FileReader reader3;
@@ -116,54 +110,72 @@ public class phase4 extends JFrame{
     FileReader reader10;
 
 
-    String directory = System.getProperty("user.home") + "/Desktop";
+    String directory;
+    String adminDirectory;
 
 
-    String filename1 = directory + "/Phase1priceSet1.csv";
-    String filename2 = directory + "/Phase1priceSet2.csv";
-    String filename3 = directory + "/Phase1priceSet3.csv";
-    String filename4 = directory + "/Phase1priceSet4.csv";
-    String filename5 = directory + "/Phase1priceSet5.csv";
-    String filename6 = directory + "/Phase1priceSet6.csv";
-    String filename7 = directory + "/Phase1priceSet7.csv";
-    String filename8 = directory + "/Phase1priceSet8.csv";
-    String filename9 = directory + "/Phase1priceSet9.csv";
-    String filename10 = directory + "/Phase1priceSet10.csv";
+    String filename1 = adminDirectory + "/Phase1priceSet1.csv";
+    String filename2 = adminDirectory + "/Phase1priceSet2.csv";
+    String filename3 = adminDirectory + "/Phase1priceSet3.csv";
+    String filename4 = adminDirectory + "/Phase1priceSet4.csv";
+    String filename5 = adminDirectory + "/Phase1priceSet5.csv";
+    String filename6 = adminDirectory + "/Phase1priceSet6.csv";
+    String filename7 = adminDirectory+ "/Phase1priceSet7.csv";
+    String filename8 = adminDirectory + "/Phase1priceSet8.csv";
+    String filename9 = adminDirectory + "/Phase1priceSet9.csv";
+    String filename10 = adminDirectory + "/Phase1priceSet10.csv";
 
 
+    String filename = "output.csv";
+
+    File file;
+    FileWriter filer1;
+    FileWriter filer2;
+    FileWriter filer3;
+    FileWriter filer4;
+    FileWriter filer5;
+    FileWriter filer6;
+    FileWriter filer7;
+    FileWriter filer8;
+    FileWriter filer9;
+    FileWriter filer10;
+    FileWriter filer11;
+    FileWriter filer12;
 
 
     String instructions2;
-
-
+    static List<Integer> listOfNumbers;
 
 
     char[] arr;
 
 
-
-
-
-
-    public phase4(final List<List<Share>> allocations, final int m, final double r){
-        mainScreen = new JFrame();
-        mainScreen.setLayout(new BorderLayout());
-        mainScreen.setTitle("Stage 4");
+    public phase4(final List<List<Share>> allocations, final int m, final double r) {
+        setTitle("Stage 4");
+        setLayout(new BorderLayout());
         Dimension screenSize = new Dimension(600, 800);
-        mainScreen.setBounds(0,0,1200,700);
-        mainScreen.setLocationRelativeTo(null);
+        setBounds(0, 0, 1200, 700);
+        setLocationRelativeTo(null);
+
+        directoryStore dirStore = new directoryStore();
+        directory = dirStore.getDirectory();
+        adminDirectory = dirStore.getAdminDirectory();
+
+        listOfNumbers = new ArrayList<Integer>();
+        listOfNumbers.add(0, 1);
+
 
         raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
-        checkboxPanel = new JPanel(new GridLayout(10,2,10,10));
+        checkboxPanel = new JPanel(new GridLayout(10, 2, 10, 10));
         checkboxPanel.setBorder(raisedBorder);
         rightPanel = new JPanel(new GridLayout(10, 2, 10, 10));
         rightPanel.setBorder(raisedBorder);
         split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, checkboxPanel, rightPanel);
         split2.setResizeWeight(0.09);
 
-        leftPanel = new JPanel(new GridLayout(10, 2, 10 , 10));
+        leftPanel = new JPanel(new GridLayout(10, 2, 10, 10));
         leftPanel.setBorder(raisedBorder);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, split2);
         split.setResizeWeight(.5);
@@ -172,14 +184,21 @@ public class phase4 extends JFrame{
         results = allocations;
 
 
+        file = new File(directory, filename);
+
+        if (!file.exists()) {
+            file = new File(directory, filename);
+            fileCreator(file);
+        }
+        filer11 = createFileWriter(file);
+        formatFile(filer11);
+        closeFile2(filer11);
+
         instructions2 = "You must review the allocations before selecting them";
 
-        text = new JTextArea(instructions2);
+        text = new JTextField(instructions2);
+        text.setEditable(false);
         text.setFont(new Font("Calibri", Font.BOLD, 16));
-        text.setLineWrap(true);
-        text.setWrapStyleWord(true);
-
-
 
 
 
@@ -205,7 +224,6 @@ public class phase4 extends JFrame{
         checkBox8.setEnabled(false);
         checkBox9.setEnabled(false);
         checkBox10.setEnabled(false);
-
 
 
         button1 = new JButton("Click to see current allocations for price set 1");
@@ -264,14 +282,15 @@ public class phase4 extends JFrame{
         checkboxPanel.add(checkBox10);
 
         button11 = new JButton("Confirm Choices");
-        button12= new JButton("Submit");
+        button12 = new JButton("Submit");
         button12.setEnabled(false);
 
         buttonPanel = new JPanel(new GridLayout(1, 0, 5, 5));
         buttonPanel.add(button11);
         buttonPanel.add(button12);
 
-        instructions = new JLabel("Instructions");
+        instructions = new JPanel();
+        instructions.setBorder(new TitledBorder(raisedBorder, "Instructions"));
         instructions.add(text);
         bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(instructions, BorderLayout.NORTH);
@@ -282,27 +301,13 @@ public class phase4 extends JFrame{
 
         title = new JLabel("Stage 4");
         title.setFont(new Font("Calibri", Font.BOLD, 20));
-        mainScreen.add(title, BorderLayout.NORTH);
+        add(title, BorderLayout.NORTH);
 
 
-        mainScreen.add(split3);
-        mainScreen.add(buttonPanel, BorderLayout.SOUTH);
+        add(split3);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        mainScreen.setVisible(true);
-
-
-
-        tempListBeforeChecksCOnfirm.add(0, makeAShareList(reader1, filename1, arr));
-        tempListBeforeChecksCOnfirm.add(1, makeAShareList(reader2, filename2, arr));
-        tempListBeforeChecksCOnfirm.add(2, makeAShareList(reader3, filename3, arr));
-        tempListBeforeChecksCOnfirm.add(3, makeAShareList(reader4, filename4, arr));
-        tempListBeforeChecksCOnfirm.add(4, makeAShareList(reader5, filename5, arr));
-        tempListBeforeChecksCOnfirm.add(5, makeAShareList(reader6, filename6, arr));
-        tempListBeforeChecksCOnfirm.add(6, makeAShareList(reader7, filename7, arr));
-        tempListBeforeChecksCOnfirm.add(7, makeAShareList(reader8, filename8, arr));
-        tempListBeforeChecksCOnfirm.add(8, makeAShareList(reader9, filename9, arr));
-        tempListBeforeChecksCOnfirm.add(9, makeAShareList(reader10, filename10, arr));
-
+        setVisible(true);
 
 
 
@@ -313,13 +318,9 @@ public class phase4 extends JFrame{
 
                 if (source == button1) {
                     allocationPage(allocations.get(0), r, m);
-                }
-
-                if (source == button1b) {
                     checkBox1.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(0), r, m);
-
                 }
+
             }
         };
 
@@ -329,14 +330,11 @@ public class phase4 extends JFrame{
                 JButton source = (JButton) e.getSource();
 
                 if (source == button2) {
-                    allocationPage(allocations.get(1), r, m);
+                    allocationPage(allocations.get(1), r, m);    checkBox2.setEnabled(true);
+
                 }
 
-                if (source == button2b) {
 
-                    checkBox2.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(1), r, m);
-                }
             }
         };
         actionListener3 = new ActionListener() {
@@ -346,14 +344,11 @@ public class phase4 extends JFrame{
 
                 if (source == button3) {
                     allocationPage(allocations.get(2), r, m);
-
-                }
-
-                if (source == button3b) {
                     checkBox3.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(2), r, m);
 
                 }
+
+
             }
         };
         actionListener4 = new ActionListener() {
@@ -363,14 +358,9 @@ public class phase4 extends JFrame{
 
                 if (source == button4) {
                     allocationPage(allocations.get(3), r, m);
-                }
-
-                if (source == button4b) {
-
                     checkBox4.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(3), r, m);
-
                 }
+
             }
         };
         actionListener5 = new ActionListener() {
@@ -380,15 +370,11 @@ public class phase4 extends JFrame{
 
                 if (source == button5) {
                     allocationPage(allocations.get(4), r, m);
-
-                }
-
-                if (source == button5b) {
-
                     checkBox5.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(4), r, m);
 
                 }
+
+
             }
         };
         actionListener6 = new ActionListener() {
@@ -398,15 +384,10 @@ public class phase4 extends JFrame{
 
                 if (source == button6) {
                     allocationPage(allocations.get(5), r, m);
-
-                }
-
-                if (source == button6b) {
-
                     checkBox6.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(5), r, m);
 
                 }
+
             }
         };
         actionListener7 = new ActionListener() {
@@ -416,15 +397,10 @@ public class phase4 extends JFrame{
 
                 if (source == button7) {
                     allocationPage(allocations.get(6), r, m);
-
-                }
-
-                if (source == button7b) {
-
                     checkBox7.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(6), r, m);
-
                 }
+
+
             }
         };
         actionListener8 = new ActionListener() {
@@ -434,15 +410,11 @@ public class phase4 extends JFrame{
 
                 if (source == button8) {
                     allocationPage(allocations.get(7), r, m);
-
-                }
-
-                if (source == button8b) {
-
                     checkBox8.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(7), r, m);
 
                 }
+
+
             }
         };
 
@@ -454,14 +426,11 @@ public class phase4 extends JFrame{
                 if (source == button9) {
                     allocationPage(allocations.get(8), r, m);
 
-                }
-
-                if (source == button9b) {
-
                     checkBox9.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(8), r, m);
 
                 }
+
+
             }
         };
         actionListener10 = new ActionListener() {
@@ -471,18 +440,12 @@ public class phase4 extends JFrame{
 
                 if (source == button10) {
                     allocationPage(allocations.get(9), r, m);
-
-                }
-
-                if (source == button10b) {
-
                     checkBox10.setEnabled(true);
-                    allocationPage(tempListBeforeChecksCOnfirm.get(9), r, m);
 
                 }
+
             }
         };
-
 
 
         actionListener11 = new ActionListener() {
@@ -496,58 +459,135 @@ public class phase4 extends JFrame{
                 }
 
 
-                if(checkBox1.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(0);
-                    results.remove(0);
-                    results.add(0, temp);
+                if (checkBox1.isSelected()) {
+
+                    listOfNumbers.add(1);
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer1 = createFileWriter(file);
+                    formatFileYes(filer1, 1);
+                    closeFile2(filer1);
+
                 }
-                if(checkBox2.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(1);
-                    results.remove(1);
-                    results.add(1, temp);
-                }
-                if(checkBox3.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(2);
-                    results.remove(2);
-                    results.add(2, temp);
-                }
-                if(checkBox4.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(3);
-                    results.remove(3);
-                    results.add(3, temp);
-                }
-                if(checkBox5.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(4);
-                    results.remove(4);
-                    results.add(4, temp);
-                }
-                if(checkBox6.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(5);
-                    results.remove(5);
-                    results.add(5, temp);
-                }
-                if(checkBox7.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(6);
-                    results.remove(6);
-                    results.add(6, temp);
-                }
-                if(checkBox8.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(7);
-                    results.remove(7);
-                    results.add(7, temp);
-                }
-                if(checkBox9.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(8);
-                    results.remove(8);
-                    results.add(8, temp);
-                }
-                if(checkBox10.isSelected()) {
-                    List<Share> temp = tempListBeforeChecksCOnfirm.get(9);
-                    results.remove(9);
-                    results.add(9, temp);
-                }
+                if (checkBox2.isSelected()) {
+
+                    listOfNumbers.add( 2);
 
 
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer2 = createFileWriter(file);
+                    formatFileYes(filer2, 2);
+                    closeFile2(filer2);
+                }
+                if (checkBox3.isSelected()) {
+
+                    listOfNumbers.add(3);
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer3 = createFileWriter(file);
+                    formatFileYes(filer3, 3);
+                    closeFile2(filer3);
+                }
+                if (checkBox4.isSelected()) {
+
+                    listOfNumbers.add(4);
+
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer4 = createFileWriter(file);
+                    formatFileYes(filer4, 4);
+                    closeFile2(filer4);
+                }
+                if (checkBox5.isSelected()) {
+
+
+                    listOfNumbers.add( 5);
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer5 = createFileWriter(file);
+                    formatFileYes(filer5, 5);
+                    closeFile2(filer5);
+                }
+                if (checkBox6.isSelected()) {
+
+                    listOfNumbers.add( 6);
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer6 = createFileWriter(file);
+                    formatFileYes(filer6, 6);
+                    closeFile2(filer6);
+                }
+                if (checkBox7.isSelected()) {
+
+                    listOfNumbers.add( 7);
+
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer7 = createFileWriter(file);
+                    formatFileYes(filer7, 7);
+                    closeFile2(filer7);
+                }
+                if (checkBox8.isSelected()) {
+
+                    listOfNumbers.add(8);
+
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer8 = createFileWriter(file);
+                    formatFileYes(filer8, 8);
+                    closeFile2(filer8);
+                }
+                if (checkBox9.isSelected()) {
+
+                    listOfNumbers.add(9);
+
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer9 = createFileWriter(file);
+                    formatFileYes(filer9, 9);
+                    closeFile2(filer9);
+                }
+                if (checkBox10.isSelected()) {
+
+                    listOfNumbers.add(10);
+
+
+
+                    if (!file.exists()) {
+                        file = new File(directory, filename);
+                        fileCreator(file);
+                    }
+                    filer10 = createFileWriter(file);
+                    formatFileYes(filer10, 10);
+                    closeFile2(filer10);
+                }
 
 
                 button1.setEnabled(false);
@@ -590,10 +630,11 @@ public class phase4 extends JFrame{
 
 
 
+
+
             }
 
         };
-
 
 
         actionListener12 = new ActionListener() {
@@ -606,16 +647,33 @@ public class phase4 extends JFrame{
                     return;
                 }
 
+                if(!checkBox1.isSelected() && !checkBox2.isSelected() && !checkBox3.isSelected() && !checkBox4.isSelected() && !checkBox5.isSelected()
+                        && !checkBox6.isSelected() && !checkBox7.isSelected() && !checkBox8.isSelected() && !checkBox9.isSelected() && !checkBox10.isSelected()) {
+
+                    finalPage fini = new finalPage(allocations, m, r);
+                    fini.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    fini.setVisible(true);
+
+                    setVisible(false);
+                    dispose();
+                }
+
+                parameters params = new parameters();
+
+                phase1Rewind phaser = new phase1Rewind(allocations, params.getSecurityList() , listOfNumbers, m, r );
+                phaser.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                phaser.setVisible(true);
+
+                setVisible(false);
+                dispose();
 
 
-                finalPage fini = new finalPage(results);
-                fini.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
+
 
             }
         };
-
-
-
 
 
         button1.addActionListener(actionListener1);
@@ -644,23 +702,10 @@ public class phase4 extends JFrame{
         button12.addActionListener(actionListener12);
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
-
-
-
-    public void allocationPage(final java.util.List<Share> shareList, final double r, final int m){
+    public void allocationPage(final java.util.List<Share> shareList, final double r, final int m) {
 
         final JFrame frame2 = new JFrame("Allocations");
         frame2.setLayout(new BorderLayout());
@@ -679,12 +724,11 @@ public class phase4 extends JFrame{
         button2.setBorder(new TitledBorder("Back to data page"));
 
 
-
         JPanel panelNew = new JPanel();
         panelNew.setLayout(new GridLayout(shareList.size(), 2));
         panelNew.setBorder(new TitledBorder("Data"));
 
-        for(int i = 0; i <shareList.size(); i++){
+        for (int i = 0; i < shareList.size(); i++) {
             JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
             jText.setEditable(false);
             jText.setBorder(new TitledBorder("Exact Amount"));
@@ -711,10 +755,10 @@ public class phase4 extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton source = (JButton) e.getSource();
-                if(source == button1) {
+                if (source == button1) {
                     chartView(shareList);
                 }
-                if(source == button2) {
+                if (source == button2) {
                     frame2.dispose();
 
                 }
@@ -739,8 +783,7 @@ public class phase4 extends JFrame{
     }
 
 
-
-    public void chartView (java.util.List<Share> shareList){
+    public void chartView(java.util.List<Share> shareList) {
 
         pieChart pie = new pieChart(shareList);
         JFreeChart pieCharter = pie.getChart();
@@ -756,16 +799,10 @@ public class phase4 extends JFrame{
         frame.setVisible(true);
 
 
-
     }
 
 
-
-
-
-
-
-    public FileReader createReader (String filename){
+    public FileReader createReader(String filename) {
         try {
             FileReader readMe = new FileReader(filename);
             return readMe;
@@ -778,7 +815,7 @@ public class phase4 extends JFrame{
     }
 
 
-    public void closeFile(FileReader filer){
+    public void closeFile(FileReader filer) {
         try {
             filer.close();
         } catch (IOException e) {
@@ -786,12 +823,12 @@ public class phase4 extends JFrame{
         }
     }
 
-    public char[] readFile(char [] arr, FileReader reader){
-        char [] details = new char[arr.length];
+    public char[] readFile(char[] arr, FileReader reader) {
+        char[] details = new char[arr.length];
         try {
             reader.read(details);
             return details;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Here for some other reaspn");
@@ -800,22 +837,18 @@ public class phase4 extends JFrame{
     }
 
 
-
-
-
-
-    public ArrayList<Share> makeAShareList(FileReader reader, String filename, char[] arr){
+    public ArrayList<Share> makeAShareList(FileReader reader, String filename, char[] arr) {
         arr = new char[1000];
         reader = createReader(filename);
         arr = readFile(arr, reader);
         String line = "";
-        for(char c: arr) {
+        for (char c : arr) {
             line = line + c;
         }
         String[] secondLine = line.split("@");
         ArrayList<Share> shareList = new ArrayList<Share>();
 
-        for(int i = 1; i < secondLine.length; i ++){
+        for (int i = 1; i < secondLine.length; i++) {
             String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
             String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
             String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
@@ -829,14 +862,70 @@ public class phase4 extends JFrame{
 
 
     }
+
+
+    public void fileCreator(File file) {
+        try {
+            if (file.createNewFile()) {
+                System.out.println("check your desktop thats where dat file be");
+            } else {
+                System.out.println("you already have this file playa");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public FileWriter createFileWriter(File file) {
+        try {
+            FileWriter fileWrite = new FileWriter(file, true);
+            //    System.out.println("here so this is good");
+            return fileWrite;
+        } catch (IOException e) {
+            // System.out.println("here so were screwed");
+            return null;
+        }
+
+
+    }
+
+
+    public void formatFile(FileWriter filer) {
+
+        try {
+            filer.write("\n\n" + "Stage 4 Decisions");
+        } catch (IOException e) {
+            System.out.println("new file code failed");
+        }
+
+
+    }
+
+
+    public void formatFileYes(FileWriter filer, int count) {
+
+        try {
+            filer.write("\n\n" + "Stage 4 " + "\n" + "Switched in this Stage 1 portfolio " + "\n" + "Portfolio: " + count);
+        } catch (IOException e) {
+            System.out.println("new file code failed");
+        }
+
+
+    }
+
+
+    public void closeFile2(FileWriter filer) {
+        try {
+            filer.flush();
+            filer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-
-
-
-
-
-
 
 
 
