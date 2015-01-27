@@ -20,10 +20,6 @@ import java.util.List;
  */
 public class finalPage extends JFrame {
 
-  static JFrame mainScreen;
-
-
-
 
   String filename = "output.csv";
 
@@ -116,11 +112,11 @@ public class finalPage extends JFrame {
     directoryStore dirStore = new directoryStore();
     directory = dirStore.getDirectory();
 
-    mainScreen = new JFrame("Final Allocations from Stage 4");
-    mainScreen.setLayout(new BorderLayout());
+    setTitle("Final Allocations");
+   setLayout(new BorderLayout());
     Dimension screenSize = new Dimension(600, 800);
-    mainScreen.setBounds(0,0,1200,700);
-    mainScreen.setLocationRelativeTo(null);
+   setBounds(0,0,1200,700);
+    setLocationRelativeTo(null);
 
 
     instruc = "You are finished with the experiment!" + newline + "A random portfolio allocation will now be chosen," + newline + "Please click 'end experiment'" + newline + "Thanks!";
@@ -200,7 +196,7 @@ public class finalPage extends JFrame {
     title = new JLabel("Allocations After Stage 4");
     title.setFont(new Font("Calibri", Font.BOLD, 20));
 
-    mainScreen.add(title, BorderLayout.NORTH);
+    add(title, BorderLayout.NORTH);
     split.setTopComponent(topPanel);
 
     split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -229,14 +225,14 @@ public class finalPage extends JFrame {
     leftPanel.add(text, BorderLayout.CENTER);
 
 
-    button12= new JButton("End Experiment");
+    button12 = new JButton("End Experiment");
 
     split2.setLeftComponent(leftPanel);
     split.setBottomComponent(split2);
 
-    mainScreen.add(button12, BorderLayout.SOUTH);
-    mainScreen.add(split);
-    mainScreen.setVisible(true);
+    add(button12, BorderLayout.SOUTH);
+    add(split);
+    setVisible(true);
 
 
     actionListener1 = new ActionListener() {
@@ -481,7 +477,7 @@ public class finalPage extends JFrame {
 
 
 
-        mainScreen.setVisible(false);
+     setVisible(false);
 
       }
     };
@@ -498,12 +494,6 @@ public class finalPage extends JFrame {
     button10.addActionListener(actionListener10);
 
     button12.addActionListener(actionListener11);
-
-
-
-
-
-
 
 
 
@@ -536,7 +526,15 @@ public class finalPage extends JFrame {
     panelNew.setBorder(new TitledBorder("Data"));
 
     for(int i = 0; i <shareList.size(); i++){
-      JTextField jText = new JTextField(Double.toString(shareList.get(i).getAllocation()));
+      String data = Double.toString(shareList.get(i).getAllocation());
+      String splitter = data.substring(data.indexOf("."));
+
+      if(splitter.length() > 2){
+        splitter = splitter.substring(0, 3);
+      }
+
+      data = data.substring(0, data.indexOf(".")) + splitter;
+      JTextField jText = new JTextField(data);
       jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
