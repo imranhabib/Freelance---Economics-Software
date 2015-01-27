@@ -42,8 +42,9 @@ public class phase4 extends JFrame {
   private static ActionListener actionListener10;
   private static ActionListener actionListener11;
   private static ActionListener actionListener12;
+  private static ActionListener customlistener;
 
-  static JTextField text;
+  static JTextArea text;
 
 
   static JSplitPane split;
@@ -66,17 +67,19 @@ public class phase4 extends JFrame {
   static JButton button8;
   static JButton button9;
   static JButton button10;
+  static JButton custom;
 
-  static JButton button1b;
-  static JButton button2b;
-  static JButton button3b;
-  static JButton button4b;
-  static JButton button5b;
-  static JButton button6b;
-  static JButton button7b;
-  static JButton button8b;
-  static JButton button9b;
-  static JButton button10b;
+  private String newline = "\n";
+  static JLabel textfield1b;
+  static JLabel textfield2b;
+  static JLabel textfield3b;
+  static JLabel textfield4b;
+  static JLabel textfield5b;
+  static JLabel textfield6b;
+  static JLabel textfield7b;
+  static JLabel textfield8b;
+  static JLabel textfield9b;
+  static JLabel textfield10b;
 
   static JButton button11;
   static JButton button12;
@@ -142,6 +145,7 @@ public class phase4 extends JFrame {
   FileWriter filer11;
   FileWriter filer12;
 
+  static boolean customizeSelected;
 
   String instructions2;
   static List<Integer> listOfNumbers;
@@ -157,6 +161,7 @@ public class phase4 extends JFrame {
     setBounds(0, 0, 1200, 700);
     setLocationRelativeTo(null);
 
+    customizeSelected = false;
     directoryStore dirStore = new directoryStore();
     directory = dirStore.getDirectory();
     adminDirectory = dirStore.getAdminDirectory();
@@ -194,11 +199,13 @@ public class phase4 extends JFrame {
     formatFile(filer11);
     closeFile2(filer11);
 
-    instructions2 = "You must review the allocations before selecting them";
+    instructions2 = "Welcome to Stage 4. In this stage you have the opportunity to individually alter your choice rule allocations." + newline + newline +  "Pressing the 'Customize' button will allow you to choose which individual price set you would like to alter. The price sets you select, if any, will return you to the stage 1 interface where you manually allocated assets." + newline + newline +  "However, this will cost you 1 token at the end of the experiment." + newline + newline + "If you're comfortable with your allocations and don't which to customize, please press the 'Confirm Choices' button followed by submit.";
 
-    text = new JTextField(instructions2);
+    text = new JTextArea(instructions2);
+    text.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     text.setEditable(false);
-    text.setFont(new Font("Calibri", Font.BOLD, 16));
+    text.setLineWrap(true);
+    text.setWrapStyleWord(true);
 
 
 
@@ -237,38 +244,51 @@ public class phase4 extends JFrame {
     button9 = new JButton("Click to see current allocations for price set 9");
     button10 = new JButton("Click to see current allocations for price set 10");
 
-    button1b = new JButton("Click to see allocations for new price set 1");
-    button2b = new JButton("Click to see allocations for new price set 2");
-    button3b = new JButton("Click to see allocations for new price set 3");
-    button4b = new JButton("Click to see allocations for new price set 4");
-    button5b = new JButton("Click to see allocations for new price set 5");
-    button6b = new JButton("Click to see allocations for new price set 6");
-    button7b = new JButton("Click to see allocations for new price set 7");
-    button8b = new JButton("Click to see allocations for new price set 8");
-    button9b = new JButton("Click to see allocations for new price set 9");
-    button10b = new JButton("Click to see allocations for new price set 10");
+    textfield1b = new JLabel("Check the box if you wish to change this allocation");
+    textfield2b = new JLabel("Check the box if you wish to change this allocation");
+    textfield3b = new JLabel("Check the box if you wish to change this allocation");
+    textfield4b = new JLabel("Check the box if you wish to change this allocation");
+    textfield5b = new JLabel("Check the box if you wish to change this allocation");
+    textfield6b = new JLabel("Check the box if you wish to change this allocation");
+    textfield7b = new JLabel("Check the box if you wish to change this allocation");
+    textfield8b = new JLabel("Check the box if you wish to change this allocation");
+    textfield9b = new JLabel("Check the box if you wish to change this allocation");
+    textfield10b = new JLabel("Check the box if you wish to change this allocation");
 
-    leftPanel.add(button1);
-    leftPanel.add(button2);
-    leftPanel.add(button3);
-    leftPanel.add(button4);
-    leftPanel.add(button5);
-    leftPanel.add(button6);
-    leftPanel.add(button7);
-    leftPanel.add(button8);
-    leftPanel.add(button9);
-    leftPanel.add(button10);
+    textfield1b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield2b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield3b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield4b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield5b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield6b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield7b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield8b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield9b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    textfield10b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
-    rightPanel.add(button1b);
-    rightPanel.add(button2b);
-    rightPanel.add(button3b);
-    rightPanel.add(button4b);
-    rightPanel.add(button5b);
-    rightPanel.add(button6b);
-    rightPanel.add(button7b);
-    rightPanel.add(button8b);
-    rightPanel.add(button9b);
-    rightPanel.add(button10b);
+
+
+    leftPanel.add(textfield1b);
+    leftPanel.add(textfield2b);
+    leftPanel.add(textfield3b);
+    leftPanel.add(textfield4b);
+    leftPanel.add(textfield5b);
+    leftPanel.add(textfield6b);
+    leftPanel.add(textfield7b);
+    leftPanel.add(textfield8b);
+    leftPanel.add(textfield9b);
+    leftPanel.add(textfield10b);
+
+    rightPanel.add(button1);
+    rightPanel.add(button2);
+    rightPanel.add(button3);
+    rightPanel.add(button4);
+    rightPanel.add(button5);
+    rightPanel.add(button6);
+    rightPanel.add(button7);
+    rightPanel.add(button8);
+    rightPanel.add(button9);
+    rightPanel.add(button10);
 
     checkboxPanel.add(checkBox1);
     checkboxPanel.add(checkBox2);
@@ -289,9 +309,12 @@ public class phase4 extends JFrame {
     buttonPanel.add(button11);
     buttonPanel.add(button12);
 
-    instructions = new JPanel();
+    custom = new JButton("Customize");
+
+    instructions = new JPanel(new GridLayout(2,1));
     instructions.setBorder(new TitledBorder(raisedBorder, "Instructions"));
     instructions.add(text);
+    instructions.add(custom);
     bottomPanel = new JPanel(new BorderLayout());
     bottomPanel.add(instructions, BorderLayout.NORTH);
 
@@ -318,7 +341,7 @@ public class phase4 extends JFrame {
 
         if (source == button1) {
           allocationPage(allocations.get(0), r, m);
-          checkBox1.setEnabled(true);
+
         }
 
       }
@@ -330,7 +353,7 @@ public class phase4 extends JFrame {
         JButton source = (JButton) e.getSource();
 
         if (source == button2) {
-          allocationPage(allocations.get(1), r, m);    checkBox2.setEnabled(true);
+          allocationPage(allocations.get(1), r, m);
 
         }
 
@@ -344,7 +367,7 @@ public class phase4 extends JFrame {
 
         if (source == button3) {
           allocationPage(allocations.get(2), r, m);
-          checkBox3.setEnabled(true);
+
 
         }
 
@@ -358,7 +381,7 @@ public class phase4 extends JFrame {
 
         if (source == button4) {
           allocationPage(allocations.get(3), r, m);
-          checkBox4.setEnabled(true);
+
         }
 
       }
@@ -370,7 +393,7 @@ public class phase4 extends JFrame {
 
         if (source == button5) {
           allocationPage(allocations.get(4), r, m);
-          checkBox5.setEnabled(true);
+
 
         }
 
@@ -384,7 +407,7 @@ public class phase4 extends JFrame {
 
         if (source == button6) {
           allocationPage(allocations.get(5), r, m);
-          checkBox6.setEnabled(true);
+
 
         }
 
@@ -397,7 +420,7 @@ public class phase4 extends JFrame {
 
         if (source == button7) {
           allocationPage(allocations.get(6), r, m);
-          checkBox7.setEnabled(true);
+
         }
 
 
@@ -410,7 +433,7 @@ public class phase4 extends JFrame {
 
         if (source == button8) {
           allocationPage(allocations.get(7), r, m);
-          checkBox8.setEnabled(true);
+
 
         }
 
@@ -426,7 +449,6 @@ public class phase4 extends JFrame {
         if (source == button9) {
           allocationPage(allocations.get(8), r, m);
 
-          checkBox9.setEnabled(true);
 
         }
 
@@ -440,7 +462,7 @@ public class phase4 extends JFrame {
 
         if (source == button10) {
           allocationPage(allocations.get(9), r, m);
-          checkBox10.setEnabled(true);
+
 
         }
 
@@ -452,7 +474,7 @@ public class phase4 extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         int result = JOptionPane.showConfirmDialog(null,
-            "Are you sure you want to make these choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            "Do you want to continue with your choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (result != 0) {
           return;
@@ -590,6 +612,7 @@ public class phase4 extends JFrame {
         }
 
 
+
         button1.setEnabled(false);
         button2.setEnabled(false);
         button3.setEnabled(false);
@@ -601,16 +624,9 @@ public class phase4 extends JFrame {
         button9.setEnabled(false);
         button10.setEnabled(false);
 
-        button1b.setEnabled(false);
-        button2b.setEnabled(false);
-        button3b.setEnabled(false);
-        button4b.setEnabled(false);
-        button5b.setEnabled(false);
-        button6b.setEnabled(false);
-        button7b.setEnabled(false);
-        button8b.setEnabled(false);
-        button9b.setEnabled(false);
-        button10b.setEnabled(false);
+
+        button11.setEnabled(false);
+        button12.setEnabled(true);
 
         checkBox1.setEnabled(false);
         checkBox2.setEnabled(false);
@@ -623,12 +639,6 @@ public class phase4 extends JFrame {
         checkBox9.setEnabled(false);
         checkBox10.setEnabled(false);
 
-        button11.setEnabled(false);
-        button12.setEnabled(true);
-
-
-
-
 
 
 
@@ -636,15 +646,55 @@ public class phase4 extends JFrame {
 
     };
 
+    customlistener = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JButton source = (JButton) e.getSource();
+        if(source == custom){
+          int result = JOptionPane.showConfirmDialog(null,
+              "Are you sure you want to customize allocatons? Once confirmed, you will be charged 1 token.", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
+
+
+          customizeSelected = true;
+
+          checkBox1.setEnabled(true);
+          checkBox2.setEnabled(true);
+          checkBox3.setEnabled(true);
+          checkBox4.setEnabled(true);
+          checkBox5.setEnabled(true);
+          checkBox6.setEnabled(true);
+          checkBox7.setEnabled(true);
+          checkBox8.setEnabled(true);
+          checkBox9.setEnabled(true);
+          checkBox10.setEnabled(true);
+
+
+        }
+      }
+    };
+
 
     actionListener12 = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        int result = JOptionPane.showConfirmDialog(null,
-            "You are finisihed the experiment!, You can view your final allocations in the next window", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(!customizeSelected) {
+          int result = JOptionPane.showConfirmDialog(null,
+              "You are finisihed the experiment!, You can view your final allocations in the next window", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-        if (result != 0) {
-          return;
+          if (result != 0) {
+            return;
+          }
+        } else {
+          int result = JOptionPane.showConfirmDialog(null,
+              "You will now be re-directed to the price sets you chose to customize. Once finished, you will be able to view your final allocations", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+          if (result != 0) {
+            return;
+          }
         }
 
         if(!checkBox1.isSelected() && !checkBox2.isSelected() && !checkBox3.isSelected() && !checkBox4.isSelected() && !checkBox5.isSelected()
@@ -667,11 +717,6 @@ public class phase4 extends JFrame {
         setVisible(false);
         dispose();
 
-
-
-
-
-
       }
     };
 
@@ -686,17 +731,7 @@ public class phase4 extends JFrame {
     button8.addActionListener(actionListener8);
     button9.addActionListener(actionListener9);
     button10.addActionListener(actionListener10);
-
-    button1b.addActionListener(actionListener1);
-    button2b.addActionListener(actionListener2);
-    button3b.addActionListener(actionListener3);
-    button4b.addActionListener(actionListener4);
-    button5b.addActionListener(actionListener5);
-    button6b.addActionListener(actionListener6);
-    button7b.addActionListener(actionListener7);
-    button8b.addActionListener(actionListener8);
-    button9b.addActionListener(actionListener9);
-    button10b.addActionListener(actionListener10);
+    custom.addActionListener(customlistener);
 
     button11.addActionListener(actionListener11);
     button12.addActionListener(actionListener12);
@@ -729,13 +764,17 @@ public class phase4 extends JFrame {
     panelNew.setBorder(new TitledBorder("Data"));
 
     for (int i = 0; i < shareList.size(); i++) {
+
       String data = Double.toString(shareList.get(i).getAllocation());
       String splitter = data.substring(data.indexOf("."));
+
       if(splitter.length() > 2){
         splitter = splitter.substring(0, 3);
       }
+
       data = data.substring(0, data.indexOf(".")) + splitter;
-      JTextField jText = new JTextField(data);            jText.setEditable(false);
+      JTextField jText = new JTextField(data);
+      jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
 
