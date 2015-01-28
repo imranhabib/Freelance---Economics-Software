@@ -154,7 +154,7 @@ public class phase4 extends JFrame {
   char[] arr;
 
 
-  public phase4(final List<List<Share>> allocations, final int m, final double r) {
+  public phase4(final List<List<Share>> allocations, final int m, final double r, final List<List<Share>> tunnel) {
     setTitle("Stage 4");
     setLayout(new BorderLayout());
     Dimension screenSize = new Dimension(600, 800);
@@ -700,7 +700,7 @@ public class phase4 extends JFrame {
         if(!checkBox1.isSelected() && !checkBox2.isSelected() && !checkBox3.isSelected() && !checkBox4.isSelected() && !checkBox5.isSelected()
             && !checkBox6.isSelected() && !checkBox7.isSelected() && !checkBox8.isSelected() && !checkBox9.isSelected() && !checkBox10.isSelected()) {
 
-          finalPage fini = new finalPage(allocations, m, r);
+          finalPage fini = new finalPage(allocations, m, r, tunnel);
           fini.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
           fini.setVisible(true);
 
@@ -710,7 +710,7 @@ public class phase4 extends JFrame {
 
         parameters params = new parameters();
 
-        phase1Rewind phaser = new phase1Rewind(allocations, params.getSecurityList() , listOfNumbers, m, r );
+        phase1Rewind phaser = new phase1Rewind(allocations, params.getSecurityList() , listOfNumbers, m, r, tunnel);
         phaser.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         phaser.setVisible(true);
 
