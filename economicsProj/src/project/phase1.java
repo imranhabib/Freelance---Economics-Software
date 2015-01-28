@@ -448,7 +448,23 @@ public class phase1 extends JFrame{
             if (source == jBut1) {
               double curr = Double.parseDouble(total.getText());
               double result = curr + Double.parseDouble(label6.getText());
-              total.setText(Double.toString(result));
+
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+              total.setText(data);
 
               jtext1.setEnabled(false);
 
@@ -464,7 +480,22 @@ public class phase1 extends JFrame{
 
               double curr = Double.parseDouble(total.getText());
               double result = curr + Double.parseDouble(label7.getText());
-              total.setText(Double.toString(result));
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+              total.setText(data);
 
               jtext2.setEnabled(false);
 
@@ -479,7 +510,23 @@ public class phase1 extends JFrame{
 
               double curr = Double.parseDouble(total.getText());
               double result = curr + Double.parseDouble(label8.getText());
-              total.setText(Double.toString(result));
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+              total.setText(data);
 
               jtext3.setEnabled(false);
 
@@ -493,7 +540,24 @@ public class phase1 extends JFrame{
 
               double curr = Double.parseDouble(total.getText());
               double result = curr + Double.parseDouble(label9.getText());
-              total.setText(Double.toString(result));
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+
+              total.setText(data);
 
 
               jtext4.setEnabled(false);
@@ -510,7 +574,22 @@ public class phase1 extends JFrame{
 
               double curr = Double.parseDouble(total.getText());
               double result = curr + Double.parseDouble(label10.getText());
-              total.setText(Double.toString(result));
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+              total.setText(data);
 
               jtext5.setEnabled(false);
 
@@ -626,8 +705,22 @@ public class phase1 extends JFrame{
             JSpinner source  = (JSpinner) e.getSource();
             d1 = (Double) source.getValue();
             double cost = d1 * price1;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
 
-            label6.setText(Double.toString(cost));
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+
+            label6.setText(data);
 
 
 
@@ -639,8 +732,22 @@ public class phase1 extends JFrame{
             JSpinner source  = (JSpinner) e.getSource();
             d2 = (Double) source.getValue();
             double cost = d2 * price2;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
 
-            label7.setText(Double.toString(cost));
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+
+            label7.setText(data);
 
           }
         };
@@ -650,8 +757,22 @@ public class phase1 extends JFrame{
             JSpinner source  = (JSpinner) e.getSource();
             d3 = (Double) source.getValue();
             double cost = d3 * price3;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
 
-            label8.setText(Double.toString(cost));
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label8.setText(data);
           }
         };
         ChangeListener c4 = new ChangeListener() {
@@ -660,8 +781,22 @@ public class phase1 extends JFrame{
             JSpinner source  = (JSpinner) e.getSource();
             d4 = (Double) source.getValue();
             double cost = d4 * price4;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
 
-            label9.setText(Double.toString(cost));
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label9.setText(data);
           }
         };
         ChangeListener c5 = new ChangeListener() {
@@ -670,8 +805,21 @@ public class phase1 extends JFrame{
             JSpinner source  = (JSpinner) e.getSource();
             d5 = (Double) source.getValue();
             double cost = d5 * price5;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
 
-            label10.setText(Double.toString(cost));
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label10.setText(data);
           }
         };
 
