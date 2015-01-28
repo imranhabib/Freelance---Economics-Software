@@ -270,6 +270,9 @@ public class phase3 extends JFrame{
       public void actionPerformed(ActionEvent e) {
 
         JFrame frame = new JFrame("Heuristic inputs and prices");
+        frame.setBounds(0, 0, 500, 500);
+        frame.setLocationRelativeTo(null);
+
         JLabel minshare = new JLabel("Minimum share: " + Integer.toString(m));
         JLabel ratio = new JLabel("R-ratio: " + Double.toString(r));
         String iS = "";
