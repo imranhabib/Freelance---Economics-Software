@@ -184,7 +184,7 @@ public class phase1Rewind extends JFrame {
 
   static List<Share> shareList;
 
-  public phase1Rewind(final List<List<Share>> allocations, final List<Share> shares, final List<Integer> cur, final int myshare, final double ratio) {
+  public phase1Rewind(final List<List<Share>> allocations, final List<Share> shares, final List<Integer> cur, final int myshare, final double ratio, final List<List<Share>> tunnel) {
     if(cur.size() > 1){
       curSysProp = cur.get(1);
     }
@@ -877,8 +877,8 @@ public class phase1Rewind extends JFrame {
           Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)));
           anotherShareList.add(share5);
 
-          allocations.remove(curSysProp);
-          allocations.add(curSysProp, anotherShareList);
+          allocations.remove(curSysProp - 1);
+          allocations.add(curSysProp - 1, anotherShareList);
 
         }
 
@@ -1100,7 +1100,7 @@ public class phase1Rewind extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
 
 
-            finalPage fini = new finalPage(allocations, myshare , ratio);
+            finalPage fini = new finalPage(allocations, myshare , ratio, tunnel);
             //  phases.setVisible(false);
             fini.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             fini.setVisible(true);
@@ -1108,7 +1108,7 @@ public class phase1Rewind extends JFrame {
           else {
 
 
-            phase1Rewind phases = new phase1Rewind(allocations, anotherShareList, cur, myshare, ratio);
+            phase1Rewind phases = new phase1Rewind(allocations, anotherShareList, cur, myshare, ratio, tunnel);
 
             phases.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             phases.setVisible(true);
