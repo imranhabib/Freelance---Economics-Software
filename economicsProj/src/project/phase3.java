@@ -88,18 +88,19 @@ public class phase3 extends JFrame{
 
 
   String directory;
+  String adminDirectory;
 
 
-  String filename1 = directory + "/Phase1priceSet1.csv";
-  String filename2 = directory + "/Phase1priceSet2.csv";
-  String filename3 = directory + "/Phase1priceSet3.csv";
-  String filename4 = directory + "/Phase1priceSet4.csv";
-  String filename5 = directory + "/Phase1priceSet5.csv";
-  String filename6 = directory + "/Phase1priceSet6.csv";
-  String filename7 = directory + "/Phase1priceSet7.csv";
-  String filename8 = directory + "/Phase1priceSet8.csv";
-  String filename9 = directory + "/Phase1priceSet9.csv";
-  String filename10 = directory + "/Phase1priceSet10.csv";
+  String filename1;
+  String filename2;
+  String filename3;
+  String filename4;
+  String filename5;
+  String filename6;
+  String filename7;
+  String filename8;
+  String filename9;
+  String filename10;
 
   String filename = "output.csv";
 
@@ -141,6 +142,19 @@ public class phase3 extends JFrame{
 
     directoryStore dirStore = new directoryStore();
     directory = dirStore.getDirectory();
+    adminDirectory = dirStore.getAdminDirectory();
+
+
+    filename1 =adminDirectory+ "/Phase1priceSet1.csv";
+    filename2 = adminDirectory + "/Phase1priceSet2.csv";
+    filename3 = adminDirectory+ "/Phase1priceSet3.csv";
+    filename4 = adminDirectory + "/Phase1priceSet4.csv";
+    filename5 =adminDirectory + "/Phase1priceSet5.csv";
+   filename6 = adminDirectory + "/Phase1priceSet6.csv";
+    filename7 = adminDirectory + "/Phase1priceSet7.csv";
+    filename8 = adminDirectory + "/Phase1priceSet8.csv";
+    filename9 = adminDirectory + "/Phase1priceSet9.csv";
+    filename10 =  adminDirectory+ "/Phase1priceSet10.csv";
 
     stage1AllocationForStage4 = new ArrayList<List<Share>>();
 
@@ -205,7 +219,7 @@ public class phase3 extends JFrame{
 
 
 
-    button13.setEnabled(false);
+    button13.setEnabled(true);
     button14.setEnabled(false);
 
     lowerButtonPanel = new JPanel(new GridLayout(1,2));
@@ -297,8 +311,6 @@ public class phase3 extends JFrame{
           listOfAllocs.add(shares);
 
         }
-
-
 
 
         if (!file.exists()) {
@@ -495,7 +507,7 @@ public class phase3 extends JFrame{
         phase3Switch phase = new phase3Switch(M, R);
         phase.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         phase.setVisible(true);
-        button13.setEnabled(true);
+
 
       }
     };
@@ -561,6 +573,7 @@ public class phase3 extends JFrame{
           return;
         }
 
+
         if (!file.exists()) {
           file = new File(directory, filename);
           fileCreator(file);
@@ -602,9 +615,253 @@ public class phase3 extends JFrame{
         if(maintain){
 
 
+          List<List<Share>> phase1;
+          phase1 = new ArrayList<List<Share>>();
 
 
-          phase4 phasez = new phase4(stage2ShareList, M, R);
+          char[] arr = new char[1000];
+          reader1 = createReader(filename1);
+          arr = readFile(arr, reader1);
+          String line = "";
+          for(char c: arr) {
+            line = line + c;
+          }
+          String[] secondLine = line.split("@");
+          List<Share> shareList = new ArrayList<Share>();
+          //the loop has to be -5 b/c the csv file doubles up on errythang
+
+          for(int i = 1; i < secondLine.length; i ++){
+            String number = secondLine[i].substring(secondLine[i].indexOf("%") + 1, secondLine[i].lastIndexOf("%"));
+            String price = secondLine[i].substring(secondLine[i].indexOf("$") + 1, secondLine[i].lastIndexOf("$"));
+            String allocation = secondLine[i].substring(secondLine[i].indexOf("#") + 1, secondLine[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList.add(shr);
+          }
+          phase1.add(shareList);
+          closeFile(reader1);
+
+
+
+          char[] arr2 = new char[1000];
+          reader2 = createReader(filename2);
+          arr2 = readFile(arr2, reader2);
+          String line2 = "";
+          for(char c: arr2) {
+            line2 = line2 + c;
+          }
+          String[] secondLine2 = line2.split("@");
+
+          List<Share> shareList2 = new ArrayList<Share>();
+          //the loop has to be -5 b/c the csv file doubles up on errythang
+          for(int i = 1; i < secondLine2.length; i ++){
+            String number = secondLine2[i].substring(secondLine2[i].indexOf("%") + 1, secondLine2[i].lastIndexOf("%"));
+            String price = secondLine2[i].substring(secondLine2[i].indexOf("$") + 1, secondLine2[i].lastIndexOf("$"));
+            //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine2[i].substring(secondLine2[i].indexOf("#") + 1, secondLine2[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList2.add(shr);
+          }
+          phase1.add(shareList2);
+          closeFile(reader2);
+
+
+          char[] arr3 = new char[1000];
+          reader3 = createReader(filename3);
+          arr3 = readFile(arr3, reader3);
+          String line3 = "";
+          for(char c: arr3) {
+            line3 = line3 + c;
+          }
+          String[] secondLine3 = line3.split("@");
+
+          List<Share> shareList3 = new ArrayList<Share>();
+          //the loop has to be -5 b/c the csv file doubles up on errythang
+          for(int i = 1; i < secondLine3.length; i ++){
+            String number = secondLine3[i].substring(secondLine3[i].indexOf("%") + 1, secondLine3[i].lastIndexOf("%"));
+            String price = secondLine3[i].substring(secondLine3[i].indexOf("$") + 1, secondLine3[i].lastIndexOf("$"));
+            //       String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine3[i].substring(secondLine3[i].indexOf("#") + 1, secondLine3[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList3.add(shr);
+          }
+          phase1.add(shareList3);
+          closeFile(reader3);
+
+
+
+          char[] arr4 = new char[1000];
+          reader4 = createReader(filename4);
+          arr4 = readFile(arr4, reader4);
+          String line4 = "";
+          for(char c: arr4) {
+            line4 = line4 + c;
+          }
+          String[] secondLine4 = line4.split("@");
+          List<Share> shareList4 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine4.length; i ++){
+            String number = secondLine4[i].substring(secondLine4[i].indexOf("%") + 1, secondLine4[i].lastIndexOf("%"));
+            String price = secondLine4[i].substring(secondLine4[i].indexOf("$") + 1, secondLine4[i].lastIndexOf("$"));
+            String allocation = secondLine4[i].substring(secondLine4[i].indexOf("#") + 1, secondLine4[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList4.add(shr);
+          }
+          phase1.add(shareList4);
+          closeFile(reader4);
+
+
+
+
+
+
+          char[] arr5 = new char[1000];
+          reader5 = createReader(filename5);
+          arr5 = readFile(arr5, reader5);
+          String line5 = "";
+          for(char c: arr5) {
+            line5 = line5 + c;
+          }
+          String[] secondLine5 = line5.split("@");
+
+          List<Share> shareList5 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine5.length; i ++){
+            String number = secondLine5[i].substring(secondLine5[i].indexOf("%") + 1, secondLine5[i].lastIndexOf("%"));
+            String price = secondLine5[i].substring(secondLine5[i].indexOf("$") + 1, secondLine5[i].lastIndexOf("$"));
+            //        String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine5[i].substring(secondLine5[i].indexOf("#") + 1, secondLine5[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList5.add(shr);
+          }
+
+          phase1.add(shareList5);
+          closeFile(reader5);
+
+
+
+          char[] arr6 = new char[1000];
+          reader6 = createReader(filename6);
+          arr6 = readFile(arr6, reader6);
+          String line6 = "";
+          for(char c: arr6) {
+            line6 = line6 + c;
+          }
+          String[] secondLine6 = line6.split("@");
+
+          List<Share> shareList6 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine6.length; i ++){
+            String number = secondLine6[i].substring(secondLine6[i].indexOf("%") + 1, secondLine6[i].lastIndexOf("%"));
+            String price = secondLine6[i].substring(secondLine6[i].indexOf("$") + 1, secondLine6[i].lastIndexOf("$"));
+            //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine6[i].substring(secondLine6[i].indexOf("#") + 1, secondLine6[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList6.add(shr);
+          }
+
+          phase1.add(shareList6);
+          closeFile(reader6);
+
+
+
+          char[] arr7 = new char[1000];
+          reader7 = createReader(filename7);
+          arr7 = readFile(arr7, reader7);
+          String line7 = "";
+          for(char c: arr7) {
+            line7 = line7 + c;
+          }
+          String[] secondLine7 = line7.split("@");
+
+          List<Share> shareList7 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine7.length; i ++){
+            String number = secondLine7[i].substring(secondLine7[i].indexOf("%") + 1, secondLine7[i].lastIndexOf("%"));
+            String price = secondLine7[i].substring(secondLine7[i].indexOf("$") + 1, secondLine7[i].lastIndexOf("$"));
+            //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine7[i].substring(secondLine7[i].indexOf("#") + 1, secondLine7[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList7.add(shr);
+          }
+
+          phase1.add(shareList7);
+          closeFile(reader7);
+
+
+
+          char[] arr8 = new char[1000];
+          reader8 = createReader(filename8);
+          arr8 = readFile(arr8, reader8);
+          String line8 = "";
+          for(char c: arr8) {
+            line8 = line8 + c;
+          }
+          String[] secondLine8 = line8.split("@");
+
+          List<Share> shareList8 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine8.length; i ++){
+            String number = secondLine8[i].substring(secondLine8[i].indexOf("%") + 1, secondLine8[i].lastIndexOf("%"));
+            String price = secondLine8[i].substring(secondLine8[i].indexOf("$") + 1, secondLine8[i].lastIndexOf("$"));
+            //          String incomeShare = secondLine[i].substring(secondLine[i].indexOf("^") + 1, secondLine[i].lastIndexOf("^"));
+            String allocation = secondLine8[i].substring(secondLine8[i].indexOf("#") + 1, secondLine8[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList8.add(shr);
+          }
+
+          phase1.add(shareList8);
+          closeFile(reader8);
+
+
+
+          char[] arr9 = new char[1000];
+          reader9 = createReader(filename9);
+          arr9 = readFile(arr9, reader9);
+          String line9 = "";
+          for(char c: arr9) {
+            line9 = line9 + c;
+          }
+          String[] secondLine9 = line9.split("@");
+
+          List<Share> shareList9 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine9.length; i ++){
+            String number = secondLine9[i].substring(secondLine9[i].indexOf("%") + 1, secondLine9[i].lastIndexOf("%"));
+            String price = secondLine9[i].substring(secondLine9[i].indexOf("$") + 1, secondLine9[i].lastIndexOf("$"));
+            String allocation = secondLine9[i].substring(secondLine9[i].indexOf("#") + 1, secondLine9[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList9.add(shr);
+          }
+
+          phase1.add(shareList9);
+          closeFile(reader9);
+
+
+
+          char[] arr10 = new char[1000];
+          reader10 = createReader(filename10);
+          arr10 = readFile(arr10, reader10);
+          String line10 = "";
+          for(char c: arr10) {
+            line10 = line10 + c;
+          }
+          String[] secondLine10 = line.split("@");
+
+          List<Share> shareList10 = new ArrayList<Share>();
+          //the loop DOESNT have to be -5  b/c the csv file DOESNT double up on the last run
+          for(int i = 1; i < secondLine10.length; i ++){
+            String number = secondLine10[i].substring(secondLine10[i].indexOf("%") + 1, secondLine10[i].lastIndexOf("%"));
+            String price = secondLine10[i].substring(secondLine10[i].indexOf("$") + 1, secondLine10[i].lastIndexOf("$"));
+            String allocation = secondLine10[i].substring(secondLine10[i].indexOf("#") + 1, secondLine10[i].lastIndexOf("#"));
+            Share shr = new Share(Integer.parseInt(price), Integer.parseInt(number), Double.parseDouble(allocation));
+            shareList10.add(shr);
+          }
+          phase1.add(shareList10);
+          closeFile(reader10);
+
+
+
+          phase4 phasez = new phase4(stage2ShareList, M, R, phase1);
           phasez.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
           phasez.setVisible(true);
 
@@ -614,7 +871,19 @@ public class phase3 extends JFrame{
         }
 
         if(apply){
-          phase4 phasez = new phase4(stage2ShareList, M, R);
+
+          List<List<Share>> listOfAllocs = new ArrayList<List<Share>>();
+          for(int i = 1; i < stage2ShareList.size() + 1; i++) {
+            String maxMoney = (ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + Integer.toString(i)));
+            String pric = (ResourceBundle.getBundle("resources/systemdata").getString("securityPriceList" + Integer.toString(i)));
+            String[] prices = pric.split(",");
+            ArrayList<Share> shares = convertPriceSets(prices, R, M, incomeShares, Integer.parseInt(maxMoney));
+            listOfAllocs.add(shares);
+
+          }
+
+
+          phase4 phasez = new phase4(stage2ShareList, M, R, listOfAllocs);
           phasez.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
           phasez.setVisible(true);
 
@@ -884,6 +1153,39 @@ public class phase3 extends JFrame{
 
 
 
+  public FileReader createReader (String filename){
+    try {
+      FileReader readMe = new FileReader(filename);
+      return readMe;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Here for some reason");
+    return null;
+
+  }
+
+
+  public void closeFile(FileReader filer){
+    try {
+      filer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public char[] readFile(char [] arr, FileReader reader){
+    char [] details = new char[arr.length];
+    try {
+      reader.read(details);
+      return details;
+    } catch (IOException e){
+      e.printStackTrace();
+    }
+    System.out.println("Here for some other reaspn");
+    return null;
+
+  }
 
 
   public ArrayList<Share> convertPriceSets(String[] prices, double r, int minShare, double[] incomes, int max){
