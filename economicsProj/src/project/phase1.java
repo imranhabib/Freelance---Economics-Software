@@ -549,7 +549,35 @@ public class phase1 extends JFrame{
 
             }
             if(source == submitBut){
-              //put code to add values here
+
+              if(Double.parseDouble(jtext.getText()) > Double.parseDouble(total.getText())){
+               JOptionPane.showMessageDialog(null, "Please allocate all remaining money", "Alert", JOptionPane.ERROR_MESSAGE);
+               return;
+
+
+
+              }
+
+
+              int result = JOptionPane.showConfirmDialog(null,
+                  "Submit choices? After confirmation, you will be re-directed to the previous screen", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+              if (result != 0) {
+                return;
+
+              }
+
+              System.out.println("THESE " + d1 + d2 + d3 + d4 + d5);
+
+            button3.setEnabled(false);
+            button4.setEnabled(false);
+            framer.setVisible(false);
+            framer.dispose();
+
+
+
+
+
             }
             if(source == backBut){
               int result = JOptionPane.showConfirmDialog(null,
@@ -652,19 +680,9 @@ public class phase1 extends JFrame{
         jtext4.addChangeListener(c4);
         jtext5.addChangeListener(c5);
 
-
-
-
-
-
-
-
-
-
-        //popup message
       }
 
-      //allocated successfully to security n
+
 
     };
 
@@ -673,7 +691,7 @@ public class phase1 extends JFrame{
     button3.setBorder(new TitledBorder("Reset"));
 
 
-    button4 = new JButton("Click to automatically allocate remaining money");
+    button4 = new JButton("Click to allocate remaining income");
     button4.addActionListener(actionListener5);
     button4.setVisible(false);
     button4.setEnabled(false);
@@ -686,7 +704,7 @@ public class phase1 extends JFrame{
     remainingAlloc.setBorder(new TitledBorder(raisedBorder, "Cost of the currently selected security"));
     remainingAlloc.setFont(new Font("Calibri", Font.BOLD, 15));
 
-    leftoverMoney = new JLabel("Click and we'll try our best to assign your remaining money ->");
+    leftoverMoney = new JLabel("Click to assign your remaining income ->");
     leftoverMoney.setBorder(raisedBorder);
     leftoverMoney.setEnabled(false);
     leftoverMoney.setVisible(false);
@@ -1122,40 +1140,40 @@ public class phase1 extends JFrame{
         anotherShareList = new ArrayList<Share>(shareList.size());
 
         if (shareList.size() == 1) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
 
         }
 
 
         if (shareList.size() == 2) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
 
 
         }
 
         if (shareList.size() == 3) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
 
 
         }
 
         if (shareList.size() == 4) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)) + d4);
           anotherShareList.add(share4);
 
 
@@ -1164,13 +1182,13 @@ public class phase1 extends JFrame{
         if (shareList.size() == 5) {
           Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1))+ d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)) + d4);
           anotherShareList.add(share4);
-          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)));
+          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)) + d5);
           anotherShareList.add(share5);
 
         }
