@@ -332,6 +332,7 @@ public class phase1 extends JFrame{
         final JFrame framer = new JFrame();
         framer.setLayout(new BorderLayout());
         framer.setBounds(0, 0, 800, 500);
+        framer.setLocationRelativeTo(null);
         framer.setTitle("Allocate remaining money");
 
         final JPanel mainPan = new JPanel(new GridLayout(5 ,4, 5, 5));
