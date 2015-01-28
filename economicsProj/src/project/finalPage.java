@@ -52,6 +52,20 @@ public class finalPage extends JFrame {
   private static ActionListener actionListener11;
 
 
+  private static ActionListener actionListener1b;
+  private static ActionListener actionListener2b;
+  private static ActionListener actionListener3b;
+  private static ActionListener actionListener4b;
+  private static ActionListener actionListener5b;
+  private static ActionListener actionListener6b;
+  private static ActionListener actionListener7b;
+  private static ActionListener actionListener8b;
+  private static ActionListener actionListener9b;
+  private static ActionListener actionListener10b;
+
+
+
+
 
 
   static JButton button1;
@@ -64,6 +78,17 @@ public class finalPage extends JFrame {
   static JButton button8;
   static JButton button9;
   static JButton button10;
+
+  static JButton button1b;
+  static JButton button2b;
+  static JButton button3b;
+  static JButton button4b;
+  static JButton button5b;
+  static JButton button6b;
+  static JButton button7b;
+  static JButton button8b;
+  static JButton button9b;
+  static JButton button10b;
 
   static JButton button12;
 
@@ -107,7 +132,7 @@ public class finalPage extends JFrame {
   String directory;
 
 
-  public finalPage(final List<List<Share>> shares, final int m, final double r){
+  public finalPage(final List<List<Share>> shares, final int m, final double r, final List<List<Share>> tunnel){
 
     directoryStore dirStore = new directoryStore();
     directory = dirStore.getDirectory();
@@ -115,7 +140,7 @@ public class finalPage extends JFrame {
     setTitle("Final Allocations");
    setLayout(new BorderLayout());
     Dimension screenSize = new Dimension(600, 800);
-   setBounds(0,0,1200,700);
+   setBounds(0, 0, 1200, 700);
     setLocationRelativeTo(null);
 
 
@@ -143,9 +168,47 @@ public class finalPage extends JFrame {
     button6 = new JButton("Click to see allocations from price set 6");
     button7 = new JButton("Click to see allocations from price set 7");
     button8 = new JButton("Click to see allocations from price set 8");
-
     button9 = new JButton("Click to see allocations from price set 9");
     button10 = new JButton("Click to see allocations from price set 10");
+
+    button1.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button2.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button3.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button4.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button5.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button6.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button7.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button8.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button9.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+    button10.setBorder(new TitledBorder(raisedBorder, "After Stage 4"));
+
+
+    button1b = new JButton("Click to see allocations from price set 1");
+    button2b = new JButton("Click to see allocations from price set 2");
+    button3b = new JButton("Click to see allocations from price set 3");
+    button4b = new JButton("Click to see allocations from price set 4");
+    button5b = new JButton("Click to see allocations from price set 5");
+    button6b = new JButton("Click to see allocations from price set 6");
+    button7b = new JButton("Click to see allocations from price set 7");
+    button8b = new JButton("Click to see allocations from price set 8");
+    button9b = new JButton("Click to see allocations from price set 9");
+    button10b = new JButton("Click to see allocations from price set 10");
+
+
+    button1b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button2b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button3b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button4b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button5b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button6b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button7b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button8b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button9b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+    button10b.setBorder(new TitledBorder(raisedBorder, "After Stage 3"));
+
+
+
+
 
     button1.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     button2.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
@@ -158,42 +221,44 @@ public class finalPage extends JFrame {
     button9.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
     button10.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
-    empty1 = new JLabel();
-    empty2 = new JLabel();
-    empty3 = new JLabel();
-    empty4 = new JLabel();
-    empty5 = new JLabel();
-    empty6 = new JLabel();
-    empty7 = new JLabel();
-    empty8 = new JLabel();
-    empty9 = new JLabel();
+
+    button1b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button2b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button3b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button4b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button5b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button6b.setFont(new Font("Calibri",Font.ROMAN_BASELINE, 15));
+    button7b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button8b.setFont(new Font("Calibri", Font.ROMAN_BASELINE,15));
+    button9b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+    button10b.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
 
 
-
+    topPanel.add(button1b);
     topPanel.add(button1);
-    topPanel.add(empty1);
+    topPanel.add(button2b);
     topPanel.add(button2);
-    topPanel.add(empty2);
+    topPanel.add(button3b);
     topPanel.add(button3);
-    topPanel.add(empty3);
+    topPanel.add(button4b);
     topPanel.add(button4);
-    topPanel.add(empty4);
+    topPanel.add(button5b);
     topPanel.add(button5);
-    topPanel.add(empty5);
+    topPanel.add(button6b);
     topPanel.add(button6);
-    topPanel.add(empty6);
+    topPanel.add(button7b);
     topPanel.add(button7);
-    topPanel.add(empty7);
+    topPanel.add(button8b);
     topPanel.add(button8);
-    topPanel.add(empty8);
+    topPanel.add(button9b);
     topPanel.add(button9);
-    topPanel.add(empty9);
+    topPanel.add(button10b);
     topPanel.add(button10);
 
 
     title = new JLabel();
 
-    title = new JLabel("Allocations After Stage 4");
+    title = new JLabel("Allocations");
     title.setFont(new Font("Calibri", Font.BOLD, 20));
 
     add(title, BorderLayout.NORTH);
@@ -324,6 +389,96 @@ public class finalPage extends JFrame {
       }
     };
 
+
+
+    actionListener1b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(0));
+
+      }
+    };
+
+    actionListener2b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(1));
+
+      }
+    };
+
+    actionListener3b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(2));
+      }
+    };
+
+    actionListener4b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(3));
+
+      }
+    };
+
+    actionListener5b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(4));
+
+      }
+    };
+
+    actionListener6b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(5));
+
+      }
+    };
+
+    actionListener7b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(6));
+
+      }
+    };
+
+    actionListener8b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(7));
+
+      }
+    };
+
+    actionListener9b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(8));
+
+      }
+    };
+
+    actionListener10b = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        allocationPage(tunnel.get(9));
+
+      }
+    };
 
 
     actionListener11 = new ActionListener() {
@@ -494,6 +649,20 @@ public class finalPage extends JFrame {
     button10.addActionListener(actionListener10);
 
     button12.addActionListener(actionListener11);
+
+
+
+    button1b.addActionListener(actionListener1b);
+    button2b.addActionListener(actionListener2b);
+    button3b.addActionListener(actionListener3b);
+    button4b.addActionListener(actionListener4b);
+    button5b.addActionListener(actionListener5b);
+    button6b.addActionListener(actionListener6b);
+    button7b.addActionListener(actionListener7b);
+    button8b.addActionListener(actionListener8b);
+    button9b.addActionListener(actionListener9b);
+    button10b.addActionListener(actionListener10b);
+
 
 
 
