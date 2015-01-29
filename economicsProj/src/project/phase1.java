@@ -75,6 +75,7 @@ public class phase1 extends JFrame{
   private static ActionListener Actionlistener4;
   private static ActionListener actionListener5;
   private static ActionListener action;
+  private static ChangeListener forConfirm;
 
 
 
@@ -84,6 +85,17 @@ public class phase1 extends JFrame{
   private static boolean check4;
   private static boolean check5;
   private static boolean check6;
+
+  static boolean redirect;
+
+  double d1;
+  double d2;
+  double d3;
+  double d4;
+  double d5;
+
+
+
 
   private int v1;
   private int v2;
@@ -117,7 +129,7 @@ public class phase1 extends JFrame{
 
   //file stuffz
 
-  String filename = "output.csv";
+  String filename = "binarychoices-output.csv";
   String filename1 = "Phase1priceSet1.csv";
   String filename2 = "Phase1priceSet2.csv";
   String filename3 = "Phase1priceSet3.csv";
@@ -201,6 +213,7 @@ public class phase1 extends JFrame{
 
 
     checkNew = false;
+    redirect = false;
 
     shareList = shares;
 
@@ -271,6 +284,9 @@ public class phase1 extends JFrame{
           BoundedRangeModel model = jSlider.getModel();
           model.setRangeProperties(0,0,0,allocation/priceofsecurity,false);
           addShare(jSlider, shares.get(i).getPrice());
+          if(i !=  0){
+            jSlider.setEnabled(false);
+          }
         }
         textField.setText("");
         textField2.setText("");
@@ -306,73 +322,520 @@ public class phase1 extends JFrame{
           button4.setVisible(false);
           return;
         }
-        int secnum=0;
-        double rem=0;
-        boolean canAllocate = false;
-        for(int i=0; i<shareList.size(); i++){
-          int temp = shareList.get(i).getPrice();
-          if((remainingMoney%temp) == 0){
-            rem = remainingMoney/temp;
-            secnum = i;
-            canAllocate = true;
-            remainingMoney = 0;
-            break;
-          }
-        }
-        if(canAllocate){
-          int price = shareList.get(secnum).getPrice();
-          int nu = shareList.get(secnum).getSecurityNumber();
-          double a = shareList.get(secnum).getAllocation() + rem;
-          shareList.remove(secnum);
-          shareList.add(secnum, new Share(price,nu,a));
-          textFieldUsedtobePanel5.setText((ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())));
-          textField7.setText(Integer.toString(0));
-          if(nu == 1){
-            String temp = Double.toString(a);
-            temp = temp.substring(0,temp.indexOf("."));
-            v1= (Integer.parseInt(temp));
-            textField.setText("Units of Security #1 = " + a);
-          }
-          if(nu == 2){
-            String temp = Double.toString(a);
-            temp = temp.substring(0,temp.indexOf("."));
-            v2= (Integer.parseInt(temp));
-            textField2.setText("Units of Security #2 = " + a);
-          }
-          if(nu == 3){
-            String temp = Double.toString(a);
-            temp = temp.substring(0,temp.indexOf("."));
-            v3= (Integer.parseInt(temp));
-            textField3.setText("Units of Security #3 = " + a);
-          }
-          if(nu == 4){
-            String temp = Double.toString(a);
-            temp = temp.substring(0,temp.indexOf("."));
-            v4= (Integer.parseInt(temp));
-            textField4.setText("Units of Security #4 = " + a);
-          }
-          if(nu == 5){
-            String temp = Double.toString(a);
-            temp = temp.substring(0,temp.indexOf("."));
-            v5= (Integer.parseInt(temp));
-            textField5.setText("Units of Security #5 = " + a);
-          }
-          button4.setEnabled(false);
-          button4.setVisible(false);
-        }
-        else{
-          JOptionPane.showMessageDialog(null, "Remaining money could not be allocated to one security entirely without remainders" + "\n" + "Click Reset Allocations and start all over",
-              "Error", JOptionPane.ERROR_MESSAGE
-          );
-          button4.setEnabled(false);
-          button4.setVisible(false);
-          return;
-        }
 
-        //popup message
+        //IF CHANGING SECURITY # HERE CODE TO CHANGE
+        final int price1 =  shareList.get(0).getPrice();
+        final int price2 =  shareList.get(1).getPrice();
+        final int price3 =  shareList.get(2).getPrice();
+        final int price4 =  shareList.get(3).getPrice();
+        final int price5 =  shareList.get(4).getPrice();
+
+
+        final JFrame framer = new JFrame();
+        framer.setLayout(new BorderLayout());
+        framer.setBounds(0, 0, 800, 500);
+        framer.setLocationRelativeTo(null);
+        framer.setTitle("Allocate remaining money");
+
+        final JPanel mainPan = new JPanel(new GridLayout(5 ,4, 5, 5));
+        final JPanel topPan = new JPanel(new GridLayout(1, 3, 5, 5));
+
+        final JTextField jtext = new JTextField();
+        jtext.setEditable(false);
+        jtext.setText(Integer.toString(remainingMoney) + ".0");
+        jtext.setBorder(new TitledBorder("Remaining money to allocate"));
+
+        final JTextField total = new JTextField();
+        total.setEditable(false);
+        total.setText("0");
+        total.setBorder(new TitledBorder("Total amount allocated"));
+
+        final JTextField warning = new JTextField();
+        warning.setEditable(false);
+
+
+        topPan.add(jtext);
+        topPan.add(total);
+        topPan.add(warning);
+
+
+        final JLabel label1 = new JLabel("Security 1 " + "|" + " Price: " + price1);
+        final JLabel label2 = new JLabel("Security 2 " + "|" + " Price: " + price2);
+        final JLabel label3 = new JLabel("Security 3 " + "|" + " Price: " + price3);
+        final JLabel label4 = new JLabel("Security 4 " + "|" + " Price: " + price4);
+        final JLabel label5 = new JLabel("Security 5 " + "|" + " Price: " + price5);
+
+        final JLabel label6 = new JLabel("0");
+        final JLabel label7 = new JLabel("0");
+        final JLabel label8 = new JLabel("0");
+        final JLabel label9 = new JLabel("0");
+        final JLabel label10 = new JLabel("0");
+
+        label6.setBorder(new TitledBorder("Cost of Allocation"));
+        label7.setBorder(new TitledBorder("Cost of Allocation"));
+        label8.setBorder(new TitledBorder("Cost of Allocation"));
+        label9.setBorder(new TitledBorder("Cost of Allocation"));
+        label10.setBorder(new TitledBorder("Cost of Allocation"));
+
+        label6.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label7.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label8.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label9.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label10.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+
+        label1.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label2.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label3.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label4.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+        label5.setFont(new Font("Calibri", Font.ROMAN_BASELINE, 15));
+
+
+
+        final JButton submitBut = new JButton("Submit");
+        final JButton backBut = new JButton("Go Back");
+        final JButton resetBut = new JButton("Reset");
+        final JPanel bottomPane = new JPanel(new GridLayout(1, 3, 5, 5));
+
+        bottomPane.add(backBut);
+        bottomPane.add(resetBut);
+        bottomPane.add(submitBut);
+
+
+        final JSpinner jtext1 = new JSpinner(new SpinnerNumberModel(0,0,remainingMoney,0.1));
+        final JSpinner jtext2 = new JSpinner(new SpinnerNumberModel(0,0,remainingMoney,0.1));
+        final JSpinner jtext3 = new JSpinner(new SpinnerNumberModel(0,0,remainingMoney,0.1));
+        final JSpinner jtext4 = new JSpinner(new SpinnerNumberModel(0,0,remainingMoney,0.1));
+        final JSpinner jtext5 = new JSpinner(new SpinnerNumberModel(0,0,remainingMoney,0.1));
+
+
+
+        jtext1.setBorder(new TitledBorder("Amount Allocated"));
+        jtext2.setBorder(new TitledBorder("Amount Allocated"));
+        jtext3.setBorder(new TitledBorder("Amount Allocated"));
+        jtext4.setBorder(new TitledBorder("Amount Allocated"));
+        jtext5.setBorder(new TitledBorder("Amount Allocated"));
+
+        final JButton jBut1 = new JButton("Click to amount to security");
+        final JButton jBut2 = new JButton("Click to amount to security");
+        final JButton jBut3 = new JButton("Click to amount to security");
+        final JButton jBut4 = new JButton("Click to amount to security");
+        final JButton jBut5 = new JButton("Click to amount to security");
+
+        mainPan.add(label1);
+        mainPan.add(label6);
+        mainPan.add(jtext1);
+        mainPan.add(jBut1);
+        mainPan.add(label2);
+        mainPan.add(label7);
+        mainPan.add(jtext2);
+        mainPan.add(jBut2);
+        mainPan.add(label3);
+        mainPan.add(label8);
+        mainPan.add(jtext3);
+        mainPan.add(jBut3);
+        mainPan.add(label4);
+        mainPan.add(label9);
+        mainPan.add(jtext4);
+        mainPan.add(jBut4);
+        mainPan.add(label5);
+        mainPan.add(label10);
+        mainPan.add(jtext5);
+        mainPan.add(jBut5);
+
+
+        ActionListener actions = new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            JButton source = (JButton) e.getSource();
+            if (source == jBut1) {
+              double curr = Double.parseDouble(total.getText());
+              double result = curr + Double.parseDouble(label6.getText());
+
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+              total.setText(data);
+
+              jtext1.setEnabled(false);
+
+
+              if(Double.parseDouble(total.getText()) > Double.parseDouble(jtext.getText())){
+                warning.setText("WARNING: You cannot afford this allocation");
+                warning.setBorder(new TitledBorder("Alert"));
+              }
+
+
+            }
+            if (source == jBut2) {
+
+              double curr = Double.parseDouble(total.getText());
+              double result = curr + Double.parseDouble(label7.getText());
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+              total.setText(data);
+
+              jtext2.setEnabled(false);
+
+
+              if(Double.parseDouble(total.getText()) > Double.parseDouble(jtext.getText())){
+                warning.setText("WARNING: You cannot afford this allocation");
+                warning.setBorder(new TitledBorder("Alert"));
+              }
+
+            }
+            if (source == jBut3) {
+
+              double curr = Double.parseDouble(total.getText());
+              double result = curr + Double.parseDouble(label8.getText());
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+              total.setText(data);
+
+              jtext3.setEnabled(false);
+
+
+              if(Double.parseDouble(total.getText()) > Double.parseDouble(jtext.getText())){
+                warning.setText("WARNING: You cannot afford this allocation");
+                warning.setBorder(new TitledBorder("Alert"));
+              }
+            }
+            if (source == jBut4) {
+
+              double curr = Double.parseDouble(total.getText());
+              double result = curr + Double.parseDouble(label9.getText());
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+
+              total.setText(data);
+
+
+              jtext4.setEnabled(false);
+
+
+              if(Double.parseDouble(total.getText()) > Double.parseDouble(jtext.getText())){
+                warning.setText("WARNING: You cannot afford this allocation");
+                warning.setBorder(new TitledBorder("Alert"));
+              }
+
+            }
+            if (source == jBut5) {
+
+
+              double curr = Double.parseDouble(total.getText());
+              double result = curr + Double.parseDouble(label10.getText());
+              String data = Double.toString(result);
+              String splitter = data.substring(data.indexOf("."));
+              if(splitter.length() > 2){
+                splitter = splitter.substring(0, 3);
+              }
+              data = data.substring(0, data.indexOf(".")) + splitter;
+
+              if(data.equals("0.39")){
+                data = "0.40";
+              }
+              if(data.equals("0.19")){
+                data = "0.20";
+              }
+
+
+              total.setText(data);
+
+              jtext5.setEnabled(false);
+
+
+              if(Double.parseDouble(total.getText()) > Double.parseDouble(jtext.getText())){
+                warning.setText("WARNING: You cannot afford this allocation");
+                warning.setBorder(new TitledBorder("Alert"));
+              }
+
+            }
+            if(source == resetBut){
+              total.setText("0");
+//              double temp = (Double) jtext1.getValue();
+//              label6.setText(Double.toString(temp));
+//              double temp2 = (Double) jtext2.getValue();
+//              label7.setText(Double.toString(temp2));
+//              double temp3 = (Double) jtext3.getValue();
+//              label8.setText(Double.toString(temp3));
+//              double temp4 = (Double) jtext4.getValue();
+//              label9.setText(Double.toString(temp4));
+//              double temp5 = (Double) jtext5.getValue();
+//              label10.setText(Double.toString(temp5));
+
+              warning.setText("");
+              warning.setBorder(new TitledBorder(""));
+
+
+              jtext1.setEnabled(true);
+              jtext2.setEnabled(true);
+              jtext3.setEnabled(true);
+              jtext4.setEnabled(true);
+              jtext5.setEnabled(true);
+
+
+
+
+
+            }
+            if(source == submitBut){
+
+              if(Double.parseDouble(jtext.getText()) > Double.parseDouble(total.getText())){
+               JOptionPane.showMessageDialog(null, "Please allocate all remaining money", "Alert", JOptionPane.ERROR_MESSAGE);
+               return;
+
+
+
+              }
+
+
+              int result = JOptionPane.showConfirmDialog(null,
+                  "Submit choices? After confirmation, you will be re-directed to the previous screen", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+              if (result != 0) {
+                return;
+
+              }
+
+              System.out.println("THESE " + d1 + d2 + d3 + d4 + d5);
+
+            redirect = true;
+
+            button3.setEnabled(false);
+            button4.setEnabled(false);
+            framer.setVisible(false);
+            framer.dispose();
+
+
+
+
+
+            }
+            if(source == backBut){
+              int result = JOptionPane.showConfirmDialog(null,
+                  "Go back, you will lose any allocations on this page?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+              if (result != 0) {
+                return;
+
+              }
+
+              framer.setVisible(false);
+              framer.dispose();
+
+
+
+
+            }
+
+          }
+        };
+
+
+
+        jBut1.addActionListener(actions);
+        jBut2.addActionListener(actions);
+        jBut3.addActionListener(actions);
+        jBut4.addActionListener(actions);
+        jBut5.addActionListener(actions);
+        submitBut.addActionListener(actions);
+        backBut.addActionListener(actions);
+        resetBut.addActionListener(actions);
+
+
+        framer.add(topPan, BorderLayout.NORTH);
+        framer.add(mainPan, BorderLayout.CENTER);
+        framer.add(bottomPane, BorderLayout.SOUTH);
+
+        framer.setVisible(true);
+
+
+        //create new variable up top to keep track of these changelisteners
+        ChangeListener cl = new ChangeListener() {
+          @Override
+          public void stateChanged(ChangeEvent e) {
+            JSpinner source  = (JSpinner) e.getSource();
+            d1 = (Double) source.getValue();
+            double cost = d1 * price1;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+
+            label6.setText(data);
+
+
+
+          }
+        };
+        ChangeListener c2 = new ChangeListener() {
+          @Override
+          public void stateChanged(ChangeEvent e) {
+            JSpinner source  = (JSpinner) e.getSource();
+            d2 = (Double) source.getValue();
+            double cost = d2 * price2;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+
+            label7.setText(data);
+
+          }
+        };
+        ChangeListener c3 = new ChangeListener() {
+          @Override
+          public void stateChanged(ChangeEvent e) {
+            JSpinner source  = (JSpinner) e.getSource();
+            d3 = (Double) source.getValue();
+            double cost = d3 * price3;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label8.setText(data);
+          }
+        };
+        ChangeListener c4 = new ChangeListener() {
+          @Override
+          public void stateChanged(ChangeEvent e) {
+            JSpinner source  = (JSpinner) e.getSource();
+            d4 = (Double) source.getValue();
+            double cost = d4 * price4;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label9.setText(data);
+          }
+        };
+        ChangeListener c5 = new ChangeListener() {
+          @Override
+          public void stateChanged(ChangeEvent e) {
+            JSpinner source  = (JSpinner) e.getSource();
+            d5 = (Double) source.getValue();
+            double cost = d5 * price5;
+            String data = Double.toString(cost);
+            String splitter = data.substring(data.indexOf("."));
+            if(splitter.length() > 2){
+              splitter = splitter.substring(0, 3);
+            }
+            data = data.substring(0, data.indexOf(".")) + splitter;
+
+            if(data.equals("0.39")){
+              data = "0.40";
+            }
+            if(data.equals("0.19")){
+              data = "0.20";
+            }
+
+            label10.setText(data);
+          }
+        };
+
+        jtext1.addChangeListener(cl);
+        jtext2.addChangeListener(c2);
+        jtext3.addChangeListener(c3);
+        jtext4.addChangeListener(c4);
+        jtext5.addChangeListener(c5);
+
       }
 
-      //allocated successfully to security n
+
 
     };
 
@@ -381,7 +844,7 @@ public class phase1 extends JFrame{
     button3.setBorder(new TitledBorder("Reset"));
 
 
-    button4 = new JButton("Click to automatically allocate remaining money");
+    button4 = new JButton("Click to allocate remaining income");
     button4.addActionListener(actionListener5);
     button4.setVisible(false);
     button4.setEnabled(false);
@@ -394,7 +857,7 @@ public class phase1 extends JFrame{
     remainingAlloc.setBorder(new TitledBorder(raisedBorder, "Cost of the currently selected security"));
     remainingAlloc.setFont(new Font("Calibri", Font.BOLD, 15));
 
-    leftoverMoney = new JLabel("Click and we'll try our best to assign your remaining money ->");
+    leftoverMoney = new JLabel("Click to assign your remaining income ->");
     leftoverMoney.setBorder(raisedBorder);
     leftoverMoney.setEnabled(false);
     leftoverMoney.setVisible(false);
@@ -406,6 +869,7 @@ public class phase1 extends JFrame{
     valueAdjust.setBorder(raisedBorder);
     valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
     valueAdjust.setText("Value = ");
+    valueAdjust.setEditable(false);
 
 
     textField7 = new JTextField();
@@ -536,7 +1000,7 @@ public class phase1 extends JFrame{
             v1 = value;
             textField.setText("Units of security #" + source.getName() + " = " + value);
 
-            cost = v1 * price;
+            cost = v1 * price;  //remaining money bug is here
             remainingMoney = remainingMoney-cost;
 
             Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
@@ -562,7 +1026,7 @@ public class phase1 extends JFrame{
             int tempForTextField = allocation2 - cost;
             textFieldUsedtobePanel5.setText(Integer.toString(cost));
             int tempForRemainingMoneyTextField = tempForTextField;
-//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+            //         textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -577,16 +1041,16 @@ public class phase1 extends JFrame{
             s1Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
             check = true;
             check6 = true;
-//                        source.setEnabled(false);
-            //using getName to store the price of the security
+            source.setEnabled(false);
+
           }
           if (name.equals("2")) {
             v2 = value;
             textField2.setText("Units of security #" + source.getName() + " = " + value);
             cost = v2 * price;
+
             remainingMoney = remainingMoney -cost;
-            System.out.println("This is the cost = " + cost);
-            System.out.println("This is the price = " + price);
+
             Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
             shareList.remove(1);
             shareList.add(1, share2);
@@ -613,7 +1077,7 @@ public class phase1 extends JFrame{
 
             textFieldUsedtobePanel5.setText(Integer.toString(tempV));
             int tempForRemainingMoneyTextField = tempForTextField;
-//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+            //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -667,7 +1131,7 @@ public class phase1 extends JFrame{
 
             textFieldUsedtobePanel5.setText(Integer.toString(tempV));
             int tempForRemainingMoneyTextField = tempForTextField;
-//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+            //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -720,7 +1184,7 @@ public class phase1 extends JFrame{
 
             textFieldUsedtobePanel5.setText(Integer.toString(tempV));
             int tempForRemainingMoneyTextField = tempForTextField;
-//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+            //                     textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -759,7 +1223,7 @@ public class phase1 extends JFrame{
 
             textFieldUsedtobePanel5.setText(Integer.toString(tempV));
             int tempForRemainingMoneyTextField = tempForTextField;
-//                        textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+            //                       textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + cost);
 
 
@@ -788,8 +1252,11 @@ public class phase1 extends JFrame{
           textField7.setText( Integer.toString(remainingMoney-temp2)  );
           remainingAlloc.setText("Security #" + source.getName() + " = " + Integer.toString(temp2));
         }
+
       }
     };
+
+
 
 
 
@@ -802,6 +1269,10 @@ public class phase1 extends JFrame{
       @Override
       public void actionPerformed(ActionEvent e) {
 
+        if(redirect){
+          remainingMoney = 0;
+          check6 = true;
+        }
         //check if check allocations button is cleared, if it isnt cleared throw an error
         if (!check6) {
           JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
@@ -827,55 +1298,55 @@ public class phase1 extends JFrame{
         anotherShareList = new ArrayList<Share>(shareList.size());
 
         if (shareList.size() == 1) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
 
         }
 
 
         if (shareList.size() == 2) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
 
 
         }
 
         if (shareList.size() == 3) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
 
 
         }
 
         if (shareList.size() == 4) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)) + d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)) + d4);
           anotherShareList.add(share4);
 
 
         }
 
         if (shareList.size() == 5) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1)));
+          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1))+ d1);
           anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)));
+          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2)) + d2);
           anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)));
+          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3)) + d3);
           anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)));
+          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4)) + d4);
           anotherShareList.add(share4);
-          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)));
+          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5)) + d5);
           anotherShareList.add(share5);
 
         }
@@ -1148,7 +1619,7 @@ public class phase1 extends JFrame{
     pan.setLayout(new GridLayout(1,2,5,5));
     pan.add(slider);
 
-    pan.add(new JButton("Confirm"));
+    pan.add(new JLabel("Price of security = " + price));
     panel.add(pan);
 
   }
@@ -1173,7 +1644,7 @@ public class phase1 extends JFrame{
     labelTable.put(new Integer(0), new JLabel("0"));
     slider.setLabelTable(labelTable);
 
-    //slider.add(new JLabel(Integer.toString(price)));
+    // slider.add(new JLabel(Integer.toString(price)));
     return slider;
 
   }
@@ -1370,7 +1841,7 @@ public class phase1 extends JFrame{
         testClass test = new testClass(1);
         //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
         sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
-        //phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+      //  phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
