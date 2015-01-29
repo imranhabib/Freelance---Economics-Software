@@ -108,7 +108,7 @@ public class phase2TestRounds extends JFrame{
   String directory;
   String adminDirectory;
 
-  String filename = "output.csv";
+  String filename = "binarychoices-output.csv";
   String filename1 = "priceSet1.csv";
   String filename2 = "priceSet2.csv";
   String filename3 = "priceSet3.csv";
@@ -931,7 +931,7 @@ public class phase2TestRounds extends JFrame{
     JPanel pan = new JPanel();
     pan.add(slider);
     //pan.setToolTipText(Float.toString(incomeShare));
-    pan.add(new JLabel("Price of security = " + price));
+    pan.add(new JLabel("Price of security < "));
 
     panel.add(pan);
 
