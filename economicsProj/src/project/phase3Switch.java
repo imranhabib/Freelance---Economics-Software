@@ -473,6 +473,12 @@ public class phase3Switch extends JFrame {
           allocationPage(shareList, R, M);
         }
 
+
+        if(source == button14){
+          setVisible(false);
+          dispose();
+        }
+
       }
     };
 
