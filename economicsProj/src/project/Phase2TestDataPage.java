@@ -1673,7 +1673,8 @@ public class phase2TestDataPage extends JFrame {
         splitter = splitter.substring(0, 3);
       }
       data = data.substring(0, data.indexOf(".")) + splitter;
-      JTextField jText = new JTextField(data);            jText.setEditable(false);
+      JTextField jText = new JTextField(data);
+      jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
 
