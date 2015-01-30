@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 /**
- * Created by Imran on 2014-11-29.
+ * Created by Imran on 2014-12-16.
  */
-public class sliderInterface extends JFrame {
+public class sliderInterface2 extends JFrame{
+
+
 
   static JSlider slider;
   static JPanel panel;
@@ -111,6 +112,7 @@ public class sliderInterface extends JFrame {
   static int s5Price;
 
 
+
   //file stuffz
 
   String filename = "binarychoices-output.csv";
@@ -123,42 +125,48 @@ public class sliderInterface extends JFrame {
 
 
   allocation alloc;
+  allocation allocTemp;
   parameters param;
+  parameters paramTemp;
   incomeRequired income;
+  incomeRequired incomeTemp;
 
   static Integer value;
   static Double value2;
   static Double pBar;
+  static Double pBarTemp;
   static Double mBar;
   static Double r;
+  static int M;
   static Double nOfr;
   static int minimumShare;
 
   private static int n;
-  static parameters params;
 
 
   List<Share> shareList;
   List<Share> tempListForRewind;
 
 
-  public sliderInterface(final List<Share> shares, int cur, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4, int m, double ratio) {
+  public sliderInterface2(final List<Share> shares, int cur, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4, int m, double ratio ) {
     curSysProp = cur;
-    test = new testClass(cur);
+    test = new testClass(1);
     setLayout(new BorderLayout());
-    setTitle("Stage 2 | Choice Rule Determination");
+    setTitle("Stage 2 | Adjust Choice Rule");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
     raisedBorder = new SoftBevelBorder(SoftBevelBorder.RAISED);
     loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
+    setMinVal(m);
+
+    tempListForRewind = shares;
 
     directoryStore dirStore = new directoryStore();
     directory = dirStore.getDirectory();
-    System.out.println("This is slideriface dir " + directory);
 
 
-    tempListForRewind = shares;
+
 
     total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
     n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
@@ -202,22 +210,25 @@ public class sliderInterface extends JFrame {
 
 
     param = new parameters();
+
     alloc = new allocation(param, new incomeRequired(2));
 
-    shareList = param.getSecurityListWithEmptyIncomeShares();
+    shareList = param.getSecurityListWithEmptyIncomeSharesFromStart();
     //param.getArgMaxFormula(2, shareList);
 
-    r = 1.0;
+
     SpinnerNumberModel spinnerNumberModel = new SpinnerNumberModel(1, 1, 100, 0.1);
     SpinnerNumberModel spinnerNumberModel2 = new SpinnerNumberModel(0, 0, 100, 1);
     jSpinner = new JSpinner(spinnerNumberModel);
     if (rewind) {
       jSpinner.setValue(ratio);
+      r = ratio;
     }
     jSpinner2 = new JSpinner(spinnerNumberModel2);
 
     if (rewind) {
       jSpinner2.setValue(m);
+
     }
 
     changelistener2 = new ChangeListener() {
@@ -232,9 +243,7 @@ public class sliderInterface extends JFrame {
 
         remainingAlloc.setText("= " + (allocation - getMBar()));
         if (allocation - getMBar() < 0) {
-          JOptionPane.showMessageDialog(null, "You cant afford this minimum share", "Error", JOptionPane.ERROR_MESSAGE);
           textField7.setText("No!");
-          //add a warning message here
         } else {
           textField7.setText("Yes!");
         }
@@ -269,8 +278,15 @@ public class sliderInterface extends JFrame {
 
     remainingAlloc = new JTextField();
     remainingAlloc.setEditable(false);
-    remainingAlloc.setText(Integer.toString(allocation));
+    incomeTemp = new incomeRequired(getMinVal());
+    paramTemp = new parameters();
+    allocTemp = new allocation(paramTemp, incomeTemp);
+    pBarTemp = paramTemp.getMeanPriceAmount();
+    setMBar(pBarTemp, n, incomeTemp);
+
+    remainingAlloc.setText(Double.toString(allocation - getMBar()));
     remainingAlloc.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
+
 
 
     textField7 = new JTextField();
@@ -298,11 +314,11 @@ public class sliderInterface extends JFrame {
         for (int i = 0; i < shares.size(); i++) {
           addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
         }
-        v1 = 0;
-        v2 = 0;
-        v3 = 0;
-        v4 = 0;
-        v5 = 0;
+        v1=0;
+        v2=0;
+        v3=0;
+        v4=0;
+        v5=0;
         textField.setText("");
         textField2.setText("");
         textField3.setText("");
@@ -315,6 +331,7 @@ public class sliderInterface extends JFrame {
     };
 
     button3.addActionListener(Actionlistener4);
+
 
 
     panel7 = new JPanel();
@@ -349,7 +366,7 @@ public class sliderInterface extends JFrame {
 
 
     if (size >= 1) {
-      if (!rewind) {
+      if(!rewind) {
         panel3.add(textField);
       } else {
         textField.setText(Double.toString(tempListForRewind.get(0).getAllocation()) + "%");
@@ -357,7 +374,7 @@ public class sliderInterface extends JFrame {
       }
     }
     if (size >= 2) {
-      if (!rewind) {
+      if(!rewind) {
         panel3.add(textField2);
       } else {
         textField2.setText(Double.toString(tempListForRewind.get(1).getAllocation()) + "%");
@@ -365,7 +382,7 @@ public class sliderInterface extends JFrame {
       }
     }
     if (size >= 3) {
-      if (!rewind) {
+      if(!rewind) {
         panel3.add(textField3);
       } else {
         textField3.setText(Double.toString(tempListForRewind.get(2).getAllocation()) + "%");
@@ -373,7 +390,7 @@ public class sliderInterface extends JFrame {
       }
     }
     if (size >= 4) {
-      if (!rewind) {
+      if(!rewind) {
         panel3.add(textField4);
       } else {
         textField4.setText(Double.toString(tempListForRewind.get(3).getAllocation()) + "%");
@@ -381,7 +398,7 @@ public class sliderInterface extends JFrame {
       }
     }
     if (size >= 5) {
-      if (!rewind) {
+      if(!rewind) {
         panel3.add(textField5);
       } else {
         textField5.setText(Double.toString(tempListForRewind.get(4).getAllocation()) + "%");
@@ -414,22 +431,19 @@ public class sliderInterface extends JFrame {
     panel2.add(button1, BorderLayout.SOUTH);
     add(panel2, BorderLayout.CENTER);
 
+
     check = true;
-    check6 = true;
     check2 = true;
     check3 = true;
     check4 = true;
     check5 = true;
+    check6 = true;
 
-    v1 = 0;
-    v2 = 0;
-    v3 = 0;
-    v4 = 0;
-    v5 = 0;
 
     changelistener = new ChangeListener() {
       public void stateChanged(ChangeEvent event) {
         JSlider source = (JSlider) event.getSource();
+
         if (!source.getValueIsAdjusting()) {
           int value = source.getValue();
           Double valueD = Double.parseDouble(Integer.toString(source.getValue()));
@@ -459,7 +473,7 @@ public class sliderInterface extends JFrame {
               }
             } else {
               model.setRangeProperties(100 - v1, v1, 0, 100, false);
-              v2 = (100 - v1);
+              v2= 100-v1;
               textField2.setText("Security #" + s.getName() + " = " + (100 - v1) + "%");
             }
             System.out.println((Integer.parseInt(name)));
@@ -502,7 +516,7 @@ public class sliderInterface extends JFrame {
 
             } else {
               model.setRangeProperties(100 - v1 - v2, v1 + v2, 0, 100, false);
-              v3 = (100 - v1 - v2);
+              v3= 100-v1-v2;
               textField3.setText("Security #" + s.getName() + " = " + (100 - v1 - v2) + "%");
             }
             System.out.println((Integer.parseInt(name)));
@@ -545,7 +559,7 @@ public class sliderInterface extends JFrame {
               }
             } else {
               model.setRangeProperties(100 - v1 - v2 - v3, v1 + v2 + v3, 0, 100, false);
-              v4 = (100 - v1 - v2 - v3);
+              v4= 100-v1-v2-v3;
               textField4.setText("Security #" + s.getName() + " = " + (100 - v1 - v2 - v3) + "%");
             }
 
@@ -585,7 +599,7 @@ public class sliderInterface extends JFrame {
               );
             } else {
               model.setRangeProperties(100 - v1 - v2 - v3 - v4, v1 + v2 + v3 + v4, 0, 100, false);
-              v5 = (100 - v1 - v2 - v3 - v4);
+              v5= 100-v1-v2-v3-v4;
               textField5.setText("Security #" + s.getName() + " = " + (100 - v1 - v2 - v3 - v4) + "%");
             }
 
@@ -669,13 +683,14 @@ public class sliderInterface extends JFrame {
           return;
         }
 
+
         //check if check allocations button is cleared, if it isnt cleared throw an error
         if (!check6) {
           JOptionPane.showMessageDialog(null, "Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
 
-        if (minimumShare == 0) {
+        if( minimumShare == 0) {
           int result = JOptionPane.showConfirmDialog(null,
               "Do you still want to continue with a minimum share of zero??", "Confirmation", JOptionPane.YES_NO_OPTION);
           if (result != 0) {
@@ -683,10 +698,14 @@ public class sliderInterface extends JFrame {
           }
         }
 
-        if (textField7.getText().equals("No!")) {
+
+
+
+        if(textField7.getText().equals("No!")){
           JOptionPane.showMessageDialog(null, "Please lower minimum share", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
+
 
         int result = JOptionPane.showConfirmDialog(null,
             "Confirm Choices?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -829,11 +848,9 @@ public class sliderInterface extends JFrame {
           closeFile(filer);
 
 
-
+          sliderInterface2.this.setVisible(false);
+          sliderInterface2.this.dispose();
           allocationPage(anotherShareList, getR(), getMinVal(), rewind, rewind2, rewind3, rewind4);
-
-          sliderInterface.this.setVisible(false);
-          sliderInterface.this.dispose();
 
         } else {
           error(e);
@@ -848,16 +865,12 @@ public class sliderInterface extends JFrame {
 
     //create as many slider instances of the size of 'shares'
     //call the addSlider method with the correct param taken from the share object
-    if (!rewind) {
-      for (int i = 0; i < shares.size(); i++) {
-        addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
-      }
-    } else {
-      for (int i = 0; i < tempListForRewind.size(); i++) {
-        addShare(formatSlider2(tempListForRewind.get(i).getSecurityNumber(), tempListForRewind.get(i).getIncomeShare()), tempListForRewind.get(i).getPrice());
-      }
 
+    for (int i = 0; i < shares.size(); i++) {
+      addShare(formatSlider(shares.get(i).getPrice(), shares.get(i).getSecurityNumber()), shares.get(i).getPrice());
     }
+
+
   }
 
   public void addShare(JSlider slider, int price) {
@@ -874,7 +887,7 @@ public class sliderInterface extends JFrame {
   public JSlider formatSlider(int price, int number) {
     JSlider slider = new JSlider(JSlider.VERTICAL);
     BoundedRangeModel model = slider.getModel();
-    model.setRangeProperties(0, 0, 0, 100, false);
+    model.setRangeProperties(0,0,0,100,false);
     slider.setName(Integer.toString(number));
     slider.setPaintTicks(true);
     slider.setMajorTickSpacing(25);
@@ -899,7 +912,7 @@ public class sliderInterface extends JFrame {
   public JSlider formatSlider2(int number, double incomeShare) {
     JSlider slider = new JSlider(JSlider.VERTICAL);
     BoundedRangeModel model = slider.getModel();
-    model.setRangeProperties(0, 0, 0, 100, false);
+    model.setRangeProperties(0,0,0,100,false);
     slider.setName(Integer.toString(number));
     slider.setPaintTicks(true);
     slider.setMajorTickSpacing(25);
@@ -915,7 +928,7 @@ public class sliderInterface extends JFrame {
     labelTable.put(new Integer(0), new JLabel("0.0"));
     slider.setLabelTable(labelTable);
     String temp = Double.toString(incomeShare);
-    temp = temp.substring(0, temp.indexOf("."));
+    temp = temp.substring(0,temp.indexOf("."));
     slider.setValue(Integer.parseInt(temp));
 
     //slider.add(new JLabel(Integer.toString(price)));
@@ -947,34 +960,35 @@ public class sliderInterface extends JFrame {
 
 
   public void setSliders(JSlider slid) {
-    if (sliders.isEmpty()) {
+    if(sliders.isEmpty()){
       sliders.add(slid);
       return;
     }
-    if (sliders.contains(slid)) {
-      for (int i = 0; i < sliders.size(); i++) {
-        if ((sliders.get(i).getName()) == slid.getName()) {
+    if(sliders.contains(slid)){
+      for(int i = 0; i < sliders.size(); i++){
+        if((sliders.get(i).getName()) == slid.getName()){
           sliders.remove(sliders.get(i));
           sliders.add(i, slid);
           System.out.println("value of replaceed slider " + sliders.get(i).getValue());
           return;
         }
       }
-    } else {
+    }
+    else{
       sliders.add(slid);
-      for (int i = sliders.size() - 1; i > 0; i--) {
+      for(int i = sliders.size()-1; i > 0; i--){
         System.out.println("I'm outside if statement");
-        if ((Integer.parseInt(sliders.get(i).getName())) < (Integer.parseInt(sliders.get(i - 1).getName()))) {
-          System.out.println("this is before change " + sliders.get(i).getName() + " " + sliders.get(i - 1).getName());
-          swapSliders(i, i - 1);
-          System.out.println("this is after change " + sliders.get(i).getName() + " " + sliders.get(i - 1).getName());
+        if((Integer.parseInt(sliders.get(i).getName())) < (Integer.parseInt(sliders.get(i-1).getName()))){
+          System.out.println("this is before change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
+          swapSliders(i, i-1);
+          System.out.println("this is after change " + sliders.get(i).getName() + " " + sliders.get(i-1).getName());
         }
       }
     }
 
   }
 
-  public void swapSliders(int pos1, int pos2) {
+  public void swapSliders(int pos1, int pos2){
     JSlider tempSlid;
     JSlider tempSlid2;
     tempSlid = sliders.get(pos1);
@@ -1025,13 +1039,14 @@ public class sliderInterface extends JFrame {
   public void formatFile(FileWriter filer) {
     test = new testClass(curSysProp);
     try {
-      filer.write("\n" + "Stage 2 | First Choice Rule Selection " + "\n\n" + "(Stage2 Test) Round " + test.getCurrent() + "\n");
+      filer.write("\n\n" + "Stage 2 | Adjusting Choice Rule Selection " + "\n\n" + "(Stage2 Test) Round " + test.getCurrent() + "\n");
     } catch (IOException e) {
       System.out.println("new file code failed");
     }
 
 
   }
+
 
 
   public void writeToFile(FileWriter filer, Share share) {
@@ -1045,7 +1060,7 @@ public class sliderInterface extends JFrame {
 
   }
 
-  public void closeFile(FileWriter filer) {
+  public void closeFile(FileWriter filer){
     try {
       filer.flush();
       filer.close();
@@ -1055,46 +1070,48 @@ public class sliderInterface extends JFrame {
   }
 
 
-  public void setMBar(Double pbar, int n, incomeRequired income) {
+  public void setMBar (Double pbar, int n, incomeRequired income){
     //this is not a recursive call, getMbar is another meth in the incomeRequired class
     mBar = income.getMbar(pbar, n);
 
   }
 
-  public Double getMBar() {
+  public Double getMBar (){
     return mBar;
   }
 
 
-  public void setR(Double value2) {
+  public void setR(Double value2){
     r = value2;
   }
 
-  public Double getR() {
+  public Double getR(){
     return r;
   }
 
-  public void setNofR(Double r, List<Share> shares, parameters param) {
+  public void setNofR(Double r, List<Share> shares, parameters param){
     nOfr = param.getArgMaxFormula(r, shares);
 
 
+
+
   }
 
-  public Double getNofR() {
+  public Double getNofR (){
     return nOfr;
   }
 
-  public void setMinVal(int x) {
+  public void setMinVal(int x){
     minimumShare = x;
   }
 
-  public int getMinVal() {
+  public int getMinVal(){
     return minimumShare;
   }
 
 
-  public void allocationPage(final List<Share> shareList, final double r, final int m, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4) {
-    test = new testClass(curSysProp + 1);
+  public void allocationPage(final List<Share> shareList, final double r, final int m, final boolean rewind, final boolean rewind2, final boolean rewind3, final boolean rewind4){
+    test = new testClass(curSysProp+1);
     final JFrame frame2 = new JFrame("Allocations");
     frame2.setLayout(new BorderLayout());
 
@@ -1115,14 +1132,12 @@ public class sliderInterface extends JFrame {
     ActionListener nextRound = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-
-        parameters params = new parameters();
-        phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, new storageClass(), rewind, rewind2, rewind3, rewind4);
-        slider.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        slider.setVisible(false);
-
         frame2.setVisible(false);
         frame2.dispose();
+        parameters params = new parameters();
+        phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, new storageClass(), rewind, rewind2, rewind3, rewind4);
+     slider.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+     slider.setVisible(true);
 
 
       }
@@ -1132,12 +1147,11 @@ public class sliderInterface extends JFrame {
 
 
 
-
     JPanel panelNew = new JPanel();
     panelNew.setLayout(new GridLayout(shareList.size(), 2));
     panelNew.setBorder(new TitledBorder("Data"));
 
-    for (int i = 0; i < shareList.size(); i++) {
+    for(int i = 0; i <shareList.size(); i++){
       String data = Double.toString(shareList.get(i).getAllocation());
       String splitter = data.substring(data.indexOf("."));
       if(splitter.length() > 2){
@@ -1190,7 +1204,7 @@ public class sliderInterface extends JFrame {
   }
 
 
-  public void chartView(List<Share> shareList) {
+  public void chartView (List<Share> shareList){
 
     pieChart pie = new pieChart(shareList);
     JFreeChart pieCharter = pie.getChart();
@@ -1206,45 +1220,46 @@ public class sliderInterface extends JFrame {
     frame.setVisible(true);
 
 
+
   }
 
 
-  public void recreate(int num, int limit) {
+  public void recreate(int num, int limit){
     int t = shareList.size();
-    for (int i = num + 1; i < t; i++) {
+    for (int i = num+1; i < t; i++) {
       System.out.println("this is sharelist order " + shareList.get(i).getSecurityNumber());
       System.out.println("this is component " + i);
       JSlider sl = formatSlider(shareList.get(i).getPrice(), i + 1);
       BoundedRangeModel model = sl.getModel();
-      model.setRangeProperties(0, limit, 0, 100, false);
+      model.setRangeProperties(0,limit,0,100,false);
       addShare(sl, shareList.get(i).getPrice());
     }
   }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
