@@ -56,6 +56,7 @@ public class openingPage extends JFrame {
   static Border loweredBorder;
 
 
+
   String directory = System.getProperty("user.home") + "/Desktop/";
   String adminDirectory = System.getProperty("user.home") + "/Desktop/";
 
@@ -161,7 +162,7 @@ public class openingPage extends JFrame {
 
 
     instrucs = new JLabel();
-    instrucs.setText("Please name file: output.csv -->");
+    instrucs.setText("Please name file: binarychoices-output.csv -->");
     instrucs.setFont(new Font("Calibri", Font.BOLD, 15));
     instrucs.setBorder(raisedBorder);
 
@@ -207,11 +208,22 @@ public class openingPage extends JFrame {
 
         if (e.getSource() == savebutton) {
           jfile = new JFileChooser(getDirectory());
-          System.out.println(jfile.getName());
+
+
+
           jfile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
           int returnVal = jfile.showSaveDialog(frameForFile);
+
           if (returnVal == JFileChooser.APPROVE_OPTION) {
             outputfile = jfile.getSelectedFile();
+
+            if(!outputfile.getName().equals("binarychoices-output")){
+              JOptionPane.showMessageDialog(frameForFile,
+                  "File name is incorrect. Please name file: binarychoices-output",
+                  "Warning",
+                  JOptionPane.WARNING_MESSAGE);
+              return;
+            }
 
             if (!outputfile.getName().contains(".csv")) {
               File newN = new File(outputfile.getAbsolutePath().concat(".csv"));
@@ -332,7 +344,7 @@ public class openingPage extends JFrame {
           confirmation.setText("Thanks " + enterStuFirstName.getText() + ", your information has been saved");
           savebutton.setEnabled(true);
           setDirectory(directory + enterStuLastName.getText()+enterStuNum.getText());
-          setAdminDirectory(adminDirectory + enterStuLastName.getText()+enterStuNum.getText() + "(Admin Data)");
+          setAdminDirectory(adminDirectory + enterStuLastName.getText()+enterStuNum.getText() + " (Admin Data)");
           directoryStore dirStore = new directoryStore(getDirectory());
           dirStore.setDirectory(getDirectory());
           dirStore.setAdminDirectory(getAdminDirectory());
