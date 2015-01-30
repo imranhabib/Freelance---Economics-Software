@@ -113,7 +113,7 @@ public class sliderInterface extends JFrame {
 
   //file stuffz
 
-  String filename = "output.csv";
+  String filename = "binarychoices-output.csv";
   String directory;
   File file;
   FileWriter filer;
@@ -326,6 +326,7 @@ public class sliderInterface extends JFrame {
     valueAdjust.setBorder(raisedBorder);
     valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
     valueAdjust.setText("Value = ");
+    valueAdjust.setEditable(false);
 
     panel8 = new JPanel();
     panel8.setLayout(new GridLayout(0, 2, 5, 5));
@@ -865,7 +866,7 @@ public class sliderInterface extends JFrame {
     JPanel pan = new JPanel();
     pan.add(slider);
     //pan.setToolTipText(Float.toString(incomeShare));
-    pan.add(new JLabel("Price of security = " + price));
+    pan.add(new JLabel("Price of security < "));
     panel.add(pan);
 
   }
@@ -1118,7 +1119,7 @@ public class sliderInterface extends JFrame {
         parameters params = new parameters();
         phase2TestRounds slider = new phase2TestRounds(shareList, test.getCurrent(), m, r, new storageClass(), rewind, rewind2, rewind3, rewind4);
         slider.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        slider.setVisible(true);
+        slider.setVisible(false);
 
         frame2.setVisible(false);
         frame2.dispose();
