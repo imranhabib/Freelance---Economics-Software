@@ -1246,7 +1246,8 @@ public class phase1 extends JFrame{
       public void stateChanged(ChangeEvent e) {
         JSlider source = (JSlider) e.getSource();
         if (source.getValueIsAdjusting()){
-          valueAdjust.setText("Value = " + Integer.toString(source.getValue()));
+          double equal = (double) source.getValue() / 10;
+          valueAdjust.setText("Value = " + Double.toString(equal));
           int temp = Integer.parseInt(textFieldUsedtobePanel5.getText());
           int temp2 = (source.getValue()  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
           textField7.setText( Integer.toString(remainingMoney-temp2)  );
@@ -1605,7 +1606,7 @@ public class phase1 extends JFrame{
       }
 
       BoundedRangeModel model = jSlider.getModel();
-      model.setRangeProperties(0,0,0,allocation/priceofsecurity,false);
+      model.setRangeProperties(0,0,0,1000,false);
       addShare(jSlider, shareList.get(i).getPrice());
     }
 
@@ -1627,7 +1628,7 @@ public class phase1 extends JFrame{
   public JSlider formatSlider(int price, int number) {
     JSlider slider = new JSlider(JSlider.VERTICAL);
     BoundedRangeModel model = slider.getModel();
-    model.setRangeProperties(0,0,0,100,false);
+    model.setRangeProperties(0,0,0,1000,false);
     slider.setName(Integer.toString(number));
     slider.setPaintTicks(true);
     slider.setMajorTickSpacing(10);
@@ -1636,11 +1637,11 @@ public class phase1 extends JFrame{
     slider.setBorder(new TitledBorder("Security " + Integer.toString(number)));
     slider.setPaintLabels(true);
     java.util.Hashtable<Integer, JLabel> labelTable = new java.util.Hashtable<Integer, JLabel>();
-    labelTable.put(new Integer(100), new JLabel("100"));
-    labelTable.put(new Integer(80), new JLabel("80"));
-    labelTable.put(new Integer(60), new JLabel("60"));
-    labelTable.put(new Integer(40), new JLabel("40"));
-    labelTable.put(new Integer(20), new JLabel("20"));
+    labelTable.put(new Integer(1000), new JLabel("100"));
+    labelTable.put(new Integer(800), new JLabel("80"));
+    labelTable.put(new Integer(600), new JLabel("60"));
+    labelTable.put(new Integer(400), new JLabel("40"));
+    labelTable.put(new Integer(200), new JLabel("20"));
     labelTable.put(new Integer(0), new JLabel("0"));
     slider.setLabelTable(labelTable);
 
@@ -1840,8 +1841,8 @@ public class phase1 extends JFrame{
         System.out.println("how many times have i been here?");
         testClass test = new testClass(1);
         //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-        sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
-      //  phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+        //sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+        phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
