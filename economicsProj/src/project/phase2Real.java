@@ -87,6 +87,7 @@ public class phase2Real extends JFrame {
   static String prices;
   static String choices;
 
+  static double tempR;
   static double r;
   static int minShare;
 
@@ -115,7 +116,7 @@ public class phase2Real extends JFrame {
 
 
 
-  String filename = "output.csv";
+  String filename = "binarychoices-output.csv";
   String directory;
   File file;
   FileWriter filer;
@@ -143,9 +144,15 @@ public class phase2Real extends JFrame {
 
 
     r = ratio;
+    tempR = ratio;
     minShare = m;
 
-
+    String data = Double.toString(tempR);
+    String splitter = data.substring(data.indexOf("."));
+    if(splitter.length() > 2){
+      splitter = splitter.substring(0, 3);
+    }
+    data = data.substring(0, data.indexOf(".")) + splitter;
 
 
     maxMoney1 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney1"));
@@ -191,11 +198,11 @@ public class phase2Real extends JFrame {
 
     choices = "Income Share Allocation" + newline + "Security 1: " + incomes[0] + newline + "Security 2: " + incomes[1]
         + newline + "Security 3: " + incomes[2] + newline + "Security 4: " + incomes[3] + newline + "Security 5: " + incomes[4]
-        + newline + newline + "Reservation Ratio: " + ratio + newline + "Minimum Share: " + m;
+        + newline + newline + "Reservation Ratio: " + data + newline + "Minimum Share: " + m;
 
 
 
-    setTitle("Stage 2 Test Round Data");
+    setTitle("Stage 2 Choice Rule Data");
     setLayout(new BorderLayout());
     Dimension screenSize = new Dimension(600, 800);
     setBounds(0,0,1200,700);
@@ -675,10 +682,6 @@ public class phase2Real extends JFrame {
 
         }
         closeFile(filer10);
-
-
-
-
 
         phase3 phases = new phase3(passingToStage3, minShare, r, incomeShares);
         phases.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
