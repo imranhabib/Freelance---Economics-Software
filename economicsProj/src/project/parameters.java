@@ -44,6 +44,20 @@ public class parameters {
     }
 
 
+
+
+    public ArrayList<Integer> getSecurityPriceListStage2(){
+        testClass test = new testClass();
+        String price = bundle.getString("priceSet" + test.getCurrent());
+        String[] priceList = price.split(",");
+        ArrayList<Integer> prices = new ArrayList<Integer>();
+        for(String str: priceList){
+            prices.add(Integer.parseInt(str));
+        }
+        return prices;
+    }
+
+
     public ArrayList<Integer> getSecurityPriceListFromStart(){
         testClass test = new testClass();
         String price = bundle.getString("securityPriceList" + 1);
@@ -117,6 +131,26 @@ public class parameters {
         return shares;
 
     }
+
+
+    public List<Share> getSecurityListWithEmptyIncomeSharesStage2Prices(){
+        testClass test = new testClass();
+        ArrayList<Share> shares = new ArrayList<Share>();
+        String security = bundle.getString("securityListTwo" + test.getCurrent());
+        String[] securityNumber = security.split(",");
+        ArrayList<Integer> securityPrices = getSecurityPriceList();
+        //get income share
+        //  ArrayList<Float> incomeShareList = getIncomeShareList();
+        for (int i=1; i < securityNumber.length+1; i++) {
+            Double is = 0.0;
+            int sp = securityPrices.get(i-1);
+            Share share = new Share(sp, is, i);
+            shares.add(share);
+        }
+        return shares;
+
+    }
+
 
 
 
