@@ -809,7 +809,7 @@ public class phase2Real extends JFrame {
 
 
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
+    buttonPanel.setLayout(new GridLayout(1, 1, 5, 5));
 
     final JButton button1 = new JButton("View data as a chart");
     button1.setLayout(new GridLayout(0, 3));
@@ -819,28 +819,32 @@ public class phase2Real extends JFrame {
     button2.setLayout(new GridLayout(0, 3));
     button2.setBorder(new TitledBorder("Back to data page"));
 
-    final JButton button3 = new JButton("View Prices");
-    button3.setBorder(new TitledBorder("Prices for Round"));
+
 
     buttonPanel.add(button1);
-    buttonPanel.add(button3);
 
 
     JPanel panelNew = new JPanel();
     panelNew.setLayout(new GridLayout(shareList.size(), 2));
     panelNew.setBorder(new TitledBorder("Data"));
 
-    for(int i = 0; i <shareList.size(); i++){
+    for (int i = 0; i < shareList.size(); i++) {
       String data = Double.toString(shareList.get(i).getAllocation());
       String splitter = data.substring(data.indexOf("."));
       if(splitter.length() > 2){
         splitter = splitter.substring(0, 3);
       }
       data = data.substring(0, data.indexOf(".")) + splitter;
+
       JTextField jText = new JTextField(data);
       jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
+
+      JTextField jPrices = new JTextField(Integer.toString(shareList.get(i).getPrice()));
+      jPrices.setEditable(false);
+      jPrices.setBorder(new TitledBorder("Price"));
+      jPrices.setSize(25, 25);
 
       JProgressBar progress = new JProgressBar();
       progress.setBorder(new TitledBorder("Investment"));
@@ -850,8 +854,9 @@ public class phase2Real extends JFrame {
       progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
 
       JPanel panels = new JPanel();
-      panels.setLayout(new GridLayout(0, 2));
+      panels.setLayout(new GridLayout(0, 3));
       panels.add(progress);
+      panels.add(jPrices);
       panels.add(jText);
       panels.setBorder(new TitledBorder("Security " + shareList.get(i).getSecurityNumber()));
 
@@ -912,7 +917,7 @@ public class phase2Real extends JFrame {
 
       }
     };
-    button3.addActionListener(prices);
+
 
     button1.addActionListener(action);
     button2.addActionListener(action);
@@ -926,7 +931,7 @@ public class phase2Real extends JFrame {
     frame2.add(splitPanel1, BorderLayout.CENTER);
     frame2.add(button2, BorderLayout.SOUTH);
     frame2.setVisible(true);
-    JOptionPane.showMessageDialog(frame2.getComponent(0), "This is your allocation based on your inputs");
+
 
 
   }
