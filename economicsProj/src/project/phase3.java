@@ -142,13 +142,13 @@ public class phase3 extends JFrame{
     M = m;
 
 
-    directoryStore dirStore = new directoryStore();
-    directory = dirStore.getDirectory();
-    adminDirectory = dirStore.getAdminDirectory();
+//    directoryStore dirStore = new directoryStore();
+//    directory = dirStore.getDirectory();
+//    adminDirectory = dirStore.getAdminDirectory();
 
-    //to test
-//    adminDirectory = System.getProperty("user.home") + "/Desktop/";
-//    directory = System.getProperty("user.home") + "/Desktop/";
+
+   adminDirectory = System.getProperty("user.home") + "/Desktop/";
+    directory = System.getProperty("user.home") + "/Desktop/";
 
 
     filename1 =adminDirectory+ "/Phase1priceSet1.csv";
@@ -956,7 +956,7 @@ public class phase3 extends JFrame{
 
     JSplitPane mainSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     JPanel leftPanel = new JPanel(new GridLayout(stage1.size(), 1, 5, 5));
-    JPanel rightPanel = new JPanel(new GridLayout(stage2.size(), 1, 5, 5));
+    JPanel rightPanel = new JPanel(new GridLayout(stage2.size(), 2, 5, 5));
     mainSplit.setBorder(new TitledBorder(raisedBorder, "Data Points"));
     leftPanel.setBorder(new TitledBorder(raisedBorder, "Stage 1 Allocations"));
     rightPanel.setBorder(new TitledBorder(raisedBorder, "Stage 2 Allocations (Choice Rule) WITH Stage 1 prices"));
@@ -1014,6 +1014,10 @@ public class phase3 extends JFrame{
       panels.add(progress);
       panels.add(jText);
       panels.setBorder(new TitledBorder("Security " + stage2.get(i).getSecurityNumber()));
+
+
+
+
 
       rightPanel.add(panels);
     }
