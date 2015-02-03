@@ -28,7 +28,7 @@ public class phase1Rewind extends JFrame {
   static JTextField valueAdjust;
   static JPanel panel3;
   static JPanel panel4;
-  static JTextField textFieldUsedtobePanel5;
+  static JButton textFieldUsedtobePanel5;
   static JTextField textFieldUsedtobePanel6;
   static JLabel label7;
   static JLabel label8;
@@ -68,6 +68,7 @@ public class phase1Rewind extends JFrame {
   private static ChangeListener changelistener;
   private static ChangeListener changelistener2;
   private static ChangeListener changelistener3;
+  private static ChangeListener changeListener5;
   private static ActionListener Actionlistener4;
   private static ActionListener actionListener5;
   private static ActionListener action;
@@ -93,11 +94,7 @@ public class phase1Rewind extends JFrame {
 
   static int allocation = 0;
 
-  double d1;
-  double d2;
-  double d3;
-  double d4;
-  double d5;
+
 
   static boolean redirect;
 
@@ -164,13 +161,11 @@ public class phase1Rewind extends JFrame {
 
 
 
-
   private int m1;
   private int m2;
   private int m3;
   private int m4;
   private int m5;
-
 
 
 
@@ -230,8 +225,8 @@ public class phase1Rewind extends JFrame {
     int size = shares.size();
     panel2 = new JPanel();
 
-    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
-    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
+    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
 
     panel2.setLayout(new BorderLayout(5, 10));
 
@@ -284,8 +279,7 @@ public class phase1Rewind extends JFrame {
       public void actionPerformed(ActionEvent event) {
         panel.removeAll();
         for (int i = 0; i < shareList.size(); i++) {
-          int priceofsecurity = shareList.get(i).getPrice();
-          JSlider jSlider = formatSlider(shareList.get(i).getPrice(), shareList.get(i).getSecurityNumber());
+          JSlider jSlider = formatSlider2(shareList.get(i).getPrice(), shareList.get(i).getSecurityNumber());
           BoundedRangeModel model = jSlider.getModel();
           if (i == 0){
             model.setRangeProperties(v1,0,0,1000,false);
@@ -402,12 +396,11 @@ public class phase1Rewind extends JFrame {
     buttonPanel.add(button3);
     buttonPanel.add(button1);
 
-    textFieldUsedtobePanel5 = new JTextField();
-    textFieldUsedtobePanel5.setText(Integer.toString(0));
-    textFieldUsedtobePanel5.setVisible(false);
-    //textFieldUsedtobePanel5.setBorder(new TitledBorder(loweredBorder, "Currently Allocated"));
+
+    textFieldUsedtobePanel5 = new JButton("Equal Shares");
+    textFieldUsedtobePanel5.setVisible(true);
+    textFieldUsedtobePanel5.setBorder(new TitledBorder(raisedBorder, "Click to automatically allocate equal shares"));
     textFieldUsedtobePanel5.setFont(new Font("Calibri", Font.BOLD, 15));
-    textFieldUsedtobePanel5.setEditable(false);
 
     panel4 = new JPanel(new GridLayout(2,2,5,5));
 
@@ -468,12 +461,150 @@ public class phase1Rewind extends JFrame {
     check5 = false;
     check6 = false;
 
+    actionListener5 = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JButton source = (JButton) e.getSource();
+        if (source == textFieldUsedtobePanel5) {
+          panel.removeAll();
+          int totalMoney = allocation / 10;
 
+          //CHANGE HERE WHEN CHANGING SECURS
+          int numberOfAssets = 5;
+          int[] prices = new int[numberOfAssets];
+          for (int i = 0; i < shareList.size(); i++) {
+            prices[i] = shareList.get(i).getPrice();
+
+          }
+          double result = equalAlgo(numberOfAssets, totalMoney, prices);
+
+
+          boolean checker = false;
+          boolean checker2 = false;
+          int result3 = 0;
+          String data = Double.toString(result);
+          String splitter = data.substring(data.indexOf("."));
+
+          if (splitter.length() > 2) {
+            splitter = splitter.substring(0, 2);
+            checker = true;
+          }
+
+          data = data.substring(0, data.indexOf(".")) + splitter;
+          //case where 2 digit front and decimal back
+          String temp = data.substring(0, 2);
+          if(!temp.contains(".")){
+            double tempResult = Double.parseDouble(data);
+            tempResult = tempResult * 10;
+            String temp2 = Double.toString(tempResult);
+            temp2 = temp2.substring(0, 3);
+            result3 = Integer.parseInt(temp2);
+            checker2 = true;
+          }
+
+
+
+
+
+
+          double newResult = Double.parseDouble(data);
+          double oldResult = newResult;
+          String forTextField = Double.toString(oldResult);
+          newResult = newResult * 10;
+          String data2 = Double.toString(newResult);
+          if(checker) {
+            data2 = data2.substring(0, 2);
+          }
+          else {
+            data2 = data2.substring(0, 3);
+          }
+
+
+          int result2 = Integer.parseInt(data2);
+
+
+          for (int i = 0; i < shareList.size(); i++) {
+
+            JSlider jSlider = formatSlider(shareList.get(i).getPrice(), shareList.get(i).getSecurityNumber());
+            jSlider.setEnabled(false);
+            if (i == 0) {
+              jSlider.setEnabled(true);
+            }
+
+            BoundedRangeModel model = jSlider.getModel();
+
+            if(checker2){
+              model.setRangeProperties(result3, 0, 0, 1000, false);
+            } else {
+              model.setRangeProperties(result2, 0, 0, 1000, false);
+            }
+            addShare(jSlider, shareList.get(i).getPrice());
+            panel.repaint();
+            panel.revalidate();
+
+          }
+
+          int totalCost = 0;
+          for(int i = 0; i < shareList.size(); i ++){
+            if(checker2){
+              totalCost = totalCost + (shareList.get(i).getPrice() * result3);
+            } else {
+              totalCost = totalCost + (shareList.get(i).getPrice() * result2);
+            }
+          }
+
+          int finalCost = totalCost/10;
+          if(totalMoney - finalCost <= 0.5){
+            remainingMoney = 0;
+          }
+
+          textField7.setText(Integer.toString(totalMoney - finalCost));
+
+
+          if(checker2){
+            v1 = result3;
+            v2 = result3;
+            v3 = result3;
+            v4 = result3;
+            v5 = result3;
+
+          } else {
+            v1 = result2;
+            v2 = result2;
+            v3 = result2;
+            v4 = result2;
+            v5 = result2;
+          }
+
+
+          textField.setText("Units of security #"  + 1 + " = " + forTextField);
+          textField2.setText("Units of security #" + 2 + " = " + forTextField);
+          textField3.setText("Units of security #" + 3 + " = " + forTextField);
+          textField4.setText("Units of security #" + 4 + " = " + forTextField);
+          textField5.setText("Units of security #" + 4 + " = " + forTextField);
+
+
+          check = true;
+          check2 = true;
+          check3 = true;
+          check4 = true;
+          check5 = true;
+          check6 = true;
+
+
+
+        }
+      }
+
+    };
+
+
+    textFieldUsedtobePanel5.addActionListener(actionListener5);
 
     changelistener = new ChangeListener() {
       public void stateChanged(ChangeEvent event) {
         JSlider source = (JSlider) event.getSource();
-        int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+        int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) *10;
         if (!source.getValueIsAdjusting()) {
           int value = source.getValue();
           int cost = 0;
@@ -514,7 +645,7 @@ public class phase1Rewind extends JFrame {
             int tempForTextField = allocation2 - cost;
             //look here
 
-            textFieldUsedtobePanel5.setText(Double.toString(equal * (cost/100)));
+        //  textFieldUsedtobePanel5.setText(Double.toString(equal * (cost/100)));
             int tempForRemainingMoneyTextField = tempForTextField;
             //         textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + "");
@@ -572,7 +703,7 @@ public class phase1Rewind extends JFrame {
             double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
 
 
-            textFieldUsedtobePanel5.setText(Double.toString(tempV));
+          //  textFieldUsedtobePanel5.setText(Double.toString(tempV));
             double tempForRemainingMoneyTextField = tempForTextField;
             //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + "");
@@ -629,7 +760,7 @@ public class phase1Rewind extends JFrame {
             double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
 
 
-            textFieldUsedtobePanel5.setText(Double.toString(tempV));
+        //    textFieldUsedtobePanel5.setText(Double.toString(tempV));
             double tempForRemainingMoneyTextField = tempForTextField;
             //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + "");
@@ -686,7 +817,7 @@ public class phase1Rewind extends JFrame {
 
 
 
-            textFieldUsedtobePanel5.setText(Double.toString(tempV));
+       //     textFieldUsedtobePanel5.setText(Double.toString(tempV));
             double tempForRemainingMoneyTextField = tempForTextField;
             //                     textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + "");
@@ -726,7 +857,7 @@ public class phase1Rewind extends JFrame {
             double tempForTextField = Double.parseDouble(textField7.getText()) - cost;
             double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
 
-            textFieldUsedtobePanel5.setText(Double.toString(tempV));
+        //    textFieldUsedtobePanel5.setText(Double.toString(tempV));
             double tempForRemainingMoneyTextField = tempForTextField;
             //                       textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
             remainingAlloc.setText("Security #" + name + " = " + "");
@@ -1204,6 +1335,24 @@ public class phase1Rewind extends JFrame {
     float v = (float) value / 100;
     setTotal(allocation - v * price);
     return allocation - value * price;
+  }
+
+
+  public double equalAlgo(int numberOfAssets, int totalMoney, int[] prices){
+    double sum = 0;
+    System.out.println("this is total money " + totalMoney);
+    for(int price: prices){
+      sum = sum + price;
+      System.out.println("these are the prices " + price);
+
+    }
+    System.out.println("this is the sum " + sum);
+    double averagePrice = sum / numberOfAssets;
+    double itemTotal = totalMoney / averagePrice;
+    double result = itemTotal / numberOfAssets;
+
+    System.out.println("this is the result " + result);
+    return result;
   }
 
 
