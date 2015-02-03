@@ -51,7 +51,7 @@ public class choicePage extends JFrame {
     bothStages = new ArrayList<List<Share>>();
     for(int i = 0; i < priceSets.size(); i++){
       bothStages.add(priceSets.get(i));
-      }
+    }
 
     for(int i = 0; i < priceSets2.size(); i ++){
       bothStages.add(priceSets2.get(i));
@@ -63,6 +63,8 @@ public class choicePage extends JFrame {
     setTitle("Selections");
     setBounds(0 , 0, 1000, 700);
     setLocationRelativeTo(null);
+
+
 
     instructions3 = "On this page the round that counts for payment and the security that pays on that round will be determined. Please raise your hand and an experimenter will approach you.";
 
@@ -227,8 +229,9 @@ public class choicePage extends JFrame {
     button3.addActionListener(buttons);
     button1.addActionListener(buttons);
 
+    JOptionPane.showMessageDialog(null, "On this page the round that counts for payment and the security that pays on that round will be determined. Please raise your hand and an experimenter will approach you.");
 
-   setVisible(true);
+    setVisible(true);
 
 
 
