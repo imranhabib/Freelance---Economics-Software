@@ -988,7 +988,7 @@ public class sliderInterface2 extends JFrame{
 
 
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
+    buttonPanel.setLayout(new GridLayout(1, 1, 5, 5));
 
     JButton button1 = new JButton("View data as a chart");
     button1.setLayout(new GridLayout(0, 3));
@@ -998,11 +998,10 @@ public class sliderInterface2 extends JFrame{
     button2.setLayout(new GridLayout(0, 3));
     button2.setBorder(new TitledBorder("Next Round"));
 
-    final JButton button3 = new JButton("View Prices");
-    button3.setBorder(new TitledBorder("Prices for Round"));
+
 
     buttonPanel.add(button1);
-    buttonPanel.add(button3);
+
 
 
 
@@ -1021,34 +1020,7 @@ public class sliderInterface2 extends JFrame{
     };
 
 
-    ActionListener prices = new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        JButton source = (JButton) e.getSource();
-        if(source == button3){
 
-
-          JFrame frame = new JFrame("Prices for Round");
-          frame.setBounds(0, 0, 500, 500);
-          frame.setLocationRelativeTo(null);
-
-          JPanel mainPan = new JPanel(new GridLayout(shareList.size(), 1, 5, 5));
-
-          for(int i=0; i<shareList.size(); i++){
-            JLabel labels = new JLabel("Price of Security # " + (i+1) + " = " + Integer.toString(shareList.get(i).getPrice()));
-            mainPan.add(labels);
-          }
-
-
-          frame.add(mainPan);
-          frame.setVisible(true);
-        }
-
-
-      }
-    };
-
-    button3.addActionListener(prices);
     button2.addActionListener(nextRound);
 
 
@@ -1057,17 +1029,23 @@ public class sliderInterface2 extends JFrame{
     panelNew.setLayout(new GridLayout(shareList.size(), 2));
     panelNew.setBorder(new TitledBorder("Data"));
 
-    for(int i = 0; i <shareList.size(); i++){
+    for (int i = 0; i < shareList.size(); i++) {
       String data = Double.toString(shareList.get(i).getAllocation());
       String splitter = data.substring(data.indexOf("."));
       if(splitter.length() > 2){
         splitter = splitter.substring(0, 3);
       }
       data = data.substring(0, data.indexOf(".")) + splitter;
+
       JTextField jText = new JTextField(data);
       jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
+
+      JTextField jPrices = new JTextField(Integer.toString(shareList.get(i).getPrice()));
+      jPrices.setEditable(false);
+      jPrices.setBorder(new TitledBorder("Price"));
+      jPrices.setSize(25, 25);
 
       JProgressBar progress = new JProgressBar();
       progress.setBorder(new TitledBorder("Investment"));
@@ -1077,8 +1055,9 @@ public class sliderInterface2 extends JFrame{
       progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
 
       JPanel panels = new JPanel();
-      panels.setLayout(new GridLayout(0, 2));
+      panels.setLayout(new GridLayout(0, 3));
       panels.add(progress);
+      panels.add(jPrices);
       panels.add(jText);
       panels.setBorder(new TitledBorder("Security " + shareList.get(i).getSecurityNumber()));
 
