@@ -763,7 +763,7 @@ public class phase4 extends JFrame {
 
 
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
+    buttonPanel.setLayout(new GridLayout(1, 1, 5, 5));
 
     final JButton button1 = new JButton("View data as a chart");
     button1.setLayout(new GridLayout(0, 3));
@@ -779,29 +779,29 @@ public class phase4 extends JFrame {
     panelNew.setBorder(new TitledBorder("Data"));
 
 
-    final JButton button3 = new JButton("View Prices");
-    button3.setBorder(new TitledBorder("Prices for Round"));
-
 
 
     buttonPanel.add(button1);
-    buttonPanel.add(button3);
+
 
 
     for (int i = 0; i < shareList.size(); i++) {
-
       String data = Double.toString(shareList.get(i).getAllocation());
       String splitter = data.substring(data.indexOf("."));
-
       if(splitter.length() > 2){
         splitter = splitter.substring(0, 3);
       }
-
       data = data.substring(0, data.indexOf(".")) + splitter;
+
       JTextField jText = new JTextField(data);
       jText.setEditable(false);
       jText.setBorder(new TitledBorder("Exact Amount"));
       jText.setSize(100, 50);
+
+      JTextField jPrices = new JTextField(Integer.toString(shareList.get(i).getPrice()));
+      jPrices.setEditable(false);
+      jPrices.setBorder(new TitledBorder("Price"));
+      jPrices.setSize(25, 25);
 
       JProgressBar progress = new JProgressBar();
       progress.setBorder(new TitledBorder("Investment"));
@@ -811,8 +811,9 @@ public class phase4 extends JFrame {
       progress.setString(Integer.toString(Math.round(Float.parseFloat(Double.toString(shareList.get(i).getAllocation())))));
 
       JPanel panels = new JPanel();
-      panels.setLayout(new GridLayout(0, 2));
+      panels.setLayout(new GridLayout(0, 3));
       panels.add(progress);
+      panels.add(jPrices);
       panels.add(jText);
       panels.setBorder(new TitledBorder("Security " + shareList.get(i).getSecurityNumber()));
 
@@ -873,7 +874,7 @@ public class phase4 extends JFrame {
     };
 
 
-    button3.addActionListener(prices);
+
     button1.addActionListener(action);
     button2.addActionListener(action);
 
