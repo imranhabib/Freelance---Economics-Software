@@ -32,7 +32,7 @@ public class phase1 extends JFrame{
   static JTextField valueAdjust;
   static JPanel panel3;
   static JPanel panel4;
-  static JTextField textFieldUsedtobePanel5;
+  static JButton textFieldUsedtobePanel5;
   static JTextField textFieldUsedtobePanel6;
   static JLabel label7;
   static JLabel label8;
@@ -71,6 +71,7 @@ public class phase1 extends JFrame{
   private static ChangeListener changelistener;
   private static ChangeListener changelistener2;
   private static ChangeListener changelistener3;
+  private static ChangeListener changeListener5;
   private static ActionListener Actionlistener4;
   private static ActionListener actionListener5;
   private static ActionListener action;
@@ -87,11 +88,7 @@ public class phase1 extends JFrame{
 
   static boolean redirect;
 
-  double d1;
-  double d2;
-  double d3;
-  double d4;
-  double d5;
+
 
   //new stuff
   private int m1;
@@ -435,12 +432,11 @@ public class phase1 extends JFrame{
     buttonPanel.add(button3);
     buttonPanel.add(button1);
 
-    textFieldUsedtobePanel5 = new JTextField();
-    textFieldUsedtobePanel5.setText("");
+    textFieldUsedtobePanel5 = new JButton("Equal Shares");
     textFieldUsedtobePanel5.setVisible(true);
-    textFieldUsedtobePanel5.setBorder(new TitledBorder(loweredBorder));
+    textFieldUsedtobePanel5.setBorder(new TitledBorder(raisedBorder, "Click to automatically allocate equal shares"));
     textFieldUsedtobePanel5.setFont(new Font("Calibri", Font.BOLD, 15));
-    textFieldUsedtobePanel5.setEditable(false);
+
 
     panel4 = new JPanel(new GridLayout(2,2,5,5));
 
@@ -503,6 +499,149 @@ public class phase1 extends JFrame{
     check4 = false;
     check5 = false;
     check6 = false;
+
+
+
+    actionListener5 = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JButton source = (JButton) e.getSource();
+        if (source == textFieldUsedtobePanel5) {
+          panel.removeAll();
+          int totalMoney = allocation / 10;
+
+          //CHANGE HERE WHEN CHANGING SECURS
+          int numberOfAssets = 5;
+          int[] prices = new int[numberOfAssets];
+          for (int i = 0; i < shareList.size(); i++) {
+            prices[i] = shareList.get(i).getPrice();
+
+          }
+          double result = equalAlgo(numberOfAssets, totalMoney, prices);
+
+
+          boolean checker = false;
+          boolean checker2 = false;
+          int result3 = 0;
+          String data = Double.toString(result);
+          String splitter = data.substring(data.indexOf("."));
+
+          if (splitter.length() > 2) {
+            splitter = splitter.substring(0, 2);
+            checker = true;
+          }
+
+          data = data.substring(0, data.indexOf(".")) + splitter;
+          //case where 2 digit front and decimal back
+          String temp = data.substring(0, 2);
+          if(!temp.contains(".")){
+            double tempResult = Double.parseDouble(data);
+            tempResult = tempResult * 10;
+            String temp2 = Double.toString(tempResult);
+            temp2 = temp2.substring(0, 3);
+            result3 = Integer.parseInt(temp2);
+            checker2 = true;
+          }
+
+
+
+
+
+
+          double newResult = Double.parseDouble(data);
+          double oldResult = newResult;
+          String forTextField = Double.toString(oldResult);
+          newResult = newResult * 10;
+          String data2 = Double.toString(newResult);
+          if(checker) {
+            data2 = data2.substring(0, 2);
+          }
+          else {
+            data2 = data2.substring(0, 3);
+          }
+
+
+          int result2 = Integer.parseInt(data2);
+
+
+          for (int i = 0; i < shareList.size(); i++) {
+
+            JSlider jSlider = formatSlider(shareList.get(i).getPrice(), shareList.get(i).getSecurityNumber());
+            jSlider.setEnabled(false);
+            if (i == 0) {
+              jSlider.setEnabled(true);
+            }
+
+            BoundedRangeModel model = jSlider.getModel();
+
+            if(checker2){
+              model.setRangeProperties(result3, 0, 0, 1000, false);
+            } else {
+              model.setRangeProperties(result2, 0, 0, 1000, false);
+            }
+            addShare(jSlider, shareList.get(i).getPrice());
+            panel.repaint();
+            panel.revalidate();
+
+          }
+
+          int totalCost = 0;
+          for(int i = 0; i < shareList.size(); i ++){
+            if(checker2){
+              totalCost = totalCost + (shareList.get(i).getPrice() * result3);
+            } else {
+              totalCost = totalCost + (shareList.get(i).getPrice() * result2);
+            }
+          }
+
+          int finalCost = totalCost/10;
+          if(totalMoney - finalCost <= 0.5){
+            remainingMoney = 0;
+          }
+
+          textField7.setText(Integer.toString(totalMoney - finalCost));
+
+
+          if(checker2){
+            v1 = result3;
+            v2 = result3;
+            v3 = result3;
+            v4 = result3;
+            v5 = result3;
+
+          } else {
+            v1 = result2;
+            v2 = result2;
+            v3 = result2;
+            v4 = result2;
+            v5 = result2;
+          }
+
+
+          textField.setText("Units of security #"  + 1 + " = " + forTextField);
+          textField2.setText("Units of security #" + 2 + " = " + forTextField);
+          textField3.setText("Units of security #" + 3 + " = " + forTextField);
+          textField4.setText("Units of security #" + 4 + " = " + forTextField);
+          textField5.setText("Units of security #" + 4 + " = " + forTextField);
+
+
+          check = true;
+          check2 = true;
+          check3 = true;
+          check4 = true;
+          check5 = true;
+          check6 = true;
+
+
+
+        }
+      }
+
+    };
+
+
+    textFieldUsedtobePanel5.addActionListener(actionListener5);
+
 
 
 
@@ -793,11 +932,11 @@ public class phase1 extends JFrame{
 
           valueAdjust.setText("Value = " + Double.toString(equal));
           double temp2 = (equal  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
-          if(temp2 > allocation / 10) {
-            textFieldUsedtobePanel5.setText("WARNING: You cannot afford this allocation");
-          } else{
-            textFieldUsedtobePanel5.setText("");
-          }
+//          if(temp2 > allocation / 10) {
+//            textFieldUsedtobePanel5.setText("WARNING: You cannot afford this allocation");
+//          } else{
+//            textFieldUsedtobePanel5.setText("");
+//          }
 
           double temp3 = (remainingMoney/10) - temp2;
 
@@ -869,7 +1008,7 @@ public class phase1 extends JFrame{
           return;
         }
 
-        System.out.println("These are the v's in order = " + v1 + " " + v2 + " " + v3 + " " + v4 + " " + v5);
+
 
         anotherShareList = new ArrayList<Share>(shareList.size());
 
@@ -924,6 +1063,7 @@ public class phase1 extends JFrame{
           anotherShareList.add(share4);
           Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5 /10)) );
           anotherShareList.add(share5);
+
 
         }
 
@@ -1160,6 +1300,7 @@ public class phase1 extends JFrame{
           }
 
         } else {
+          System.out.println("Here doe");
           error(e);
         }
 
@@ -1190,6 +1331,7 @@ public class phase1 extends JFrame{
   public void addShare(JSlider slider, int price) {
     slider.addChangeListener(changelistener);
     slider.addChangeListener(changelistener2);
+    slider.addChangeListener(changeListener5);
     JPanel pan = new JPanel();
     pan.setLayout(new GridLayout(1,1,5,5));
     pan.add(slider);
@@ -1454,6 +1596,25 @@ public class phase1 extends JFrame{
 
 
 
+
+  public double equalAlgo(int numberOfAssets, int totalMoney, int[] prices){
+    double sum = 0;
+    System.out.println("this is total money " + totalMoney);
+    for(int price: prices){
+      sum = sum + price;
+      System.out.println("these are the prices " + price);
+
+    }
+    System.out.println("this is the sum " + sum);
+    double averagePrice = sum / numberOfAssets;
+    double itemTotal = totalMoney / averagePrice;
+    double result = itemTotal / numberOfAssets;
+
+   System.out.println("this is the result " + result);
+    return result;
+  }
+
+
   public static void main(String[] args) throws Exception {
     params = new parameters();
 
@@ -1466,7 +1627,7 @@ public class phase1 extends JFrame{
 
         testClass test = new testClass(1);
         //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-         //sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+       //  sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
         phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
