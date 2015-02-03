@@ -81,6 +81,7 @@ public class phase1Rewind extends JFrame {
   private static boolean check4;
   private static boolean check5;
   private static boolean check6;
+  private static boolean check7;
 
   private int v1;
   private int v2;
@@ -159,7 +160,11 @@ public class phase1Rewind extends JFrame {
   FileWriter filer9;
   FileWriter filer10;
 
-
+  private double d1;
+  private double d2;
+  private double d3;
+  private double d4;
+  private double d5;
 
   private int m1;
   private int m2;
@@ -313,6 +318,7 @@ public class phase1Rewind extends JFrame {
         v4=0;
         v5=0;
         resetPressed = true;
+        check7 = false;
         textField.setText("");
         textField2.setText("");
         textField3.setText("");
@@ -460,6 +466,8 @@ public class phase1Rewind extends JFrame {
     check4 = false;
     check5 = false;
     check6 = false;
+    check7 = false;
+
 
     actionListener5 = new ActionListener() {
       @Override
@@ -483,17 +491,29 @@ public class phase1Rewind extends JFrame {
           boolean checker2 = false;
           int result3 = 0;
           String data = Double.toString(result);
+          System.out.println("This is first data " + data);
+
           String splitter = data.substring(data.indexOf("."));
 
+
+          System.out.println("This is splitter " + splitter);
+
           if (splitter.length() > 2) {
-            splitter = splitter.substring(0, 2);
+            splitter = splitter.substring(0, 3);
             checker = true;
           }
 
           data = data.substring(0, data.indexOf(".")) + splitter;
+          System.out.println("This is data " + data);
+
           //case where 2 digit front and decimal back
-          String temp = data.substring(0, 2);
-          if(!temp.contains(".")){
+          String temp = data.substring(0, 4);
+          String cut = temp.substring(0, temp.indexOf("."));
+
+          System.out.println("This is temp " + temp);
+
+
+          if(cut.length() == 2){
             double tempResult = Double.parseDouble(data);
             tempResult = tempResult * 10;
             String temp2 = Double.toString(tempResult);
@@ -512,15 +532,22 @@ public class phase1Rewind extends JFrame {
           String forTextField = Double.toString(oldResult);
           newResult = newResult * 10;
           String data2 = Double.toString(newResult);
+          System.out.println("This is newResult " + data2);
+
+
           if(checker) {
             data2 = data2.substring(0, 2);
+            System.out.println("here " + data2);
           }
           else {
             data2 = data2.substring(0, 3);
+            System.out.println("here2 " + data2);
           }
 
 
           int result2 = Integer.parseInt(data2);
+          System.out.println("This is result2down " + result2);
+
 
 
           for (int i = 0; i < shareList.size(); i++) {
@@ -544,21 +571,34 @@ public class phase1Rewind extends JFrame {
 
           }
 
-          int totalCost = 0;
+          double totalCost = 0;
           for(int i = 0; i < shareList.size(); i ++){
             if(checker2){
-              totalCost = totalCost + (shareList.get(i).getPrice() * result3);
+              totalCost = totalCost + (shareList.get(i).getPrice() * newResult);
             } else {
-              totalCost = totalCost + (shareList.get(i).getPrice() * result2);
+              totalCost = totalCost + (shareList.get(i).getPrice() * newResult);
             }
           }
 
-          int finalCost = totalCost/10;
+          double finalCost = totalCost/10;
           if(totalMoney - finalCost <= 0.5){
             remainingMoney = 0;
           }
 
-          textField7.setText(Integer.toString(totalMoney - finalCost));
+
+
+
+          String bata = (Double.toString(totalMoney - finalCost));
+          String bplitter = bata.substring(bata.indexOf("."));
+          if(bplitter.length() > 2){
+            bplitter = bplitter.substring(0, 2);
+          }
+          bata = bata.substring(0, bata.indexOf(".")) + bplitter;
+
+          if(bata.equals("0.1")){
+            bata = "0.0";
+          }
+          textField7.setText(bata);
 
 
           if(checker2){
@@ -568,12 +608,30 @@ public class phase1Rewind extends JFrame {
             v4 = result3;
             v5 = result3;
 
+
+            d1 = Double.parseDouble(forTextField);
+            d2 = Double.parseDouble(forTextField);
+            d3 = Double.parseDouble(forTextField);
+            d4 = Double.parseDouble(forTextField);
+            d5 = Double.parseDouble(forTextField);
+
+
+
+
           } else {
             v1 = result2;
             v2 = result2;
             v3 = result2;
             v4 = result2;
             v5 = result2;
+
+            d1 = Double.parseDouble(forTextField);
+            d2 = Double.parseDouble(forTextField);
+            d3 = Double.parseDouble(forTextField);
+            d4 = Double.parseDouble(forTextField);
+            d5 = Double.parseDouble(forTextField);
+
+
           }
 
 
@@ -581,7 +639,7 @@ public class phase1Rewind extends JFrame {
           textField2.setText("Units of security #" + 2 + " = " + forTextField);
           textField3.setText("Units of security #" + 3 + " = " + forTextField);
           textField4.setText("Units of security #" + 4 + " = " + forTextField);
-          textField5.setText("Units of security #" + 4 + " = " + forTextField);
+          textField5.setText("Units of security #" + 5 + " = " + forTextField);
 
 
           check = true;
@@ -590,7 +648,7 @@ public class phase1Rewind extends JFrame {
           check4 = true;
           check5 = true;
           check6 = true;
-
+          check7 = true;
 
 
         }
@@ -600,6 +658,7 @@ public class phase1Rewind extends JFrame {
 
 
     textFieldUsedtobePanel5.addActionListener(actionListener5);
+
 
     changelistener = new ChangeListener() {
       public void stateChanged(ChangeEvent event) {
@@ -932,8 +991,10 @@ public class phase1Rewind extends JFrame {
           return;
         }
 
-        if (remainingMoney >= 2.5) {
+        if (remainingMoney > 9) {
+          System.out.println("remains " + remainingMoney);
           JOptionPane.showMessageDialog(null, "You did not use all your money. Please correct allocations", "Error", JOptionPane.ERROR_MESSAGE);
+
           return;
         }
 
@@ -946,64 +1007,137 @@ public class phase1Rewind extends JFrame {
 
         anotherShareList = new ArrayList<Share>(shareList.size());
 
-        if (shareList.size() == 1) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 /10)));
-          anotherShareList.add(share);
+        if (check7) {
+          if (shareList.size() == 1) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, d1);
+            anotherShareList.add(share);
 
+
+          } }else {
+
+          if (shareList.size() == 1) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 / 10)));
+            anotherShareList.add(share);
+
+          }
         }
 
 
-        if (shareList.size() == 2) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 /10)));
-          anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 /10)));
-          anotherShareList.add(share2);
+
+        if (check7) {
+          if (shareList.size() == 2) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, d1);
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, d2);
+            anotherShareList.add(share2);
 
 
+          }} else {
+
+          if (shareList.size() == 2) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 / 10)));
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 / 10)));
+            anotherShareList.add(share2);
+
+
+          }
         }
 
-        if (shareList.size() == 3) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 /10)));
-          anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 /10)));
-          anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 /10)));
-          anotherShareList.add(share3);
 
 
+        if (check7) {
+          if (shareList.size() == 3) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, d1);
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, d2);
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, d3);
+            anotherShareList.add(share3);
+
+
+          }
+        } else {
+
+          if (shareList.size() == 3) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 / 10)));
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 / 10)));
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 / 10)));
+            anotherShareList.add(share3);
+
+          }
         }
 
-        if (shareList.size() == 4) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 /10)));
-          anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 /10)));
-          anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 /10)));
-          anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4 /10)));
-          anotherShareList.add(share4);
 
 
+        if (check7) {
+          if (shareList.size() == 4) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, d1);
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2,d2);
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, d3);
+            anotherShareList.add(share3);
+            Share share4 = new Share(shareList.get(3).getPrice(), 4, d4);
+            anotherShareList.add(share4);
+
+
+          }
+        } else {
+          if (shareList.size() == 4) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 / 10)));
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 / 10)));
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 / 10)));
+            anotherShareList.add(share3);
+            Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4 / 10)));
+            anotherShareList.add(share4);
+
+
+          }
         }
 
-        if (shareList.size() == 5) {
-          Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 /10)));
-          anotherShareList.add(share);
-          Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 /10)));
-          anotherShareList.add(share2);
-          Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 /10)));
-          anotherShareList.add(share3);
-          Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4 /10)));
-          anotherShareList.add(share4);
-          Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5 /10)));
-          anotherShareList.add(share5);
+        if(check7) {
+          if (shareList.size() == 5) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, d1);
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, d2);
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, d3);
+            anotherShareList.add(share3);
+            Share share4 = new Share(shareList.get(3).getPrice(), 4, d4);
+            anotherShareList.add(share4);
+            Share share5 = new Share(shareList.get(4).getPrice(), 5, d5);
+            anotherShareList.add(share5);
 
 
+          }
+        } else {
+
+
+          if (shareList.size() == 5) {
+            Share share = new Share(shareList.get(0).getPrice(), 1, Double.parseDouble(Integer.toString(v1 / 10)));
+            anotherShareList.add(share);
+            Share share2 = new Share(shareList.get(1).getPrice(), 2, Double.parseDouble(Integer.toString(v2 / 10)));
+            anotherShareList.add(share2);
+            Share share3 = new Share(shareList.get(2).getPrice(), 3, Double.parseDouble(Integer.toString(v3 / 10)));
+            anotherShareList.add(share3);
+            Share share4 = new Share(shareList.get(3).getPrice(), 4, Double.parseDouble(Integer.toString(v4 / 10)));
+            anotherShareList.add(share4);
+            Share share5 = new Share(shareList.get(4).getPrice(), 5, Double.parseDouble(Integer.toString(v5 / 10)));
+            anotherShareList.add(share5);
+
+
+          }
+        }
 
           allocations.remove(curSysProp - 1);
           allocations.add(curSysProp - 1, anotherShareList);
 
-        }
+
 
 
         if (!file.exists()) {
