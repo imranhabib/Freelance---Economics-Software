@@ -224,14 +224,14 @@ public class phase1Rewind extends JFrame {
     directory = dirStore.getDirectory();
     adminDirectory = dirStore.getAdminDirectory();
 
-    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney" + test.getCurrent()));
     n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
 
     int size = shares.size();
     panel2 = new JPanel();
 
-    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
-    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
+    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney" + test.getCurrent())) * 10;
+    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney" + test.getCurrent())) * 10;
 
     panel2.setLayout(new BorderLayout(5, 10));
 
