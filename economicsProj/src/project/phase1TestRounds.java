@@ -219,14 +219,14 @@ public class phase1TestRounds extends JFrame {
     shareList = shares;
 
 
-    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent()));
+    total = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHaveTest" + test.getCurrent()));
     n = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("securityAmount" + test.getCurrent()));
 
     int size = shares.size();
     panel2 = new JPanel();
 
-    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
-    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
+    allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHaveTest" + test.getCurrent())) * 10;
+    remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHaveTest" + test.getCurrent())) * 10;
 
     panel2.setLayout(new BorderLayout(5, 10));
 
@@ -263,8 +263,8 @@ public class phase1TestRounds extends JFrame {
     param = new parameters();
     alloc = new allocation(param, new incomeRequired(2));
 
-    shareList = param.getSecurityListWithEmptyIncomeShares();
-    System.out.println("Called");
+    shareList = param.getSecurityListWithEmptyIncomeSharesStage1TestRoundPrices();
+
 
 
     //param.getArgMaxFormula(2, shareList);
