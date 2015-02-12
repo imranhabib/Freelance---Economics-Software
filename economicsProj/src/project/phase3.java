@@ -148,16 +148,16 @@ public class phase3 extends JFrame{
     R = r;
     M = m;
 
-//
-//    directoryStore dirStore = new directoryStore();
-//    directory = dirStore.getDirectory();
-//    adminDirectory = dirStore.getAdminDirectory();
+
+    directoryStore dirStore = new directoryStore();
+    directory = dirStore.getDirectory();
+    adminDirectory = dirStore.getAdminDirectory();
 
 
     //for testing
 //
-    final String directory = System.getProperty("user.home") + "/Desktop";
-    final String adminDirectory = System.getProperty("user.home")+ "/Desktop";
+//    final String directory = System.getProperty("user.home") + "/Desktop";
+//    final String adminDirectory = System.getProperty("user.home")+ "/Desktop";
 
 
 
