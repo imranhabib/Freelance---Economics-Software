@@ -57,8 +57,8 @@ public class openingPage extends JFrame {
 
 
 
-  String directory = System.getProperty("user.home") + "/Desktop";
-  String adminDirectory = System.getProperty("user.home") + "/Desktop";
+  String directory = System.getProperty("user.dir");
+  String adminDirectory = System.getProperty("user.dir");
 
 
   public openingPage(){
