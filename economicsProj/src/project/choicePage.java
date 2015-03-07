@@ -114,7 +114,7 @@ public class choicePage extends JFrame {
         area2.setWrapStyleWord(true);
 
         text2 = new JTextField();
-        text2.setBorder(new TitledBorder("Enter Asset Here"));
+        text2.setBorder(new TitledBorder("Enter Account Here"));
 
 
         rightpanel.add(area2);
