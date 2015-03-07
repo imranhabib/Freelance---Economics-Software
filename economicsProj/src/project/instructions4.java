@@ -169,7 +169,7 @@ public class instructions4 extends JFrame {
 
                 "If the "+ "\"Remaining Income\"" + " equals 0 (or very close to 0) you have two options:  " + newline + newline +
 
-                "1.\t You can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
+                "1.\tYou can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
 
                 "2.\tYou can click " + "\"Submit\"" + ", confirm and move on to the next round. If you decide not to confirm your allocation, you can reset it at and re-allocate your income. " +
 
@@ -247,7 +247,7 @@ public class instructions4 extends JFrame {
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
         texter = new JTextArea();
-        texter.setFont(new Font("Calibri", Font.BOLD, 16));
+        texter.setFont(new Font("Calibri", Font.BOLD, 20));
         texter.setLineWrap(true);
         texter.setBackground(Color.WHITE);
         texter.setForeground(Color.BLACK);
