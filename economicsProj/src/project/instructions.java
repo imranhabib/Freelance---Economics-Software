@@ -47,7 +47,7 @@ public class instructions extends JFrame {
 
     public instructions(){
 
-        stager1 = newline + "Part 1:" + newline + newline +  //bold
+        stager1 = "Part 1:" + newline + newline +  //bold
 
                 "In Part 1 of the experiment you will be presented with 10 independent allocation problems. In each problem you have to decide how to allocate your income (denominated in "+ "\"lab currency\"" + ") between the different accounts. Generally, the cost of buying 1 token from different accounts will vary. The accounts will always be ordered such that the cost of buying a token (token's price) in Account 1 will be smaller (or equal) to the cost of buying a token in Account 2, and so forth. So buying a token in Account 6 is always the most expensive, while buying a token in Account 1 is always the least expensive. " +
                 newline + newline
@@ -59,9 +59,9 @@ public class instructions extends JFrame {
 
                 "If the "+ "\"Remaining Income\"" + " equals 0 (or very close to 0) you have two options:  " + newline + newline +
 
-                "\t You can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
+                "1.\tYou can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
 
-                "\tYou can click " + "\"Submit\"" + ", confirm and move on to the next round. If you decide not to confirm your allocation, you can reset it at and re-allocate your income. " +
+                "2.\tYou can click " + "\"Submit\"" + ", confirm and move on to the next round. If you decide not to confirm your allocation, you can reset it at and re-allocate your income. " +
 
 
                 //icon2
@@ -106,15 +106,15 @@ public class instructions extends JFrame {
 
                 "Please remember that there are no right or wrong choices in this experiment. Your preferences may be different from other participants, and as a result your choices can be different." + newline + newline +
 
-                "As in all experiments in Economics, the procedures are described fully and all payments are real." + newline + newline +
+                "As in all experiments in Economics, the procedures are described fully and all payments are real." + newline + newline + newline +
 
                 "Study Procedures: " + //bold
-                newline+ newline + newline +  "This is an experiment in individual decision making. The study has four parts and the instructions for the later parts will follow the completion of Part 1. Before making decisions that may affect your payment, you will be given an opportunity to practice. The practice rounds will allow you to familiarize yourself with the experimental interface and ask any questions you may have." + newline +
+                newline+ newline +   "This is an experiment in individual decision making. The study has four parts and the instructions for the later parts will follow the completion of Part 1. Before making decisions that may affect your payment, you will be given an opportunity to practice. The practice rounds will allow you to familiarize yourself with the experimental interface and ask any questions you may have." + newline +
                 newline +
                 " You will be presented with 20 independent decision problems that share a common form. In each round you will be decide how to allocate your income of 100 (denominated in " + "\"lab currency\"" + ") between 6 accounts. In each account you can buy tokens, which will be exchanged for money at the end of the experiment.  The price of buying tokens may vary in different account." + newline + newline +
 
 
-                "One round will be selected for payment at the conclusion of the experiment. Each round is equally likely to be chosen. Your payment is determined by the number of tokens you hold in a randomly selected account in that round. At the end of the experiment, you will roll a fair die to randomly select one of the 6 accounts. Each account is equally likely to be chosen. That is, there is a 1/6 (1/3 or 1/2) chance that each one of the accounts will be chosen. " +
+                "One round will be selected for payment at the conclusion of the experiment. Each round is equally likely to be chosen. Your payment is determined by the number of tokens you hold in a randomly selected account in that round. At the end of the experiment, you will roll a fair die to randomly select one of the 6 accounts. Each account is equally likely to be chosen. That is, there is a 1/6 chance that each one of the accounts will be chosen. " +
 
                 newline + newline +
 
@@ -137,9 +137,9 @@ public class instructions extends JFrame {
 
                 "If the "+ "\"Remaining Income\"" + " equals 0 (or very close to 0) you have two options:  " + newline + newline +
 
-                "\tYou can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
+                "1.\tYou can click " + "\"Reset Allocation\"" + " to start again (note that the sliders are temporarily parked at the same location as before, but this is only for your convenience and to remind you what was the previous allocation you considered)." + newline + newline +
 
-                "\tYou can click " + "\"Submit\"" + ", confirm and move on to the next round. If you decide not to confirm your allocation, you can reset it at and re-allocate your income. " +
+                "2.\tYou can click " + "\"Submit\"" + ", confirm and move on to the next round. If you decide not to confirm your allocation, you can reset it at and re-allocate your income. " +
 
 
                 //icon2
@@ -166,9 +166,13 @@ public class instructions extends JFrame {
 
 
                "Before making allocation decisions that may affect your payment from this experiment, you will be given an opportunity to practice in 4 practice rounds. You can play with all the options in the interface and your allocation will not be recorded and cannot affect your payment."
+                + newline + newline +
+                "Calculation of Payment " + newline + newline +
+                "Once you completed Stage 4 you will be able to view all 20 allocations by clicking each allocation. Click " + "\"End Experiment\"" + "  and raise your hand. An experiment coordinator will approach you and assist you in determining the round that counts for payment and the account that is selected for payment. Enter the round number and account number in the appropriate boxes and click confirm. You total payment from the experiment (in tokens and excluding the show-up payment) will be calculated."
+                + newline + newline +
+                "Fill in your details and payment in the receipt that the experiment coordinator gave you and click " + " \"Exit\"" + " to finish the experiment.";
 
 
-;
 
 
                 //put this into part two
@@ -192,7 +196,7 @@ public class instructions extends JFrame {
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
         texter = new JTextArea();
-        texter.setFont(new Font("Calibri", Font.BOLD, 16));
+        texter.setFont(new Font("Calibri", Font.BOLD, 20));
         texter.setLineWrap(true);
         texter.setBackground(Color.WHITE);
         texter.setForeground(Color.black);
