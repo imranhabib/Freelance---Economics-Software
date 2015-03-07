@@ -428,7 +428,7 @@ public class phase1TestRounds extends JFrame {
         buttonPanel.add(button3);
         buttonPanel.add(button1);
 
-        textFieldUsedtobePanel5 = new JButton("Equal Shares");
+        textFieldUsedtobePanel5 = new JButton("Tokens for sure");
         textFieldUsedtobePanel5.setVisible(true);
         textFieldUsedtobePanel5.setBorder(new TitledBorder(raisedBorder, "Click to buy an equal number of tokens in each account"));
         textFieldUsedtobePanel5.setFont(new Font("Calibri", Font.BOLD, 15));
