@@ -1025,11 +1025,11 @@ public class phase3 extends JFrame{
         frame2.setBounds(0, 0, screenSize.width, screenSize.height - 45);
 
 
-        final JButton buttonUno = new JButton("View token allocations as a chart");
+        final JButton buttonUno = new JButton("Minimum number of tokens in each account");
         buttonUno.setLayout(new GridLayout(0, 3));
         buttonUno.setBorder(new TitledBorder("Chart"));
 
-        final JButton buttonThree = new JButton("View token allocations as a chart");
+        final JButton buttonThree = new JButton("Minimum number of tokens in each account");
         buttonThree.setLayout(new GridLayout(0, 3));
         buttonThree.setBorder(new TitledBorder("Chart"));
 
