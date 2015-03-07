@@ -251,9 +251,11 @@ public class phase2TestDataPage extends JFrame {
                 + "Total income for portfolio 8 allocation: " +"100"+ newline
                 +"Total income for portfolio 9 allocation: " +"100" + newline +
                 "Total income for portfolio 10 allocation: " +"100" + newline ;
-        choices = "If you are satisfied with your choice rule, select the button under the corresponding set of allocations. " + newline + newline + "In the next round, Your choice rule will be applied to a set of price vectors, and the income totals listed to the right, automatically."+ newline+
-                "Each portfolio will have 5 accounts."
-                + newline + newline + "If you want to make a change to your choice rule, " + newline + "select the adjust choice rule option. But be careful! You can only go back and adjust your choice rule 3 times. After 3 adjustments, the 4th adjustment (labelled as 'final chance') will be applied. ";
+        choices = "You can click above on the allocations to view them again. " + newline + newline + "If you are satisfied with your allocation rule, select the button under the corresponding set of allocations. \n" +
+                "In the next round, your allocation rule will be applied to a 10 different combinations of prices (your income will always be equal to 100)."
+
+                + newline + newline + "If you want to change your allocation rule, click the “adjust choice rule” button. \n" +
+                "But be careful! You can only go back and adjust your choice rule 3 times. After 3 adjustments, the 4th adjustment (labelled as 'final chance') will be applied. ";
 
 
 
