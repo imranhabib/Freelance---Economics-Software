@@ -304,7 +304,7 @@ public class sliderInterface2 extends JFrame{
 
         panel6 = new JPanel();
         panel6.setLayout(new GridLayout(1, 0, 5, 5));
-        panel6.setBorder(new TitledBorder(raisedBorder, "View token allocations as a chart"));
+        panel6.setBorder(new TitledBorder(raisedBorder, "Minimum number of tokens in each account"));
         panel6.add(jSpinner2);
         panel6.add(remainingAlloc);
         //panel6.add(textField7);
