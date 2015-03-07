@@ -95,6 +95,16 @@ public class phase1Rewind extends JFrame {
     private int v5;
     private int v6;
 
+
+
+    private double v11;
+    private double v22;
+    private double v33;
+    private double v44;
+    private double v55;
+    private double v66;
+
+
     static int curSysProp;
 
     static int total;
@@ -244,8 +254,8 @@ public class phase1Rewind extends JFrame {
         int size = shares.size();
         panel2 = new JPanel();
 
-        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney" + test.getCurrent())) * 10;
-        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("maxMoney" + test.getCurrent())) * 10;
+        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
+        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
 
         panel2.setLayout(new BorderLayout(5, 10));
 
@@ -303,22 +313,22 @@ public class phase1Rewind extends JFrame {
                     JSlider jSlider = formatSlider2(shareList.get(i).getPrice(), shareList.get(i).getSecurityNumber());
                     BoundedRangeModel model = jSlider.getModel();
                     if (i == 0){
-                        model.setRangeProperties(v1,0,0,1000,false);
+                        model.setRangeProperties(v1, 100000- (10000000 / shareList.get(i).getPrice()),0,100000,false);
                     }
                     if (i == 1){
-                        model.setRangeProperties(v2,0,0,1000,false);
+                        model.setRangeProperties(v2,0,0,100000,false);
                     }
                     if (i == 2){
-                        model.setRangeProperties(v3,0,0,1000,false);
+                        model.setRangeProperties(v3,0,0,100000,false);
                     }
                     if (i == 3){
-                        model.setRangeProperties(v4,0,0,1000,false);
+                        model.setRangeProperties(v4,0,0,100000,false);
                     }
                     if (i == 4){
-                        model.setRangeProperties(v5,0,0,1000,false);
+                        model.setRangeProperties(v5,0,0,100000,false);
                     }
                     if (i == 5){
-                        model.setRangeProperties(v6,0,0,1000,false);
+                        model.setRangeProperties(v6,0,0,100000,false);
                     }
 
                     addShare(jSlider, shareList.get(i).getPrice());
@@ -332,12 +342,18 @@ public class phase1Rewind extends JFrame {
                 m4 =v4;
                 m5 =v5;
                 m6 =v6;
-                v1= 0;
+                v1=   10000000 / shareList.get(0).getPrice();
                 v2=0;
                 v3=0;
                 v4=0;
                 v5=0;
                 v6 = 0;
+                v11= 0;
+                v22=0;
+                v33=0;
+                v44=0;
+                v55=0;
+                v66=0;
                 resetPressed = true;
                 check7 = false;
                 textField.setText("");
@@ -346,8 +362,8 @@ public class phase1Rewind extends JFrame {
                 textField4.setText("");
                 textField5.setText("");
                 extraSecur.setText("");
-                remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10;
-                textField7.setText(Integer.toString(allocation  / 100));
+                remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
+                textField7.setText(Integer.toString(allocation / 100000));
                 remainingAlloc.setText("");
                 valueAdjust.setText("# of tokens = ");
                 panel.revalidate();
@@ -385,7 +401,7 @@ public class phase1Rewind extends JFrame {
 
         textField7 = new JTextField();
         textField7.setPreferredSize(new Dimension(30, 25));
-        textField7.setText(Integer.toString(allocation / 100));
+        textField7.setText(Integer.toString(allocation / 100000));
         textField7.setEditable(false);
         textField7.setBorder(new TitledBorder(loweredBorder, "Remaining Money"));
         textField7.setFont(new Font("Calibri", Font.BOLD, 15));
@@ -398,7 +414,7 @@ public class phase1Rewind extends JFrame {
 
 
         textFieldUsedtobePanel6 = new JTextField();
-        textFieldUsedtobePanel6.setText(Integer.toString(allocation / 100));
+        textFieldUsedtobePanel6.setText(Integer.toString(allocation / 100000));
         textFieldUsedtobePanel6.setBorder(new TitledBorder(loweredBorder, "Total Money"));
         textFieldUsedtobePanel6.setFont(new Font("Calibri", Font.BOLD, 15));
         textFieldUsedtobePanel6.setEditable(false);
@@ -509,8 +525,10 @@ public class phase1Rewind extends JFrame {
                         prices[i] = shareList.get(i).getPrice();
 
                     }
-                    double result = equalAlgo(numberOfAssets, totalMoney, prices);
-
+                    double resullt = (equalAlgo(numberOfAssets, totalMoney, prices));
+                    int resulllt = (int) resullt;
+                    double result = (equalAlgo(numberOfAssets, totalMoney, prices))/1000;
+                    System.out.println("rerere " + result);
 
                     boolean checker = false;
                     boolean checker2 = false;
@@ -578,9 +596,9 @@ public class phase1Rewind extends JFrame {
                         BoundedRangeModel model = jSlider.getModel();
 
                         if(checker2){
-                            model.setRangeProperties(result3, 0, 0, 1000, false);
+                            model.setRangeProperties(resulllt, 0, 0, 100000, false);
                         } else {
-                            model.setRangeProperties(result2, 0, 0, 1000, false);
+                            model.setRangeProperties(resulllt, 0, 0, 100000, false);
                         }
                         addShare(jSlider, shareList.get(i).getPrice());
                         panel.repaint();
@@ -597,7 +615,7 @@ public class phase1Rewind extends JFrame {
                         }
                     }
 
-                    double finalCost = totalCost/10;
+                    double finalCost = totalCost;
                     if(totalMoney - finalCost <= 0.5){
                         remainingMoney = 0;
                     }
@@ -605,7 +623,7 @@ public class phase1Rewind extends JFrame {
 
 
 
-                    String bata = (Double.toString((totalMoney - finalCost)/100));
+                    String bata = (Double.toString((totalMoney - finalCost)));
                     String bplitter = bata.substring(bata.indexOf("."));
                     if(bplitter.length() > 2){
                         bplitter = bplitter.substring(0, 2);
@@ -615,7 +633,7 @@ public class phase1Rewind extends JFrame {
                     if(bata.equals("0.1")){
                         bata = "0.0";
                     }
-                    textField7.setText(bata);
+                    textField7.setText("0.0");
 
 
                     if(checker2){
@@ -637,13 +655,14 @@ public class phase1Rewind extends JFrame {
 
 
 
+
                     } else {
                         v1 = result2;
                         v2 = result2;
                         v3 = result2;
                         v4 = result2;
                         v5 = result2;
-                        v5 = result2;
+                        v6 = result2;
 
                         d1 = Double.parseDouble(forTextField);
                         d2 = Double.parseDouble(forTextField);
@@ -651,8 +670,9 @@ public class phase1Rewind extends JFrame {
                         d4 = Double.parseDouble(forTextField);
                         d5 = Double.parseDouble(forTextField);
                         d6 = Double.parseDouble(forTextField);
-
                         remainingMoney = 0;
+
+
                     }
 
 
@@ -687,7 +707,7 @@ public class phase1Rewind extends JFrame {
         changelistener = new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
                 JSlider source = (JSlider) event.getSource();
-                int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) *10;
+                int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
                 if (!source.getValueIsAdjusting()) {
                     int value = source.getValue();
                     int cost = 0;
@@ -699,11 +719,14 @@ public class phase1Rewind extends JFrame {
                     if (name.equals("1")) {
                         setSliders(source);
                         v1 = value;
-                        double equal = (double) source.getValue() / 10;
+                        System.out.println("v1 " + v1);
+                        double equal = (double) source.getValue() / 1000;
                         textField.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
 
                         cost = v1 * price;  //remaining money bug is here
-                        remainingMoney = remainingMoney - (cost/10);
+                        System.out.println("cost " + cost);
+                        remainingMoney = remainingMoney - (cost);
+                        System.out.println("remaining money " + remainingMoney);
 
                         Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) -1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(0);
@@ -714,41 +737,41 @@ public class phase1Rewind extends JFrame {
                         BoundedRangeModel model = s.getModel();
 
 
-                        if(cost > 100000){
-
-                            JOptionPane.showMessageDialog(null, "You cannot afford this amount, please reduce quantity", "Unaffordable!", JOptionPane.ERROR_MESSAGE);
-
-                            return;
-                        }
-
 
                         if (remainingMoney < temp) {
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0, allocation2, 0, 1000, false);
-                        } else if ((remainingMoney / temp) > (v1/10)) {
-                            model.setRangeProperties(v1,allocation2-(v1), 0, 1000, false);
-
+                            model.setRangeProperties(10000, 90000, 0, 100000, false);
+                            v2=0;
+                            v22 = remainingMoney*10/temp;
+                            v22 = v22/ 10;
+                            System.out.println("In if statement 1 secur 1 " + v11);
+                        } else if ((remainingMoney / temp) > (v1)) {
+                            model.setRangeProperties(v1,100000-(v1), 0, 100000, false);
+                            System.out.println("In if statement 2 secur 1" );
                         } else {
-                            model.setRangeProperties((remainingMoney/temp)*10, allocation2 - (remainingMoney / temp), 0, 1000, false);
-
+                            model.setRangeProperties((remainingMoney/temp), 100000 - (remainingMoney / temp), 0, 100000, false);
+                            System.out.println("In if statement 3 secur 1 ");
                         }
 
                         int tempForTextField = allocation2 - cost;
                         //look here
 
-                        //  textFieldUsedtobePanel5.setText(Double.toString(equal * (cost/100)));
+                        //     textFieldUsedtobePanel5.setText(Double.toString(equal * (cost/100)));
                         int tempForRemainingMoneyTextField = tempForTextField;
                         //         textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
+
                         remainingAlloc.setText("Account #" + name + " = " + "");
+
+
                         panel.removeAll();
                         addShare(source, shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
                         addShare(s, temp);
                         if(resetPressed){
-                            recreate2((Integer.parseInt(name)), 1000 - v1);
+                            recreate2((Integer.parseInt(name)), 100 - v1);
 
                         }
                         else {
-                            recreate((Integer.parseInt(name)), 1000 - v1);
+                            recreate((Integer.parseInt(name)), 100 - v1);
 
                         }
 
@@ -758,43 +781,51 @@ public class phase1Rewind extends JFrame {
                         s1Price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
                         check = true;
                         check6 = true;
+
+
                         source.setEnabled(false);
 
                     }
                     if (name.equals("2")) {
                         v2 = value;
+                        System.out.println("v2 " + v2);
                         double equal = (double) source.getValue() / 10;
                         textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         cost = v2 * price;
-
-                        remainingMoney = remainingMoney -(cost/10);
-
+                        System.out.println("cost " + cost);
+                        remainingMoney = remainingMoney -(cost);
+                        System.out.println("remaining money " + remainingMoney);
                         Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(1);
                         shareList.add(1, share2);
                         setSliders(source);
 
-                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp = shareList.get(Integer.parseInt(name)-1).getPrice();
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
                         if(remainingMoney < temp){
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0,allocation2,0, 1000, false);
+                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            v3=0;
+                            v33 = remainingMoney*10/temp;
+                            v33 = v33/ 10;
+                            System.out.println("In if statement 1 secur 2 " + v22);
                         }
-                        else if(remainingMoney/temp > (v2/10)){
-                            model.setRangeProperties(v2, allocation2 - v2, 0, 1000, false);
+                        else if(remainingMoney/temp > (v2)){
+                            model.setRangeProperties(v2,100000-(v2), 0, 100000, false);
+                            System.out.println("In if statement 2 secur 2");
                         }
                         else{
-                            model.setRangeProperties((remainingMoney/temp)*10, allocation2 - (remainingMoney / temp), 0, 1000, false);
-
+                            model.setRangeProperties((remainingMoney/temp), 100000 - (remainingMoney / temp), 0, 100000, false);
+                            System.out.println("In if statement 3 secur 2");
                         }
 
                         double tempForTextField = Double.parseDouble(textField7.getText()) - cost;
-                        double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
+                        //  double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
 
 
-                        //  textFieldUsedtobePanel5.setText(Double.toString(tempV));
+                        // textFieldUsedtobePanel5.setText(Double.toString(tempV));
                         double tempForRemainingMoneyTextField = tempForTextField;
                         //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Account #" + name + " = " + "");
@@ -820,38 +851,49 @@ public class phase1Rewind extends JFrame {
                     }
                     if (name.equals("3")) {
                         v3 = value;
+                        System.out.println("v3 " + v3);
                         double equal = (double) source.getValue() / 10;
-                        cost = cost + v3 * price;
-                        remainingMoney = remainingMoney - (cost/10);
+                        cost = v3 * price;
+                        System.out.println("cost " + cost);
+                        remainingMoney = remainingMoney -(cost);
+                        System.out.println("remaining money " + remainingMoney);
                         textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(2);
                         shareList.add(2, share3);
                         setSliders(source);
-
+                        System.out.println(" v3 " + v3);
                         int temp = shareList.get(Integer.parseInt(name)).getPrice();
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
                         if(remainingMoney < temp){
-                            //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0,allocation2,0, 1000, false);
+                            //value, extent (max-numinput),min, maxSystem.out.println("1");
+                            System.out.println("1");
+
+
+                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            v4=0;
+                            v44 = remainingMoney*10/temp;
+                            v44 = v44/ 10;
+                            System.out.println("In if statement 1 secur 3 " + v33);
                         }
-                        else if(remainingMoney/temp > (v3/10)){
-                            model.setRangeProperties(v3, allocation2 - v3, 0, 1000, false);
+                        else if(remainingMoney/temp > (v3)){
+                            System.out.println("In if statement 2 secur 3");
+                            model.setRangeProperties(v3,100000-(v3), 0, 100000, false);
                         }
                         else{
-                            model.setRangeProperties((remainingMoney/temp)*10, (allocation2 - remainingMoney/temp), 0, 1000, false);
-
+                            System.out.println("In if statement 3 secur 3");
+                            model.setRangeProperties((remainingMoney/temp), 100000 - (remainingMoney / temp), 0, 100000, false);
                         }
 
 
                         double tempForTextField = Double.parseDouble(textField7.getText()) - cost;
-                        double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
+                        //    double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal * (cost/100));
 
 
-                        //    textFieldUsedtobePanel5.setText(Double.toString(tempV));
+                        //   textFieldUsedtobePanel5.setText(Double.toString(tempV));
                         double tempForRemainingMoneyTextField = tempForTextField;
                         //                    textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Account #" + name + " = " + "");
@@ -877,38 +919,51 @@ public class phase1Rewind extends JFrame {
                     }
                     if (name.equals("4")) {
                         v4 = value;
+                        System.out.println(" v4 " + v4);
+
                         double equal = (double) source.getValue() / 10;
+
                         cost = cost + v4 * price;
-                        remainingMoney = remainingMoney -(cost/10);
+                        System.out.println(" cost " + cost);
+                        remainingMoney = remainingMoney -(cost);
+                        System.out.println(" RM " + remainingMoney);
                         textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(3);
                         shareList.add(3, share4);
                         setSliders(source);
 
-                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
+                        System.out.println(" v4 " + value + " RM " + remainingMoney + " temp " + temp + " price " + price);
+
+
                         if(remainingMoney < temp){
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0,allocation2,0, 1000, false);
+                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            v5=0;
+                            v55 = remainingMoney*10/temp;
+                            v55 = v55/ 10;
+                            System.out.println("better be here" + v22);
                         }
-                        else if(remainingMoney/temp > (v4/10)){
-                            model.setRangeProperties(v4, allocation2 - v4, 0, 1000, false);
+                        else if(remainingMoney/temp > (v4)){
+                            model.setRangeProperties(v4,100000-(v4), 0, 100000, false);
+                            System.out.println("2");
                         }
                         else{
-                            model.setRangeProperties((remainingMoney/temp)*10, (allocation2 - remainingMoney/temp), 0, 1000, false);
+                            model.setRangeProperties((remainingMoney / temp), 100000 - (remainingMoney / temp), 0, 100000, false);
 
                         }
 
                         double tempForTextField = Double.parseDouble(textField7.getText()) - cost;
-                        double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal *(cost/100));
+                        //       double tempV = Double.parseDouble(textFieldUsedtobePanel5.getText()) + (equal *(cost/100));
 
 
 
-                        //     textFieldUsedtobePanel5.setText(Double.toString(tempV));
+                        //    textFieldUsedtobePanel5.setText(Double.toString(tempV));
                         double tempForRemainingMoneyTextField = tempForTextField;
                         //                     textField7.setText(Integer.toString(tempForRemainingMoneyTextField));
                         remainingAlloc.setText("Account #" + name + " = " + "");
@@ -938,28 +993,31 @@ public class phase1Rewind extends JFrame {
                         v5 = value;
                         double equal = (double) source.getValue() / 10;
                         cost = cost + v5 * price;
-                        remainingMoney = remainingMoney - (cost/10);
+                        remainingMoney = remainingMoney -(cost);
                         textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(4);
                         shareList.add(4, share5);
                         setSliders(source);
 
-                        int temp = shareList.get(Integer.parseInt(name)).getPrice();
+                        int temp = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
                         if(remainingMoney < temp){
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0,allocation2,0, 1000, false);
+                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            v6=0;
+                            v66 = remainingMoney*10/temp;
+                            v66 = v66/ 10;
+
                         }
-                        else if(remainingMoney/temp > (v5/10)){
-                            model.setRangeProperties(v5, allocation2 - v5, 0, 1000, false);
+                        else if(remainingMoney/temp > (v5)){
+                            model.setRangeProperties(v5,100000-(v5), 0, 100000, false);
                         }
                         else{
-                            model.setRangeProperties((remainingMoney/temp)*10, (allocation2 - remainingMoney/temp), 0, 1000, false);
-
+                            model.setRangeProperties((remainingMoney/temp), 100000 - (remainingMoney / temp), 0, 100000, false);
                         }
 
                         double tempForTextField = Double.parseDouble(textField7.getText()) - cost;
@@ -999,7 +1057,7 @@ public class phase1Rewind extends JFrame {
                         v6 = value;
                         double equal = (double) source.getValue() / 10;
                         cost = cost + v6 * price;
-                        remainingMoney = remainingMoney -(cost/10);
+                        remainingMoney = remainingMoney -(cost);
                         extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share6 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(5);
@@ -1030,11 +1088,20 @@ public class phase1Rewind extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();
                 if (source.getValueIsAdjusting()){
-                    double equal = (double) source.getValue() / 10;
+
+
+                    double equal = (double) source.getValue()  / 1000;
+                    double equal2 = (double) source.getValue();
+
+
+
+
+
+
                     valueAdjust.setText("# of tokens = " + Double.toString(equal));
-//                    int temp = Integer.parseInt(textFieldUsedtobePanel5.getText());
-                    double temp2 = (equal  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
-                    double temp3 = ((remainingMoney) - temp2)/100;
+                    double temp2 = ((equal*1000)  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
+
+                    double temp3 = ((remainingMoney) - temp2)/100000;
                     if(temp3 < 0){
                         temp3 = 0;
                     }
@@ -1049,12 +1116,13 @@ public class phase1Rewind extends JFrame {
 
 
 
-                    String data2 = Double.toString(temp2/100);
+                    String data2 = Double.toString(temp2/100000);
                     String splitter2 = data2.substring(data2.indexOf("."));
 
                     if(splitter2.length() > 2){
-                        splitter2 = splitter2.substring(0, 2);
+                        splitter2 = splitter2.substring(0, 3);
                     }
+
 
                     data2 = data2.substring(0, data2.indexOf(".")) + splitter2;
                     textField7.setText(data);
@@ -1062,7 +1130,10 @@ public class phase1Rewind extends JFrame {
                         textField7.setText("You cannot afford this quantity!");
                     }
                     remainingAlloc.setText("Account #" + source.getName() + " = " + data2);
-                }}
+
+                }
+
+            }
         };
 
 
@@ -1525,15 +1596,21 @@ public class phase1Rewind extends JFrame {
             jSlider.setEnabled(false);
             if(i == 0){
                 jSlider.setEnabled(true);
+                BoundedRangeModel model = jSlider.getModel();
+                v1 = 10000000 / shareList.get(i).getPrice();
+                model.setRangeProperties(0, 100000- (10000000 / shareList.get(i).getPrice()), 0, 100000, false);
             }
 
-            BoundedRangeModel model = jSlider.getModel();
-            model.setRangeProperties(0,0,0,1000,false);
+            else {
+                BoundedRangeModel model = jSlider.getModel();
+                model.setRangeProperties(0, 0, 0, 100000, false);
+            }
             addShare(jSlider, shareList.get(i).getPrice());
         }
 
 
     }
+
 
     public void addShare(JSlider slider, int price) {
         slider.addChangeListener(changelistener);
@@ -1550,7 +1627,7 @@ public class phase1Rewind extends JFrame {
     public JSlider formatSlider(int price, int number) {
         JSlider slider = new JSlider(JSlider.VERTICAL);
         BoundedRangeModel model = slider.getModel();
-        model.setRangeProperties(0,1,0,1000,false);
+        model.setRangeProperties(0,1,0,100000,false);
         slider.setName(Integer.toString(number));
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(10);
@@ -1560,11 +1637,11 @@ public class phase1Rewind extends JFrame {
         slider.setBorder(new TitledBorder("Tokens in account " + Integer.toString(number) + " | Price = " + (newPrice/100)));
         slider.setPaintLabels(true);
         java.util.Hashtable<Integer, JLabel> labelTable = new java.util.Hashtable<Integer, JLabel>();
-        labelTable.put(new Integer(1000), new JLabel("100"));
-        labelTable.put(new Integer(800), new JLabel("80"));
-        labelTable.put(new Integer(600), new JLabel("60"));
-        labelTable.put(new Integer(400), new JLabel("40"));
-        labelTable.put(new Integer(200), new JLabel("20"));
+        labelTable.put(new Integer(100000), new JLabel("100"));
+        labelTable.put(new Integer(80000), new JLabel("80"));
+        labelTable.put(new Integer(60000), new JLabel("60"));
+        labelTable.put(new Integer(40000), new JLabel("40"));
+        labelTable.put(new Integer(20000), new JLabel("20"));
         labelTable.put(new Integer(0), new JLabel("0"));
         slider.setLabelTable(labelTable);
 
@@ -1577,7 +1654,7 @@ public class phase1Rewind extends JFrame {
     public JSlider formatSlider2(int price, int number) {
         JSlider slider = new JSlider(JSlider.VERTICAL);
         BoundedRangeModel model = slider.getModel();
-        model.setRangeProperties(0,1,0,1000,false);
+        model.setRangeProperties(0,1,0,100000,false);
         slider.setName(Integer.toString(number));
         slider.setPaintTicks(true);
         slider.setMajorTickSpacing(10);
@@ -1587,11 +1664,11 @@ public class phase1Rewind extends JFrame {
         slider.setBorder(new TitledBorder("Tokens in account " + Integer.toString(number) + " | Price = " + (newPrice/100)));
         slider.setPaintLabels(true);
         java.util.Hashtable<Integer, JLabel> labelTable = new java.util.Hashtable<Integer, JLabel>();
-        labelTable.put(new Integer(1000), new JLabel("100"));
-        labelTable.put(new Integer(800), new JLabel("80"));
-        labelTable.put(new Integer(600), new JLabel("60"));
-        labelTable.put(new Integer(400), new JLabel("40"));
-        labelTable.put(new Integer(200), new JLabel("20"));
+        labelTable.put(new Integer(100000), new JLabel("100"));
+        labelTable.put(new Integer(80000), new JLabel("80"));
+        labelTable.put(new Integer(60000), new JLabel("60"));
+        labelTable.put(new Integer(40000), new JLabel("40"));
+        labelTable.put(new Integer(20000), new JLabel("20"));
         labelTable.put(new Integer(0), new JLabel("0"));
         slider.setLabelTable(labelTable);
 
@@ -1787,11 +1864,10 @@ public class phase1Rewind extends JFrame {
             sl.setEnabled(false);
             BoundedRangeModel model = sl.getModel();
             //value, extent, min max
-            model.setRangeProperties(0,limit,0,1000,false);
+            model.setRangeProperties(0,limit,0,100000,false);
             addShare(sl, shareList.get(i - 1).getPrice());
         }
     }
-
     public void recreate2(int num, int limit){
         int t = shareList.size();
         for (int i = num+1; i < t; i++) {
@@ -1801,20 +1877,21 @@ public class phase1Rewind extends JFrame {
             BoundedRangeModel model = sl.getModel();
             //value, extent, min max
             if(i==2){
-                model.setRangeProperties(m3,limit,0,1000,false);
+                model.setRangeProperties(m3,limit,0,100000,false);
             }
             if(i==3){
-                model.setRangeProperties(m4,limit,0,1000,false);
+                model.setRangeProperties(m4,limit,0,100000,false);
             }
             if(i==4){
-                model.setRangeProperties(m5,limit,0,1000,false);
+                model.setRangeProperties(m5,limit,0,100000,false);
             }
             if(i==5){
-                model.setRangeProperties(m6,limit,0,1000,false);
+                model.setRangeProperties(m6,limit,0,100000,false);
             }
             addShare(sl, shareList.get(i -1).getPrice());
         }
     }
+
 
 
 
