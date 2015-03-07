@@ -180,8 +180,13 @@ public class instructions2 extends JFrame{
                 newline + "After you have decided on these 3 parameters, submitted and confirmed your choices, you will see what allocations are generated in 4 samples scenarios (that do not count for payment). Then you will be given an opportunity to adjust the allocation rule you designed, and if you choose to do so - see how the new rule performs. Altogether you are given at most 4 opportunities to adjust the allocation rule. You can compare how the different rules perform on the sample scenarios, and then you should choose one of the allocation rules to apply to 10 new scenarios you have not encountered before. You do so by clicking " + "\"select this allocation rule\"" + ". Note that if you make the fourth adjustment, it will become the " + "\"final rule\"" + " and you will not be able to choose previous allocation rules.\n" +
                 newline + "Following the application of the rule, you could view the different allocations generated for the various scenarios of token prices in the different accounts."
 
+         + newline + newline + "Calculation of Payment " + newline + newline +
+                "Once you completed Stage 4 you will be able to view all 20 allocations by clicking each allocation. Click " + "\"End Experiment\"" + "  and raise your hand. An experiment coordinator will approach you and assist you in determining the round that counts for payment and the account that is selected for payment. Enter the round number and account number in the appropriate boxes and click confirm. You total payment from the experiment (in tokens and excluding the show-up payment) will be calculated."
+                + newline + newline +
+                "Fill in your details and payment in the receipt that the experiment coordinator gave you and click " + " \"Exit\"" + " to finish the experiment.";
 
-        ;
+
+
 
         setLayout(new BorderLayout());
         setTitle("Instructions Window");
@@ -196,7 +201,7 @@ public class instructions2 extends JFrame{
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
         texter = new JTextArea();
-        texter.setFont(new Font("Calibri", Font.BOLD, 16));
+        texter.setFont(new Font("Calibri", Font.BOLD, 20));
         texter.setLineWrap(true);
         texter.setBackground(Color.WHITE);
         texter.setForeground(Color.BLACK);
