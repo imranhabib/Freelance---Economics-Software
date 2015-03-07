@@ -789,7 +789,7 @@ public class phase1Rewind extends JFrame {
                     if (name.equals("2")) {
                         v2 = value;
                         System.out.println("v2 " + v2);
-                        double equal = (double) source.getValue() / 10;
+                        double equal = (double) source.getValue() / 1000;
                         textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         cost = v2 * price;
                         System.out.println("cost " + cost);
@@ -852,7 +852,7 @@ public class phase1Rewind extends JFrame {
                     if (name.equals("3")) {
                         v3 = value;
                         System.out.println("v3 " + v3);
-                        double equal = (double) source.getValue() / 10;
+                        double equal = (double) source.getValue() / 1000;
                         cost = v3 * price;
                         System.out.println("cost " + cost);
                         remainingMoney = remainingMoney -(cost);
@@ -921,9 +921,9 @@ public class phase1Rewind extends JFrame {
                         v4 = value;
                         System.out.println(" v4 " + v4);
 
-                        double equal = (double) source.getValue() / 10;
+                        double equal = (double) source.getValue() / 1000;
 
-                        cost = cost + v4 * price;
+                        cost = v4 * price;
                         System.out.println(" cost " + cost);
                         remainingMoney = remainingMoney -(cost);
                         System.out.println(" RM " + remainingMoney);
@@ -991,8 +991,8 @@ public class phase1Rewind extends JFrame {
                     }
                     if (name.equals("5")) {
                         v5 = value;
-                        double equal = (double) source.getValue() / 10;
-                        cost = cost + v5 * price;
+                        double equal = (double) source.getValue() / 1000;
+                        cost = v5 * price;
                         remainingMoney = remainingMoney -(cost);
                         textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
@@ -1055,8 +1055,8 @@ public class phase1Rewind extends JFrame {
 
                     if (name.equals("6")) {
                         v6 = value;
-                        double equal = (double) source.getValue() / 10;
-                        cost = cost + v6 * price;
+                        double equal = (double) source.getValue() / 1000;
+                        cost = v6 * price;
                         remainingMoney = remainingMoney -(cost);
                         extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         Share share6 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
@@ -1109,7 +1109,7 @@ public class phase1Rewind extends JFrame {
                     String splitter = data.substring(data.indexOf("."));
 
                     if(splitter.length() > 2){
-                        splitter = splitter.substring(0, 2);
+                        splitter = splitter.substring(0, 3);
                     }
 
                     data = data.substring(0, data.indexOf(".")) + splitter;
@@ -1126,9 +1126,7 @@ public class phase1Rewind extends JFrame {
 
                     data2 = data2.substring(0, data2.indexOf(".")) + splitter2;
                     textField7.setText(data);
-                    if(temp2 > allocation){
-                        textField7.setText("You cannot afford this quantity!");
-                    }
+
                     remainingAlloc.setText("Account #" + source.getName() + " = " + data2);
 
                 }
