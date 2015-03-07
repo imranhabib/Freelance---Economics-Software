@@ -1761,7 +1761,7 @@ public class phase2TestDataPage extends JFrame {
         buttonPanel.setLayout(new GridLayout(1, 1, 5, 5));
 
 
-        final JButton button1 = new JButton("View token allocations as a chart");
+        final JButton button1 = new JButton("Minimum number of tokens in each account");
         button1.setLayout(new GridLayout(0, 3));
         button1.setBorder(new TitledBorder("Chart"));
 
