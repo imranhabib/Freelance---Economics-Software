@@ -292,7 +292,7 @@ public class sliderInterface extends JFrame {
         //panel6.add(textField7);
 
 
-        button3 = new JButton("Reset Allocations");
+        button3 = new JButton("Reset Sliders");
         button3.setBorder(new TitledBorder(raisedBorder, "Reset"));
 
 
@@ -316,7 +316,7 @@ public class sliderInterface extends JFrame {
                 textField5.setText("");
                 extraSecur.setText("");
                 panel7.setText("");
-                valueAdjust.setText("# of tokens = ");
+                valueAdjust.setText("% = ");
                 panel.revalidate();
                 panel.repaint();
             }
@@ -335,7 +335,7 @@ public class sliderInterface extends JFrame {
         valueAdjust = new JTextField();
         valueAdjust.setBorder(raisedBorder);
         valueAdjust.setFont(new Font("Calibri", Font.BOLD, 15));
-        valueAdjust.setText("# of tokens = ");
+        valueAdjust.setText("% = ");
         valueAdjust.setEditable(false);
 
         panel8 = new JPanel();
@@ -561,7 +561,7 @@ public class sliderInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();
                 if (source.getValueIsAdjusting()) {
-                    valueAdjust.setText("# of tokens = " + Integer.toString(source.getValue()));
+                    valueAdjust.setText("% = " + Integer.toString(source.getValue()));
 
 
                 }
@@ -1015,7 +1015,7 @@ public class sliderInterface extends JFrame {
         buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
 
 
-        JButton button1 = new JButton("View token allocations as a chart");
+        JButton button1 = new JButton("Minimum number of tokens in each account");
         button1.setBorder(new TitledBorder("Chart"));
 
 
