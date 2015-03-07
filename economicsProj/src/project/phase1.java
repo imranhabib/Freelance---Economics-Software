@@ -450,7 +450,7 @@ public class phase1 extends JFrame{
 
 
         textFieldUsedtobePanel6 = new JTextField();
-        textFieldUsedtobePanel6.setText(Integer.toString(allocation / 100));
+        textFieldUsedtobePanel6.setText(Integer.toString(allocation / 100000));
         textFieldUsedtobePanel6.setBorder(new TitledBorder(loweredBorder, "Total Income"));
         textFieldUsedtobePanel6.setFont(new Font("Calibri", Font.BOLD, 15));
         textFieldUsedtobePanel6.setEditable(false);
@@ -475,7 +475,7 @@ public class phase1 extends JFrame{
         buttonPanel.add(button3);
         buttonPanel.add(button1);
 
-        textFieldUsedtobePanel5 = new JButton("Equal Shares");
+        textFieldUsedtobePanel5 = new JButton("Tokens for sure");
         textFieldUsedtobePanel5.setVisible(true);
         textFieldUsedtobePanel5.setBorder(new TitledBorder(raisedBorder, "Click to buy an equal number of tokens in each account"));
         textFieldUsedtobePanel5.setFont(new Font("Calibri", Font.BOLD, 15));
@@ -749,12 +749,10 @@ public class phase1 extends JFrame{
             public void stateChanged(ChangeEvent event) {
                 JSlider source = (JSlider) event.getSource();
                 int allocation2 = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
-                System.out.println(" allocation 2 " + allocation2);
                 if (!source.getValueIsAdjusting()) {
                     int value = source.getValue();
                     int cost = 0;
                     int price = shareList.get(Integer.parseInt(source.getName()) - 1).getPrice();
-                    System.out.println("price called at the top " + price);
                     Double valueD = Double.parseDouble(Integer.toString(source.getValue()));
                     String name = source.getName();
 
@@ -1943,8 +1941,8 @@ public class phase1 extends JFrame{
 
                 testClass test = new testClass(1);
                 //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-              //  sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
-                 phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+                sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+              //   phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
 
