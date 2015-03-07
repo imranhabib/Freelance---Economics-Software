@@ -150,7 +150,7 @@ public class finalPage extends JFrame {
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
 
-        instruc = "You are finished with the experiment!" + newline + "A random portfolio allocation will now be chosen," + newline + "Please click 'end experiment'" + newline + "Thanks!";
+        instruc = "You are finished with the experiment!" + newline + "A random round will now be chosen," + newline + "Please click 'end experiment'" + newline + "Thanks!";
 
 
 
@@ -777,7 +777,7 @@ public class finalPage extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 1, 5, 5));
 
-        final JButton button1 = new JButton("View token allocations as a chart");
+        final JButton button1 = new JButton("Minimum number of tokens in each account");
         button1.setLayout(new GridLayout(0, 3));
         button1.setBorder(new TitledBorder("Chart"));
 
