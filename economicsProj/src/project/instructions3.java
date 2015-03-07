@@ -196,8 +196,12 @@ public class instructions3 extends JFrame {
 
                 "If you want to apply the allocation rule, click the " + "\"Apply allocation rule\"" + " on the right. Otherwise, click " + "\"Maintain Stage 1 allocations\"" + " on the left. Confirm your choice and then click " + "\"Continue\"" + ".  "
                 + newline + newline + "Remember that the rule will be applied to ALL 10 rounds of Stage 1, and that the allocation that will be randomly selected for payment at the conclusion of the experiment could be from these rounds. The amount of tokens in the randomly selected account will determine your payment, irrespective of whether the allocation was generated manually in Stage 1 or by an application of the rule you designed in Stage 2. "
+        + newline + newline + "Calculation of Payment " + newline + newline +
+                "Once you completed Stage 4 you will be able to view all 20 allocations by clicking each allocation. Click " + "\"End Experiment\"" + "  and raise your hand. An experiment coordinator will approach you and assist you in determining the round that counts for payment and the account that is selected for payment. Enter the round number and account number in the appropriate boxes and click confirm. You total payment from the experiment (in tokens and excluding the show-up payment) will be calculated."
+                + newline + newline +
+                "Fill in your details and payment in the receipt that the experiment coordinator gave you and click " + " \"Exit\"" + " to finish the experiment.";
 
-        ;
+
 
 
 
@@ -216,7 +220,7 @@ public class instructions3 extends JFrame {
         loweredBorder = new SoftBevelBorder(SoftBevelBorder.LOWERED);
 
         texter = new JTextArea();
-        texter.setFont(new Font("Calibri", Font.BOLD, 16));
+        texter.setFont(new Font("Calibri", Font.BOLD, 20));
         texter.setLineWrap(true);
         texter.setBackground(Color.WHITE);
         texter.setForeground(Color.BLACK);
