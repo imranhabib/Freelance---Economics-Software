@@ -293,8 +293,8 @@ public class phase1 extends JFrame{
         int size = shares.size();
         panel2 = new JPanel();
 
-        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10000;
-        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10000;
+        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
+        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
 
         panel2.setLayout(new BorderLayout(5, 10));
 
@@ -761,11 +761,24 @@ public class phase1 extends JFrame{
                         v1 = value;
                         System.out.println("v1 " + v1);
                         double equal = (double) source.getValue() / 1000;
-                        textField.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
 
+                        if((v1 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v1 = (remainingMoney/price);
+                            textField.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+                        }
+                        else{
+                            textField.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
                         cost = v1 * price;  //remaining money bug is here
                         System.out.println("cost " + cost);
-                        remainingMoney = remainingMoney - (cost);
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
                         System.out.println("remaining money " + remainingMoney);
 
                         Share share1 = new Share(shareList.get(Integer.parseInt(source.getName()) -1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
@@ -833,15 +846,32 @@ public class phase1 extends JFrame{
                         System.out.println("v2 " + v2);
                         double equal = (double) source.getValue() / 1000;
                         cost = v2 * price;
-                        if(equal == 0.903){
+                        System.out.println("this is eq " + equal);
+                        if((v2 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v2 = (remainingMoney/price);
+                            textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            System.out.println("first one" + "Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+
+                        }
+                        else if(equal == 0.903){
                             textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v22));
                             v2 = 0;
+                            System.out.println("second one");
                         }
                         else {
                             textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            System.out.println("third one");
                         }
                         System.out.println("cost " + cost);
-                        remainingMoney = remainingMoney -(cost);
+
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
                         System.out.println("remaining money " + remainingMoney);
                         Share share2 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(1);
@@ -906,9 +936,20 @@ public class phase1 extends JFrame{
                         double equal = (double) source.getValue() / 1000;
                         cost = v3 * price;
                         System.out.println("cost " + cost);
-                        remainingMoney = remainingMoney -(cost);
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
                         System.out.println("remaining money " + remainingMoney);
-                        if(equal == 0.903){
+                        if((v3 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v3 = (remainingMoney/price);
+                            textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+                        }
+                        else if(equal == 0.903){
                             textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v33));
                             v3 = 0;
                         }
@@ -985,9 +1026,20 @@ public class phase1 extends JFrame{
 
                         cost = v4 * price;
                         System.out.println(" cost " + cost);
-                        remainingMoney = remainingMoney -(cost);
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
                         System.out.println(" RM " + remainingMoney);
-                        if(equal == 0.903){
+                        if((v4 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v4 = (remainingMoney/price);
+                            textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+                        }
+                        else if(equal == 0.903){
                             textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v44));
                             v4 = 0;
                         }
@@ -1061,8 +1113,19 @@ public class phase1 extends JFrame{
                         v5 = value;
                         double equal = (double) source.getValue() / 1000;
                         cost = v5 * price;
-                        remainingMoney = remainingMoney -(cost);
-                        if(equal == 0.903){
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
+                        if((v5 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v5 = (remainingMoney/price);
+                            textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+                        }
+                        else if(equal == 0.903){
                             textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v55));
                             v5 = 0;
                         }
@@ -1134,8 +1197,19 @@ public class phase1 extends JFrame{
                         v6 = value;
                         double equal = (double) source.getValue() / 1000;
                         cost = v6 * price;
-                        remainingMoney = remainingMoney -(cost);
-                        if(equal == 0.903){
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
+                        if((v6 + 225) > (remainingMoney/price)){
+                            double cc = remainingMoney/price;
+                            equal = cc/ 1000;
+                            v6 = (remainingMoney/price);
+                            extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                            valueAdjust.setText("# of tokens = " + equal);
+                            textField7.setText("0.0");
+                            remainingMoney = 0;
+                        }
+                        else if(equal == 0.903){
                             extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v66));
                             v6 =0;
                         }
@@ -1176,7 +1250,6 @@ public class phase1 extends JFrame{
                     double equal2 = (double) source.getValue();
 
 
-                    System.out.println("this is eaqul" + equal);
 
                     valueAdjust.setText("# of tokens = " + Double.toString(equal));
                     double temp2 = ((equal*1000)  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
