@@ -293,8 +293,8 @@ public class phase1 extends JFrame{
         int size = shares.size();
         panel2 = new JPanel();
 
-        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
-        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
+        allocation = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10000;
+        remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10000;
 
         panel2.setLayout(new BorderLayout(5, 10));
 
@@ -401,7 +401,7 @@ public class phase1 extends JFrame{
                 textField4.setText("");
                 textField5.setText("");
                 extraSecur.setText("");
-                remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 100;
+                remainingMoney = Integer.parseInt(ResourceBundle.getBundle("resources/systemdata").getString("incomeHave" + test.getCurrent())) * 10000;
                 textField7.setText(Integer.toString(allocation / 100000));
                 remainingAlloc.setText("");
                 valueAdjust.setText("# of tokens = ");
@@ -776,15 +776,17 @@ public class phase1 extends JFrame{
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
+                        if(remainingMoney == 0 || textField7.getText().equals("0.0")){
+                            model.setRangeProperties(0,100000,0, 100000, false);
+                        }
 
-
-                        if (remainingMoney < temp) {
+                        else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(10000, 90000, 0, 100000, false);
+                            model.setRangeProperties(1000, 99000, 0, 100000, false);
                             v2=0;
-                            v22 = remainingMoney*10/temp;
-                            v22 = v22/ 10;
-                            System.out.println("In if statement 1 secur 1 " + v11);
+                            v22 = remainingMoney/temp;
+                            v22 = v22/ 1000;
+                            System.out.println("In if statement 1 secur 1 " + v22);
                         } else if ((remainingMoney / temp) > (v1)) {
                             model.setRangeProperties(v1,100000-(v1), 0, 100000, false);
                             System.out.println("In if statement 2 secur 1" );
@@ -830,7 +832,12 @@ public class phase1 extends JFrame{
                         v2 = value;
                         System.out.println("v2 " + v2);
                         double equal = (double) source.getValue() / 1000;
-                        textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        if(equal == 0.903){
+                            textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v22));
+                        }
+                        else {
+                            textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
                         cost = v2 * price;
                         System.out.println("cost " + cost);
                         remainingMoney = remainingMoney -(cost);
@@ -844,12 +851,15 @@ public class phase1 extends JFrame{
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-                        if(remainingMoney < temp){
+                        if(remainingMoney == 0 || textField7.getText().equals("0.0")){
+                            model.setRangeProperties(0,100000,0, 100000, false);
+                        }
+                        else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            model.setRangeProperties(1000, 99000, 0, 100000, false);
                             v3=0;
-                            v33 = remainingMoney*10/temp;
-                            v33 = v33/ 10;
+                            v33 = remainingMoney/temp;
+                            v33 = v33/ 1000;
                             System.out.println("In if statement 1 secur 2 " + v22);
                         }
                         else if(remainingMoney/temp > (v2)){
@@ -897,26 +907,34 @@ public class phase1 extends JFrame{
                         System.out.println("cost " + cost);
                         remainingMoney = remainingMoney -(cost);
                         System.out.println("remaining money " + remainingMoney);
-                        textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        if(equal == 0.903){
+                            textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v33));
+                        }
+                        else {
+                            textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
+
                         Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(2);
                         shareList.add(2, share3);
                         setSliders(source);
-                      System.out.println(" v3 " + v3);
+                        System.out.println(" v3 " + v3);
                         int temp = shareList.get(Integer.parseInt(name)).getPrice();
                         int temp2 = shareList.get(Integer.parseInt(name)).getSecurityNumber();
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
-
-                        if(remainingMoney < temp){
+                        if(remainingMoney == 0 || textField7.getText().equals("0.0")){
+                            model.setRangeProperties(0, 100000, 0, 100000, false);
+                        }
+                        else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, maxSystem.out.println("1");
                             System.out.println("1");
 
 
-                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
-                            v4=0;
-                            v44 = remainingMoney*10/temp;
-                            v44 = v44/ 10;
+                            model.setRangeProperties(1000, 99000, 0, 100000, false);
+                            v4 = 0;
+                            v44 = remainingMoney / temp;
+                            v44 = v44/ 1000;
                             System.out.println("In if statement 1 secur 3 " + v33);
                         }
                         else if(remainingMoney/temp > (v3)){
@@ -967,7 +985,12 @@ public class phase1 extends JFrame{
                         System.out.println(" cost " + cost);
                         remainingMoney = remainingMoney -(cost);
                         System.out.println(" RM " + remainingMoney);
-                        textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        if(equal == 0.903){
+                            textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v44));
+                        }
+                        else {
+                            textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
                         Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(3);
                         shareList.add(3, share4);
@@ -980,13 +1003,15 @@ public class phase1 extends JFrame{
 
                         System.out.println(" v4 " + value + " RM " + remainingMoney + " temp " + temp + " price " + price);
 
-
-                        if(remainingMoney < temp){
+                        if(remainingMoney == 0 || textField7.getText().equals("0.0")){
+                            model.setRangeProperties(0,100000,0, 100000, false);
+                        }
+                        else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            model.setRangeProperties(1000, 99000, 0, 100000, false);
                             v5=0;
-                            v55 = remainingMoney*10/temp;
-                            v55 = v55/ 10;
+                            v55 = remainingMoney/temp;
+                            v55 = v55/ 1000;
                             System.out.println("better be here" + v22);
                         }
                         else if(remainingMoney/temp > (v4)){
@@ -1034,7 +1059,12 @@ public class phase1 extends JFrame{
                         double equal = (double) source.getValue() / 1000;
                         cost = v5 * price;
                         remainingMoney = remainingMoney -(cost);
-                        textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        if(equal == 0.903){
+                            textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v55));
+                        }
+                        else {
+                            textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(4);
                         shareList.add(4, share5);
@@ -1045,12 +1075,15 @@ public class phase1 extends JFrame{
                         JSlider s = formatSlider2(temp, temp2);
                         BoundedRangeModel model = s.getModel();
 
-                        if(remainingMoney < temp){
+                        if(remainingMoney == 0 || textField7.getText().equals("0.0")){
+                            model.setRangeProperties(0,100000,0, 100000, false);
+                        }
+                        else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, max
-                            model.setRangeProperties(0, allocation2 - 10, 0, 100000, false);
+                            model.setRangeProperties(1000, 99000, 0, 100000, false);
                             v6=0;
-                            v66 = remainingMoney*10/temp;
-                            v66 = v66/ 10;
+                            v66 = remainingMoney/temp;
+                            v66 = v66/ 1000;
 
                         }
                         else if(remainingMoney/temp > (v5)){
@@ -1098,7 +1131,12 @@ public class phase1 extends JFrame{
                         double equal = (double) source.getValue() / 1000;
                         cost = v6 * price;
                         remainingMoney = remainingMoney -(cost);
-                        extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        if(equal == 0.903){
+                            extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v66));
+                        }
+                        else {
+                            extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
                         Share share6 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(5);
                         shareList.add(5, share6);
@@ -1133,9 +1171,7 @@ public class phase1 extends JFrame{
                     double equal2 = (double) source.getValue();
 
 
-
-
-
+                    System.out.println("this is eaqul" + equal);
 
                     valueAdjust.setText("# of tokens = " + Double.toString(equal));
                     double temp2 = ((equal*1000)  *   shareList.get(Integer.parseInt(source.getName()) - 1).getPrice());
@@ -1165,9 +1201,11 @@ public class phase1 extends JFrame{
 
                     data2 = data2.substring(0, data2.indexOf(".")) + splitter2;
                     textField7.setText(data);
-                    if(temp2 > allocation){
-                        textField7.setText("You cannot afford this quantity!");
-                    }
+
+                    //uncomment later
+//                    if(temp2 > allocation){
+//                        textField7.setText("You cannot afford this quantity!");
+//                    }
                     remainingAlloc.setText("Account #" + source.getName() + " = " + data2);
 
                 }
@@ -1648,6 +1686,7 @@ public class phase1 extends JFrame{
                 BoundedRangeModel model = jSlider.getModel();
                 v1 = 10000000 / shareList.get(i).getPrice();
                 model.setRangeProperties(0, 100000- (10000000 / shareList.get(i).getPrice()), 0, 100000, false);
+                System.out.println("this is" + (100000- (10000000 / shareList.get(i).getPrice())));
             }
 
             else {
@@ -1941,8 +1980,8 @@ public class phase1 extends JFrame{
 
                 testClass test = new testClass(1);
                 //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
-                sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
-              //   phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+                //sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
+                 phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
 
