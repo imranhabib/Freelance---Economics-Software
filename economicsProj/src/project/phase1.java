@@ -832,13 +832,14 @@ public class phase1 extends JFrame{
                         v2 = value;
                         System.out.println("v2 " + v2);
                         double equal = (double) source.getValue() / 1000;
+                        cost = v2 * price;
                         if(equal == 0.903){
                             textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v22));
+                            v2 = 0;
                         }
                         else {
                             textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         }
-                        cost = v2 * price;
                         System.out.println("cost " + cost);
                         remainingMoney = remainingMoney -(cost);
                         System.out.println("remaining money " + remainingMoney);
@@ -909,6 +910,7 @@ public class phase1 extends JFrame{
                         System.out.println("remaining money " + remainingMoney);
                         if(equal == 0.903){
                             textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v33));
+                            v3 = 0;
                         }
                         else {
                             textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
@@ -987,6 +989,7 @@ public class phase1 extends JFrame{
                         System.out.println(" RM " + remainingMoney);
                         if(equal == 0.903){
                             textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v44));
+                            v4 = 0;
                         }
                         else {
                             textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
@@ -1004,7 +1007,7 @@ public class phase1 extends JFrame{
                         System.out.println(" v4 " + value + " RM " + remainingMoney + " temp " + temp + " price " + price);
 
                         if(remainingMoney == 0 || textField7.getText().equals("0.0")){
-                            model.setRangeProperties(0,100000,0, 100000, false);
+                            model.setRangeProperties(0, 100000, 0, 100000, false);
                         }
                         else if ((remainingMoney/1000) < temp) {
                             //value, extent (max-numinput),min, max
@@ -1061,6 +1064,7 @@ public class phase1 extends JFrame{
                         remainingMoney = remainingMoney -(cost);
                         if(equal == 0.903){
                             textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v55));
+                            v5 = 0;
                         }
                         else {
                             textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
@@ -1133,6 +1137,7 @@ public class phase1 extends JFrame{
                         remainingMoney = remainingMoney -(cost);
                         if(equal == 0.903){
                             extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(v66));
+                            v6 =0;
                         }
                         else {
                             extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
@@ -1981,7 +1986,7 @@ public class phase1 extends JFrame{
                 testClass test = new testClass(1);
                 //uncomment slider to run from stage2 and uncomment phase1 to run from phase1
                 //sliderInterface frame = new sliderInterface(params.getSecurityList(), test.getCurrent(), false, false, false, false, 0, 0.0);
-                 phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
+                phase1 frame = new phase1(params.getSecurityList(), test.getCurrent());
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
 
