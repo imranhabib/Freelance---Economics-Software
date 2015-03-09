@@ -867,7 +867,6 @@ public class phase1 extends JFrame{
                             textField2.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                             System.out.println("third one");
                         }
-                        System.out.println("cost " + cost);
 
                         if(remainingMoney != 0) {
                             remainingMoney = remainingMoney - (cost);
@@ -936,9 +935,7 @@ public class phase1 extends JFrame{
                         double equal = (double) source.getValue() / 1000;
                         cost = v3 * price;
                         System.out.println("cost " + cost);
-                        if(remainingMoney != 0) {
-                            remainingMoney = remainingMoney - (cost);
-                        }
+
                         System.out.println("remaining money " + remainingMoney);
                         if((v3 + 225) > (remainingMoney/price)){
                             double cc = remainingMoney/price;
@@ -956,7 +953,9 @@ public class phase1 extends JFrame{
                         else {
                             textField3.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
                         }
-
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
+                        }
                         Share share3 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(2);
                         shareList.add(2, share3);
@@ -1026,9 +1025,6 @@ public class phase1 extends JFrame{
 
                         cost = v4 * price;
                         System.out.println(" cost " + cost);
-                        if(remainingMoney != 0) {
-                            remainingMoney = remainingMoney - (cost);
-                        }
                         System.out.println(" RM " + remainingMoney);
                         if((v4 + 225) > (remainingMoney/price)){
                             double cc = remainingMoney/price;
@@ -1045,6 +1041,9 @@ public class phase1 extends JFrame{
                         }
                         else {
                             textField4.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
                         }
                         Share share4 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(3);
@@ -1113,9 +1112,6 @@ public class phase1 extends JFrame{
                         v5 = value;
                         double equal = (double) source.getValue() / 1000;
                         cost = v5 * price;
-                        if(remainingMoney != 0) {
-                            remainingMoney = remainingMoney - (cost);
-                        }
                         if((v5 + 225) > (remainingMoney/price)){
                             double cc = remainingMoney/price;
                             equal = cc/ 1000;
@@ -1131,6 +1127,10 @@ public class phase1 extends JFrame{
                         }
                         else {
                             textField5.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
+
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
                         }
                         Share share5 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(4);
@@ -1197,9 +1197,7 @@ public class phase1 extends JFrame{
                         v6 = value;
                         double equal = (double) source.getValue() / 1000;
                         cost = v6 * price;
-                        if(remainingMoney != 0) {
-                            remainingMoney = remainingMoney - (cost);
-                        }
+
                         if((v6 + 225) > (remainingMoney/price)){
                             double cc = remainingMoney/price;
                             equal = cc/ 1000;
@@ -1215,6 +1213,9 @@ public class phase1 extends JFrame{
                         }
                         else {
                             extraSecur.setText("Tokens in account #" + source.getName() + " = " + Double.toString(equal));
+                        }
+                        if(remainingMoney != 0) {
+                            remainingMoney = remainingMoney - (cost);
                         }
                         Share share6 = new Share(shareList.get(Integer.parseInt(source.getName()) - 1).getPrice(), shareList.get(Integer.parseInt(source.getName()) - 1).getSecurityNumber(), valueD);
                         shareList.remove(5);
